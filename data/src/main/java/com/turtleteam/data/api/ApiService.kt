@@ -3,7 +3,6 @@ package com.turtleteam.data.api
 import com.android.turtleapp.data.local.entity.GroupsDaysList
 import com.android.turtleapp.data.local.entity.TeachersDaysList
 import com.android.turtleapp.data.model.teachersandgroups.Groups
-import com.turtleteam.domain.model.schedule.DaysList
 
 interface ApiService {
 

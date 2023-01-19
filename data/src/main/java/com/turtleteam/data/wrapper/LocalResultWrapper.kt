@@ -7,7 +7,7 @@ import com.turtleteam.domain.model.schedule.DaysList
 
 class LocalResultWrapper {
 
-    suspend fun <T: Schedule> wrapWithResult(block: suspend () -> T?): States<DaysList> {
+    suspend fun <T : Schedule> wrapWithResult(block: suspend () -> T?): States<DaysList> {
         return try {
             val value = block()
             if (value == null || (value is Iterable<*> && value.none())) {

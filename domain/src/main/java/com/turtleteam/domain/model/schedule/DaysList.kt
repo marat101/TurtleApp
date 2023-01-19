@@ -6,4 +6,4 @@ import com.turtleteam.domain.model.Schedule
 data class DaysList(
     override val days: List<Day>,
     override val name: String
-): Schedule
+) : Schedule

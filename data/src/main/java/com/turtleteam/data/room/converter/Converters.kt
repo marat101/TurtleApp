@@ -4,7 +4,6 @@ import androidx.room.TypeConverter
 import com.android.turtleapp.data.model.schedule.Day
 import com.android.turtleapp.data.model.schedule.Pair
 import com.android.turtleapp.data.model.schedule.PairsList
-import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -20,7 +19,7 @@ object Converters {
     }
 
     @TypeConverter
-    fun pairsListToGson (list: List<PairsList>): String = Json.encodeToString(list)
+    fun pairsListToGson(list: List<PairsList>): String = Json.encodeToString(list)
 
     @TypeConverter
     fun gsonToPairsList(string: String): List<PairsList> {

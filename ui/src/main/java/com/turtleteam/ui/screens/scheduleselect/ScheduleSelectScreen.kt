@@ -15,7 +15,10 @@ import androidx.navigation.NavHostController
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun ScheduleSelectScreen(navController: NavHostController, viewModel: ScheduleSelectViewModel = koinViewModel()) {
+fun ScheduleSelectScreen(
+    navController: NavHostController,
+    viewModel: ScheduleSelectViewModel = koinViewModel()
+) {
 
     val groups = viewModel.groups.collectAsState()
 

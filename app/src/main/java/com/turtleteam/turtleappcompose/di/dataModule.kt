@@ -1,7 +1,6 @@
 package com.turtleteam.turtleappcompose.di
 
 import com.android.turtleapp.data.local.assets.AssetsService
-import com.android.turtleapp.data.local.dao.GroupsScheduleDao
 import com.android.turtleapp.data.local.database.TurtleRoomDatabase
 import com.turtleteam.data.api.ApiService
 import com.turtleteam.data.api.Ktor

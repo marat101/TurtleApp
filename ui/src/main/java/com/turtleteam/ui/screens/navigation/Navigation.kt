@@ -10,7 +10,7 @@ import com.turtleteam.ui.screens.scheduleselect.ScheduleSelectScreen
 fun TurtleNavHost() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController , startDestination = Routes.HOMESCREEN.route){
-        composable(Routes.HOMESCREEN.route){ ScheduleSelectScreen(navController) }
+    NavHost(navController = navController, startDestination = Routes.HOMESCREEN.route) {
+        composable(Routes.HOMESCREEN.route) { ScheduleSelectScreen(navController) }
     }
 }

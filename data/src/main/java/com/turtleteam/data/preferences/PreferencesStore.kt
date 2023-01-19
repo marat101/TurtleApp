@@ -34,21 +34,28 @@ class PreferencesStore(context: Context?) {
 
     fun setSavedTheme(): Boolean = preferences.getBoolean(THEME_NAME, false)
 
-    fun savePinnedList(key: String, list: List<String>) = preferences.edit().putString(key, Converters.stringToGson(list)).apply()
+    fun savePinnedList(key: String, list: List<String>) =
+        preferences.edit().putString(key, Converters.stringToGson(list)).apply()
 
-    fun getPinnedList(key: String):List<String> = Converters.gsonToString(preferences.getString(key, null)!!)
+    fun getPinnedList(key: String): List<String> =
+        Converters.gsonToString(preferences.getString(key, null)!!)
 
-    fun showHint():Boolean = preferences.getBoolean(HINT, true)
+    fun showHint(): Boolean = preferences.getBoolean(HINT, true)
 
     fun hideHint() = preferences.edit().putBoolean(HINT, false).apply()
 
     fun saveUrl(url: String) = preferences.edit().putString(SAVED_URL, url).apply()
 
-    fun getSavedUrl(): String? = preferences.getString(SAVED_URL, "https://docs.google.com/spreadsheets/d/16d1IV9rg0IKHMEpjUZoW_mn0js-H-kTl/edit#gid=473945966")
+    fun getSavedUrl(): String? = preferences.getString(
+        SAVED_URL,
+        "https://docs.google.com/spreadsheets/d/16d1IV9rg0IKHMEpjUZoW_mn0js-H-kTl/edit#gid=473945966"
+    )
 
-    fun getSavedWidgetScheduleName(): String = preferences.getString(WIDGET_SCHEDULE_NAME, "Поиск").toString()
+    fun getSavedWidgetScheduleName(): String =
+        preferences.getString(WIDGET_SCHEDULE_NAME, "Поиск").toString()
 
-    fun saveWidgetScheduleName(value: String) = preferences.edit().putString(WIDGET_SCHEDULE_NAME, value).apply()
+    fun saveWidgetScheduleName(value: String) =
+        preferences.edit().putString(WIDGET_SCHEDULE_NAME, value).apply()
 
     fun getWidgetId(id: Int) = preferences.edit().putInt(WIDGET_IDS, id).apply()
 

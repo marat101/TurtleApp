@@ -11,4 +11,4 @@ import kotlinx.serialization.Serializable
 data class TeachersDaysList(
     override val days: List<Day>,
     @PrimaryKey override val name: String
-): Schedule
+) : Schedule

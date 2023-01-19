@@ -10,13 +10,13 @@ interface TeachersRepository {
 
     suspend fun saveSchedule(schedule: DaysList)
 
-    fun getSavedName():String?
+    fun getSavedName(): String?
 
     fun saveName(string: String)
 
-    suspend fun getTeachersList():List<String>
+    suspend fun getTeachersList(): List<String>
 
-    fun getPinnedList():List<String>
+    fun getPinnedList(): List<String>
 
     fun savePinnedList(list: List<String>)
 }

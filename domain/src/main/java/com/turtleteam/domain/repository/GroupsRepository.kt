@@ -11,12 +11,13 @@ interface GroupsRepository {
 
     suspend fun saveSchedule(schedule: DaysList)
 
-    fun getSavedName():String?
+    fun getSavedName(): String?
 
     fun saveName(string: String)
 
-    suspend fun getGroupsList():List<String>
+    suspend fun getGroupsList(): List<String>
 
-    fun getPinnedList():List<String>
+    fun getPinnedList(): List<String>
 
-    fun savePinnedList(list: List<String>)}
+    fun savePinnedList(list: List<String>)
+}
