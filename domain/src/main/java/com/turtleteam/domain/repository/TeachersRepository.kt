@@ -1,12 +1,13 @@
 package com.android.turtleapp.data.repository.interfaces
 
+import com.turtleteam.domain.model.States
 import com.turtleteam.domain.model.schedule.DaysList
 
 interface TeachersRepository {
 
-    suspend fun getSchedule(group: String): Result<DaysList>
+    suspend fun getSchedule(teacher: String): States<DaysList>
 
-    suspend fun getSavedSchedule(group: String): Result<DaysList>
+    suspend fun getSavedSchedule(teacher: String): States<DaysList>
 
     suspend fun saveSchedule(schedule: DaysList)
 
