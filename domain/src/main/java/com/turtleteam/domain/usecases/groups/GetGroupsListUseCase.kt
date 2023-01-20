@@ -1,4 +1,4 @@
-package com.turtleteam.domain.usecases
+package com.turtleteam.domain.usecases.groups
 
 import com.android.turtleapp.data.repository.interfaces.GroupsRepository
 

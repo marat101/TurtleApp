@@ -6,6 +6,16 @@ import org.koin.dsl.module
 
 val uiModule = module {
     viewModel {
-        ScheduleSelectViewModel(groupsList = get())
+
+        /**
+         * вью модель для теста, можно удалить\изменить
+         */
+
+        ScheduleSelectViewModel(
+            groupsList = get(),
+            saveSchedule = get(),
+            savedSchedule = get(),
+            getSchedule = get()
+        )
     }
 }
