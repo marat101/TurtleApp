@@ -3,21 +3,21 @@ package com.turtleteam.domain.usecases.groups
 import com.android.turtleapp.data.repository.interfaces.GroupsRepository
 import com.turtleteam.domain.model.NamesList
 
-class SetPinnedListUseCase(private val repository: GroupsRepository) {
+class SetPinnedGroupsListUseCase(private val repository: GroupsRepository) {
 
     /**
-     * Юзкейс для Закрепления\Открепления закреплённых групп
+     * Юзкейс для Закрепления\Открепления групп
      *
-     * allGroups - список который используется
+     * currentList - список который используется
      * item - группа которая закрепится\открепится
      *
-     * Вовзращает обновлённый список
+     * Возвращает обновлённый список
      */
 
-    fun execute(allGroupsList: NamesList, item: String): NamesList {
-        val list = allGroupsList.pinned.toMutableList()
-        val list2 = allGroupsList.groups.toMutableList()
-        return if (allGroupsList.groups.contains(item)) {
+    fun execute(currentList: NamesList, item: String): NamesList {
+        val list = currentList.pinned.toMutableList()
+        val list2 = currentList.groups.toMutableList()
+        return if (currentList.groups.contains(item)) {
             list.add(item)
             list2.removeAll(list)
             repository.savePinnedList(list)
