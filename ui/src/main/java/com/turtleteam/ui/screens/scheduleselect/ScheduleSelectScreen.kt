@@ -1,25 +1,28 @@
 package com.turtleteam.ui.screens.scheduleselect
 
 import android.util.Log
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.ButtonDefaults.buttonColors
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.turtleteam.domain.model.NamesList
+import com.turtleteam.ui.R
+import com.turtleteam.ui.theme.darkGreen
+import com.turtleteam.ui.theme.lightGreen
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -35,8 +38,7 @@ fun ScheduleSelectScreen(
     val composableScope = rememberCoroutineScope()
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White),
+            .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
@@ -48,26 +50,35 @@ fun ScheduleSelectScreen(
                 .padding(10.dp)
                 .background(Color.Magenta)
         ) {
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth(0.75f)
-                    .padding(8.dp),
-                onClick = { composableScope.launch { sheetState.show() } },
-                shape = RoundedCornerShape(16.dp),
-                colors = buttonColors(backgroundColor = Color.Green)
-            ) { Text(text = groupButtonText.value, style = TextStyle(fontSize = 30.sp)) }
 
-            Button(
+            Text(
+                text = groupButtonText.value,
+                style = TextStyle(fontSize = 30.sp, color = Color.Black),
                 modifier = Modifier
-                    .fillMaxWidth(0.75f)
-                    .padding(8.dp),
-                shape = RoundedCornerShape(16.dp),
-                onClick = {
-                    //Todo open schedule screen
-                },
-                colors = buttonColors(backgroundColor = Color.Green)
+                    .clickable(onClick = { composableScope.launch { sheetState.show() } })
+                    .padding(8.dp)
+                    .background(color =Color(255,255,255,0xAA),shape = RoundedCornerShape(16.dp))
+                    .fillMaxWidth(0.8f)
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = "Далее",
+                style = TextStyle(fontSize = 30.sp, color = Color.White),
+                modifier = Modifier
+                    .clickable(onClick = {
+                        //Todo open schedule screen
+                    })
+                    .padding(8.dp)
+                    .background(
+                        Brush.horizontalGradient(colors = listOf(darkGreen, lightGreen)),
+                        shape = RoundedCornerShape(16.dp)
+                    )
+                    .fillMaxWidth(0.8f)
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                textAlign = TextAlign.Center
+            )
 
-            ) { Text(text = "Далее", style = TextStyle(fontSize = 30.sp)) }
 
         }
         ModalBottomSheetLayout(
@@ -100,49 +111,38 @@ fun GroupList(list:State<NamesList>, vModel: ScheduleSelectViewModel , onClickAc
             .padding(top = 8.dp)
     ) {
         TextField(
+            modifier = Modifier.fillMaxWidth(),
+            label = { Text(text = "Поиск")},
             maxLines = 1,
             value = filter.value,
             onValueChange = { filter.value = it }
         )
 
 
-        Text(text = "Закрепленные")
         LazyVerticalGrid(columns = GridCells.Fixed(2)) {
-            items(filteredPinnedList.size) {
-                val item = filteredPinnedList[it]
-                BottomSheetOneItem(title = item, onClickAction = {
-                    Log.d("xdd", "onClickAction ")
-
-                    onClickAction(item)
-                },
-                    onLongClickAction = {
-                        Log.d("xdd", "onLongClickAction ")
-
-                        vModel.setPinnedList(item)
-                    }
+            if (filteredPinnedList.isNotEmpty())
+                item(span ={ GridItemSpan(2) }) { Text(text = "Закрепленные") }
+            items(filteredPinnedList) {
+                BottomSheetOneItem(
+                    title = it,
+                    onClickAction = {onClickAction(it) },
+                    onLongClickAction = {vModel.setPinnedList(it) }
                 )
             }
-        }
-        Text(text = "Все группы")
-        LazyVerticalGrid(columns = GridCells.Fixed(2)) {
-            items(filteredList.size) {
-                val item = filteredList[it]
-                BottomSheetOneItem(title = item, onClickAction = {
-                    Log.d("xdd", "onClickAction ")
-                    onClickAction(item)
-                },
-                onLongClickAction = {
-                    Log.d("xdd", "onLongClickAction ")
 
-                    vModel.setPinnedList(item)
-                }
+            item(span ={ GridItemSpan(2) }){ Text(text = "Все группы") }
+            items(filteredList) {
+                BottomSheetOneItem(
+                    title = it,
+                    onClickAction = { onClickAction(it) },
+                    onLongClickAction = { vModel.setPinnedList(it) }
                 )
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BottomSheetOneItem(title: String, onClickAction: () -> Unit, onLongClickAction: () -> Unit) {
     Card(
@@ -151,10 +151,9 @@ fun BottomSheetOneItem(title: String, onClickAction: () -> Unit, onLongClickActi
             .padding(4.dp)
             .combinedClickable(
                 onLongClick = onLongClickAction,
-                onClick = onClickAction,
+                onClick = onClickAction
             ),
         elevation = 8.dp,
-        onClick = onClickAction,
 
     ) {
         Text(
