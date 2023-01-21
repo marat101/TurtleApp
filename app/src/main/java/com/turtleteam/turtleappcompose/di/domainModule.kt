@@ -1,9 +1,6 @@
 package com.turtleteam.turtleappcompose.di
 
-import com.turtleteam.domain.usecases.groups.GetGroupScheduleUseCase
-import com.turtleteam.domain.usecases.groups.GetGroupsListUseCase
-import com.turtleteam.domain.usecases.groups.GetSavedGroupScheduleUseCase
-import com.turtleteam.domain.usecases.groups.SaveGroupScheduleUseCase
+import com.turtleteam.domain.usecases.groups.*
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -20,6 +17,12 @@ val domainModule = module {
     }
     factory {
         SaveGroupScheduleUseCase(repository = get())
+    }
+    factory {
+        GetGroupsAndPinnedListUseCase(repository = get())
+    }
+    factory {
+        SetPinnedListUseCase(repository = get())
     }
 
     // Преподаватели

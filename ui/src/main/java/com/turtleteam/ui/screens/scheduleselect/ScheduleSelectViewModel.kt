@@ -2,29 +2,32 @@ package com.turtleteam.ui.screens.scheduleselect
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.turtleteam.domain.model.NamesList
 import com.turtleteam.domain.model.States
 import com.turtleteam.domain.model.schedule.DaysList
-import com.turtleteam.domain.usecases.groups.GetGroupScheduleUseCase
-import com.turtleteam.domain.usecases.groups.GetGroupsListUseCase
-import com.turtleteam.domain.usecases.groups.GetSavedGroupScheduleUseCase
-import com.turtleteam.domain.usecases.groups.SaveGroupScheduleUseCase
+import com.turtleteam.domain.usecases.groups.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ScheduleSelectViewModel(
-    private val groupsList: GetGroupsListUseCase,
+    private val groupsList: GetGroupsAndPinnedListUseCase,
     private val saveSchedule: SaveGroupScheduleUseCase,
     private val savedSchedule: GetSavedGroupScheduleUseCase,
-    private val getSchedule: GetGroupScheduleUseCase
+    private val getSchedule: GetGroupScheduleUseCase,
+    private val setPinndeList: SetPinnedListUseCase
 ) : ViewModel() {
 
-    private val _groups = MutableStateFlow<List<String>>(emptyList())
+    private val _groups = MutableStateFlow(NamesList(emptyList(), emptyList()))
     val groups = _groups.asStateFlow()
 
     private val _schedule = MutableStateFlow<States<DaysList>>(States.Loading)
     val schedule = _schedule.asStateFlow()
+
+    fun setPinnedList(item: String){
+        _groups.value = setPinndeList.execute(groups.value, item)
+    }
 
     fun getGroupsList() = viewModelScope.launch(Dispatchers.IO) {
         _groups.value = groupsList.execute()

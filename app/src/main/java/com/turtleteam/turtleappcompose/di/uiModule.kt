@@ -15,7 +15,8 @@ val uiModule = module {
             groupsList = get(),
             saveSchedule = get(),
             savedSchedule = get(),
-            getSchedule = get()
+            getSchedule = get(),
+            setPinndeList = get()
         )
     }
 }
