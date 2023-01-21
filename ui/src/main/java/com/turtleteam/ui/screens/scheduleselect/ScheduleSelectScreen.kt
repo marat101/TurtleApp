@@ -1,12 +1,11 @@
 package com.turtleteam.ui.screens.scheduleselect
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.*
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.ButtonDefaults.buttonColors
@@ -20,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.turtleteam.domain.model.NamesList
+import com.turtleteam.domain.utils.SearchNames
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -30,7 +31,6 @@ fun ScheduleSelectScreen(
     viewModel: ScheduleSelectViewModel = koinViewModel()
 ) {
 
-    val groups = viewModel.groups.collectAsState()
     viewModel.getGroupsList()
     val composableScope = rememberCoroutineScope()
     Box(
@@ -52,7 +52,8 @@ fun ScheduleSelectScreen(
                 modifier = Modifier
                     .fillMaxWidth(0.75f)
                     .padding(8.dp),
-                onClick = { composableScope.launch { sheetState.show() } },
+                onClick = { viewModel.getGroupsList()
+                    composableScope.launch { sheetState.show() } },
                 shape = RoundedCornerShape(16.dp),
                 colors = buttonColors(backgroundColor = Color.Green)
             ) { Text(text = groupButtonText.value, style = TextStyle(fontSize = 30.sp)) }
@@ -72,12 +73,12 @@ fun ScheduleSelectScreen(
         }
         ModalBottomSheetLayout(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxSize(),
             sheetState = sheetState,
             sheetShape = RoundedCornerShape(topStart = 20f, topEnd = 20f),
             content = {},
             sheetContent = {
-                GroupList(groups, viewModel) {
+                GroupList(viewModel) {
                     groupButtonText.value = it
                     composableScope.launch { sheetState.hide() }
                 }
@@ -87,13 +88,20 @@ fun ScheduleSelectScreen(
 }
 
 
-
 @Composable
-fun GroupList(list:State<NamesList>, vModel: ScheduleSelectViewModel , onClickAction: (group: String) -> Unit) {
+fun GroupList(
+    viewModel: ScheduleSelectViewModel,
+    onClickAction: (group: String) -> Unit
+) {
 
-    val filter = remember { mutableStateOf("") }
-    val filteredList = list.value.groups.filter { it.contains(filter.value, true) }
-    val filteredPinnedList = list.value.pinned.filter { it.contains(filter.value, true) }
+    val baseList = viewModel.groups.collectAsState()
+
+
+    val query = remember {
+        mutableStateOf("")
+    }
+
+    val filteredList = remember { mutableStateOf(NamesList(emptyList(), emptyList())) }
     Column(
         modifier = Modifier
             .padding(horizontal = 8.dp)
@@ -101,66 +109,78 @@ fun GroupList(list:State<NamesList>, vModel: ScheduleSelectViewModel , onClickAc
     ) {
         TextField(
             maxLines = 1,
-            value = filter.value,
-            onValueChange = { filter.value = it }
+            value = query.value,
+            onValueChange = {
+                query.value = it
+                filteredList.value = SearchNames.filterList(query.value, baseList.value)
+            }
         )
-
-
-        Text(text = "Закрепленные")
-        LazyVerticalGrid(columns = GridCells.Fixed(2)) {
-            items(filteredPinnedList.size) {
-                val item = filteredPinnedList[it]
-                BottomSheetOneItem(title = item, onClickAction = {
-                    Log.d("xdd", "onClickAction ")
-
-                    onClickAction(item)
-                },
-                    onLongClickAction = {
-                        Log.d("xdd", "onLongClickAction ")
-
-                        vModel.setPinnedList(item)
-                    }
-                )
+        LazyVerticalGrid(columns = GridCells.Fixed(2), Modifier.fillMaxSize()) {
+            if (filteredList.value.pinned.isNotEmpty()) {
+                item(
+                    span = { GridItemSpan(4) },
+                    content = { NamesHeader("Закрепленные") })
+                items(filteredList.value.pinned) {
+                    NameItem(viewModel = viewModel, title = it)
+                }
+            }
+            if (filteredList.value.groups.isNotEmpty()) {
+                item(
+                    span = { GridItemSpan(4) },
+                    content = { NamesHeader("Все группы") })
+                items(filteredList.value.groups) {
+                    NameItem(viewModel = viewModel, title = it)
+                }
             }
         }
-        Text(text = "Все группы")
-        LazyVerticalGrid(columns = GridCells.Fixed(2)) {
-            items(filteredList.size) {
-                val item = filteredList[it]
-                BottomSheetOneItem(title = item, onClickAction = {
-                    Log.d("xdd", "onClickAction ")
-                    onClickAction(item)
-                },
-                onLongClickAction = {
-                    Log.d("xdd", "onLongClickAction ")
-
-                    vModel.setPinnedList(item)
-                }
-                )
-            }
+    }
+    LaunchedEffect(key1 = null) {
+        viewModel.groups.collectLatest {
+            filteredList.value = SearchNames.filterList(query.value, baseList.value)
         }
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun BottomSheetOneItem(title: String, onClickAction: () -> Unit, onLongClickAction: () -> Unit) {
+fun NameItem(title: String, viewModel: ScheduleSelectViewModel) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(4.dp)
             .combinedClickable(
-                onLongClick = onLongClickAction,
-                onClick = onClickAction,
+                onLongClick = { viewModel.setPinnedList(title) },
+                onClick = {},
             ),
         elevation = 8.dp,
-        onClick = onClickAction,
-
     ) {
         Text(
             text = title,
             style = TextStyle(fontSize = 25.sp),
             textAlign = TextAlign.Start
         )
+    }
+}
+
+@Composable
+fun NamesHeader(title: String) {
+    Box(
+        Modifier
+            .padding(1.dp)
+            .background(
+                Color.DarkGray,
+                RoundedCornerShape(
+                    CornerSize(4.dp),
+                    CornerSize(4.dp),
+                    CornerSize(4.dp),
+                    CornerSize(4.dp)
+                )
+            )
+            .fillMaxSize(),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        Box(Modifier.padding(8.dp)) {
+            Text(text = title, color = Color.White)
+        }
     }
 }
