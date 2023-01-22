@@ -16,7 +16,7 @@ class ScheduleSelectViewModel(
     private val saveSchedule: SaveGroupScheduleUseCase,
     private val savedSchedule: GetSavedGroupScheduleUseCase,
     private val getSchedule: GetGroupScheduleUseCase,
-    private val setPinndeList: SetPinnedListUseCase
+    private val setPinndeList: SetPinnedGroupsListUseCase
 ) : ViewModel() {
 
     private val _groups = MutableStateFlow(NamesList(emptyList(), emptyList()))

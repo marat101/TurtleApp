@@ -15,7 +15,7 @@ val fontFamily = FontFamily(
 val Typography = Typography(
     defaultFontFamily = fontFamily,
     body1 = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = FontFamily(Font(R.font.qanelas)),
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     )
