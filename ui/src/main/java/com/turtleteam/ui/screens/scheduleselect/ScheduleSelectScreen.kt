@@ -1,18 +1,18 @@
 package com.turtleteam.ui.screens.scheduleselect
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.ButtonDefaults.buttonColors
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -20,6 +20,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.turtleteam.domain.model.NamesList
 import com.turtleteam.domain.utils.SearchNames
+import com.turtleteam.ui.R
+import com.turtleteam.ui.theme.darkGreen
+import com.turtleteam.ui.theme.green
+import com.turtleteam.ui.theme.lightGreen
+import com.turtleteam.ui.theme.transparentWhite
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -44,31 +49,49 @@ fun ScheduleSelectScreen(
         }
         Column(
             Modifier
-                .padding(10.dp)
-                .background(Color.Magenta)
+                .offset(y = (-50).dp)
+                .background(Color.White, RoundedCornerShape(8.dp))
+                .padding(16.dp)
+                .padding(top = 8.dp)
+                ,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(
+            Image(
                 modifier = Modifier
-                    .fillMaxWidth(0.75f)
-                    .padding(8.dp),
-                onClick = { viewModel.getGroupsList()
-                    composableScope.launch { sheetState.show() } },
-                shape = RoundedCornerShape(16.dp),
-                colors = buttonColors(backgroundColor = Color.Green)
-            ) { Text(text = groupButtonText.value, style = TextStyle(fontSize = 30.sp)) }
-
-            Button(
+                    .fillMaxWidth(0.6f),
+                painter = painterResource(id = R.drawable.selectgroup),
+                contentDescription = null
+            )
+            Text(
+                text = groupButtonText.value,
+                style = TextStyle(fontSize = 30.sp, color = Color.Black),
                 modifier = Modifier
-                    .fillMaxWidth(0.75f)
-                    .padding(8.dp),
-                shape = RoundedCornerShape(16.dp),
-                onClick = {
-                    //Todo open schedule screen
-                },
-                colors = buttonColors(backgroundColor = Color.Green)
-
-            ) { Text(text = "Далее", style = TextStyle(fontSize = 30.sp)) }
-
+                    .clickable(onClick = { composableScope.launch { sheetState.show() } })
+                    .padding(8.dp)
+                    .background(
+                        color = Color.White,
+                        shape = RoundedCornerShape(16.dp)
+                    )
+                    .fillMaxWidth(0.8f)
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = stringResource(id = R.string.done),
+                style = TextStyle(fontSize = 30.sp, color = Color.White),
+                modifier = Modifier
+                    .clickable(onClick = {
+                        //Todo open schedule screen
+                    })
+                    .padding(8.dp)
+                    .background(
+                        Brush.horizontalGradient(colors = listOf(darkGreen, lightGreen)),
+                        shape = RoundedCornerShape(16.dp)
+                    )
+                    .fillMaxWidth(0.8f)
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                textAlign = TextAlign.Center
+            )
         }
         ModalBottomSheetLayout(
             modifier = Modifier
@@ -107,6 +130,8 @@ fun GroupList(
             .padding(top = 8.dp)
     ) {
         TextField(
+            modifier = Modifier.fillMaxWidth(),
+            label = { Text(text = stringResource(R.string.search),color = Color.Black) },
             maxLines = 1,
             value = query.value,
             onValueChange = {
@@ -114,11 +139,12 @@ fun GroupList(
                 filteredList.value = SearchNames.filterList(query.value, baseList.value)
             }
         )
+
         LazyVerticalGrid(columns = GridCells.Fixed(2), Modifier.fillMaxSize()) {
             if (filteredList.value.pinned.isNotEmpty()) {
                 item(
                     span = { GridItemSpan(4) },
-                    content = { NamesHeader("Закрепленные") })
+                    content = { NamesHeader(stringResource(id = R.string.pinned_groups)) })
                 items(filteredList.value.pinned) {
                     NameItem(viewModel = viewModel, title = it)
                 }
@@ -126,7 +152,7 @@ fun GroupList(
             if (filteredList.value.groups.isNotEmpty()) {
                 item(
                     span = { GridItemSpan(4) },
-                    content = { NamesHeader("Все группы") })
+                    content = { NamesHeader(stringResource(id = R.string.all_groups)) })
                 items(filteredList.value.groups) {
                     NameItem(viewModel = viewModel, title = it)
                 }
@@ -154,8 +180,11 @@ fun NameItem(title: String, viewModel: ScheduleSelectViewModel) {
         elevation = 8.dp,
     ) {
         Text(
+            modifier = Modifier
+                .background(transparentWhite)
+                .padding(4.dp),
             text = title,
-            style = TextStyle(fontSize = 25.sp),
+            style = TextStyle(fontSize = 25.sp, color = green),
             textAlign = TextAlign.Start
         )
     }

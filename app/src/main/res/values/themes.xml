@@ -3,6 +3,5 @@
 
     <style name="Theme.TurtleApp" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
-        <item name="android:windowBackground">@drawable/back</item>
     </style>
 </resources>
