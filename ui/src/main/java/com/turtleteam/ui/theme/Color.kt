@@ -30,6 +30,9 @@ val lightBackgroundBrush = Brush.linearGradient(
     start = Offset(0f, Float.POSITIVE_INFINITY),
     end = Offset(Float.POSITIVE_INFINITY, 0f)
 )
+val backgroundBrush = Brush.horizontalGradient(
+    listOf(Color(0xFFB5E7AB), Color(0xFFFCFDD7)),
+)
 
 
 // Темная Тёма

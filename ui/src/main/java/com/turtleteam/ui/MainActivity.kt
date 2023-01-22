@@ -14,16 +14,14 @@ import androidx.navigation.compose.rememberNavController
 import com.turtleteam.ui.screens.navigation.BottomNavigationMenu
 import com.turtleteam.ui.screens.navigation.TurtleNavHost
 import com.turtleteam.ui.theme.TurtleAppTheme
+import com.turtleteam.ui.theme.backgroundBrush
 import com.turtleteam.ui.theme.lightBrush1
 
 class MainActivity : ComponentActivity() {
 
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
-//        window.statusBarColor = Color.Transparent.toArgb()
-//        window.setBackgroundDrawableResource(R.drawable.toolbar_gradient)
         super.onCreate(savedInstanceState)
-
         setContent {
             TurtleAppTheme {
                 val navController = rememberNavController()
@@ -35,7 +33,12 @@ class MainActivity : ComponentActivity() {
                         backgroundColor = Color.Transparent,
                         elevation = 0.dp
                     )
-                    Box(Modifier.fillMaxWidth().weight(1f)){
+                    Box(
+                        Modifier
+                            .fillMaxWidth()
+                            .weight(1f)
+                            .background(backgroundBrush)
+                    ){
                         TurtleNavHost(navController)
                     }
                     BottomNavigationMenu(navController)

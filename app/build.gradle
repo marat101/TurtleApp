@@ -42,6 +42,8 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.test.ext:junit-ktx:1.1.5'
+
 
     // Room database
     def room_version = "2.5.0"
