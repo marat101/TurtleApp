@@ -133,6 +133,7 @@ fun GroupList(
             modifier = Modifier.fillMaxWidth(),
             label = { Text(text = stringResource(R.string.search),color = Color.Black) },
             maxLines = 1,
+            singleLine = true,
             value = query.value,
             onValueChange = {
                 query.value = it
