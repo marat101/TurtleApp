@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="done">Далее</string>
+    <string name="search">Поиск</string>
+    <string name="pinned_groups">Закрепленные</string>
+    <string name="all_groups">Все группы</string>
+</resources>
