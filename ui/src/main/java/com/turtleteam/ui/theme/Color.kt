@@ -1,5 +1,6 @@
 package com.turtleteam.ui.theme
 
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
@@ -15,5 +16,14 @@ val Purple200 = Color(0xFFBB86FC)
 val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
+
+// Светлая Тёма
 val darkGreen = Color(0xFF15956F)
 val lightGreen = Color(0xFF96D162)
+val lightBrush1 = Brush.horizontalGradient(listOf(darkGreen ,lightGreen))
+
+
+// Темная Тёма
+val darkColor1 = Color(0xFFBF76C2)
+val darkColor2 = Color(0xFF033E4A)
+val darkColor3 = Color(0xFF8D91D1)

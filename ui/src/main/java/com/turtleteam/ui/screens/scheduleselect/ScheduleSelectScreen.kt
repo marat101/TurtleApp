@@ -35,8 +35,7 @@ fun ScheduleSelectScreen(
     val composableScope = rememberCoroutineScope()
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White),
+            .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
