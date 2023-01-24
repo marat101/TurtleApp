@@ -7,11 +7,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
+import com.turtleteam.ui.screens.navigation.BottomNavigationMenu
+import com.turtleteam.ui.screens.navigation.TurtleNavHost
 import com.turtleteam.ui.theme.TurtleAppTheme
 import com.turtleteam.ui.theme.backgroundBrush
 import com.turtleteam.ui.theme.lightBrush1
@@ -36,11 +37,11 @@ class MainActivity : ComponentActivity() {
                         Modifier
                             .fillMaxWidth()
                             .weight(1f)
-                            .background(backgroundBrush),
-                        contentAlignment = Alignment.Center
+                            .background(backgroundBrush)
                     ){
-                        Text(text = "ТЕСТ")
+                        TurtleNavHost(navController)
                     }
+                    BottomNavigationMenu(navController)
                 }
             }
         }
