@@ -14,9 +14,8 @@ val uiModule = module {
 
         ScheduleSelectViewModel(
             groupsList = get(),
-            saveSchedule = get(),
-            savedSchedule = get(),
-            getSchedule = get(),
+            getLastTargetGroupUseCase = get(),
+            setLastTargetGroupUseCase = get(),
             setPinndeList = get()
         )
 

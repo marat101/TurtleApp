@@ -41,4 +41,12 @@ class GroupsRepositoryImpl(
 
     override fun savePinnedList(list: List<String>) =
         preferencesStore.savePinnedList(PreferencesStore.PINNED_GROUPS, list)
+
+    override fun getLastTargetGroup(): String {
+        return preferencesStore.getLastTargetGroup()
+    }
+
+    override fun setLastTargetGroup(group: String) {
+        preferencesStore.setLastTargetGroup(group)
+    }
 }

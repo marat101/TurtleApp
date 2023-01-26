@@ -20,4 +20,8 @@ interface GroupsRepository {
     fun getPinnedList(): List<String>
 
     fun savePinnedList(list: List<String>)
+
+    fun getLastTargetGroup():String
+
+    fun setLastTargetGroup(group:String)
 }
