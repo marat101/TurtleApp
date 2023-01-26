@@ -11,6 +11,7 @@ import com.turtleteam.ui.R
 val fontFamily = FontFamily(
     Font(R.font.qanelas, weight = FontWeight.Normal)
 )
+
 // Set of Material typography styles to start with
 val Typography = Typography(
     defaultFontFamily = fontFamily,

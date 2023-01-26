@@ -43,7 +43,7 @@ fun TurtleAppTheme(
 ) {
     val colors =
 //        if (darkTheme) DarkColorPalette else
-            LightColorPalette
+        LightColorPalette
 
     MaterialTheme(
         colors = colors,

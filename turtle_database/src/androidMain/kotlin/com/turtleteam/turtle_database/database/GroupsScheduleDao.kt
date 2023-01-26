@@ -1,6 +1,5 @@
 package com.turtleteam.turtle_database.database
 
-import android.util.Log
 import com.turtleteam.turtle_database.sqldelight.TurtleDatabase
 import com.turtleteam.turtledatabase.GroupsDaysList
 import kotlinx.coroutines.Dispatchers

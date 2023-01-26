@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
                             .fillMaxWidth()
                             .weight(1f)
                             .background(backgroundBrush)
-                    ){
+                    ) {
                         TurtleNavHost(navController)
                     }
                     BottomNavigationMenu(navController)

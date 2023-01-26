@@ -4,7 +4,6 @@ import com.turtleteam.turtle_database.database.CommonSqlDriver
 import com.turtleteam.turtle_database.database.GroupsScheduleDao
 import com.turtleteam.turtle_database.database.TeachersScheduleDao
 import com.turtleteam.turtle_database.sqldelight.TurtleDatabase
-import com.turtleteam.turtle_database.`typealias`.KotlinContext
 import org.koin.dsl.module
 
 val databaseModule = module {

@@ -27,7 +27,8 @@ class TeachersRepositoryImpl(
             DaysList(Json.decodeFromString(value.days), value.name)
         }
 
-    override suspend fun saveSchedule(schedule: DaysList) = teachersScheduleDao.saveTeacherDaysList(Json.encodeToString(schedule.days), schedule.name)
+    override suspend fun saveSchedule(schedule: DaysList) =
+        teachersScheduleDao.saveTeacherDaysList(Json.encodeToString(schedule.days), schedule.name)
 
     override fun getSavedName(): String? =
         preferencesStore.getSavedItem(PreferencesStore.SELECTED_ID2)

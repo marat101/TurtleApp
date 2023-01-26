@@ -51,8 +51,7 @@ fun ScheduleSelectScreen(
                 .offset(y = (-50).dp)
                 .background(Color.White, RoundedCornerShape(8.dp))
                 .padding(16.dp)
-                .padding(top = 8.dp)
-                ,
+                .padding(top = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
@@ -126,7 +125,7 @@ fun GroupList(
     ) {
         TextField(
             modifier = Modifier.fillMaxWidth(),
-            label = { Text(text = stringResource(R.string.search),color = Color.Black) },
+            label = { Text(text = stringResource(R.string.search), color = Color.Black) },
             maxLines = 1,
             singleLine = true,
             value = query.value,
@@ -171,7 +170,7 @@ fun NameItem(title: String, viewModel: ScheduleSelectViewModel) {
             .padding(4.dp)
             .combinedClickable(
                 onLongClick = { viewModel.setPinnedList(title) },
-                onClick = {viewModel.setGroup(title)},
+                onClick = { viewModel.setGroup(title) },
             ),
         elevation = 8.dp,
     ) {

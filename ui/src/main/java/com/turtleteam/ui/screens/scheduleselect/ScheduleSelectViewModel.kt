@@ -25,7 +25,7 @@ class ScheduleSelectViewModel(
     private val _schedule = MutableStateFlow<States<DaysList>>(States.Loading)
     val schedule = _schedule.asStateFlow()
 
-    fun setPinnedList(item: String){
+    fun setPinnedList(item: String) {
         _groups.value = setPinndeList.execute(groups.value, item)
     }
 
@@ -48,9 +48,10 @@ class ScheduleSelectViewModel(
     private val _currentGroup = MutableStateFlow("Группы")//todo save and load last used group
     val currentGroup = _currentGroup.asStateFlow()
 
-    fun setGroup(group:String) {
+    fun setGroup(group: String) {
         _currentGroup.value = group
     }
+
     private suspend fun handleStates(
         list: States<DaysList>,
         onSuccess: suspend (mSchedule: DaysList) -> Unit
@@ -58,7 +59,8 @@ class ScheduleSelectViewModel(
         when (list) {
             States.ConnectionError,
             is States.Error,
-            States.Loading -> {}
+            States.Loading -> {
+            }
             States.NotFoundError -> {}
             is States.Success -> {
                 onSuccess(list.value)

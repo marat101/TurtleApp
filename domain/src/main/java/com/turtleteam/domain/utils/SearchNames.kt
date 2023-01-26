@@ -4,8 +4,8 @@ import com.turtleteam.domain.model.NamesList
 
 object SearchNames {
 
-    fun filterList(query: String, list: NamesList): NamesList{
-        if (query=="") return list
+    fun filterList(query: String, list: NamesList): NamesList {
+        if (query == "") return list
         val pinned = list.pinned.toMutableList()
         val groups = list.groups.toMutableList()
         val filteredItems = mutableListOf<String>()

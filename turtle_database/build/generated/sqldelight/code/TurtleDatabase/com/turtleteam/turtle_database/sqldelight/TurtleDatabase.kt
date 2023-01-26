@@ -7,13 +7,13 @@ import com.turtleteam.turtle_database.sqldelight.turtledatabase.schema
 import com.turtleteam.turtledatabase.TurtleDatabaseQueries
 
 public interface TurtleDatabase : Transacter {
-  public val turtleDatabaseQueries: TurtleDatabaseQueries
+    public val turtleDatabaseQueries: TurtleDatabaseQueries
 
-  public companion object {
-    public val Schema: SqlDriver.Schema
-      get() = TurtleDatabase::class.schema
+    public companion object {
+        public val Schema: SqlDriver.Schema
+            get() = TurtleDatabase::class.schema
 
-    public operator fun invoke(driver: SqlDriver): TurtleDatabase =
-        TurtleDatabase::class.newInstance(driver)
-  }
+        public operator fun invoke(driver: SqlDriver): TurtleDatabase =
+            TurtleDatabase::class.newInstance(driver)
+    }
 }

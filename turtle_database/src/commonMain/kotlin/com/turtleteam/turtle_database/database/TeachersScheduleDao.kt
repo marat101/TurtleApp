@@ -1,7 +1,6 @@
 package com.turtleteam.turtle_database.database
 
 import com.turtleteam.turtle_database.sqldelight.TurtleDatabase
-import com.turtleteam.turtledatabase.GroupsDaysList
 import com.turtleteam.turtledatabase.TeachersDaysList
 
 expect class TeachersScheduleDao(database: TurtleDatabase) {
