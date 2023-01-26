@@ -1,6 +1,7 @@
 package com.turtleteam.turtleappcompose
 
 import android.app.Application
+import com.turtleteam.turtle_database.di.databaseModule
 import com.turtleteam.turtleappcompose.di.dataModule
 import com.turtleteam.turtleappcompose.di.domainModule
 import com.turtleteam.turtleappcompose.di.repositoryModule
@@ -18,7 +19,15 @@ class TurtleApp : Application() {
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@TurtleApp)
-            modules(listOf(dataModule, repositoryModule, uiModule, domainModule))
+            modules(
+                listOf(
+                    dataModule,
+                    repositoryModule,
+                    uiModule,
+                    domainModule,
+                    databaseModule
+                )
+            )
         }
     }
 }
