@@ -1,0 +1,6 @@
+framework module turtle_database {
+  umbrella header "placeholder.h"
+
+  export *
+  module * { export * }
+}

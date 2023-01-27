@@ -7,7 +7,7 @@ import com.turtleteam.domain.repository.Assets
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-class AssetsService(private val context: Context): Assets {
+class AssetsService(private val context: Context) : Assets {
 
     override fun getCallsSchedule(): Calls {
         return Json.decodeFromString(

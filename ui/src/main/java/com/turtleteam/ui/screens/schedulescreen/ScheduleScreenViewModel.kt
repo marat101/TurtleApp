@@ -16,11 +16,11 @@ class ScheduleScreenViewModel(
     private val getGroupScheduleUseCase: GetGroupScheduleUseCase,
     private val saveGroupScheduleUseCase: SaveGroupScheduleUseCase,
     private val getSavedGroupScheduleUseCase: GetSavedGroupScheduleUseCase
-): ViewModel() {
+) : ViewModel() {
     private val _scheduleFlow = MutableStateFlow<States<DaysList>>(States.Loading)
     val scheduleFlow = _scheduleFlow.asStateFlow()
 
-    fun updateSchedule(name:String){
+    fun updateSchedule(name: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _scheduleFlow.value = getSavedGroupScheduleUseCase.execute(name)
 

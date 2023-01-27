@@ -11,7 +11,7 @@ val repositoryModule = module {
         GroupsRepositoryImpl(
             groupsScheduleDao = get(),
             apiService = get(),
-            preferencesStore = get()
+            preferencesStore = get(),
         )
     }
     single<TeachersRepository> {

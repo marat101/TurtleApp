@@ -10,6 +10,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -28,12 +29,16 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun ScheduleScreen(
     navController: NavHostController,
-    nameGroupOfTeacher:String,
-    vModel:ScheduleScreenViewModel = koinViewModel()
+    nameGroupOfTeacher: String,
+    vModel: ScheduleScreenViewModel = koinViewModel()
 ) {
-    vModel.updateSchedule(nameGroupOfTeacher)
+
+    LaunchedEffect(key1 = null, block = {
+        vModel.updateSchedule(nameGroupOfTeacher)
+    })
+
     val scheduleState: State<States<DaysList>> = vModel.scheduleFlow.collectAsState()
-    Log.d("xdd","${scheduleState.value}")
+    Log.d("xdd", "${scheduleState.value}")
     if (scheduleState.value is States.Success) {
         ShowSchedule(daysList = (scheduleState.value as States.Success<DaysList>).value)
     }
@@ -41,7 +46,7 @@ fun ScheduleScreen(
 }
 
 @Composable
-fun ShowSchedule(daysList:DaysList){
+fun ShowSchedule(daysList: DaysList) {
     Column(
         Modifier
             .fillMaxSize()
@@ -82,7 +87,7 @@ fun Apairs(apairs: List<PairsList>) {
 
 @Composable
 fun OneApair(it: Pair) {
-    TextWithIcon(R.drawable.hourglass,it.start + " - " + it.end)
+    TextWithIcon(R.drawable.hourglass, it.start + " - " + it.end)
     Spacer(modifier = Modifier.height(5.dp))
     TextWithIcon(drawableId = R.drawable.book, text = it.doctrine)
     Spacer(modifier = Modifier.height(5.dp))

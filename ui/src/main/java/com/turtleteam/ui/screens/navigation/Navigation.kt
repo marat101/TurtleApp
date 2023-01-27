@@ -22,14 +22,15 @@ fun TurtleNavHost(
         composable(
             route = Routes.SCHEDULE_SCREEN.route + "/{name}",
             arguments = listOf(
-                navArgument("name"){
+                navArgument("name") {
                     type = NavType.StringType
                     nullable = false
                 }
             )
         ) {
-            val name = it.arguments?.getString("name") ?: throw NullPointerException("the screen require name argument")
-            ScheduleScreen(navController,name)
+            val name = it.arguments?.getString("name")
+                ?: throw NullPointerException("the screen require name argument")
+            ScheduleScreen(navController, name)
         }
     }
 }

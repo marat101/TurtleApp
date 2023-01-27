@@ -27,11 +27,13 @@ import com.turtleteam.ui.theme.lightBackgroundBrush
 @Composable
 fun BottomNavigationMenu(
     navHostController: NavHostController
-){
+) {
     val backStack = navHostController.currentBackStackEntryAsState()
 
     BottomNavigation(
-        modifier = Modifier.fillMaxWidth().background(lightBackgroundBrush),
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(lightBackgroundBrush),
         backgroundColor = Color.Transparent,
         elevation = 0.dp
     ) {
@@ -44,7 +46,8 @@ fun BottomNavigationMenu(
             drawableId = R.drawable.ic_groups,
             stringId = R.string.groups
         )
-        val isTeachersScreenSelected = backStack.value?.destination?.route == Routes.TEACHERS_SCREEN.route
+        val isTeachersScreenSelected =
+            backStack.value?.destination?.route == Routes.TEACHERS_SCREEN.route
         CustomBottomNavigationItem(
             rowScope = this,
             isItemSelected = isTeachersScreenSelected,
@@ -71,14 +74,14 @@ fun CustomBottomNavigationItem(
     rowScope: RowScope,
     isItemSelected: Boolean,
     navHostController: NavHostController,
-    route:String,
-    @DrawableRes drawableId:Int,
-    @StringRes stringId:Int
+    route: String,
+    @DrawableRes drawableId: Int,
+    @StringRes stringId: Int
 ) {
     rowScope.BottomNavigationItem(
         selected = isItemSelected,
         onClick = {
-            navHostController.navigate(route){ popUpTo(0) }
+            navHostController.navigate(route) { popUpTo(0) }
         },
         icon = {
             BottomNavigationItemIcon(
@@ -92,10 +95,10 @@ fun CustomBottomNavigationItem(
 
 @Composable
 fun BottomNavigationItemIcon(
-    @DrawableRes drawableId:Int,
-    @StringRes stringId:Int,
-    isItemSelected:Boolean
-){
+    @DrawableRes drawableId: Int,
+    @StringRes stringId: Int,
+    isItemSelected: Boolean
+) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Icon(
             modifier = Modifier.size(24.dp),

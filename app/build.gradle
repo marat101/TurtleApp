@@ -44,12 +44,6 @@ android {
 dependencies {
     implementation 'androidx.test.ext:junit-ktx:1.1.5'
 
-
-    // Room database
-    def room_version = "2.5.0"
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-
     //Koin
     def koin = "3.2.0"
     implementation("io.insert-koin:koin-core:$koin")
@@ -59,4 +53,5 @@ dependencies {
     implementation project(path: ':ui')
     implementation project(path: ':data')
     implementation project(path: ':domain')
+    implementation project(path: ':turtle_database')
 }

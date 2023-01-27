@@ -24,7 +24,7 @@ val transparentGreen = Color(0x40648B4A)
 val darkGreen = Color(0xFF15956F)
 val lightGreen = Color(0xFF96D162)
 val transparentWhite = Color(255, 255, 255, 0x40)
-val lightBrush1 = Brush.horizontalGradient(listOf(darkGreen ,lightGreen))
+val lightBrush1 = Brush.horizontalGradient(listOf(darkGreen, lightGreen))
 val lightBackgroundBrush = Brush.linearGradient(
     listOf(Color(0xFF86C8A7), Color(0xFFB3E3AE)),
     start = Offset(0f, Float.POSITIVE_INFINITY),
