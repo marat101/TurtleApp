@@ -1,8 +1,8 @@
 package com.turtleteam.data.api
 
 import com.android.turtleapp.data.local.entity.GroupsDaysList
-import com.android.turtleapp.data.local.entity.TeachersDaysList
 import com.android.turtleapp.data.model.teachersandgroups.Groups
+import com.turtleteam.data.entity.TeachersDaysList
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.okhttp.*

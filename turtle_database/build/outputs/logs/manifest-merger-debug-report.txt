@@ -1,25 +1,25 @@
 -- Merging decision tree log ---
 manifest
-ADDED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml:2:13-83
-INJECTED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml:2:13-83
-INJECTED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml:2:13-83
+ADDED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml:2:13-83
+INJECTED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml:2:13-83
+INJECTED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml:2:13-83
 	package
-		INJECTED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml
-		ADDED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml:2:13-83
-		INJECTED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml
+		INJECTED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml
+		ADDED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml:2:13-83
+		INJECTED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml
 	xmlns:android
-		ADDED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml:2:23-81
+		ADDED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml:2:23-81
 uses-sdk
-INJECTED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml reason: use-sdk injection requested
-INJECTED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml
-INJECTED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml
-INJECTED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml
-INJECTED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml
+INJECTED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml reason: use-sdk injection requested
+INJECTED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml
+INJECTED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml
+INJECTED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml
+INJECTED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml
 	android:targetSdkVersion
-		INJECTED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml
-		ADDED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml
-		INJECTED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml
+		INJECTED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml
+		ADDED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml
+		INJECTED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml
 	android:minSdkVersion
-		INJECTED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml
-		ADDED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml
-		INJECTED from Q:\Prgrmms\Projects\TurtleApp\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest4158167182452645567.xml
+		INJECTED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml
+		ADDED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml
+		INJECTED from C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest17148497103863725573.xml

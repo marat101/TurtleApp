@@ -2,7 +2,7 @@ package com.turtleteam.data.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.android.turtleapp.data.local.converter.Converters
+import com.turtleteam.data.converter.Converters
 
 class PreferencesStore(context: Context?) {
 
