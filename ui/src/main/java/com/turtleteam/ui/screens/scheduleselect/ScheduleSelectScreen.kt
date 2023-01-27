@@ -3,7 +3,6 @@ package com.turtleteam.ui.screens.scheduleselect
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -18,7 +17,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.turtleteam.domain.model.NamesList
 import com.turtleteam.domain.utils.SearchNames
 import com.turtleteam.ui.R
 import com.turtleteam.ui.screens.navigation.Routes
@@ -26,7 +24,7 @@ import com.turtleteam.ui.theme.darkGreen
 import com.turtleteam.ui.theme.green
 import com.turtleteam.ui.theme.lightGreen
 import com.turtleteam.ui.theme.transparentWhite
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -36,23 +34,19 @@ fun ScheduleSelectScreen(
     navController: NavHostController,
     viewModel: ScheduleSelectViewModel = koinViewModel()
 ) {
-
-    viewModel.getGroupsList()
     val composableScope = rememberCoroutineScope()
     Box(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
-        val groupButtonText = viewModel.currentGroup.collectAsState()
+        val groupButtonText = viewModel.getTargetGroupFlow().collectAsState()
         Column(
             Modifier
                 .offset(y = (-50).dp)
                 .background(Color.White, RoundedCornerShape(8.dp))
                 .padding(16.dp)
-                .padding(top = 8.dp)
-                ,
+                .padding(top = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
@@ -94,31 +88,27 @@ fun ScheduleSelectScreen(
         }
         ModalBottomSheetLayout(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxWidth(),
             sheetState = sheetState,
-            sheetShape = RoundedCornerShape(topStart = 20f, topEnd = 20f),
+            sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
             content = {},
             sheetContent = {
-                GroupList(viewModel)
+                GroupList(viewModel, sheetState)
             }
         )
     }
 }
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun GroupList(
-    viewModel: ScheduleSelectViewModel
+    viewModel: ScheduleSelectViewModel,
+    sheetState: ModalBottomSheetState
 ) {
+    val groupsList = viewModel.getGroupsListFlow().collectAsState()
+    val query = remember { mutableStateOf("") }
 
-    val baseList = viewModel.groups.collectAsState()
-
-
-    val query = remember {
-        mutableStateOf("")
-    }
-
-    val filteredList = remember { mutableStateOf(NamesList(emptyList(), emptyList())) }
     Column(
         modifier = Modifier
             .padding(horizontal = 8.dp)
@@ -126,54 +116,69 @@ fun GroupList(
     ) {
         TextField(
             modifier = Modifier.fillMaxWidth(),
-            label = { Text(text = stringResource(R.string.search),color = Color.Black) },
+            label = { Text(text = stringResource(R.string.search), color = Color.Black) },
             maxLines = 1,
             singleLine = true,
             value = query.value,
             onValueChange = {
                 query.value = it
-                filteredList.value = SearchNames.filterList(query.value, baseList.value)
             }
         )
 
+        val coroutineScope = rememberCoroutineScope()
+        val filteredList = SearchNames.filterList(query.value, groupsList.value)
         LazyVerticalGrid(columns = GridCells.Fixed(2), Modifier.fillMaxSize()) {
-            if (filteredList.value.pinned.isNotEmpty()) {
+            if (filteredList.pinned.isNotEmpty()) {
                 item(
                     span = { GridItemSpan(4) },
                     content = { NamesHeader(stringResource(id = R.string.pinned_groups)) })
-                items(filteredList.value.pinned) {
-                    NameItem(viewModel = viewModel, title = it)
+                items(filteredList.pinned) {
+                    NameItem(
+                        viewModel = viewModel,
+                        title = it,
+                        sheetState = sheetState,
+                        coroutineScope = coroutineScope
+                    )
                 }
             }
-            if (filteredList.value.groups.isNotEmpty()) {
+            if (filteredList.groups.isNotEmpty()) {
                 item(
                     span = { GridItemSpan(4) },
                     content = { NamesHeader(stringResource(id = R.string.all_groups)) })
-                items(filteredList.value.groups) {
-                    NameItem(viewModel = viewModel, title = it)
+                items(filteredList.groups) {
+                    NameItem(
+                        viewModel = viewModel,
+                        title = it,
+                        sheetState = sheetState,
+                        coroutineScope = coroutineScope
+                    )
                 }
             }
-        }
-    }
-    LaunchedEffect(key1 = null) {
-        viewModel.groups.collectLatest {
-            filteredList.value = SearchNames.filterList(query.value, baseList.value)
         }
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
-fun NameItem(title: String, viewModel: ScheduleSelectViewModel) {
+fun NameItem(
+    title: String, viewModel: ScheduleSelectViewModel,
+    sheetState: ModalBottomSheetState,
+    coroutineScope: CoroutineScope
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(4.dp)
             .combinedClickable(
-                onLongClick = { viewModel.setPinnedList(title) },
-                onClick = {viewModel.setGroup(title)},
+                onLongClick = {
+                    viewModel.pinOrUnpinItem(title)
+                },
+                onClick = {
+                    viewModel.setTargetGroup(title)
+                    coroutineScope.launch { sheetState.hide() }
+                },
             ),
-        elevation = 8.dp,
+        elevation = 8.dp
     ) {
         Text(
             modifier = Modifier
@@ -193,12 +198,7 @@ fun NamesHeader(title: String) {
             .padding(1.dp)
             .background(
                 Color.DarkGray,
-                RoundedCornerShape(
-                    CornerSize(4.dp),
-                    CornerSize(4.dp),
-                    CornerSize(4.dp),
-                    CornerSize(4.dp)
-                )
+                RoundedCornerShape(4.dp)
             )
             .fillMaxSize(),
         contentAlignment = Alignment.CenterStart

@@ -7,35 +7,43 @@ import com.turtleteam.domain.usecases.groups.GetGroupsAndPinnedListUseCase
 import com.turtleteam.domain.usecases.groups.GetLastTargetGroupUseCase
 import com.turtleteam.domain.usecases.groups.SetLastTargetGroupUseCase
 import com.turtleteam.domain.usecases.groups.SetPinnedGroupsListUseCase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import com.turtleteam.ui.Communication
+import com.turtleteam.ui.DispatchersList
 import kotlinx.coroutines.launch
 
 class ScheduleSelectViewModel(
     private val groupsList: GetGroupsAndPinnedListUseCase,
     private val getLastTargetGroupUseCase: GetLastTargetGroupUseCase,
     private val setLastTargetGroupUseCase: SetLastTargetGroupUseCase,
-    private val setPinndeList: SetPinnedGroupsListUseCase
+    private val setPinnedList: SetPinnedGroupsListUseCase,
+    private val groupListCommunication: Communication<NamesList>,
+    private val targetGroupCommunication: Communication<String>,
+    private val dispatchersList: DispatchersList
 ) : ViewModel() {
-
-    private val _groups = MutableStateFlow(NamesList(emptyList(), emptyList()))
-    val groups = _groups.asStateFlow()
-
-    fun setPinnedList(item: String){
-        _groups.value = setPinndeList.execute(groups.value, item)
+    init {
+        updateGroupsList()
+        targetGroupCommunication.map(getLastTargetGroupUseCase.execute())
     }
 
-    fun getGroupsList() = viewModelScope.launch(Dispatchers.IO) {
-        _groups.value = groupsList.execute()
+    fun pinOrUnpinItem(item: String) {
+        groupListCommunication.map(
+            setPinnedList.execute(
+                groupListCommunication.observe().value,
+                item
+            )
+        )
     }
 
+    fun updateGroupsList() = viewModelScope.launch(dispatchersList.dispatcherIO()) {
+        groupListCommunication.map(groupsList.execute())
+    }
 
-    private val _currentGroup = MutableStateFlow(getLastTargetGroupUseCase.execute())
-    val currentGroup = _currentGroup.asStateFlow()
+    fun getGroupsListFlow() = groupListCommunication.observe()
 
-    fun setGroup(group:String) {
+    fun getTargetGroupFlow() = targetGroupCommunication.observe()
+
+    fun setTargetGroup(group: String) {
         setLastTargetGroupUseCase.execute(group)
-        _currentGroup.value = group
+        targetGroupCommunication.map(group)
     }
 }
