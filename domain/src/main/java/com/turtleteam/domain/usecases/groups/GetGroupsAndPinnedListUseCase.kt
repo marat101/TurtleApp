@@ -1,15 +1,18 @@
 package com.turtleteam.domain.usecases.groups
 
-import com.android.turtleapp.data.repository.interfaces.GroupsRepository
 import com.turtleteam.domain.model.NamesList
+import com.turtleteam.domain.repository.GroupsRepository
+import com.turtleteam.domain.utils.GetListAndPinnedListUC
 
-class GetGroupsAndPinnedListUseCase(private val repository: GroupsRepository) {
+class GetGroupsAndPinnedListUseCase(
+    private val repository: GroupsRepository
+) : GetListAndPinnedListUC {
 
     /**
      * Получение отфильтрованного списка всех групп
      */
 
-    suspend fun execute(): NamesList {
+    override suspend fun execute(): NamesList {
         val allgroups = repository.getGroupsList().toMutableList()
         val pinnedGroups = repository.getPinnedList()
 

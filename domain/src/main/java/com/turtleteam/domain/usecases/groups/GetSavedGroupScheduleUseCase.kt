@@ -1,6 +1,6 @@
 package com.turtleteam.domain.usecases.groups
 
-import com.android.turtleapp.data.repository.interfaces.GroupsRepository
+import com.turtleteam.domain.repository.GroupsRepository
 
 class GetSavedGroupScheduleUseCase(private val repository: GroupsRepository) {
 

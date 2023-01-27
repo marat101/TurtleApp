@@ -2,8 +2,9 @@ package com.turtleteam.domain.usecases.teachers
 
 import com.android.turtleapp.data.repository.interfaces.TeachersRepository
 import com.turtleteam.domain.model.NamesList
+import com.turtleteam.domain.utils.SetPinnedListUC
 
-class SetPinnedTeachersListUseCase(private val repository: TeachersRepository) {
+class SetPinnedTeachersListUseCase(private val repository: TeachersRepository): SetPinnedListUC {
 
     /**
      * Юзкейс для Закрепления\Открепления преподавателей
@@ -14,7 +15,7 @@ class SetPinnedTeachersListUseCase(private val repository: TeachersRepository) {
      * Возвращает обновлённый список
      */
 
-    fun execute(currentList: NamesList, item: String): NamesList {
+    override fun execute(currentList: NamesList, item: String): NamesList {
         val list = currentList.pinned.toMutableList()
         val list2 = currentList.groups.toMutableList()
         return if (currentList.groups.contains(item)) {

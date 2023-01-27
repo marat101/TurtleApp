@@ -1,8 +1,8 @@
 package com.turtleteam.domain.usecases.groups
 
-import com.android.turtleapp.data.repository.interfaces.GroupsRepository
 import com.turtleteam.domain.model.States
 import com.turtleteam.domain.model.schedule.DaysList
+import com.turtleteam.domain.repository.GroupsRepository
 
 class GetGroupScheduleUseCase(private val repository: GroupsRepository) {
 

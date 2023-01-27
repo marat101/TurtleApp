@@ -51,4 +51,10 @@ val domainModule = module {
     factory {
         SetPinnedTeachersListUseCase(repository = get())
     }
+    factory {
+        GetLastTargetTeacherUseCase(repository = get())
+    }
+    factory {
+        SetLastTargetTeacherUseCase(repository = get())
+    }
 }

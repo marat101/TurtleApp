@@ -46,4 +46,13 @@ class TeachersRepositoryImpl(
 
     override fun savePinnedList(list: List<String>) =
         preferencesStore.savePinnedList(PreferencesStore.PINNED_TEACHERS, list)
+
+
+    override fun getLastTargetTeacher(): String {
+        return preferencesStore.getLastTargetTeacher()
+    }
+
+    override fun setLastTargetTeacher(teacher: String) {
+        preferencesStore.setLastTargetTeacher(teacher)
+    }
 }

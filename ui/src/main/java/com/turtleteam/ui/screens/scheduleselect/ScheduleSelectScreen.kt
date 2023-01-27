@@ -26,13 +26,12 @@ import com.turtleteam.ui.theme.lightGreen
 import com.turtleteam.ui.theme.transparentWhite
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ScheduleSelectScreen(
     navController: NavHostController,
-    viewModel: ScheduleSelectViewModel = koinViewModel()
+    viewModel: ScheduleSelectViewModel<SelectVMManageUseCases>
 ) {
     val composableScope = rememberCoroutineScope()
     Box(
@@ -103,7 +102,7 @@ fun ScheduleSelectScreen(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun GroupList(
-    viewModel: ScheduleSelectViewModel,
+    viewModel: ScheduleSelectViewModel<SelectVMManageUseCases>,
     sheetState: ModalBottomSheetState
 ) {
     val groupsList = viewModel.getGroupsListFlow().collectAsState()
@@ -161,7 +160,7 @@ fun GroupList(
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun NameItem(
-    title: String, viewModel: ScheduleSelectViewModel,
+    title: String, viewModel: ScheduleSelectViewModel<SelectVMManageUseCases>,
     sheetState: ModalBottomSheetState,
     coroutineScope: CoroutineScope
 ) {

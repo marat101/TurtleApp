@@ -1,7 +1,8 @@
 package com.turtleteam.domain.usecases.groups
 
-import com.android.turtleapp.data.repository.interfaces.GroupsRepository
+import com.turtleteam.domain.repository.GroupsRepository
+import com.turtleteam.domain.utils.GetLastTargetUC
 
-class GetLastTargetGroupUseCase(private val repository: GroupsRepository) {
-    fun execute() = repository.getLastTargetGroup()
+class GetLastTargetGroupUseCase(private val repository: GroupsRepository): GetLastTargetUC {
+    override fun execute() = repository.getLastTargetGroup()
 }

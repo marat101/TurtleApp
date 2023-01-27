@@ -1,4 +1,4 @@
-package com.android.turtleapp.data.repository.interfaces
+package com.turtleteam.domain.repository
 
 import com.turtleteam.domain.model.States
 import com.turtleteam.domain.model.schedule.DaysList
@@ -22,6 +22,5 @@ interface GroupsRepository {
     fun savePinnedList(list: List<String>)
 
     fun getLastTargetGroup():String
-
     fun setLastTargetGroup(group:String)
 }

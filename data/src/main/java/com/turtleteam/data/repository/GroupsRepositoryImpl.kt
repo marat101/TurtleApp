@@ -1,13 +1,13 @@
 package com.turtleteam.data.repository
 
 import com.android.turtleapp.data.local.entity.GroupsDaysList
-import com.android.turtleapp.data.repository.interfaces.GroupsRepository
 import com.turtleteam.data.api.ApiService
 import com.turtleteam.data.preferences.PreferencesStore
 import com.turtleteam.data.wrapper.LocalResultWrapper
 import com.turtleteam.data.wrapper.NetworkResultWrapper
 import com.turtleteam.domain.model.States
 import com.turtleteam.domain.model.schedule.DaysList
+import com.turtleteam.domain.repository.GroupsRepository
 import com.turtleteam.turtle_database.database.GroupsScheduleDao
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString

@@ -20,4 +20,7 @@ interface TeachersRepository {
     fun getPinnedList(): List<String>
 
     fun savePinnedList(list: List<String>)
+
+    fun getLastTargetTeacher():String
+    fun setLastTargetTeacher(teacher: String)
 }
