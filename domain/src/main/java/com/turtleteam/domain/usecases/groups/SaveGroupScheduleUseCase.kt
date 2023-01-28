@@ -1,9 +1,10 @@
 package com.turtleteam.domain.usecases.groups
 
-import com.android.turtleapp.data.repository.interfaces.GroupsRepository
 import com.turtleteam.domain.model.schedule.DaysList
+import com.turtleteam.domain.repository.GroupsRepository
+import com.turtleteam.domain.utils.SaveScheduleUC
 
-class SaveGroupScheduleUseCase(private val repository: GroupsRepository) {
+class SaveGroupScheduleUseCase(private val repository: GroupsRepository):SaveScheduleUC {
 
-    suspend fun execute(schedule: DaysList) = repository.saveSchedule(schedule)
+    override suspend fun execute(schedule: DaysList) = repository.saveSchedule(schedule)
 }

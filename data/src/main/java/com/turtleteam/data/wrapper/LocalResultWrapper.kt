@@ -1,4 +1,4 @@
-package com.android.turtleapp.data.local.wrapper
+package com.turtleteam.data.wrapper
 
 import com.turtleteam.domain.model.Schedule
 import com.turtleteam.domain.model.States

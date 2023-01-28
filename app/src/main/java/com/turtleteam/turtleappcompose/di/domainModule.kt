@@ -25,6 +25,12 @@ val domainModule = module {
     factory {
         SetPinnedGroupsListUseCase(repository = get())
     }
+    factory {
+        GetLastTargetGroupUseCase(repository = get())
+    }
+    factory {
+        SetLastTargetGroupUseCase(repository = get())
+    }
 
     // Преподаватели
     factory {
@@ -44,5 +50,11 @@ val domainModule = module {
     }
     factory {
         SetPinnedTeachersListUseCase(repository = get())
+    }
+    factory {
+        GetLastTargetTeacherUseCase(repository = get())
+    }
+    factory {
+        SetLastTargetTeacherUseCase(repository = get())
     }
 }

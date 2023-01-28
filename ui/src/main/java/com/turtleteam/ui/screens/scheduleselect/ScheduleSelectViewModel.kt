@@ -3,68 +3,44 @@ package com.turtleteam.ui.screens.scheduleselect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.turtleteam.domain.model.NamesList
-import com.turtleteam.domain.model.States
-import com.turtleteam.domain.model.schedule.DaysList
-import com.turtleteam.domain.usecases.groups.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import com.turtleteam.ui.Communication
+import com.turtleteam.ui.DispatchersList
 import kotlinx.coroutines.launch
 
-class ScheduleSelectViewModel(
-    private val groupsList: GetGroupsAndPinnedListUseCase,
-    private val saveSchedule: SaveGroupScheduleUseCase,
-    private val savedSchedule: GetSavedGroupScheduleUseCase,
-    private val getSchedule: GetGroupScheduleUseCase,
-    private val setPinndeList: SetPinnedGroupsListUseCase
+class ScheduleSelectViewModel<out T: SelectVMManageUseCases>(
+    private val selectVM: T,
+    private val groupListCommunication: Communication<NamesList>,
+    private val targetGroupCommunication: Communication<String>,
+    private val dispatchersList: DispatchersList
 ) : ViewModel() {
-
-    private val _groups = MutableStateFlow(NamesList(emptyList(), emptyList()))
-    val groups = _groups.asStateFlow()
-
-    private val _schedule = MutableStateFlow<States<DaysList>>(States.Loading)
-    val schedule = _schedule.asStateFlow()
-
-    fun setPinnedList(item: String) {
-        _groups.value = setPinndeList.execute(groups.value, item)
+    init {
+        updateGroupsList()
+        targetGroupCommunication.map(selectVM.getLastTarget())
     }
 
-    fun getGroupsList() = viewModelScope.launch(Dispatchers.IO) {
-        _groups.value = groupsList.execute()
+    fun pinOrUnpinItem(item: String) {
+        groupListCommunication.map(
+            selectVM.setPinnedList(
+                groupListCommunication.observe().value,
+                item
+            )
+        )
     }
 
-    fun getGroupsSchedule(name: String) = viewModelScope.launch(Dispatchers.IO) {
-        _schedule.value = getSchedule.execute(name)
+    fun updateGroupsList() = viewModelScope.launch(dispatchersList.dispatcherIO()) {
+        groupListCommunication.map(
+            selectVM.groupsList()
+        )
     }
 
-    fun saveSchedule(list: States<DaysList>) = viewModelScope.launch(Dispatchers.IO) {
-        handleStates(list) { mSchedule -> saveSchedule.execute(mSchedule) }
+    fun getGroupsListFlow() = groupListCommunication.observe()
+
+    fun getTargetGroupFlow() = targetGroupCommunication.observe()
+
+    fun setTargetGroup(group: String) {
+        selectVM.setLastTarget(group)
+        targetGroupCommunication.map(group)
     }
 
-    fun getSavedSchedule(name: String) = viewModelScope.launch(Dispatchers.IO) {
-        _schedule.value = savedSchedule.execute(name)
-    }
-
-    private val _currentGroup = MutableStateFlow("Группы")//todo save and load last used group
-    val currentGroup = _currentGroup.asStateFlow()
-
-    fun setGroup(group: String) {
-        _currentGroup.value = group
-    }
-
-    private suspend fun handleStates(
-        list: States<DaysList>,
-        onSuccess: suspend (mSchedule: DaysList) -> Unit
-    ) {
-        when (list) {
-            States.ConnectionError,
-            is States.Error,
-            States.Loading -> {
-            }
-            States.NotFoundError -> {}
-            is States.Success -> {
-                onSuccess(list.value)
-            }
-        }
-    }
+    fun isTeacher(): Boolean = selectVM is SelectVMManageUseCases.Teachers
 }

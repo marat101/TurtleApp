@@ -1,9 +1,9 @@
 package com.turtleteam.turtleappcompose.di
 
-import com.android.turtleapp.data.repository.interfaces.GroupsRepository
 import com.android.turtleapp.data.repository.interfaces.TeachersRepository
 import com.turtleteam.data.repository.GroupsRepositoryImpl
 import com.turtleteam.data.repository.TeachersRepositoryImpl
+import com.turtleteam.domain.repository.GroupsRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {

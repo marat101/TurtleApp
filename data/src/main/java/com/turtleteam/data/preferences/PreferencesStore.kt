@@ -2,7 +2,7 @@ package com.turtleteam.data.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.android.turtleapp.data.local.converter.Converters
+import com.turtleteam.data.converter.Converters
 
 class PreferencesStore(context: Context?) {
 
@@ -21,6 +21,8 @@ class PreferencesStore(context: Context?) {
         const val PINNED_GROUPS = "PINNEDGROUP"
 
         const val PINNED_TEACHERS = "PINNEDTEACHER"
+        const val LAST_GROUP = "LAST_GROUP"
+        const val LAST_TEACHER = "LAST_TEACHER"
     }
 
     private var preferences: SharedPreferences =
@@ -60,4 +62,12 @@ class PreferencesStore(context: Context?) {
     fun getWidgetId(id: Int) = preferences.edit().putInt(WIDGET_IDS, id).apply()
 
     fun setWidgetId(): Int = preferences.getInt(WIDGET_IDS, 0)
+
+    fun getLastTargetGroup(): String = preferences.getString(LAST_GROUP, "Группы")!!
+    fun setLastTargetGroup(group: String) = preferences.edit().putString(LAST_GROUP, group).apply()
+
+    fun getLastTargetTeacher(): String = preferences.getString(LAST_TEACHER, "Преподаватели")!!
+    fun setLastTargetTeacher(teacher: String) =
+        preferences.edit().putString(LAST_TEACHER, teacher).apply()
+
 }
