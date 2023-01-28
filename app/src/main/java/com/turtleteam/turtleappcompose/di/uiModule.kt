@@ -47,7 +47,8 @@ val uiModule = module {
                 saveGroupScheduleUseCase = get(),
                 getSavedGroupScheduleUseCase = get()
             ),
-            communication = ScheduleCommunication()
+            communication = ScheduleCommunication(),
+            dispatchersList = DispatchersList.Base()
         )
     }
 
@@ -58,7 +59,8 @@ val uiModule = module {
                 saveTeacherScheduleUseCase = get(),
                 getSavedTeacherScheduleUseCase = get()
             ),
-            communication = ScheduleCommunication()
+            communication = ScheduleCommunication(),
+            dispatchersList = DispatchersList.Base()
         )
     }
 }
