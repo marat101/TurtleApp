@@ -1,7 +1,5 @@
 package com.turtleteam.turtledatabase
 
-import kotlin.String
-
 public data class GroupsDaysList(
   public val days: String,
   public val name: String

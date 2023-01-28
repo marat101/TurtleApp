@@ -16,7 +16,7 @@ class ScheduleScreenViewModel<out T:ScheduleVMManageUseCases>(
 ) : ViewModel() {
     fun getFlow() = communication.observe()
     fun updateSchedule(name: String) =
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchersList.dispatcherIO()) {
             communication.map(manageUseCases.getSavedSchedule(name))
 
             val schedule: States<DaysList> = manageUseCases.getSchedule(name)

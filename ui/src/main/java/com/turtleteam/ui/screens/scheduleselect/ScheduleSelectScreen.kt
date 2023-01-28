@@ -8,7 +8,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -19,13 +18,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.turtleteam.domain.utils.SearchNames
 import com.turtleteam.ui.R
+import com.turtleteam.ui.TiledButton
 import com.turtleteam.ui.screens.navigation.Routes
-import com.turtleteam.ui.theme.darkGreen
-import com.turtleteam.ui.theme.green
-import com.turtleteam.ui.theme.lightGreen
-import com.turtleteam.ui.theme.transparentWhite
+import com.turtleteam.ui.theme.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -43,48 +41,48 @@ fun ScheduleSelectScreen(
         Column(
             Modifier
                 .offset(y = (-50).dp)
-                .background(Color.White, RoundedCornerShape(8.dp))
-                .padding(16.dp)
-                .padding(top = 8.dp),
+                .background(transparentWhite, RoundedCornerShape(16.dp)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 modifier = Modifier
-                    .fillMaxWidth(0.6f),
+                    .fillMaxWidth(0.6f)
+                    .padding(top = 16.dp),
                 painter = painterResource(id = R.drawable.selectgroup),
                 contentDescription = null
             )
-            Text(
-                text = groupButtonText.value,
-                style = TextStyle(fontSize = 30.sp, color = Color.Black),
+            TiledButton(
                 modifier = Modifier
-                    .clickable(onClick = { composableScope.launch { sheetState.show() } })
-                    .padding(8.dp)
-                    .background(
-                        color = Color.White,
-                        shape = RoundedCornerShape(16.dp)
-                    )
-                    .fillMaxWidth(0.8f)
+                    .fillMaxWidth(0.9f)
                     .padding(horizontal = 16.dp, vertical = 8.dp),
-                textAlign = TextAlign.Center
-            )
-            Text(
-                text = stringResource(id = R.string.done),
-                style = TextStyle(fontSize = 30.sp, color = Color.White),
+                onClick = { composableScope.launch { sheetState.show() } },
+                backgroundDrawableId = R.drawable.btnselect,
+            ) {
+                Text(
+                    groupButtonText.value,
+                    color = Color.Black,
+                    fontFamily = fontFamily,
+                    fontSize = 24.sp
+                )
+            }
+            TiledButton(
                 modifier = Modifier
-                    .clickable(onClick = {
-                        val isTeacher:Boolean = viewModel.isTeacher()
-                        navController.navigate(Routes.SCHEDULE_SCREEN.route + "/${groupButtonText.value}/$isTeacher")
-                    })
-                    .padding(8.dp)
-                    .background(
-                        Brush.horizontalGradient(colors = listOf(darkGreen, lightGreen)),
-                        shape = RoundedCornerShape(16.dp)
-                    )
-                    .fillMaxWidth(0.8f)
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                textAlign = TextAlign.Center
-            )
+                    .fillMaxWidth(0.9f)
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .padding(bottom = 16.dp),
+                onClick = {
+                    val isTeacher:Boolean = viewModel.isTeacher()
+                    navController.navigate(Routes.SCHEDULE_SCREEN.route + "/${groupButtonText.value}/$isTeacher")
+                },
+                backgroundDrawableId = R.drawable.btnnext,
+            ) {
+                Text(
+                    stringResource(id = R.string.done),
+                    color = Color.White,
+                    fontFamily = fontFamily,
+                    fontSize = 24.sp
+                )
+            }
         }
         ModalBottomSheetLayout(
             modifier = Modifier
