@@ -1,5 +1,6 @@
 package com.turtleteam.ui.screens.schedulescreen
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.turtleteam.domain.model.States
@@ -24,7 +25,7 @@ class ScheduleScreenViewModel<out T:ScheduleVMManageUseCases>(
                 communication.map(schedule)
                 manageUseCases.saveSchedule(schedule.value)
             }
-
+            Log.e("updateSchedule", "update")
         }
 
 }

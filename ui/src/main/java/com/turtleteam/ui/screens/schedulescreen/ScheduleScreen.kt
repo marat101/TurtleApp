@@ -1,16 +1,16 @@
 package com.turtleteam.ui.screens.schedulescreen
 
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -34,10 +34,8 @@ fun ScheduleScreen(
     nameGroupOfTeacher: String,
     vModel: ScheduleScreenViewModel<ScheduleVMManageUseCases>
 ) {
-    vModel.updateSchedule(nameGroupOfTeacher)
     val scheduleState: State<States<DaysList>> = vModel.getFlow().collectAsState()
-    Log.d("xdd", "${scheduleState.value.hashCode()}")
-    Box(Modifier.fillMaxSize()){
+    Box(Modifier.fillMaxSize()) {
         when (scheduleState.value) {
             is States.Success -> {
                 ShowSchedule(daysList = (scheduleState.value as States.Success<DaysList>).value)
@@ -47,18 +45,18 @@ fun ScheduleScreen(
             }
         }
     }
+    LaunchedEffect(key1 = scheduleState) {
+        vModel.updateSchedule(nameGroupOfTeacher)
+    }
 }
 
 @Composable
 fun ShowSchedule(daysList: DaysList) {
-    Column(
-        Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
+    LazyColumn(
+        Modifier.fillMaxSize()
     ) {
-        daysList.days.forEach {
+        items(daysList.days) {
             OneDay(it)
-            Spacer(modifier = Modifier.height(50.dp))
         }
     }
 }
@@ -67,11 +65,9 @@ fun ShowSchedule(daysList: DaysList) {
 fun OneDay(it: Day) {
     Column(
         Modifier
-            .padding(start = 46.dp)
-            .padding(end = 46.dp)
+            .padding(20.dp)
             .fillMaxWidth()
             .background(Color.White, RoundedCornerShape(8.dp))
-            .padding(8.dp)
     ) {
         Text(text = it.day)
         Apairs(it.apairs)
@@ -81,7 +77,7 @@ fun OneDay(it: Day) {
 @Composable
 fun Apairs(apairs: List<PairsList>) {
     apairs.forEach { it ->
-        Text(text = stringResource(id = R.string.index_number_apair, it.apair[0].number))
+        Text(text = stringResource(id = R.string.index_number_apair, it.apair[0].number), Modifier.padding(start = 5.dp))
         it.apair.forEach {
             OneApair(it)
         }
@@ -91,11 +87,13 @@ fun Apairs(apairs: List<PairsList>) {
 
 @Composable
 fun OneApair(it: Pair) {
-    TextWithIcon(R.drawable.hourglass, it.start + " - " + it.end, 5.dp)
-    TextWithIcon(drawableId = R.drawable.book, text = it.doctrine, 5.dp)
-    TextWithIcon(drawableId = R.drawable.school_hat, text = it.teacher, 5.dp)
-    TextWithIcon(drawableId = R.drawable.door, text = it.auditoria, 5.dp)
-    TextWithIcon(drawableId = R.drawable.corpus, text = it.corpus)
+    Column(Modifier.padding(5.dp)) {
+        TextWithIcon(R.drawable.hourglass, it.start + " - " + it.end, 5.dp)
+        TextWithIcon(drawableId = R.drawable.book, text = it.doctrine, 5.dp)
+        TextWithIcon(drawableId = R.drawable.school_hat, text = it.teacher, 5.dp)
+        TextWithIcon(drawableId = R.drawable.door, text = it.auditoria, 5.dp)
+        TextWithIcon(drawableId = R.drawable.corpus, text = it.corpus)
+    }
 }
 
 @Composable
