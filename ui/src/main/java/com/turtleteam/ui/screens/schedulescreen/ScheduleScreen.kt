@@ -10,7 +10,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -24,20 +23,17 @@ import com.android.turtleapp.data.model.schedule.PairsList
 import com.turtleteam.domain.model.States
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.ui.R
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ScheduleScreen(
     navController: NavHostController,
     nameGroupOfTeacher: String,
-    vModel: ScheduleScreenViewModel = koinViewModel()
+    vModel: ScheduleScreenViewModel<ScheduleVMManageUseCases>
 ) {
 
-    LaunchedEffect(key1 = null, block = {
-        vModel.updateSchedule(nameGroupOfTeacher)
-    })
+    vModel.updateSchedule(nameGroupOfTeacher)
 
-    val scheduleState: State<States<DaysList>> = vModel.scheduleFlow.collectAsState()
+    val scheduleState: State<States<DaysList>> = vModel.getFlow().collectAsState()
     Log.d("xdd", "${scheduleState.value}")
     if (scheduleState.value is States.Success) {
         ShowSchedule(daysList = (scheduleState.value as States.Success<DaysList>).value)

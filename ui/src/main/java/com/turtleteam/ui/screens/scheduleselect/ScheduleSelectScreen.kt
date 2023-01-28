@@ -73,7 +73,8 @@ fun ScheduleSelectScreen(
                 style = TextStyle(fontSize = 30.sp, color = Color.White),
                 modifier = Modifier
                     .clickable(onClick = {
-                        navController.navigate(Routes.SCHEDULE_SCREEN.route + "/${groupButtonText.value}")
+                        val isTeacher:Boolean = viewModel.isTeacher()
+                        navController.navigate(Routes.SCHEDULE_SCREEN.route + "/${groupButtonText.value}/$isTeacher")
                     })
                     .padding(8.dp)
                     .background(

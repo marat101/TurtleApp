@@ -8,6 +8,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.turtleteam.ui.screens.morescreen.MoreScreen
 import com.turtleteam.ui.screens.schedulescreen.ScheduleScreen
+import com.turtleteam.ui.screens.schedulescreen.ScheduleScreenViewModel
+import com.turtleteam.ui.screens.schedulescreen.ScheduleVMManageUseCases
 import com.turtleteam.ui.screens.scheduleselect.ScheduleSelectScreen
 import com.turtleteam.ui.screens.scheduleselect.ScheduleSelectViewModel
 import com.turtleteam.ui.screens.scheduleselect.SelectVMManageUseCases
@@ -18,8 +20,8 @@ import org.koin.core.qualifier.named
 fun TurtleNavHost(
     navController: NavHostController
 ) {
-    NavHost(navController = navController, startDestination = Routes.HOME_SCREEN.route) {
-        composable(Routes.HOME_SCREEN.route) {
+    NavHost(navController = navController, startDestination = Routes.GROUPS_SCREEN.route) {
+        composable(Routes.GROUPS_SCREEN.route) {
             val vm:ScheduleSelectViewModel<SelectVMManageUseCases.Groups> = koinViewModel(named("groups"))
             ScheduleSelectScreen(navController,vm)
         }
@@ -29,17 +31,26 @@ fun TurtleNavHost(
         }
         composable(Routes.MORE_SCREEN.route) { MoreScreen(navController) }
         composable(
-            route = Routes.SCHEDULE_SCREEN.route + "/{name}",
+            route = Routes.SCHEDULE_SCREEN.route + "/{name}/{isTeacher}",
             arguments = listOf(
                 navArgument("name") {
                     type = NavType.StringType
+                    nullable = false
+                },
+                navArgument("isTeacher"){
+                    type = NavType.BoolType
                     nullable = false
                 }
             )
         ) {
             val name = it.arguments?.getString("name")
                 ?: throw NullPointerException("the screen require name argument")
-            ScheduleScreen(navController, name)
+            val isTeacher = it.arguments?.getBoolean("isTeacher")
+                ?: throw NullPointerException("the screen require isTeacher argument")
+            val vModel:ScheduleScreenViewModel<ScheduleVMManageUseCases> =
+                if (isTeacher) koinViewModel(named("teacher"))
+                else koinViewModel(named("group"))
+            ScheduleScreen(navController, name,vModel)
         }
     }
 }

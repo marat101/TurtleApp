@@ -37,12 +37,12 @@ fun BottomNavigationMenu(
         backgroundColor = Color.Transparent,
         elevation = 0.dp
     ) {
-        val isHomeScreenSelected = backStack.value?.destination?.route == Routes.HOME_SCREEN.route
+        val isHomeScreenSelected = backStack.value?.destination?.route == Routes.GROUPS_SCREEN.route
         CustomBottomNavigationItem(
             rowScope = this,
             isItemSelected = isHomeScreenSelected,
             navHostController = navHostController,
-            route = Routes.HOME_SCREEN.route,
+            route = Routes.GROUPS_SCREEN.route,
             drawableId = R.drawable.ic_groups,
             stringId = R.string.groups
         )

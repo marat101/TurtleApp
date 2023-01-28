@@ -1,8 +1,9 @@
 package com.turtleteam.domain.usecases.teachers
 
 import com.android.turtleapp.data.repository.interfaces.TeachersRepository
+import com.turtleteam.domain.utils.GetSavedScheduleUC
 
-class GetSavedTeacherScheduleUseCase(private val repository: TeachersRepository) {
+class GetSavedTeacherScheduleUseCase(private val repository: TeachersRepository):GetSavedScheduleUC {
 
-    suspend fun execute(name: String) = repository.getSavedSchedule(name)
+    override suspend fun execute(name: String) = repository.getSavedSchedule(name)
 }

@@ -1,7 +1,9 @@
 package com.turtleteam.turtleappcompose.di
 
 import com.turtleteam.ui.DispatchersList
+import com.turtleteam.ui.screens.schedulescreen.ScheduleCommunication
 import com.turtleteam.ui.screens.schedulescreen.ScheduleScreenViewModel
+import com.turtleteam.ui.screens.schedulescreen.ScheduleVMManageUseCases
 import com.turtleteam.ui.screens.scheduleselect.GroupListCommunication
 import com.turtleteam.ui.screens.scheduleselect.ScheduleSelectViewModel
 import com.turtleteam.ui.screens.scheduleselect.SelectVMManageUseCases
@@ -24,16 +26,6 @@ val uiModule = module {
             targetGroupCommunication = TargetGroupCommunication()
         )
     }
-
-    viewModel {
-        ScheduleScreenViewModel(
-            getGroupScheduleUseCase = get(),
-            saveGroupScheduleUseCase = get(),
-            getSavedGroupScheduleUseCase = get()
-
-        )
-    }
-
     viewModel(named("teachers")) {
         ScheduleSelectViewModel<SelectVMManageUseCases.Teachers>(
             selectVM = SelectVMManageUseCases.Teachers(
@@ -45,6 +37,28 @@ val uiModule = module {
             groupListCommunication = GroupListCommunication(),
             dispatchersList = DispatchersList.Base(),
             targetGroupCommunication = TargetGroupCommunication()
+        )
+    }
+
+    viewModel(named("group")) {
+        ScheduleScreenViewModel(
+            ScheduleVMManageUseCases.Group(
+                getGroupScheduleUseCase = get(),
+                saveGroupScheduleUseCase = get(),
+                getSavedGroupScheduleUseCase = get()
+            ),
+            communication = ScheduleCommunication()
+        )
+    }
+
+    viewModel(named("teacher")) {
+        ScheduleScreenViewModel(
+            ScheduleVMManageUseCases.Teacher(
+                getTeachersScheduleUseCase = get(),
+                saveTeacherScheduleUseCase = get(),
+                getSavedTeacherScheduleUseCase = get()
+            ),
+            communication = ScheduleCommunication()
         )
     }
 }
