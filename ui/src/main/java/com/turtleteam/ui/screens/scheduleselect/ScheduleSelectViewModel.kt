@@ -41,6 +41,4 @@ class ScheduleSelectViewModel<out T: SelectVMManageUseCases>(
         selectVM.setLastTarget(group)
         targetGroupCommunication.map(group)
     }
-
-    fun isTeacher(): Boolean = selectVM is SelectVMManageUseCases.Teachers
 }

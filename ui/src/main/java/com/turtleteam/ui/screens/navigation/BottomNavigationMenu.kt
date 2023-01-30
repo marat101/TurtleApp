@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.turtleteam.ui.R
-import com.turtleteam.ui.theme.lightBackgroundBrush
+import com.turtleteam.ui.theme.JetTheme
 
 @Composable
 fun BottomNavigationMenu(
@@ -33,7 +33,7 @@ fun BottomNavigationMenu(
     BottomNavigation(
         modifier = Modifier
             .fillMaxWidth()
-            .background(lightBackgroundBrush),
+            .background(JetTheme.color.bottomNavBarGradient),
         backgroundColor = Color.Transparent,
         elevation = 0.dp
     ) {
@@ -104,12 +104,12 @@ fun BottomNavigationItemIcon(
             modifier = Modifier.size(24.dp),
             painter = painterResource(id = drawableId),
             contentDescription = null,
-            tint = if (isItemSelected) Color.White else Color.Black
+            tint = if (isItemSelected) JetTheme.color.bottomNavMenuColors.isCheckedTrue else JetTheme.color.bottomNavMenuColors.isCheckedFalse
         )
         Text(
             text = stringResource(id = stringId),
             fontSize = if (isItemSelected) 14.sp else 10.sp,
-            color = if (isItemSelected) Color.White else Color.Black
+            color =  if (isItemSelected) JetTheme.color.bottomNavMenuColors.isCheckedTrue else JetTheme.color.bottomNavMenuColors.isCheckedFalse
         )
     }
 }

@@ -29,6 +29,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun ScheduleSelectScreen(
     navController: NavHostController,
+    isTeacher: Boolean,
     viewModel: ScheduleSelectViewModel<SelectVMManageUseCases>
 ) {
     val composableScope = rememberCoroutineScope()
@@ -41,14 +42,14 @@ fun ScheduleSelectScreen(
         Column(
             Modifier
                 .offset(y = (-50).dp)
-                .background(transparentWhite, RoundedCornerShape(16.dp)),
+                .background(JetTheme.color.transparentBackground, RoundedCornerShape(16.dp)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 modifier = Modifier
                     .fillMaxWidth(0.6f)
                     .padding(top = 16.dp),
-                painter = painterResource(id = R.drawable.selectgroup),
+                painter = painterResource(id = if (isTeacher)JetTheme.images.selectTeacher else JetTheme.images.selectGroup),
                 contentDescription = null
             )
             TiledButton(
@@ -56,11 +57,11 @@ fun ScheduleSelectScreen(
                     .fillMaxWidth(0.9f)
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 onClick = { composableScope.launch { sheetState.show() } },
-                backgroundDrawableId = R.drawable.btnselect,
+                backgroundDrawableId = JetTheme.images.btnSelect,
             ) {
                 Text(
                     groupButtonText.value,
-                    color = Color.Black,
+                    color = JetTheme.color.btnGroupTeacherText,
                     fontFamily = fontFamily,
                     fontSize = 24.sp
                 )
@@ -71,14 +72,13 @@ fun ScheduleSelectScreen(
                     .padding(horizontal = 16.dp, vertical = 8.dp)
                     .padding(bottom = 16.dp),
                 onClick = {
-                    val isTeacher:Boolean = viewModel.isTeacher()
                     navController.navigate(Routes.SCHEDULE_SCREEN.route + "/${groupButtonText.value}/$isTeacher")
                 },
-                backgroundDrawableId = R.drawable.btnnext,
+                backgroundDrawableId = JetTheme.images.btnNext,
             ) {
                 Text(
                     stringResource(id = R.string.done),
-                    color = Color.White,
+                    color = JetTheme.color.btnDoneText,
                     fontFamily = fontFamily,
                     fontSize = 24.sp
                 )
@@ -91,7 +91,7 @@ fun ScheduleSelectScreen(
             sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
             content = {},
             sheetContent = {
-                GroupList(viewModel, sheetState)
+                GroupList(viewModel, sheetState, isTeacher)
             }
         )
     }
@@ -102,13 +102,15 @@ fun ScheduleSelectScreen(
 @Composable
 fun GroupList(
     viewModel: ScheduleSelectViewModel<SelectVMManageUseCases>,
-    sheetState: ModalBottomSheetState
+    sheetState: ModalBottomSheetState,
+    isTeacher: Boolean
 ) {
     val groupsList = viewModel.getGroupsListFlow().collectAsState()
     val query = remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
+            .background(JetTheme.color.backgroundBrush)
             .padding(horizontal = 8.dp)
             .padding(top = 8.dp)
     ) {
@@ -125,7 +127,10 @@ fun GroupList(
 
         val coroutineScope = rememberCoroutineScope()
         val filteredList = SearchNames.filterList(query.value, groupsList.value)
-        LazyVerticalGrid(columns = GridCells.Fixed(2), Modifier.fillMaxSize()) {
+        LazyVerticalGrid(
+            modifier = Modifier.fillMaxSize(),
+            columns = GridCells.Fixed(if (isTeacher) 1 else 2)
+        ) {
             if (filteredList.pinned.isNotEmpty()) {
                 item(
                     span = { GridItemSpan(4) },
@@ -176,13 +181,15 @@ fun NameItem(
                     coroutineScope.launch { sheetState.hide() }
                 },
             ),
-        elevation = 8.dp
+        backgroundColor = JetTheme.color.bottomDialogBackItemColor,
+        elevation = 0.dp
     ) {
         Text(
             modifier = Modifier
-                .background(transparentWhite)
-                .padding(4.dp),
+                .padding(4.dp)
+                .background(Color.Transparent),
             text = title,
+            fontFamily = fontFamily,
             style = TextStyle(fontSize = 25.sp, color = green),
             textAlign = TextAlign.Start
         )
@@ -202,7 +209,7 @@ fun NamesHeader(title: String) {
         contentAlignment = Alignment.CenterStart
     ) {
         Box(Modifier.padding(8.dp)) {
-            Text(text = title, color = Color.White)
+            Text(text = title, color = Color.White,fontFamily = fontFamily)
         }
     }
 }

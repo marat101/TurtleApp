@@ -23,11 +23,11 @@ fun TurtleNavHost(
     NavHost(navController = navController, startDestination = Routes.GROUPS_SCREEN.route) {
         composable(Routes.GROUPS_SCREEN.route) {
             val vm:ScheduleSelectViewModel<SelectVMManageUseCases.Groups> = koinViewModel(named("groups"))
-            ScheduleSelectScreen(navController,vm)
+            ScheduleSelectScreen(navController,false,vm)
         }
         composable(Routes.TEACHERS_SCREEN.route) {
             val vm:ScheduleSelectViewModel<SelectVMManageUseCases.Teachers> = koinViewModel(named("teachers"))
-            ScheduleSelectScreen(navController,vm)
+            ScheduleSelectScreen(navController,true,vm)
         }
         composable(Routes.MORE_SCREEN.route) { MoreScreen(navController) }
         composable(

@@ -7,15 +7,15 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.turtleteam.ui.screens.navigation.BottomNavigationMenu
+import com.turtleteam.ui.screens.navigation.TopBar
 import com.turtleteam.ui.screens.navigation.TurtleNavHost
+import com.turtleteam.ui.theme.JetTheme
 import com.turtleteam.ui.theme.TurtleAppTheme
-import com.turtleteam.ui.theme.backgroundBrush
-import com.turtleteam.ui.theme.lightBrush1
 
 class MainActivity : ComponentActivity() {
 
@@ -23,22 +23,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            TurtleAppTheme {
-                val navController = rememberNavController()
+            val isDarkMode = remember{ mutableStateOf(false) } // todo save current mode
+            val navController = rememberNavController()
+            window.setBackgroundDrawableResource(if (isDarkMode.value) R.drawable.toolbar_gradient_night else R.drawable.toolbar_gradient)
+            TurtleAppTheme(isDarkMode.value) {
                 Column(modifier = Modifier.fillMaxSize()) {
-                    TopAppBar(
-                        title = { Text(text = "TurtleApp") },
-                        modifier = Modifier.background(lightBrush1),
-                        contentColor = Color.White,
-                        backgroundColor = Color.Transparent,
-                        elevation = 0.dp
-                    )
+                    TopBar(isDarkMode = isDarkMode)
                     Box(
                         Modifier
                             .fillMaxWidth()
                             .weight(1f)
-                            .background(backgroundBrush)
+                            .background(JetTheme.color.backgroundBrush)
                     ) {
+                        TurtlesBackground()
                         TurtleNavHost(navController)
                     }
                     BottomNavigationMenu(navController)
