@@ -14,6 +14,8 @@ sealed class Colors(
     val btnGroupTeacherText: Color,
     val btnDoneText: Color,
     val bottomDialogBackItemColor: Color,
+    val titleText: Color,
+    val secondText: Color,
     val bottomNavMenuColors: BottomNavMenuColors,
     val toolbarGradient: Brush,
     val bottomNavBarGradient: Brush,
@@ -21,10 +23,11 @@ sealed class Colors(
 ) {
     object NightColors : Colors(
         transparentBackground = transparentWhite,
-//        transparentBackground = Color(144, 255, 255, 0x40),
         btnGroupTeacherText = Purple,
         btnDoneText = Purple,
         bottomDialogBackItemColor = transparentWhite,
+        titleText = Color(0xFF8D91D1),
+        secondText = Purple,
         bottomNavMenuColors = BottomNavMenuColors.NightColors,
         toolbarGradient = Brush.horizontalGradient(
             listOf(
@@ -43,6 +46,8 @@ sealed class Colors(
         btnGroupTeacherText = Color.Black,
         btnDoneText = Color.White,
         bottomDialogBackItemColor = Color.White,
+        titleText = Color(0xFF96D162),
+        secondText = Color(0xFF15956F),
         bottomNavMenuColors = BottomNavMenuColors.DayColors,
         toolbarGradient = Brush.horizontalGradient(listOf(Color(0xFF15956F), Color(0xFF96D162))),
         bottomNavBarGradient = Brush.linearGradient(

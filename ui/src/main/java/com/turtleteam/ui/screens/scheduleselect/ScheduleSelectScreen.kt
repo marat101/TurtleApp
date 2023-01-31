@@ -11,13 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.turtleteam.domain.utils.SearchNames
 import com.turtleteam.ui.R
+import com.turtleteam.ui.TextWithFont
 import com.turtleteam.ui.TiledButton
 import com.turtleteam.ui.screens.navigation.Routes
 import com.turtleteam.ui.theme.*
@@ -49,7 +48,10 @@ fun ScheduleSelectScreen(
                 modifier = Modifier
                     .fillMaxWidth(0.6f)
                     .padding(top = 16.dp),
-                painter = painterResource(id = if (isTeacher)JetTheme.images.selectTeacher else JetTheme.images.selectGroup),
+                painter = painterResource(id =
+                    if (isTeacher) JetTheme.images.selectTeacher
+                    else JetTheme.images.selectGroup
+                ),
                 contentDescription = null
             )
             TiledButton(
@@ -59,11 +61,10 @@ fun ScheduleSelectScreen(
                 onClick = { composableScope.launch { sheetState.show() } },
                 backgroundDrawableId = JetTheme.images.btnSelect,
             ) {
-                Text(
-                    groupButtonText.value,
+                TextWithFont(
+                    text = groupButtonText.value,
                     color = JetTheme.color.btnGroupTeacherText,
-                    fontFamily = fontFamily,
-                    fontSize = 24.sp
+                    textSize = 24.sp
                 )
             }
             TiledButton(
@@ -76,11 +77,10 @@ fun ScheduleSelectScreen(
                 },
                 backgroundDrawableId = JetTheme.images.btnNext,
             ) {
-                Text(
-                    stringResource(id = R.string.done),
+                TextWithFont(
+                    text = stringResource(id = R.string.done),
                     color = JetTheme.color.btnDoneText,
-                    fontFamily = fontFamily,
-                    fontSize = 24.sp
+                    textSize = 24.sp
                 )
             }
         }
@@ -147,7 +147,16 @@ fun GroupList(
             if (filteredList.groups.isNotEmpty()) {
                 item(
                     span = { GridItemSpan(4) },
-                    content = { NamesHeader(stringResource(id = R.string.all_groups)) })
+                    content = {
+                        NamesHeader(
+                            stringResource(
+                                id =
+                                if (isTeacher) R.string.all_teachers
+                                else R.string.all_groups
+                            )
+                        )
+                    }
+                )
                 items(filteredList.groups) {
                     NameItem(
                         viewModel = viewModel,
@@ -184,14 +193,9 @@ fun NameItem(
         backgroundColor = JetTheme.color.bottomDialogBackItemColor,
         elevation = 0.dp
     ) {
-        Text(
+        TextWithFont(
             modifier = Modifier
-                .padding(4.dp)
-                .background(Color.Transparent),
-            text = title,
-            fontFamily = fontFamily,
-            style = TextStyle(fontSize = 25.sp, color = green),
-            textAlign = TextAlign.Start
+                .padding(8.dp), text = title, color = JetTheme.color.titleText, textSize = 25.sp
         )
     }
 }
@@ -199,17 +203,8 @@ fun NameItem(
 @Composable
 fun NamesHeader(title: String) {
     Box(
-        Modifier
-            .padding(1.dp)
-            .background(
-                Color.DarkGray,
-                RoundedCornerShape(4.dp)
-            )
-            .fillMaxSize(),
-        contentAlignment = Alignment.CenterStart
+        Modifier.padding(4.dp), contentAlignment = Alignment.CenterStart
     ) {
-        Box(Modifier.padding(8.dp)) {
-            Text(text = title, color = Color.White,fontFamily = fontFamily)
-        }
+        Text(text = title, color = Color.Black, fontFamily = fontFamily)
     }
 }

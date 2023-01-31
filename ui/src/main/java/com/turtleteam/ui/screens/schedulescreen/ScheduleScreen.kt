@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -20,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.android.turtleapp.data.model.schedule.Day
 import com.android.turtleapp.data.model.schedule.Pair
@@ -27,6 +27,8 @@ import com.android.turtleapp.data.model.schedule.PairsList
 import com.turtleteam.domain.model.States
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.ui.R
+import com.turtleteam.ui.TextWithFont
+import com.turtleteam.ui.theme.JetTheme
 
 @Composable
 fun ScheduleScreen(
@@ -67,9 +69,12 @@ fun OneDay(it: Day) {
         Modifier
             .padding(20.dp)
             .fillMaxWidth()
-            .background(Color.White, RoundedCornerShape(8.dp))
+            .background(JetTheme.color.transparentBackground, RoundedCornerShape(8.dp))
+            .padding(8.dp)
     ) {
-        Text(text = it.day)
+        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
+            TextWithFont(text = it.day, color = JetTheme.color.titleText, textSize = 25.sp)
+        }
         Apairs(it.apairs)
     }
 }
@@ -77,7 +82,8 @@ fun OneDay(it: Day) {
 @Composable
 fun Apairs(apairs: List<PairsList>) {
     apairs.forEach { it ->
-        Text(text = stringResource(id = R.string.index_number_apair, it.apair[0].number), Modifier.padding(start = 5.dp))
+        TextWithFont(text = stringResource(id = R.string.index_number_apair, it.apair[0].number), color = JetTheme.color.titleText, textSize = 25.sp)
+//        Text(text = stringResource(id = R.string.index_number_apair, it.apair[0].number), Modifier.padding(start = 5.dp))
         it.apair.forEach {
             OneApair(it)
         }
@@ -106,7 +112,7 @@ fun TextWithIcon(@DrawableRes drawableId: Int, text: String, spacerHeight: Dp = 
             tint = Color.Unspecified
         )
         Spacer(modifier = Modifier.width(2.dp))
-        Text(text = text)
+        TextWithFont(text = text,color = JetTheme.color.secondText, textSize = 18.sp)
     }
     Spacer(modifier = Modifier.height(spacerHeight))
 }
