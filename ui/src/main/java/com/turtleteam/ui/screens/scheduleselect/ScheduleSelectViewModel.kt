@@ -14,7 +14,6 @@ class ScheduleSelectViewModel<out T: SelectVMManageUseCases>(
     private val dispatchersList: DispatchersList
 ) : ViewModel() {
     init {
-        updateGroupsList()
         targetGroupCommunication.map(selectVM.getLastTarget())
     }
 

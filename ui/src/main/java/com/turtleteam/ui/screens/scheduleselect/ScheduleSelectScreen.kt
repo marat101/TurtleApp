@@ -58,7 +58,10 @@ fun ScheduleSelectScreen(
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
                     .padding(horizontal = 16.dp, vertical = 8.dp),
-                onClick = { composableScope.launch { sheetState.show() } },
+                onClick = {
+                    viewModel.updateGroupsList()
+                    composableScope.launch { sheetState.show() }
+                },
                 backgroundDrawableId = JetTheme.images.btnSelect,
             ) {
                 TextWithFont(
