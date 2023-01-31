@@ -1,5 +1,6 @@
 package com.turtleteam.turtleappcompose.di
 
+import com.turtleteam.domain.usecases.GetCallsScheduleUseCase
 import com.turtleteam.domain.usecases.GetThemeStateUseCase
 import com.turtleteam.domain.usecases.SaveThemeStateUseCase
 import com.turtleteam.domain.usecases.groups.*
@@ -65,5 +66,8 @@ val domainModule = module {
     }
     factory {
         SaveThemeStateUseCase(repository = get())
+    }
+    factory {
+        GetCallsScheduleUseCase(assets = get())
     }
 }

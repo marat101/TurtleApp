@@ -1,6 +1,7 @@
 package com.turtleteam.turtleappcompose.di
 
 import com.turtleteam.ui.DispatchersList
+import com.turtleteam.ui.screens.schedulelist.ScheduleListViewModel
 import com.turtleteam.ui.screens.schedulescreen.ScheduleCommunication
 import com.turtleteam.ui.screens.schedulescreen.ScheduleScreenViewModel
 import com.turtleteam.ui.screens.schedulescreen.ScheduleVMManageUseCases
@@ -61,6 +62,11 @@ val uiModule = module {
             ),
             communication = ScheduleCommunication(),
             dispatchersList = DispatchersList.Base()
+        )
+    }
+    viewModel {
+        ScheduleListViewModel(
+            getCallsScheduleUseCase = get()
         )
     }
 }

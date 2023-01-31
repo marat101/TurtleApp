@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="target_teacher_default_value">Преподаватели</string>
+    <string name="target_group_default_value">Группы</string>
+</resources>

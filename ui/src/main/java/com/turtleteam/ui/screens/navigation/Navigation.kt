@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.turtleteam.ui.screens.morescreen.MoreScreen
+import com.turtleteam.ui.screens.schedulelist.ScheduleListScreen
 import com.turtleteam.ui.screens.schedulescreen.ScheduleScreen
 import com.turtleteam.ui.screens.schedulescreen.ScheduleScreenViewModel
 import com.turtleteam.ui.screens.schedulescreen.ScheduleVMManageUseCases
@@ -16,11 +17,12 @@ import com.turtleteam.ui.screens.scheduleselect.SelectVMManageUseCases
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.qualifier.named
 
+
 @Composable
 fun TurtleNavHost(
     navController: NavHostController
-) {
-    NavHost(navController = navController, startDestination = Routes.GROUPS_SCREEN.route) {
+) {//TODO ROLLBACK START ROUTE
+    NavHost(navController = navController, startDestination = Routes.SCHEDULE_LIST.route) {
         composable(Routes.GROUPS_SCREEN.route) {
             val vm:ScheduleSelectViewModel<SelectVMManageUseCases.Groups> = koinViewModel(named("groups"))
             ScheduleSelectScreen(navController,false,vm)
@@ -52,9 +54,11 @@ fun TurtleNavHost(
                 else koinViewModel(named("group"))
             ScheduleScreen(navController, name,vModel)
         }
+        composable(Routes.SCHEDULE_LIST.route){
+            ScheduleListScreen()
+        }
     }
 }
-
 
 
 

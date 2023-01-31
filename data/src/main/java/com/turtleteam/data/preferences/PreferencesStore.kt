@@ -2,9 +2,10 @@ package com.turtleteam.data.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.turtleteam.data.R
 import com.turtleteam.data.converter.Converters
 
-class PreferencesStore(context: Context?) {
+class PreferencesStore(private val context: Context?) {
 
     companion object {
         private const val THEME_NAME = "theme"
@@ -63,10 +64,14 @@ class PreferencesStore(context: Context?) {
 
     fun setWidgetId(): Int = preferences.getInt(WIDGET_IDS, 0)
 
-    fun getLastTargetGroup(): String = preferences.getString(LAST_GROUP, "Группы")!!
+    fun getLastTargetGroup(): String = preferences.getString(
+        LAST_GROUP, context!!.getString(R.string.target_group_default_value)
+    )!!
     fun setLastTargetGroup(group: String) = preferences.edit().putString(LAST_GROUP, group).apply()
 
-    fun getLastTargetTeacher(): String = preferences.getString(LAST_TEACHER, "Преподаватели")!!
+    fun getLastTargetTeacher(): String = preferences.getString(
+        LAST_TEACHER, context!!.getString(R.string.target_teacher_default_value)
+    )!!
     fun setLastTargetTeacher(teacher: String) =
         preferences.edit().putString(LAST_TEACHER, teacher).apply()
 
