@@ -12,11 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.turtleteam.domain.usecases.SaveThemeStateUseCase
 import com.turtleteam.ui.R
 import com.turtleteam.ui.theme.JetTheme
 
 @Composable
-fun TopBar(isDarkMode: MutableState<Boolean>) {
+fun TopBar(isDarkMode: MutableState<Boolean>,saveThemeStateUseCase: SaveThemeStateUseCase) {
     TopAppBar(
         title = { Text(text = "TurtleApp") },
         modifier = Modifier.background(JetTheme.color.toolbarGradient),
@@ -24,7 +25,10 @@ fun TopBar(isDarkMode: MutableState<Boolean>) {
         backgroundColor = Color.Transparent,
         elevation = 0.dp,
         actions = {
-            IconButton(onClick = { isDarkMode.value = !isDarkMode.value }) {
+            IconButton(onClick = {
+                isDarkMode.value = !isDarkMode.value
+                saveThemeStateUseCase.execute(isDarkMode.value)
+            }) {
                 Icon(
                     modifier = Modifier.size(24.dp),
                     painter = painterResource(

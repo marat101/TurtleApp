@@ -1,5 +1,7 @@
 package com.turtleteam.turtleappcompose.di
 
+import com.turtleteam.domain.usecases.GetThemeStateUseCase
+import com.turtleteam.domain.usecases.SaveThemeStateUseCase
 import com.turtleteam.domain.usecases.groups.*
 import com.turtleteam.domain.usecases.teachers.*
 import org.koin.dsl.module
@@ -56,5 +58,12 @@ val domainModule = module {
     }
     factory {
         SetLastTargetTeacherUseCase(repository = get())
+    }
+    //Utils
+    factory {
+        GetThemeStateUseCase(repository = get())
+    }
+    factory {
+        SaveThemeStateUseCase(repository = get())
     }
 }

@@ -3,7 +3,9 @@ package com.turtleteam.turtleappcompose.di
 import com.android.turtleapp.data.repository.interfaces.TeachersRepository
 import com.turtleteam.data.repository.GroupsRepositoryImpl
 import com.turtleteam.data.repository.TeachersRepositoryImpl
+import com.turtleteam.data.repository.UtilsRepositoryImpl
 import com.turtleteam.domain.repository.GroupsRepository
+import com.turtleteam.domain.repository.UtilsRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
@@ -20,5 +22,8 @@ val repositoryModule = module {
             apiService = get(),
             preferencesStore = get()
         )
+    }
+    single<UtilsRepository> {
+        UtilsRepositoryImpl(preferencesStore = get())
     }
 }
