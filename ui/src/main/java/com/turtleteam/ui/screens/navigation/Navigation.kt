@@ -6,55 +6,66 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.PagerState
 import com.turtleteam.ui.screens.morescreen.MoreScreen
 import com.turtleteam.ui.screens.schedulelist.ScheduleListScreen
 import com.turtleteam.ui.screens.schedulescreen.ScheduleScreen
 import com.turtleteam.ui.screens.schedulescreen.ScheduleScreenViewModel
-import com.turtleteam.ui.screens.schedulescreen.ScheduleVMManageUseCases
 import com.turtleteam.ui.screens.scheduleselect.ScheduleSelectScreen
-import com.turtleteam.ui.screens.scheduleselect.ScheduleSelectViewModel
-import com.turtleteam.ui.screens.scheduleselect.SelectVMManageUseCases
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.qualifier.named
 
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun TurtleNavHost(
-    navController: NavHostController
-) {//TODO ROLLBACK START ROUTE
-    NavHost(navController = navController, startDestination = Routes.SCHEDULE_LIST.route) {
-        composable(Routes.GROUPS_SCREEN.route) {
-            val vm:ScheduleSelectViewModel<SelectVMManageUseCases.Groups> = koinViewModel(named("groups"))
-            ScheduleSelectScreen(navController,false,vm)
+    navController: NavHostController,
+    pagerState: PagerState,
+) {
+    NavHost(navController = navController, startDestination = Routes.MAIN_PAGER_SCREEN.route) {
+        composable(Routes.MAIN_PAGER_SCREEN.route) {
+            HorizontalPager(count = 3, state = pagerState) {
+                when (it) {
+                    0 ->
+                        ScheduleSelectScreen(
+                            navController,
+                            false,
+                            koinViewModel(named("groups"))
+                        )
+
+                    1 ->
+                        ScheduleSelectScreen(
+                            navController,
+                            true,
+                            koinViewModel(named("teachers"))
+                        )
+
+                    2 -> MoreScreen(navController)
+                }
+            }
         }
-        composable(Routes.TEACHERS_SCREEN.route) {
-            val vm:ScheduleSelectViewModel<SelectVMManageUseCases.Teachers> = koinViewModel(named("teachers"))
-            ScheduleSelectScreen(navController,true,vm)
-        }
-        composable(Routes.MORE_SCREEN.route) { MoreScreen(navController) }
         composable(
             route = Routes.SCHEDULE_SCREEN.route + "/{name}/{isTeacher}",
-            arguments = listOf(
-                navArgument("name") {
-                    type = NavType.StringType
-                    nullable = false
-                },
-                navArgument("isTeacher"){
-                    type = NavType.BoolType
-                    nullable = false
-                }
-            )
+            arguments = listOf(navArgument("name") {
+                type = NavType.StringType
+                nullable = false
+            }, navArgument("isTeacher") {
+                type = NavType.BoolType
+                nullable = false
+            })
         ) {
             val name = it.arguments?.getString("name")
                 ?: throw NullPointerException("the screen require name argument")
             val isTeacher = it.arguments?.getBoolean("isTeacher")
                 ?: throw NullPointerException("the screen require isTeacher argument")
-            val vModel:ScheduleScreenViewModel<ScheduleVMManageUseCases> =
+            val vModel: ScheduleScreenViewModel =
                 if (isTeacher) koinViewModel(named("teacher"))
                 else koinViewModel(named("group"))
-            ScheduleScreen(navController, name,vModel)
+            ScheduleScreen(navController, name, vModel)
         }
-        composable(Routes.SCHEDULE_LIST.route){
+        composable(Routes.SCHEDULE_LIST.route) {
             ScheduleListScreen()
         }
     }

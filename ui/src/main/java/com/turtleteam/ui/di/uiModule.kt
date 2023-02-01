@@ -15,7 +15,7 @@ import org.koin.dsl.module
 
 val uiModule = module {
     viewModel(named("groups")) {
-        ScheduleSelectViewModel<SelectVMManageUseCases.Groups>(
+        ScheduleSelectViewModel(
             selectVM = SelectVMManageUseCases.Groups(
                 groupsList = get(),
                 getLastTargetGroupUseCase = get(),
@@ -28,7 +28,7 @@ val uiModule = module {
         )
     }
     viewModel(named("teachers")) {
-        ScheduleSelectViewModel<SelectVMManageUseCases.Teachers>(
+        ScheduleSelectViewModel(
             selectVM = SelectVMManageUseCases.Teachers(
                 teachersList = get(),
                 getLastTargetTeacherUseCase = get(),

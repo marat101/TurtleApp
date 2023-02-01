@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Color
 val Purple = Color(0xFFBF76C2)
 
 val LocalColors = staticCompositionLocalOf<Colors> { error("colors wasnt provided") }
+
 sealed class Colors(
     val transparentBackground: Color,
     val btnGroupTeacherText: Color,
@@ -15,6 +16,7 @@ sealed class Colors(
     val titleText: Color,
     val secondText: Color,
     val simpleText: Color,
+    val moreScreenIconsTint: Color,
     val bottomNavMenuColors: BottomNavMenuColors,
     val toolbarGradient: Brush,
     val bottomNavBarGradient: Brush,
@@ -27,7 +29,8 @@ sealed class Colors(
         bottomDialogBackItemColor = Color(0xBF575756),
         titleText = Color(0xFF8D91D1),
         secondText = Purple,
-        simpleText =Color.White,
+        simpleText = Color.White,
+        moreScreenIconsTint = Color(0xFF8D91D1),
         bottomNavMenuColors = BottomNavMenuColors.NightColors,
         toolbarGradient = Brush.horizontalGradient(
             listOf(
@@ -49,6 +52,7 @@ sealed class Colors(
         titleText = Color(0xFF96D162),
         secondText = Color(0xFF15956F),
         simpleText = Color.Gray,
+        moreScreenIconsTint = Color.Black,
         bottomNavMenuColors = BottomNavMenuColors.DayColors,
         toolbarGradient = Brush.horizontalGradient(listOf(Color(0xFF15956F), Color(0xFF96D162))),
         bottomNavBarGradient = Brush.linearGradient(
@@ -61,9 +65,10 @@ sealed class Colors(
 }
 
 sealed class BottomNavMenuColors(
-    val isCheckedTrue: Color,
-    val isCheckedFalse: Color,
+    private val isCheckedTrue: Color,
+    private val isCheckedFalse: Color,
 ) {
+    fun getColor(isChecked:Boolean):Color = if (isChecked) isCheckedTrue else isCheckedFalse
     object NightColors : BottomNavMenuColors(
         isCheckedTrue = Color(0xFF8D91D1), isCheckedFalse = Color(0xFF57596D)
     )

@@ -19,13 +19,11 @@ import com.turtleteam.ui.theme.JetTheme
 
 @Composable
 fun TopBar(isDarkMode: MutableState<Boolean>, saveThemeStateUseCase: SaveThemeStateUseCase) {
-    TopAppBar(
-        title = {
-            Text(
-                text = stringResource(id = R.string.turtle_team),
-                color = JetTheme.color.btnDoneText
-            )
-        },
+    TopAppBar(title = {
+        Text(
+            text = stringResource(id = R.string.turtle_team), color = JetTheme.color.btnDoneText
+        )
+    },
         modifier = Modifier.background(JetTheme.color.toolbarGradient),
         contentColor = Color.White,
         backgroundColor = Color.Transparent,
@@ -36,13 +34,9 @@ fun TopBar(isDarkMode: MutableState<Boolean>, saveThemeStateUseCase: SaveThemeSt
                 saveThemeStateUseCase.execute(isDarkMode.value)
             }) {
                 Icon(
-                    modifier = Modifier.size(24.dp),
-                    painter = painterResource(
-                        id = if (!isDarkMode.value)
-                            R.drawable.moon
-                        else R.drawable.sun
-                    ),
-                    contentDescription = null
+                    modifier = Modifier.size(24.dp), painter = painterResource(
+                        id = JetTheme.images.topBarIcon
+                    ), contentDescription = null
                 )
             }
         }

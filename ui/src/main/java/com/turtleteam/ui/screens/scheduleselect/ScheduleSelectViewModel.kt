@@ -7,8 +7,8 @@ import com.turtleteam.ui.Communication
 import com.turtleteam.ui.DispatchersList
 import kotlinx.coroutines.launch
 
-class ScheduleSelectViewModel<out T: SelectVMManageUseCases>(
-    private val selectVM: T,
+class ScheduleSelectViewModel(
+    private val selectVM: SelectVMManageUseCases,
     private val groupListCommunication: Communication<NamesList>,
     private val targetGroupCommunication: Communication<String>,
     private val dispatchersList: DispatchersList

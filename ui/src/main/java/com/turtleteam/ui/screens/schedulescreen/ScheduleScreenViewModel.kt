@@ -9,8 +9,8 @@ import com.turtleteam.ui.Communication
 import com.turtleteam.ui.DispatchersList
 import kotlinx.coroutines.launch
 
-class ScheduleScreenViewModel<out T:ScheduleVMManageUseCases>(
-    private val manageUseCases:T,
+class ScheduleScreenViewModel(
+    private val manageUseCases:ScheduleVMManageUseCases,
     private val communication: Communication<States<DaysList>>,
     private val dispatchersList: DispatchersList
 ) : ViewModel() {

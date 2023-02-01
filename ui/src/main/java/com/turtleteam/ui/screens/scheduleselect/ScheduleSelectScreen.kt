@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 fun ScheduleSelectScreen(
     navController: NavHostController,
     isTeacher: Boolean,
-    viewModel: ScheduleSelectViewModel<SelectVMManageUseCases>
+    viewModel: ScheduleSelectViewModel
 ) {
     val composableScope = rememberCoroutineScope()
     Box(
@@ -103,7 +103,7 @@ fun ScheduleSelectScreen(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun GroupList(
-    viewModel: ScheduleSelectViewModel<SelectVMManageUseCases>,
+    viewModel: ScheduleSelectViewModel,
     sheetState: ModalBottomSheetState,
     isTeacher: Boolean
 ) {
@@ -175,7 +175,7 @@ fun GroupList(
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun NameItem(
-    title: String, viewModel: ScheduleSelectViewModel<SelectVMManageUseCases>,
+    title: String, viewModel: ScheduleSelectViewModel,
     sheetState: ModalBottomSheetState,
     coroutineScope: CoroutineScope
 ) {

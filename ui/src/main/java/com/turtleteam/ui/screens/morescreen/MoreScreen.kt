@@ -1,11 +1,11 @@
 package com.turtleteam.ui.screens.morescreen
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,13 +31,15 @@ fun MoreScreen(navController: NavHostController) {
         Row {
             MoreScreenOneItem(
                 drawableId = R.drawable.ic_call_schedule,
-                stringResource(R.string.schedule_list)
+                stringResource(R.string.schedule_list),
+                JetTheme.color.moreScreenIconsTint
             ) {
                 navController.navigate(Routes.SCHEDULE_LIST.route)
             }
             MoreScreenOneItem(
                 drawableId = R.drawable.ic_googlesheets,
-                stringResource(R.string.tablet)
+                stringResource(R.string.tablet),
+                JetTheme.color.moreScreenIconsTint
             ) {
                 //todo click
             }
@@ -55,6 +57,7 @@ fun MoreScreen(navController: NavHostController) {
 fun MoreScreenOneItem(
     @DrawableRes drawableId: Int,
     text: String,
+    tint:Color = Color.Unspecified,
     onClickAction: () -> Unit
 ) {
     Column(
@@ -67,10 +70,11 @@ fun MoreScreenOneItem(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Image(
+        Icon(
             modifier = Modifier.weight(1f),
             painter = painterResource(id = drawableId),
-            contentDescription = null
+            contentDescription = null,
+            tint = tint
         )
         TextWithFont(text = text, color = Color.Gray, textSize = 12.sp, align = TextAlign.Center)
     }

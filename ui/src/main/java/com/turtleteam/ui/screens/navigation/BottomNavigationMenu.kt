@@ -12,6 +12,7 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,17 +20,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.PagerState
 import com.turtleteam.ui.R
 import com.turtleteam.ui.theme.JetTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun BottomNavigationMenu(
-    navHostController: NavHostController
+    pagerState: PagerState
 ) {
-    val backStack = navHostController.currentBackStackEntryAsState()
-
+    val coroutine = rememberCoroutineScope()
     BottomNavigation(
         modifier = Modifier
             .fillMaxWidth()
@@ -37,51 +40,56 @@ fun BottomNavigationMenu(
         backgroundColor = Color.Transparent,
         elevation = 0.dp
     ) {
-        val isHomeScreenSelected = backStack.value?.destination?.route == Routes.GROUPS_SCREEN.route
+        val isHomeTabSelected = pagerState.currentPage == 0
         CustomBottomNavigationItem(
             rowScope = this,
-            isItemSelected = isHomeScreenSelected,
-            navHostController = navHostController,
-            route = Routes.GROUPS_SCREEN.route,
+            isItemSelected = isHomeTabSelected,
+            pagerState = pagerState,
+            pageId = 0,
+            coroutine = coroutine,
             drawableId = R.drawable.ic_groups,
             stringId = R.string.groups
         )
-        val isTeachersScreenSelected =
-            backStack.value?.destination?.route == Routes.TEACHERS_SCREEN.route
+        val isTeachersTabSelected = pagerState.currentPage == 1
         CustomBottomNavigationItem(
             rowScope = this,
-            isItemSelected = isTeachersScreenSelected,
-            navHostController = navHostController,
-            route = Routes.TEACHERS_SCREEN.route,
+            isItemSelected = isTeachersTabSelected,
+            pagerState = pagerState,
+            pageId = 1,
+            coroutine = coroutine,
             drawableId = R.drawable.ic_teachers,
             stringId = R.string.teachers
         )
-
-        val isMoreScreenSelected = backStack.value?.destination?.route == Routes.MORE_SCREEN.route
+        val isMoreTabSelected = pagerState.currentPage == 2
         CustomBottomNavigationItem(
             rowScope = this,
-            isItemSelected = isMoreScreenSelected,
-            navHostController = navHostController,
-            route = Routes.MORE_SCREEN.route,
+            isItemSelected = isMoreTabSelected,
+            pagerState = pagerState,
+            pageId = 2,
+            coroutine = coroutine,
             drawableId = R.drawable.ic_more,
             stringId = R.string.more
         )
     }
 }
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CustomBottomNavigationItem(
     rowScope: RowScope,
     isItemSelected: Boolean,
-    navHostController: NavHostController,
-    route: String,
+    pagerState: PagerState,
+    pageId:Int,
+    coroutine: CoroutineScope,
     @DrawableRes drawableId: Int,
     @StringRes stringId: Int
 ) {
     rowScope.BottomNavigationItem(
         selected = isItemSelected,
         onClick = {
-            navHostController.navigate(route) { popUpTo(0) }
+            coroutine.launch{
+                pagerState.animateScrollToPage(pageId)
+            }
         },
         icon = {
             BottomNavigationItemIcon(
@@ -104,12 +112,12 @@ fun BottomNavigationItemIcon(
             modifier = Modifier.size(24.dp),
             painter = painterResource(id = drawableId),
             contentDescription = null,
-            tint = if (isItemSelected) JetTheme.color.bottomNavMenuColors.isCheckedTrue else JetTheme.color.bottomNavMenuColors.isCheckedFalse
+            tint = JetTheme.color.bottomNavMenuColors.getColor(isItemSelected)
         )
         Text(
             text = stringResource(id = stringId),
             fontSize = if (isItemSelected) 14.sp else 10.sp,
-            color =  if (isItemSelected) JetTheme.color.bottomNavMenuColors.isCheckedTrue else JetTheme.color.bottomNavMenuColors.isCheckedFalse
+            color =  JetTheme.color.bottomNavMenuColors.getColor(isItemSelected)
         )
     }
 }

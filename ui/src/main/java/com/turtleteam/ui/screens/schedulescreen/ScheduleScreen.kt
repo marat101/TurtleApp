@@ -34,7 +34,7 @@ import com.turtleteam.ui.theme.JetTheme
 fun ScheduleScreen(
     navController: NavHostController,
     nameGroupOfTeacher: String,
-    vModel: ScheduleScreenViewModel<ScheduleVMManageUseCases>
+    vModel: ScheduleScreenViewModel
 ) {
     val scheduleState: State<States<DaysList>> = vModel.getFlow().collectAsState()
     Box(Modifier.fillMaxSize()) {

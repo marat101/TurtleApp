@@ -12,6 +12,8 @@ sealed class Images(
     @DrawableRes val selectTeacher:Int,
     @DrawableRes val turtleLeft:Int,
     @DrawableRes val turtleRight:Int,
+    @DrawableRes val windowBackground:Int,
+    @DrawableRes val topBarIcon:Int,
 ){
     object DayImages:Images(
         btnNext = R.drawable.btnnext,
@@ -19,7 +21,9 @@ sealed class Images(
         selectGroup = R.drawable.selectgroup,
         selectTeacher = R.drawable.selectteacher,
         turtleLeft = R.drawable.turtleleft,
-        turtleRight = R.drawable.turtleright
+        turtleRight = R.drawable.turtleright,
+        windowBackground = R.drawable.toolbar_gradient,
+        topBarIcon = R.drawable.moon
     )
     object NightImages:Images(
         btnNext = R.drawable.btnnextnight,
@@ -27,6 +31,8 @@ sealed class Images(
         selectGroup = R.drawable.selectgroupnight,
         selectTeacher = R.drawable.selectteachernight,
         turtleLeft = R.drawable.turtleleftnight,
-        turtleRight = R.drawable.turtlerightnight
+        turtleRight = R.drawable.turtlerightnight,
+        windowBackground = R.drawable.toolbar_gradient_night,
+        topBarIcon = R.drawable.sun
     )
 }

@@ -11,6 +11,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.rememberPagerState
 import com.turtleteam.domain.usecases.usersettings.GetThemeStateUseCase
 import com.turtleteam.domain.usecases.usersettings.SaveThemeStateUseCase
 import com.turtleteam.ui.screens.navigation.BottomNavigationMenu
@@ -24,19 +26,16 @@ class MainActivity : ComponentActivity() {
     private val getThemeStateUseCase: GetThemeStateUseCase by inject()
     private val saveThemeStateUseCase: SaveThemeStateUseCase by inject()
 
+    @OptIn(ExperimentalPagerApi::class)
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val isDarkMode = remember {
-                mutableStateOf(getThemeStateUseCase.execute())
-            }
+            val isDarkMode = remember { mutableStateOf(getThemeStateUseCase.execute()) }
+            val pagerState = rememberPagerState()
             val navController = rememberNavController()
-            window.setBackgroundDrawableResource(
-                if (isDarkMode.value) R.drawable.toolbar_gradient_night
-                else R.drawable.toolbar_gradient
-            )
             TurtleAppTheme(isDarkMode.value) {
+                window.setBackgroundDrawableResource(JetTheme.images.windowBackground)
                 Column(modifier = Modifier.fillMaxSize()) {
                     TopBar(isDarkMode = isDarkMode, saveThemeStateUseCase)
                     Box(
@@ -46,9 +45,9 @@ class MainActivity : ComponentActivity() {
                             .background(JetTheme.color.backgroundBrush)
                     ) {
                         TurtlesBackground()
-                        TurtleNavHost(navController)
+                        TurtleNavHost(navController, pagerState)
                     }
-                    BottomNavigationMenu(navController)
+                    BottomNavigationMenu(pagerState)
                 }
             }
         }
