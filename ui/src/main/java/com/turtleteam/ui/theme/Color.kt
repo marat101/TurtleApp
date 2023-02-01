@@ -5,8 +5,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 val Purple = Color(0xFFBF76C2)
-val green = Color(0xFF648B4A)
-val transparentWhite = Color(255, 255, 255, 0x40)
 
 val LocalColors = staticCompositionLocalOf<Colors> { error("colors wasnt provided") }
 sealed class Colors(
@@ -16,18 +14,20 @@ sealed class Colors(
     val bottomDialogBackItemColor: Color,
     val titleText: Color,
     val secondText: Color,
+    val simpleText: Color,
     val bottomNavMenuColors: BottomNavMenuColors,
     val toolbarGradient: Brush,
     val bottomNavBarGradient: Brush,
     val backgroundBrush: Brush,
 ) {
     object NightColors : Colors(
-        transparentBackground = transparentWhite,
+        transparentBackground = Color(0xBF575756),
         btnGroupTeacherText = Purple,
         btnDoneText = Purple,
-        bottomDialogBackItemColor = transparentWhite,
+        bottomDialogBackItemColor = Color(0xBF575756),
         titleText = Color(0xFF8D91D1),
         secondText = Purple,
+        simpleText =Color.White,
         bottomNavMenuColors = BottomNavMenuColors.NightColors,
         toolbarGradient = Brush.horizontalGradient(
             listOf(
@@ -42,12 +42,13 @@ sealed class Colors(
     )
 
     object DayColors : Colors(
-        transparentBackground = transparentWhite,
+        transparentBackground = Color(0xBFFFFFFF),
         btnGroupTeacherText = Color.Black,
         btnDoneText = Color.White,
         bottomDialogBackItemColor = Color.White,
         titleText = Color(0xFF96D162),
         secondText = Color(0xFF15956F),
+        simpleText = Color.Gray,
         bottomNavMenuColors = BottomNavMenuColors.DayColors,
         toolbarGradient = Brush.horizontalGradient(listOf(Color(0xFF15956F), Color(0xFF96D162))),
         bottomNavBarGradient = Brush.linearGradient(

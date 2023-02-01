@@ -11,8 +11,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.turtleteam.domain.usecases.GetThemeStateUseCase
-import com.turtleteam.domain.usecases.SaveThemeStateUseCase
+import com.turtleteam.domain.usecases.usersettings.GetThemeStateUseCase
+import com.turtleteam.domain.usecases.usersettings.SaveThemeStateUseCase
 import com.turtleteam.ui.screens.navigation.BottomNavigationMenu
 import com.turtleteam.ui.screens.navigation.TopBar
 import com.turtleteam.ui.screens.navigation.TurtleNavHost

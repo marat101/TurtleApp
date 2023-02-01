@@ -5,7 +5,7 @@ import com.turtleteam.turtle_database.di.databaseModule
 import com.turtleteam.turtleappcompose.di.dataModule
 import com.turtleteam.turtleappcompose.di.domainModule
 import com.turtleteam.turtleappcompose.di.repositoryModule
-import com.turtleteam.turtleappcompose.di.uiModule
+import com.turtleteam.ui.di.uiModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

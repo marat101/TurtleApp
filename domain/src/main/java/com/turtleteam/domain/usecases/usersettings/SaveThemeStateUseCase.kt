@@ -1,4 +1,4 @@
-package com.turtleteam.domain.usecases
+package com.turtleteam.domain.usecases.usersettings
 
 import com.turtleteam.domain.repository.UtilsRepository
 

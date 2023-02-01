@@ -8,7 +8,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -119,7 +118,7 @@ fun GroupList(
     ) {
         TextField(
             modifier = Modifier.fillMaxWidth(),
-            label = { Text(text = stringResource(R.string.search), color = Color.Black) },
+            label = { Text(text = stringResource(R.string.search), color = JetTheme.color.simpleText) },
             maxLines = 1,
             singleLine = true,
             value = query.value,
@@ -194,7 +193,7 @@ fun NameItem(
                 },
             ),
         backgroundColor = JetTheme.color.bottomDialogBackItemColor,
-        elevation = 0.dp
+        elevation = 8.dp
     ) {
         TextWithFont(
             modifier = Modifier
@@ -208,6 +207,6 @@ fun NamesHeader(title: String) {
     Box(
         Modifier.padding(4.dp), contentAlignment = Alignment.CenterStart
     ) {
-        Text(text = title, color = Color.Black, fontFamily = fontFamily)
+        Text(text = title, color = JetTheme.color.simpleText, fontFamily = fontFamily)
     }
 }

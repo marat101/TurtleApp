@@ -1,4 +1,4 @@
-package com.turtleteam.turtleappcompose.di
+package com.turtleteam.ui.di
 
 import com.turtleteam.ui.DispatchersList
 import com.turtleteam.ui.screens.schedulelist.ScheduleListViewModel

@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.turtleteam.ui.R
 import com.turtleteam.ui.TextWithFont
+import com.turtleteam.ui.screens.navigation.Routes
 import com.turtleteam.ui.theme.JetTheme
 
 @Composable
@@ -32,7 +33,7 @@ fun MoreScreen(navController: NavHostController) {
                 drawableId = R.drawable.ic_call_schedule,
                 stringResource(R.string.schedule_list)
             ) {
-                //todo click
+                navController.navigate(Routes.SCHEDULE_LIST.route)
             }
             MoreScreenOneItem(
                 drawableId = R.drawable.ic_googlesheets,
