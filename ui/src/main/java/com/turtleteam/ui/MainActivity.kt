@@ -37,18 +37,21 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             TurtleAppTheme(isDarkMode.value) {
                 window.setBackgroundDrawableResource(JetTheme.images.windowBackground)
-                Column(modifier = Modifier.fillMaxSize()) {
-                    TopBar(isDarkMode = isDarkMode, saveThemeStateUseCase)
+                Scaffold(
+                    topBar = { TopBar(isDarkMode = isDarkMode, saveThemeStateUseCase) },
+                    bottomBar = {
+                        BottomNavigationMenu(
+                            pagerState,
+                            navController.currentBackStackEntryAsState()
+                        )
+                    }
+                ) {
                     Box(
-                        Modifier
-                            .fillMaxWidth()
-                            .weight(1f)
-                            .background(JetTheme.color.backgroundBrush)
+                        Modifier.fillMaxWidth().background(JetTheme.color.backgroundBrush)
                     ) {
                         TurtlesBackground()
                         TurtleNavHost(navController, pagerState)
                     }
-                    BottomNavigationMenu(pagerState, navController.currentBackStackEntryAsState())
                 }
             }
         }
