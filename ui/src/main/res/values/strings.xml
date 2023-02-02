@@ -12,4 +12,7 @@
     <string name="schedule_list">Расписание звонков</string>
     <string name="tablet">Планшетка</string>
     <string name="turtle_team">Turtle Team</string>
+    <string name="schedule_load_state_text">Обновление расписания…</string>
+    <string name="schedule_error">Не удалось загрузить расписание</string>
+    <string name="retry">Повторить</string>
 </resources>

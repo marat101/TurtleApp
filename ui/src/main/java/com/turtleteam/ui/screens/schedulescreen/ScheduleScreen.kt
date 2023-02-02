@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
@@ -34,18 +36,14 @@ import com.turtleteam.ui.theme.JetTheme
 fun ScheduleScreen(
     navController: NavHostController,
     nameGroupOfTeacher: String,
-    vModel: ScheduleScreenViewModel
+    vModel: ScheduleScreenViewModel,
 ) {
     val scheduleState: State<States<DaysList>> = vModel.getFlow().collectAsState()
-    Box(Modifier.fillMaxSize()) {
-        when (scheduleState.value) {
-            is States.Success -> {
-                ShowSchedule(daysList = (scheduleState.value as States.Success<DaysList>).value)
-            }
-            else -> {
-                CircularProgressIndicator()
-            }
-        }
+    when (scheduleState.value) {
+        is States.Success ->
+            ShowSchedule(daysList = (scheduleState.value as States.Success<DaysList>).value)
+        is States.Loading -> LoadingState()
+        else -> ErrorState { vModel.updateSchedule(nameGroupOfTeacher) }
     }
     LaunchedEffect(key1 = scheduleState) {
         vModel.updateSchedule(nameGroupOfTeacher)
@@ -72,7 +70,7 @@ fun OneDay(it: Day) {
             .background(JetTheme.color.transparentBackground, RoundedCornerShape(8.dp))
             .padding(8.dp)
     ) {
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
+        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
             TextWithFont(text = it.day, color = JetTheme.color.titleText, textSize = 25.sp)
         }
         Apairs(it.apairs)
@@ -82,8 +80,11 @@ fun OneDay(it: Day) {
 @Composable
 fun Apairs(apairs: List<PairsList>) {
     apairs.forEach { it ->
-        TextWithFont(text = stringResource(id = R.string.index_number_apair, it.apair[0].number), color = JetTheme.color.titleText, textSize = 25.sp)
-//        Text(text = stringResource(id = R.string.index_number_apair, it.apair[0].number), Modifier.padding(start = 5.dp))
+        TextWithFont(
+            text = stringResource(id = R.string.index_number_apair, it.apair[0].number),
+            color = JetTheme.color.titleText,
+            textSize = 25.sp
+        )
         it.apair.forEach {
             OneApair(it)
         }
@@ -112,7 +113,56 @@ fun TextWithIcon(@DrawableRes drawableId: Int, text: String, spacerHeight: Dp = 
             tint = Color.Unspecified
         )
         Spacer(modifier = Modifier.width(2.dp))
-        TextWithFont(text = text,color = JetTheme.color.secondText, textSize = 18.sp)
+        TextWithFont(text = text, color = JetTheme.color.secondText, textSize = 18.sp)
     }
     Spacer(modifier = Modifier.height(spacerHeight))
+}
+
+@Composable
+fun LoadingState() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        CircularProgressIndicator()
+        TextWithFont(
+            text = stringResource(R.string.schedule_load_state_text),
+            color = JetTheme.color.simpleText,
+            textSize = 18.sp
+        )
+    }
+}
+
+@Composable
+fun ErrorState(btnClick: () -> Unit) {
+    Column(
+        Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        TextWithFont(
+            text = stringResource(R.string.schedule_error),
+            color = JetTheme.color.simpleText,
+            textSize = 18.sp
+        )
+        Button(
+            modifier = Modifier
+                .fillMaxWidth(0.9f)
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .background(JetTheme.color.toolbarGradient, RoundedCornerShape(16.dp)),
+            elevation = null,
+            onClick = btnClick,
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.Transparent
+            )
+
+        ) {
+            TextWithFont(
+                text = stringResource(R.string.retry),
+                color = JetTheme.color.titleText,
+                textSize = 24.sp
+            )
+        }
+    }
 }
