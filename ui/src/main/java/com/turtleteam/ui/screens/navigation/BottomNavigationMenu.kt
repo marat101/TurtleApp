@@ -11,8 +11,7 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavBackStackEntry
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 import com.turtleteam.ui.R
@@ -30,9 +30,11 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun BottomNavigationMenu(
-    pagerState: PagerState
+    pagerState: PagerState,
+    backStack: State<NavBackStackEntry?>
 ) {
     val coroutine = rememberCoroutineScope()
+    if (backStack.value?.destination?.route != Routes.MAIN_PAGER_SCREEN.route) return
     BottomNavigation(
         modifier = Modifier
             .fillMaxWidth()

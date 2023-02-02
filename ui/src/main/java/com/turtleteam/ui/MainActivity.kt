@@ -10,6 +10,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
@@ -47,7 +48,7 @@ class MainActivity : ComponentActivity() {
                         TurtlesBackground()
                         TurtleNavHost(navController, pagerState)
                     }
-                    BottomNavigationMenu(pagerState)
+                    BottomNavigationMenu(pagerState, navController.currentBackStackEntryAsState())
                 }
             }
         }
