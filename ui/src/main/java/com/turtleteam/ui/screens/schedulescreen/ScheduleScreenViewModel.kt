@@ -14,7 +14,7 @@ class ScheduleScreenViewModel(
     private val dispatchersList: DispatchersList,
 ) : ViewModel() {
     fun getFlow() = communication.observe()
-    fun updateSchedule(name: String) =
+    fun initLoadSchedule(name: String) =
         viewModelScope.launch(dispatchersList.dispatcherIO()) {
             communication.map(States.Loading)
 
@@ -27,5 +27,10 @@ class ScheduleScreenViewModel(
                 communication.map(schedule)
                 manageUseCases.saveSchedule(schedule.value)
             } else if (!isHasLocalData) communication.map(States.Error())
+        }
+    fun uploadSchedule(name:String) =
+        viewModelScope.launch(dispatchersList.dispatcherIO()){
+            communication.map(States.Loading)
+            communication.map(manageUseCases.getSchedule(name))
         }
 }

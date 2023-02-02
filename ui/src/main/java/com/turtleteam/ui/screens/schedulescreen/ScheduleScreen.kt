@@ -22,7 +22,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.android.turtleapp.data.model.schedule.Day
 import com.android.turtleapp.data.model.schedule.Pair
 import com.android.turtleapp.data.model.schedule.PairsList
@@ -34,7 +33,6 @@ import com.turtleteam.ui.theme.JetTheme
 
 @Composable
 fun ScheduleScreen(
-    navController: NavHostController,
     nameGroupOfTeacher: String,
     vModel: ScheduleScreenViewModel,
 ) {
@@ -43,10 +41,10 @@ fun ScheduleScreen(
         is States.Success ->
             ShowSchedule(daysList = (scheduleState.value as States.Success<DaysList>).value)
         is States.Loading -> LoadingState()
-        else -> ErrorState { vModel.updateSchedule(nameGroupOfTeacher) }
+        else -> ErrorState { vModel.uploadSchedule(nameGroupOfTeacher) }
     }
     LaunchedEffect(key1 = scheduleState) {
-        vModel.updateSchedule(nameGroupOfTeacher)
+        vModel.initLoadSchedule(nameGroupOfTeacher)
     }
 }
 
