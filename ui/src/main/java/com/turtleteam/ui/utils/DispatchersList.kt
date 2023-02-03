@@ -1,4 +1,4 @@
-package com.turtleteam.ui
+package com.turtleteam.ui.utils
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

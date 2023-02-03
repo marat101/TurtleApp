@@ -15,4 +15,5 @@
     <string name="schedule_load_state_text">Обновление расписания…</string>
     <string name="schedule_error">Не удалось загрузить расписание</string>
     <string name="retry">Повторить</string>
+    <string name="schedule_pin_hint">Удерживайте, чтобы закрепить расписание</string>
 </resources>

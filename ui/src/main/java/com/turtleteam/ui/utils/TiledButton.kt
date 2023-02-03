@@ -1,4 +1,4 @@
-package com.turtleteam.ui
+package com.turtleteam.ui.utils
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke

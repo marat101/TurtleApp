@@ -1,7 +1,7 @@
 package com.turtleteam.ui.screens.scheduleselect
 
 import com.turtleteam.domain.model.NamesList
-import com.turtleteam.ui.Communication
+import com.turtleteam.ui.utils.Communication
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

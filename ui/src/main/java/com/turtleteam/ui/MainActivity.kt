@@ -21,6 +21,7 @@ import com.turtleteam.ui.screens.navigation.TopBar
 import com.turtleteam.ui.screens.navigation.TurtleNavHost
 import com.turtleteam.ui.theme.JetTheme
 import com.turtleteam.ui.theme.TurtleAppTheme
+import com.turtleteam.ui.utils.TurtlesBackground
 import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {

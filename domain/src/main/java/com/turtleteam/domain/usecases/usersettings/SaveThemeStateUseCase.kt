@@ -1,7 +1,7 @@
 package com.turtleteam.domain.usecases.usersettings
 
-import com.turtleteam.domain.repository.UtilsRepository
+import com.turtleteam.domain.repository.ManageSettings
 
-class SaveThemeStateUseCase(private val repository:UtilsRepository) {
-    fun execute(isDarkModeOn:Boolean) = repository.saveThemeState(isDarkModeOn)
+class SaveThemeStateUseCase(private val manageSettings:ManageSettings) {
+    fun execute(isDarkModeOn:Boolean) = manageSettings.saveThemeState(isDarkModeOn)
 }

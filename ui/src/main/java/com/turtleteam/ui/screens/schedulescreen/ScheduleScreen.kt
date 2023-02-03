@@ -28,8 +28,8 @@ import com.android.turtleapp.data.model.schedule.PairsList
 import com.turtleteam.domain.model.States
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.ui.R
-import com.turtleteam.ui.TextWithFont
 import com.turtleteam.ui.theme.JetTheme
+import com.turtleteam.ui.utils.TextWithFont
 
 @Composable
 fun ScheduleScreen(

@@ -43,9 +43,9 @@ class PreferencesStore(private val context: Context?) {
     fun getPinnedList(key: String): List<String> =
         Converters.gsonToString(preferences.getString(key, null)!!)
 
-    fun showHint(): Boolean = preferences.getBoolean(HINT, true)
+    fun isShowHint(): Boolean = preferences.getBoolean(HINT, true)
 
-    fun hideHint() = preferences.edit().putBoolean(HINT, false).apply()
+    fun updateHintState(state:Boolean) = preferences.edit().putBoolean(HINT, state).apply()
 
     fun saveUrl(url: String) = preferences.edit().putString(SAVED_URL, url).apply()
 

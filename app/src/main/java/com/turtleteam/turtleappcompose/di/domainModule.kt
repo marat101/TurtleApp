@@ -2,9 +2,7 @@ package com.turtleteam.turtleappcompose.di
 
 import com.turtleteam.domain.usecases.groups.*
 import com.turtleteam.domain.usecases.teachers.*
-import com.turtleteam.domain.usecases.usersettings.GetCallsScheduleUseCase
-import com.turtleteam.domain.usecases.usersettings.GetThemeStateUseCase
-import com.turtleteam.domain.usecases.usersettings.SaveThemeStateUseCase
+import com.turtleteam.domain.usecases.usersettings.*
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -62,12 +60,18 @@ val domainModule = module {
     }
     //Utils
     factory {
-        GetThemeStateUseCase(repository = get())
+        GetThemeStateUseCase(manageSettings = get())
     }
     factory {
-        SaveThemeStateUseCase(repository = get())
+        SaveThemeStateUseCase(manageSettings = get())
     }
     factory {
         GetCallsScheduleUseCase(assets = get())
+    }
+    factory {
+        GetHintStateUseCase(manageSettings = get())
+    }
+    factory {
+        UpdateHintStateUseCase(manageSettings = get())
     }
 }

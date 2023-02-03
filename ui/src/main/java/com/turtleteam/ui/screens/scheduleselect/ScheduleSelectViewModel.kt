@@ -3,8 +3,8 @@ package com.turtleteam.ui.screens.scheduleselect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.turtleteam.domain.model.NamesList
-import com.turtleteam.ui.Communication
-import com.turtleteam.ui.DispatchersList
+import com.turtleteam.ui.utils.Communication
+import com.turtleteam.ui.utils.DispatchersList
 import kotlinx.coroutines.launch
 
 class ScheduleSelectViewModel(
@@ -16,28 +16,26 @@ class ScheduleSelectViewModel(
     init {
         targetGroupCommunication.map(selectVM.getLastTarget())
     }
-
     fun pinOrUnpinItem(item: String) {
         groupListCommunication.map(
-            selectVM.setPinnedList(
-                groupListCommunication.observe().value,
-                item
-            )
+            selectVM.setPinnedList(groupListCommunication.observe().value, item)
         )
     }
 
+    fun getGroupsListFlow() = groupListCommunication.observe()
     fun updateGroupsList() = viewModelScope.launch(dispatchersList.dispatcherIO()) {
         groupListCommunication.map(
             selectVM.groupsList()
         )
     }
 
-    fun getGroupsListFlow() = groupListCommunication.observe()
-
     fun getTargetGroupFlow() = targetGroupCommunication.observe()
-
     fun setTargetGroup(group: String) {
         selectVM.setLastTarget(group)
         targetGroupCommunication.map(group)
     }
+
+
+    fun notShowHint() = selectVM.updateTipState(false)
+    fun getHintState() = selectVM.getTipState()
 }

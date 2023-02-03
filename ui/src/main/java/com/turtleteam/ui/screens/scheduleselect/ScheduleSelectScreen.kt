@@ -8,6 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -15,10 +16,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.turtleteam.domain.utils.SearchNames
 import com.turtleteam.ui.R
-import com.turtleteam.ui.TextWithFont
-import com.turtleteam.ui.TiledButton
 import com.turtleteam.ui.screens.navigation.Routes
 import com.turtleteam.ui.theme.*
+import com.turtleteam.ui.utils.TextWithFont
+import com.turtleteam.ui.utils.TiledButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -28,7 +29,7 @@ import kotlinx.coroutines.launch
 fun ScheduleSelectScreen(
     navController: NavHostController,
     isTeacher: Boolean,
-    viewModel: ScheduleSelectViewModel
+    viewModel: ScheduleSelectViewModel,
 ) {
     val composableScope = rememberCoroutineScope()
     Box(
@@ -47,7 +48,7 @@ fun ScheduleSelectScreen(
                 modifier = Modifier
                     .fillMaxWidth(0.6f)
                     .padding(top = 16.dp),
-                painter = painterResource(id =
+                painter = painterResource(
                     if (isTeacher) JetTheme.images.selectTeacher
                     else JetTheme.images.selectGroup
                 ),
@@ -105,11 +106,13 @@ fun ScheduleSelectScreen(
 fun GroupList(
     viewModel: ScheduleSelectViewModel,
     sheetState: ModalBottomSheetState,
-    isTeacher: Boolean
+    isTeacher: Boolean,
 ) {
     val groupsList = viewModel.getGroupsListFlow().collectAsState()
     val query = remember { mutableStateOf("") }
-
+    val coroutineScope = rememberCoroutineScope()
+    val filteredList = SearchNames.filterList(query.value, groupsList.value)
+    val isTipVisible = remember { mutableStateOf(viewModel.getHintState()) }
     Column(
         modifier = Modifier
             .background(JetTheme.color.backgroundBrush)
@@ -118,7 +121,12 @@ fun GroupList(
     ) {
         TextField(
             modifier = Modifier.fillMaxWidth(),
-            label = { Text(text = stringResource(R.string.search), color = JetTheme.color.simpleText) },
+            label = {
+                Text(
+                    text = stringResource(R.string.search),
+                    color = JetTheme.color.simpleText
+                )
+            },
             maxLines = 1,
             singleLine = true,
             value = query.value,
@@ -127,12 +135,20 @@ fun GroupList(
             }
         )
 
-        val coroutineScope = rememberCoroutineScope()
-        val filteredList = SearchNames.filterList(query.value, groupsList.value)
         LazyVerticalGrid(
             modifier = Modifier.fillMaxSize(),
             columns = GridCells.Fixed(if (isTeacher) 1 else 2)
         ) {
+            if (isTipVisible.value) {
+                item(
+                    span = { GridItemSpan(2) },
+                    content = {
+                        HintBox {
+                            viewModel.notShowHint()
+                            isTipVisible.value = false
+                        }
+                    })
+            }
             if (filteredList.pinned.isNotEmpty()) {
                 item(
                     span = { GridItemSpan(4) },
@@ -151,11 +167,7 @@ fun GroupList(
                     span = { GridItemSpan(4) },
                     content = {
                         NamesHeader(
-                            stringResource(
-                                id =
-                                if (isTeacher) R.string.all_teachers
-                                else R.string.all_groups
-                            )
+                            stringResource(if (isTeacher) R.string.all_teachers else R.string.all_groups)
                         )
                     }
                 )
@@ -172,12 +184,47 @@ fun GroupList(
     }
 }
 
+@Composable
+fun HintBox(onCloseClick: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .padding(4.dp)
+            .background(JetTheme.color.secondText, RoundedCornerShape(8.dp))
+            .padding(2.dp)
+            .background(JetTheme.color.backgroundBrush, RoundedCornerShape(8.dp))
+            .padding(8.dp)
+    ) {
+        Icon(
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .size(16.dp)
+                .offset(y = (-4).dp, x = 4.dp)
+                .clickable { onCloseClick() },
+            painter = painterResource(id = R.drawable.ic_close),
+            contentDescription = null
+        )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                modifier = Modifier.size(28.dp),
+                painter = painterResource(id = R.drawable.ic_add_favorites),
+                contentDescription = null,
+                tint = Color.Unspecified
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = stringResource(R.string.schedule_pin_hint),
+                color = JetTheme.color.simpleText
+            )
+        }
+    }
+}
+
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun NameItem(
     title: String, viewModel: ScheduleSelectViewModel,
     sheetState: ModalBottomSheetState,
-    coroutineScope: CoroutineScope
+    coroutineScope: CoroutineScope,
 ) {
     Card(
         modifier = Modifier
