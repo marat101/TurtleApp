@@ -16,4 +16,5 @@
     <string name="schedule_error">Не удалось загрузить расписание</string>
     <string name="retry">Повторить</string>
     <string name="schedule_pin_hint">Удерживайте, чтобы закрепить расписание</string>
+    <string name="error_target_value_is_default">Выберите расписание</string>
 </resources>

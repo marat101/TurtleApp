@@ -1,5 +1,7 @@
 package com.turtleteam.ui.screens.scheduleselect
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
@@ -9,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -30,6 +33,7 @@ fun ScheduleSelectScreen(
     navController: NavHostController,
     isTeacher: Boolean,
     viewModel: ScheduleSelectViewModel,
+    context:Context = LocalContext.current
 ) {
     val composableScope = rememberCoroutineScope()
     Box(
@@ -76,7 +80,14 @@ fun ScheduleSelectScreen(
                     .padding(horizontal = 16.dp, vertical = 8.dp)
                     .padding(bottom = 16.dp),
                 onClick = {
-                    navController.navigate(Routes.SCHEDULE_SCREEN.route + "/${groupButtonText.value}/$isTeacher")
+                    val validate = ValidateGroupAndTeacher(groupButtonText.value)
+                    if (validate.isCurrentValueDefault(context,isTeacher)){
+                        viewModel.updateGroupsList()
+                        composableScope.launch { sheetState.show() }
+                        Toast.makeText(context, context.getString(R.string.error_target_value_is_default),Toast.LENGTH_SHORT).show()
+                    } else {
+                        navController.navigate(Routes.SCHEDULE_SCREEN.route + "/${groupButtonText.value}/$isTeacher")
+                    }
                 },
                 backgroundDrawableId = JetTheme.images.btnNext,
             ) {
@@ -99,7 +110,6 @@ fun ScheduleSelectScreen(
         )
     }
 }
-
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

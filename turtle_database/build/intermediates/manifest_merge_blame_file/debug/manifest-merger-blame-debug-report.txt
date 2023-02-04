@@ -3,6 +3,6 @@
 3    package="com.turtleteam.turtle_database" >
 4
 5    <uses-sdk android:minSdkVersion="24" />
-5-->C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest12110960655877394940.xml
+5-->C:\Users\crazy\StudioProjects\TurtleApp-Refactoring\turtle_database\build\intermediates\tmp\ProcessLibraryManifest\debug\tempAndroidManifest14183768343047285311.xml
 6
 7</manifest>
