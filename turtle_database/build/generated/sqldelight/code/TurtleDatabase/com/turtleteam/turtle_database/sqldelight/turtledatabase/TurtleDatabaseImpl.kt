@@ -2,13 +2,18 @@ package com.turtleteam.turtle_database.sqldelight.turtledatabase
 
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.TransacterImpl
+import com.squareup.sqldelight.`internal`.copyOnWriteList
 import com.squareup.sqldelight.db.SqlCursor
 import com.squareup.sqldelight.db.SqlDriver
-import com.squareup.sqldelight.internal.copyOnWriteList
 import com.turtleteam.turtle_database.sqldelight.TurtleDatabase
 import com.turtleteam.turtledatabase.GroupsDaysList
 import com.turtleteam.turtledatabase.TeachersDaysList
 import com.turtleteam.turtledatabase.TurtleDatabaseQueries
+import kotlin.Any
+import kotlin.Int
+import kotlin.String
+import kotlin.Unit
+import kotlin.collections.MutableList
 import kotlin.reflect.KClass
 
 internal val KClass<TurtleDatabase>.schema: SqlDriver.Schema

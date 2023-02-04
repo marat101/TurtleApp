@@ -63,6 +63,7 @@ fun TurtleNavHost(
             val vModel: ScheduleScreenViewModel =
                 if (isTeacher) koinViewModel(named("teacher"))
                 else koinViewModel(named("group"))
+
             ScheduleScreen(name, vModel)
         }
         composable(Routes.SCHEDULE_LIST.route) {

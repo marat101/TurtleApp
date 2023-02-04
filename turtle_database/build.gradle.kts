@@ -86,5 +86,6 @@ android {
 sqldelight {
     database("TurtleDatabase") {
         packageName = "com.turtleteam.turtle_database.sqldelight"
+        verifyMigrations
     }
 }

@@ -2,6 +2,9 @@ package com.turtleteam.turtledatabase
 
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.Transacter
+import kotlin.Any
+import kotlin.String
+import kotlin.Unit
 
 public interface TurtleDatabaseQueries : Transacter {
   public fun <T : Any> selectGroupScheduleByName(name: String, mapper: (days: String,
