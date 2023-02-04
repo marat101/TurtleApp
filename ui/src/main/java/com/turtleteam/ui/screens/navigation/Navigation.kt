@@ -1,6 +1,8 @@
 package com.turtleteam.ui.screens.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -9,6 +11,7 @@ import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
+import com.turtleteam.ui.R
 import com.turtleteam.ui.screens.morescreen.MoreScreen
 import com.turtleteam.ui.screens.schedulelist.ScheduleListScreen
 import com.turtleteam.ui.screens.schedulescreen.ScheduleScreen
@@ -23,9 +26,11 @@ import org.koin.core.qualifier.named
 fun TurtleNavHost(
     navController: NavHostController,
     pagerState: PagerState,
+    toolBarText: MutableState<String>,
 ) {
     NavHost(navController = navController, startDestination = Routes.MAIN_PAGER_SCREEN.route) {
         composable(Routes.MAIN_PAGER_SCREEN.route) {
+            toolBarText.value = stringResource(id = R.string.turtle_team)
             HorizontalPager(count = 3, state = pagerState) {
                 when (it) {
                     0 ->
@@ -63,6 +68,7 @@ fun TurtleNavHost(
             val vModel: ScheduleScreenViewModel =
                 if (isTeacher) koinViewModel(named("teacher"))
                 else koinViewModel(named("group"))
+            toolBarText.value = name
             ScheduleScreen(name, vModel)
         }
         composable(Routes.SCHEDULE_LIST.route) {

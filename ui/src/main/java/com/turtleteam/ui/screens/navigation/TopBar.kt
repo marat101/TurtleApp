@@ -7,21 +7,20 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.turtleteam.domain.usecases.usersettings.SaveThemeStateUseCase
-import com.turtleteam.ui.R
 import com.turtleteam.ui.theme.JetTheme
 
 @Composable
-fun TopBar(isDarkMode: MutableState<Boolean>, saveThemeStateUseCase: SaveThemeStateUseCase) {
+fun TopBar(
+    text: String,
+    switchTheme:() -> Unit
+) {
     TopAppBar(title = {
         Text(
-            text = stringResource(id = R.string.turtle_team), color = JetTheme.color.btnDoneText
+            text = text, color = JetTheme.color.btnDoneText
         )
     },
         modifier = Modifier.background(JetTheme.color.toolbarGradient),
@@ -30,8 +29,7 @@ fun TopBar(isDarkMode: MutableState<Boolean>, saveThemeStateUseCase: SaveThemeSt
         elevation = 0.dp,
         actions = {
             IconButton(onClick = {
-                isDarkMode.value = !isDarkMode.value
-                saveThemeStateUseCase.execute(isDarkMode.value)
+                switchTheme()
             }) {
                 Icon(
                     modifier = Modifier.size(24.dp), painter = painterResource(

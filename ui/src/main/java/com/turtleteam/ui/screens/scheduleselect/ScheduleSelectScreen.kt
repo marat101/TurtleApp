@@ -23,6 +23,7 @@ import com.turtleteam.ui.screens.navigation.Routes
 import com.turtleteam.ui.theme.*
 import com.turtleteam.ui.utils.TextWithFont
 import com.turtleteam.ui.utils.TiledButton
+import com.turtleteam.ui.utils.switch
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -122,7 +123,7 @@ fun GroupList(
     val query = remember { mutableStateOf("") }
     val coroutineScope = rememberCoroutineScope()
     val filteredList = SearchNames.filterList(query.value, groupsList.value)
-    val isTipVisible = remember { mutableStateOf(viewModel.getHintState()) }
+    val isHintVisible = remember { mutableStateOf(viewModel.getHintState()) }
     Column(
         modifier = Modifier
             .background(JetTheme.color.backgroundBrush)
@@ -149,13 +150,13 @@ fun GroupList(
             modifier = Modifier.fillMaxSize(),
             columns = GridCells.Fixed(if (isTeacher) 1 else 2)
         ) {
-            if (isTipVisible.value) {
+            if (isHintVisible.value) {
                 item(
                     span = { GridItemSpan(2) },
                     content = {
                         HintBox {
                             viewModel.notShowHint()
-                            isTipVisible.value = false
+                            isHintVisible.value = false
                         }
                     })
             }
@@ -168,7 +169,8 @@ fun GroupList(
                         viewModel = viewModel,
                         title = it,
                         sheetState = sheetState,
-                        coroutineScope = coroutineScope
+                        coroutineScope = coroutineScope,
+                        isHintVisible = isHintVisible
                     )
                 }
             }
@@ -186,7 +188,8 @@ fun GroupList(
                         viewModel = viewModel,
                         title = it,
                         sheetState = sheetState,
-                        coroutineScope = coroutineScope
+                        coroutineScope = coroutineScope,
+                        isHintVisible = isHintVisible
                     )
                 }
             }
@@ -235,6 +238,7 @@ fun NameItem(
     title: String, viewModel: ScheduleSelectViewModel,
     sheetState: ModalBottomSheetState,
     coroutineScope: CoroutineScope,
+    isHintVisible: MutableState<Boolean>
 ) {
     Card(
         modifier = Modifier
@@ -243,6 +247,10 @@ fun NameItem(
             .combinedClickable(
                 onLongClick = {
                     viewModel.pinOrUnpinItem(title)
+                    if (isHintVisible.value){
+                        isHintVisible.switch()
+                        viewModel.notShowHint()
+                    }
                 },
                 onClick = {
                     viewModel.setTargetGroup(title)

@@ -1,5 +1,6 @@
 package com.turtleteam.ui.di
 
+import com.turtleteam.ui.ActivityViewModel
 import com.turtleteam.ui.screens.schedulelist.ScheduleListViewModel
 import com.turtleteam.ui.screens.schedulescreen.ScheduleCommunication
 import com.turtleteam.ui.screens.schedulescreen.ScheduleScreenViewModel
@@ -71,6 +72,12 @@ val uiModule = module {
     viewModel {
         ScheduleListViewModel(
             getCallsScheduleUseCase = get()
+        )
+    }
+    viewModel {
+        ActivityViewModel(
+            getThemeStateUseCase = get(),
+            saveThemeStateUseCase = get()
         )
     }
 }
