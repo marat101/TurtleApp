@@ -8,7 +8,7 @@ import com.turtleteam.data.wrapper.NetworkResultWrapper
 import com.turtleteam.domain.model.States
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.domain.repository.GroupsRepository
-import com.turtleteam.turtle_database.database.GroupsScheduleDao
+import com.turtleteam.turtle_database.dao.GroupsScheduleDao
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
