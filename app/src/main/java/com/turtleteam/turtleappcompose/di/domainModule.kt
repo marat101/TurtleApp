@@ -58,6 +58,7 @@ val domainModule = module {
     factory {
         SetLastTargetTeacherUseCase(repository = get())
     }
+
     //Utils
     factory {
         GetThemeStateUseCase(manageSettings = get())

@@ -13,8 +13,10 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/ktor_client" />
             <option value="$PROJECT_DIR$/turtle_database" />
             <option value="$PROJECT_DIR$/ui" />
+            <option value="$PROJECT_DIR$/widget_schedule" />
           </set>
         </option>
       </GradleProjectSettings>

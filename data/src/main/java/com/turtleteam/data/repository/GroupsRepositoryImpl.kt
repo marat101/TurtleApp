@@ -1,7 +1,7 @@
 package com.turtleteam.data.repository
 
 import com.android.turtleapp.data.local.entity.GroupsDaysList
-import com.turtleteam.data.api.ApiService
+import com.turtleteam.ktor_client.api.ApiService
 import com.turtleteam.data.preferences.PreferencesStore
 import com.turtleteam.data.wrapper.LocalResultWrapper
 import com.turtleteam.data.wrapper.NetworkResultWrapper
@@ -20,7 +20,7 @@ class GroupsRepositoryImpl(
 ) : GroupsRepository {
 
     override suspend fun getSchedule(group: String): States<DaysList> =
-        NetworkResultWrapper.wrapWithResult { apiService.getGroupsScheduleList(group) }
+        NetworkResultWrapper.wrapWithResult { apiService.getSchedule(group) }
 
     override suspend fun getSavedSchedule(group: String): States<DaysList> =
         LocalResultWrapper().wrapWithResult {
@@ -38,7 +38,7 @@ class GroupsRepositoryImpl(
         preferencesStore.saveSelectedItem(PreferencesStore.SELECTED_ID, string)
 
     override suspend fun getGroupsList(): List<String> =
-        runCatching { apiService.getGroupsList().group }.getOrDefault(groupsScheduleDao.getSavedScheduleList())
+        runCatching { apiService.getList().group }.getOrDefault(groupsScheduleDao.getSavedScheduleList())
 
     override fun getPinnedList(): List<String> =
         runCatching { preferencesStore.getPinnedList(PreferencesStore.PINNED_GROUPS) }.getOrDefault(
