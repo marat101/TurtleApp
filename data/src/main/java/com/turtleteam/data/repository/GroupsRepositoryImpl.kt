@@ -7,7 +7,7 @@ import com.turtleteam.data.wrapper.LocalResultWrapper
 import com.turtleteam.data.wrapper.NetworkResultWrapper
 import com.turtleteam.domain.model.States
 import com.turtleteam.domain.model.schedule.DaysList
-import com.turtleteam.domain.repository.GroupsRepository
+import com.turtleteam.domain.repository.ScheduleRepository
 import com.turtleteam.turtle_database.dao.GroupsScheduleDao
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -17,14 +17,14 @@ class GroupsRepositoryImpl(
     private val groupsScheduleDao: GroupsScheduleDao,
     private val apiService: ApiService,
     private val preferencesStore: PreferencesStore,
-) : GroupsRepository {
+) : ScheduleRepository {
 
-    override suspend fun getSchedule(group: String): States<DaysList> =
-        NetworkResultWrapper.wrapWithResult { apiService.getSchedule(group) }
+    override suspend fun getSchedule(name: String): States<DaysList> =
+        NetworkResultWrapper.wrapWithResult { apiService.getSchedule(name) }
 
-    override suspend fun getSavedSchedule(group: String): States<DaysList> =
+    override suspend fun getSavedSchedule(name: String): States<DaysList> =
         LocalResultWrapper().wrapWithResult {
-            val value = groupsScheduleDao.getGroupDaysList(group)
+            val value = groupsScheduleDao.getGroupDaysList(name)
             GroupsDaysList(Json.decodeFromString(value.days), value.name)
         }
 
@@ -37,7 +37,7 @@ class GroupsRepositoryImpl(
     override fun saveName(string: String) =
         preferencesStore.saveSelectedItem(PreferencesStore.SELECTED_ID, string)
 
-    override suspend fun getGroupsList(): List<String> =
+    override suspend fun getNamesList(): List<String> =
         runCatching { apiService.getList().group }.getOrDefault(groupsScheduleDao.getSavedScheduleList())
 
     override fun getPinnedList(): List<String> =
@@ -48,11 +48,11 @@ class GroupsRepositoryImpl(
     override fun savePinnedList(list: List<String>) =
         preferencesStore.savePinnedList(PreferencesStore.PINNED_GROUPS, list)
 
-    override fun getLastTargetGroup(): String {
+    override fun getLastTargetName(): String {
         return preferencesStore.getLastTargetGroup()
     }
 
-    override fun setLastTargetGroup(group: String) {
-        preferencesStore.setLastTargetGroup(group)
+    override fun setLastTargetName(name: String) {
+        preferencesStore.setLastTargetGroup(name)
     }
 }

@@ -8,7 +8,7 @@ import com.android.turtleapp.data.model.schedule.Pair
 import com.turtleteam.widget_schedule.R
 import com.turtleteam.widget_schedule.widgetprovider.ScheduleWidgetProvider
 
-class ScheduleViewService: RemoteViewsService() {
+class ScheduleViewService: RemoteViewsService(){
 
     companion object{
         const val TIME_ICON = "⏳"

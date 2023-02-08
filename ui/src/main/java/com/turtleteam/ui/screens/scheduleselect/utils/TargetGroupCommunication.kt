@@ -1,4 +1,4 @@
-package com.turtleteam.ui.screens.scheduleselect
+package com.turtleteam.ui.screens.scheduleselect.utils
 
 import com.turtleteam.ui.utils.Communication
 import kotlinx.coroutines.flow.MutableStateFlow

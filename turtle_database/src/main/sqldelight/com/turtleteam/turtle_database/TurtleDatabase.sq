@@ -16,6 +16,10 @@ SELECT * FROM GroupsDaysList WHERE name = ?;
 getSavedGroupsList:
 SELECT name FROM GroupsDaysList;
 
+
+
+
+
 CREATE TABLE TeachersDaysList (
     days TEXT NOT NULL,
     name TEXT NOT NULL UNIQUE PRIMARY KEY
@@ -33,3 +37,28 @@ SELECT * FROM TeachersDaysList WHERE name = ?;
 
 getSavedTeachersList:
 SELECT name FROM TeachersDaysList;
+
+
+
+
+CREATE TABLE ScheduleWidgetState(
+    id INTEGER NOT NULL UNIQUE PRIMARY KEY,
+    schedule TEXT NOT NULL,
+    page INTEGER NOT NULL,
+    isGroup INTEGER NOT NULL
+);
+
+insertWidgetState:
+INSERT OR REPLACE INTO ScheduleWidgetState(
+    id,
+    schedule,
+    page,
+    isGroup
+)
+VALUES (?,?,?, ?);
+
+getScheduleWidgetState:
+SELECT * FROM ScheduleWidgetState WHERE id = ?;
+
+deleteScheduleWidgetState:
+DELETE FROM ScheduleWidgetState WHERE id = ?;

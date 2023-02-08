@@ -1,4 +1,4 @@
-package com.turtleteam.ui.screens.scheduleselect
+package com.turtleteam.ui.screens.scheduleselect.utils
 
 import com.turtleteam.domain.model.NamesList
 import com.turtleteam.domain.usecases.groups.GetGroupsAndPinnedListUseCase

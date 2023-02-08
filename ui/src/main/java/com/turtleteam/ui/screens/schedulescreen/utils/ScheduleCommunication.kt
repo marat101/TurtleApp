@@ -1,4 +1,4 @@
-package com.turtleteam.ui.screens.schedulescreen
+package com.turtleteam.ui.screens.schedulescreen.utils
 
 import com.turtleteam.domain.model.States
 import com.turtleteam.domain.model.schedule.DaysList

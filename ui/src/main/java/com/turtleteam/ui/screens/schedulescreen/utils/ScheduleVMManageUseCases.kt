@@ -1,4 +1,4 @@
-package com.turtleteam.ui.screens.schedulescreen
+package com.turtleteam.ui.screens.schedulescreen.utils
 
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.domain.usecases.groups.GetGroupScheduleUseCase

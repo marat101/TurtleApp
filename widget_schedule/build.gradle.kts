@@ -36,6 +36,11 @@ android {
 dependencies {
     implementation(project(path = ":domain"))
 
+    implementation("androidx.work:work-runtime-ktx:2.7.1")
+
+    // ViewPager
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+
     // Koin
     val koin = "3.2.2"
     implementation("io.insert-koin:koin-core:$koin")
