@@ -28,7 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_marginEnd="7dp"
-            tools:hint="3/7" />
+            android:textColor="@color/gray2"
+            tools:text="3/7" />
     </FrameLayout>
 
     <ListView
@@ -54,8 +55,8 @@
             android:background="@android:color/transparent"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            tools:ignore="NestedWeights" />
+            android:src="@drawable/ic_left"
+            android:foreground="@drawable/widget_btn_selector" />
 
         <ImageButton
             android:id="@+id/widget_button_next"
@@ -65,7 +66,8 @@
             android:background="@android:color/transparent"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground" />
+            android:src="@drawable/ic_right"
+            android:foreground="@drawable/widget_btn_selector" />
 
         <ImageButton
             android:id="@+id/widget_refresh"
@@ -75,7 +77,8 @@
             android:background="@android:color/transparent"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground" />
+            android:src="@drawable/ic_refresh"
+            android:foreground="@drawable/widget_btn_selector" />
 
         <Button
             android:id="@+id/widget_select_schedule"
@@ -86,8 +89,10 @@
             android:layout_weight="3"
             android:clickable="true"
             android:focusable="true"
-            android:text="aaaaaaaa"
-            android:background="@drawable/widget_btn_selector" />
+            android:textColor="@color/color3"
+            android:text="@string/search"
+            android:foreground="@drawable/widget_btn_selector"
+            android:background="@drawable/widget_background" />
 
     </LinearLayout>
 </LinearLayout>

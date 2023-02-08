@@ -8,4 +8,7 @@
 
 <!--    button selector color-->
     <color name="color4">#6D15956F</color>
+
+
+    <color name="gray2">#E6888888</color>
 </resources>

@@ -2,10 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_pressed="true">
-        <shape android:radius="17dp" >
-            <solid android:color="@color/color4"/>
-        </shape>
+        <ripple android:color="@color/color4">
+        </ripple>
     </item>
-
-    <item android:drawable="@drawable/widget_background" />
 </selector>
