@@ -1,0 +1,54 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.TurtleApp.AppWidget.Container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:theme="@style/Theme.TurtleApp.AppWidgetContainer">
+
+    <TextView
+        android:id="@+id/widgetDay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="den'"/>
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:listitem="@layout/item_one_pair_widget"
+        />
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="20dp">
+        <TextView
+            android:id="@+id/btnPrev"
+            android:text="&lt;"
+            android:gravity="center_horizontal"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/btnNext"
+            android:text="&gt;"
+            android:gravity="center_horizontal"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/btnRefresh"
+            android:text="&gt;&lt;"
+            android:gravity="center_horizontal"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/widgetCurrentGroup"
+            android:text="ИАВИПВФЫ"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</LinearLayout>

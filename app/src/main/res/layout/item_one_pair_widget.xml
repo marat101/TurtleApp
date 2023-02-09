@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_margin="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:drawableStart="@drawable/hourglass"
+        android:id="@+id/widgetTimeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ВРЕМЯ"/>
+
+    <TextView
+        android:drawableStart="@drawable/book"
+        android:id="@+id/widgetDoctrineText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="урок"
+         />
+    <TextView
+        android:drawableStart="@drawable/school_hat"
+        android:id="@+id/widgetTeacherText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="препод"
+         />
+    <TextView
+        android:drawableStart="@drawable/door"
+        android:id="@+id/widgetAuditoriaText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="кабинет"
+         />
+    <TextView
+        android:drawableStart="@drawable/corpus"
+        android:id="@+id/widgetCorpusText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="корпус"
+         />
+</LinearLayout>
