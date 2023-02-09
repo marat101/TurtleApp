@@ -7,7 +7,7 @@ import com.turtleteam.data.repository.TeachersRepositoryImpl
 import com.turtleteam.domain.repository.GroupsRepository
 import com.turtleteam.domain.repository.ManageSettings
 import com.turtleteam.turtleappcompose.WidgetActivityViewModel
-import com.turtleteam.turtleappcompose.widget.WidgetDataManage
+import com.turtleteam.turtleappcompose.widget.utils.WidgetDataManage
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

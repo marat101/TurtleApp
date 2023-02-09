@@ -7,7 +7,7 @@ import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.domain.usecases.groups.GetGroupScheduleUseCase
 import com.turtleteam.domain.usecases.groups.GetGroupsAndPinnedListUseCase
 import com.turtleteam.domain.usecases.teachers.GetTeachersAndPinnedListUseCase
-import com.turtleteam.turtleappcompose.widget.WidgetDataManage
+import com.turtleteam.turtleappcompose.widget.utils.WidgetDataManage
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
@@ -16,7 +16,7 @@ class WidgetActivityViewModel(
     private val getGroups: GetGroupsAndPinnedListUseCase,
     private val getTeachers: GetTeachersAndPinnedListUseCase,
     private val getSch: GetGroupScheduleUseCase,
-    private val setter:WidgetDataManage.SetData
+    private val setter: WidgetDataManage.SetData
 ) : ViewModel() {
     val namesFlow = MutableSharedFlow<List<String>>()
 
@@ -30,7 +30,6 @@ class WidgetActivityViewModel(
     }
 
     suspend fun setNewSchedule(name: String) {
-//        viewModelScope.launch {
             val sch = getSch.execute(name)
             if (sch is States.Success){
                 setter.setSchedule(DaysList.toJson(sch.value))
@@ -38,6 +37,5 @@ class WidgetActivityViewModel(
                 setter.setFirstDay()
 
             }
-//        }
     }
 }

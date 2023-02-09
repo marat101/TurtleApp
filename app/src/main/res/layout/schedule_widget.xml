@@ -5,14 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
     android:theme="@style/Theme.TurtleApp.AppWidgetContainer">
 
-    <TextView
-        android:id="@+id/widgetDay"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="den'"/>
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/widgetDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lines="1"
+            android:singleLine="true"
+            tools:text="вторник 21 сентября"/>
+        <TextView
+            android:id="@+id/widgetDayCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:lines="1"
+            android:singleLine="true"
+            tools:text="1/5"/>
+    </FrameLayout>
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
@@ -24,30 +39,27 @@
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="20dp">
-        <TextView
+        <ImageView
             android:id="@+id/btnPrev"
-            android:text="&lt;"
-            android:gravity="center_horizontal"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"/>
-        <TextView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_previous" />
+        <ImageView
             android:id="@+id/btnNext"
-            android:text="&gt;"
-            android:gravity="center_horizontal"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"/>
-        <TextView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_next" />
+        <ImageView
             android:id="@+id/btnRefresh"
-            android:text="&gt;&lt;"
-            android:gravity="center_horizontal"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"/>
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_refresh" />
         <TextView
             android:id="@+id/widgetCurrentGroup"
-            android:text="ИАВИПВФЫ"
+            tools:text="@string/error_target_value_is_default"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:layout_width="60dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"/>
     </LinearLayout>
 

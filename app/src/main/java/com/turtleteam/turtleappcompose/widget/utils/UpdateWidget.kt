@@ -1,4 +1,4 @@
-package com.turtleteam.turtleappcompose.widget
+package com.turtleteam.turtleappcompose.widget.utils
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -9,6 +9,8 @@ import android.widget.RemoteViews
 import androidx.annotation.IdRes
 import com.turtleteam.turtleappcompose.R
 import com.turtleteam.turtleappcompose.WidgetActivity
+import com.turtleteam.turtleappcompose.widget.WidgetService
+import com.turtleteam.turtleappcompose.widget.model.ActionsScheduleWidget
 
 interface UpdateWidget {
 
@@ -29,6 +31,7 @@ interface UpdateWidget {
             setListViewAdapter(view, R.id.listView)
             setText(view, R.id.widgetCurrentGroup, manage.getCurrentGroupName())
             setText(view, R.id.widgetDay, manage.getCurrentDayString())
+            setText(view, R.id.widgetDayCount, manage.getDaysCount())
 
             view.setOnClickPendingIntent(
                 R.id.widgetCurrentGroup,
@@ -69,7 +72,7 @@ interface UpdateWidget {
             view.setRemoteAdapter(
                 listId, Intent(
                     context,
-                    StackWidgetService::class.java//TODO как передать йобаный класс в параметры функции
+                    WidgetService::class.java//TODO
                 ).apply {
                     putExtra("id", appWidgetId)
                     data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))

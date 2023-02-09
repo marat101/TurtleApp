@@ -1,8 +1,10 @@
-package com.turtleteam.turtleappcompose.widget
+package com.turtleteam.turtleappcompose.widget.utils
 
 import android.content.Context
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.turtleappcompose.R
+import com.turtleteam.turtleappcompose.widget.model.WidgetScheduleState
+import com.turtleteam.turtleappcompose.widget.model.WidgetSuccessStateData
 
 interface WidgetDataManage {
     interface Getters {
@@ -12,10 +14,11 @@ interface WidgetDataManage {
         fun getCurrentSchedule(): WidgetScheduleState
         fun getCurrentScheduleString(): String
         fun getCountOfDays(): Int
+        fun getDaysCount(): String
 
         class Base(private val context: Context) : Getters {
             private val sharedPreferences =
-                context.getSharedPreferences(WIDGET_NAME, Context.MODE_PRIVATE)
+                context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
 
             override fun getCurrentGroupName(): String {
                 return sharedPreferences.getString(CURRENT_GROUP_NAME, null)
@@ -28,7 +31,7 @@ interface WidgetDataManage {
 
             override fun getCurrentDayString(): String {
                 return when (val schedule = getCurrentSchedule()) {
-                    is WidgetScheduleState.Success -> schedule.data.days[getCurrentDayInt()].day
+                    is WidgetScheduleState.Success ->schedule.getCurrentDay(getCurrentDayInt())
                     else -> ""
                 }
             }
@@ -39,41 +42,58 @@ interface WidgetDataManage {
 
             override fun getCurrentSchedule(): WidgetScheduleState {
                 val scheduleString = getCurrentScheduleString()
-                return if (scheduleString == SCHEDULE_EMPTY_STRING) {
-                    WidgetScheduleState.Error
-                } else
-                    WidgetScheduleState.Success(DaysList.toDaysList(scheduleString))
+                return if (scheduleString == SCHEDULE_EMPTY_STRING)
+                    WidgetScheduleState.ErrorScheduleNotSelected
+                else
+                    WidgetScheduleState.Success(
+                        WidgetSuccessStateData.fromDaysList(
+                            DaysList.toDaysList(
+                                scheduleString
+                            )
+                        ),
+                        context
+                    )
 
             }
 
             override fun getCountOfDays(): Int {
                 return when (val schedule = getCurrentSchedule()) {
-                    is WidgetScheduleState.Success -> schedule.data.days.count()
+                    is WidgetScheduleState.Success -> schedule.getCountDays()
                     else -> 0
                 }
+            }
+
+            override fun getDaysCount(): String {
+                return "${getCurrentDayInt()+1}/${getCountOfDays()}"
             }
         }
     }
 
     interface UpdateCurrentDay {
-        fun setPreviousDay()
-        fun setNextDay()
+        fun setPreviousDay():Boolean
+        fun setNextDay():Boolean
         class Base(private val context: Context) : UpdateCurrentDay {
             private val editSharedPreference =
-                context.getSharedPreferences(WIDGET_NAME, Context.MODE_PRIVATE).edit()
+                context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).edit()
             private val getter = Getters.Base(context)
-            override fun setPreviousDay() {
+            override fun setPreviousDay(): Boolean {
                 val currentDay = getter.getCurrentDayInt()
                 val count = currentDay - 1
-                if (count < 0) return
-                editSharedPreference.putInt(CURRENT_DAY_INT, count).apply()
+                return if (count < 0) false
+                else {
+                    editSharedPreference.putInt(CURRENT_DAY_INT, count).apply()
+                    true
+                }
             }
 
-            override fun setNextDay() {
+            override fun setNextDay(): Boolean {
                 val currentDay = getter.getCurrentDayInt()
                 val count = currentDay + 1
-                if (count > (getter.getCountOfDays() - 1)) return
-                editSharedPreference.putInt(CURRENT_DAY_INT, count).apply()
+                return if (count > (getter.getCountOfDays() - 1)) false
+                else {
+                    editSharedPreference.putInt(CURRENT_DAY_INT, count).apply()
+                    true
+                }
             }
         }
     }
@@ -84,7 +104,7 @@ interface WidgetDataManage {
         fun setFirstDay()
         class Base(private val context: Context) : SetData {
             private val editSharedPreference =
-                context.getSharedPreferences(WIDGET_NAME, Context.MODE_PRIVATE).edit()
+                context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).edit()
 
             override fun setSchedule(scheduleJson: String) {
                 editSharedPreference.putString(CURRENT_SCHEDULE, scheduleJson).apply()
@@ -105,8 +125,8 @@ interface WidgetDataManage {
         const val CURRENT_GROUP_NAME = "current_group_name"
         const val CURRENT_DAY_INT = "current_day_int"
         const val CURRENT_SCHEDULE = "current_schedule"
-        const val WIDGET_NAME = "current_schedule"
+        const val SHARED_PREFERENCES_NAME = "shared_preferences_name"
 
-        const val SCHEDULE_EMPTY_STRING = "current_schedule"
+        const val SCHEDULE_EMPTY_STRING = "schedule_empty_string"
     }
 }

@@ -1,4 +1,4 @@
-package com.turtleteam.turtleappcompose.widget
+package com.turtleteam.turtleappcompose.widget.model
 
 enum class ActionsScheduleWidget(val actionName: String) {
     ACTION_REFRESH(actionName = "com.turtleteam.turtleappcompose.ScheduleWidgetActionRefresh"),

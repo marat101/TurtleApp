@@ -5,7 +5,7 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.turtleteam.turtleappcompose.databinding.ActivityWidgetBinding
-import com.turtleteam.turtleappcompose.widget.UpdateWidget
+import com.turtleteam.turtleappcompose.widget.utils.UpdateWidget
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,7 +27,6 @@ class WidgetActivity : AppCompatActivity() {
         lifecycleScope.launch {
             vModel.namesFlow.collectLatest {
                 list = it
-                //TODO setcontent
                 binding.grid.adapter =
                     ArrayAdapter(
                         this@WidgetActivity,
