@@ -31,8 +31,21 @@ interface UpdateWidget {
             setListViewAdapter(view, R.id.listView)
             setText(view, R.id.widgetCurrentGroup, manage.getCurrentGroupName())
             setText(view, R.id.widgetDay, manage.getCurrentDayString())
+            val isNightMode = manage.isNightModeOn()
+            view.setTextColor(
+                R.id.widgetDay,
+                context.getColor(
+                    if (isNightMode) R.color.widgetTextTitleColor_NIGHT
+                    else R.color.widgetTextTitleColor_DAY
+                )
+            )
             setText(view, R.id.widgetDayCount, manage.getDaysCount())
-
+            view.setInt(
+                R.id.widgetRoot,
+                "setBackgroundResource",
+                if (isNightMode) R.drawable.block_corners_night
+                else R.drawable.block_corners
+            )
             view.setOnClickPendingIntent(
                 R.id.widgetCurrentGroup,
                 PendingIntent.getActivity(

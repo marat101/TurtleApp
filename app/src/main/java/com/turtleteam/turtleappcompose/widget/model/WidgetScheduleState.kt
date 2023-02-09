@@ -2,11 +2,17 @@ package com.turtleteam.turtleappcompose.widget.model
 
 import android.content.Context
 import android.widget.RemoteViews
+import androidx.annotation.IdRes
 import com.turtleteam.turtleappcompose.R
 
 sealed interface WidgetScheduleState {
     fun getCountItems(day: Int): Int
-    fun inflateRemoteView(packageName: String, position: Int, currentDay: Int): RemoteViews
+    fun inflateRemoteView(
+        packageName: String,
+        position: Int,
+        currentDay: Int,
+        isNightTheme: Boolean,
+    ): RemoteViews
 
     object ErrorScheduleNotSelected : WidgetScheduleState {
         override fun getCountItems(day: Int): Int = 1
@@ -14,6 +20,7 @@ sealed interface WidgetScheduleState {
             packageName: String,
             position: Int,
             currentDay: Int,
+            isNightTheme: Boolean,
         ): RemoteViews {
             return RemoteViews(packageName, R.layout.widget_init_state)
         }
@@ -30,16 +37,69 @@ sealed interface WidgetScheduleState {
             packageName: String,
             position: Int,
             currentDay: Int,
+            isNightTheme: Boolean,
         ): RemoteViews {
             val view = RemoteViews(packageName, R.layout.item_one_pair_widget)
-            view.setTextViewText(R.id.widgetApairNumber, data.getNumber(currentDay, position, context))
-            view.setTextViewText(R.id.widgetTimeText, data.getTime(currentDay, position))
-            view.setTextViewText(R.id.widgetDoctrineText, data.getDoctrine(currentDay, position))
-            view.setTextViewText(R.id.widgetTeacherText, data.getTeacher(currentDay, position))
-            view.setTextViewText(R.id.widgetAuditoriaText, data.getAuditoria(currentDay, position))
-            view.setTextViewText(R.id.widgetCorpusText, data.getCorpus(currentDay, position))
+
+            view.setTextViewText(
+                R.id.widgetApairNumber,
+                data.getNumber(currentDay, position, context)
+            )
+            view.setTextColor(
+                R.id.widgetApairNumber,
+                context.getColor(
+                    if (isNightTheme) R.color.widgetTextTitleColor_NIGHT
+                    else R.color.widgetTextTitleColor_DAY
+                )
+            )
+            updateTextView(
+                view = view,
+                isNightTheme = isNightTheme,
+                textViewId = R.id.widgetTimeText,
+                text = data.getTime(currentDay, position)
+            )
+            updateTextView(
+                view = view,
+                isNightTheme = isNightTheme,
+                textViewId = R.id.widgetDoctrineText,
+                text = data.getDoctrine(currentDay, position)
+            )
+            updateTextView(
+                view = view,
+                isNightTheme = isNightTheme,
+                textViewId = R.id.widgetTeacherText,
+                text = data.getTeacher(currentDay, position)
+            )
+            updateTextView(
+                view = view,
+                isNightTheme = isNightTheme,
+                textViewId = R.id.widgetAuditoriaText,
+                text = data.getAuditoria(currentDay, position)
+            )
+            updateTextView(
+                view = view,
+                isNightTheme = isNightTheme,
+                textViewId = R.id.widgetCorpusText,
+                text = data.getCorpus(currentDay, position)
+            )
 
             return view
+        }
+
+        private fun updateTextView(
+            view: RemoteViews,
+            isNightTheme: Boolean,
+            @IdRes textViewId: Int,
+            text: String,
+        ) {
+            view.setTextViewText(textViewId, text)
+            view.setTextColor(
+                textViewId,
+                context.getColor(
+                    if (isNightTheme) R.color.widgetTextSecondColor_NIGHT
+                    else R.color.widgetTextSecondColor_DAY
+                )
+            )
         }
     }
 
@@ -49,6 +109,7 @@ sealed interface WidgetScheduleState {
             packageName: String,
             position: Int,
             currentDay: Int,
+            isNightTheme: Boolean,
         ): RemoteViews {
             return RemoteViews(packageName, R.layout.widget_error_state)
         }

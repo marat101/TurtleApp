@@ -1,6 +1,7 @@
 package com.turtleteam.turtleappcompose.widget.utils
 
 import android.content.Context
+import com.turtleteam.data.preferences.PreferencesStore
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.turtleappcompose.R
 import com.turtleteam.turtleappcompose.widget.model.WidgetScheduleState
@@ -16,6 +17,7 @@ interface WidgetDataManage {
         fun getCountOfDays(): Int
         fun getDaysCount(): String
 
+        fun isNightModeOn(): Boolean
         class Base(private val context: Context) : Getters {
             private val sharedPreferences =
                 context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
@@ -31,7 +33,7 @@ interface WidgetDataManage {
 
             override fun getCurrentDayString(): String {
                 return when (val schedule = getCurrentSchedule()) {
-                    is WidgetScheduleState.Success ->schedule.getCurrentDay(getCurrentDayInt())
+                    is WidgetScheduleState.Success -> schedule.getCurrentDay(getCurrentDayInt())
                     else -> ""
                 }
             }
@@ -64,14 +66,19 @@ interface WidgetDataManage {
             }
 
             override fun getDaysCount(): String {
-                return "${getCurrentDayInt()+1}/${getCountOfDays()}"
+                return "${getCurrentDayInt() + 1}/${getCountOfDays()}"
+            }
+
+            override fun isNightModeOn():Boolean {
+                return context.getSharedPreferences(PreferencesStore.PREFERENCES, Context.MODE_PRIVATE)
+                    .getBoolean(PreferencesStore.THEME_NAME, false)
             }
         }
     }
 
     interface UpdateCurrentDay {
-        fun setPreviousDay():Boolean
-        fun setNextDay():Boolean
+        fun setPreviousDay(): Boolean
+        fun setNextDay(): Boolean
         class Base(private val context: Context) : UpdateCurrentDay {
             private val editSharedPreference =
                 context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).edit()

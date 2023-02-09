@@ -7,12 +7,16 @@
     android:layout_height="wrap_content">
     <TextView
         android:id="@+id/widgetApairNumber"
+        android:fontFamily="@font/qanelas"
+        android:textSize="25sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="1 пара"/>
     <TextView
         android:drawableStart="@drawable/hourglass"
         android:id="@+id/widgetTimeText"
+        android:fontFamily="@font/qanelas"
+        android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="ВРЕМЯ"/>
@@ -20,6 +24,8 @@
     <TextView
         android:drawableStart="@drawable/book"
         android:id="@+id/widgetDoctrineText"
+        android:fontFamily="@font/qanelas"
+        android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="урок"
@@ -27,6 +33,8 @@
     <TextView
         android:drawableStart="@drawable/school_hat"
         android:id="@+id/widgetTeacherText"
+        android:fontFamily="@font/qanelas"
+        android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="препод"
@@ -34,6 +42,8 @@
     <TextView
         android:drawableStart="@drawable/door"
         android:id="@+id/widgetAuditoriaText"
+        android:fontFamily="@font/qanelas"
+        android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="кабинет"
@@ -41,6 +51,8 @@
     <TextView
         android:drawableStart="@drawable/corpus"
         android:id="@+id/widgetCorpusText"
+        android:fontFamily="@font/qanelas"
+        android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="корпус"

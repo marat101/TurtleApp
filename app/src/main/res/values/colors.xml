@@ -11,4 +11,8 @@
     <color name="light_blue_200">#FF81D4FA</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
+    <color name="widgetTextTitleColor_DAY">#96D162</color>
+    <color name="widgetTextSecondColor_DAY">#15956F</color>
+    <color name="widgetTextTitleColor_NIGHT">#8D91D1</color>
+    <color name="widgetTextSecondColor_NIGHT">#BF76C2</color>
 </resources>

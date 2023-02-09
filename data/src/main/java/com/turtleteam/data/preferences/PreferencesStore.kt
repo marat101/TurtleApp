@@ -8,7 +8,7 @@ import com.turtleteam.data.converter.Converters
 class PreferencesStore(private val context: Context?) {
 
     companion object {
-        private const val THEME_NAME = "theme"
+        const val THEME_NAME = "theme"
         private const val HINT = "hint"
 
         private const val SAVED_URL = "SAVEDURL"
@@ -24,10 +24,11 @@ class PreferencesStore(private val context: Context?) {
         const val PINNED_TEACHERS = "PINNEDTEACHER"
         const val LAST_GROUP = "LAST_GROUP"
         const val LAST_TEACHER = "LAST_TEACHER"
+        const val PREFERENCES = "PREFERENCE"
     }
 
     private var preferences: SharedPreferences =
-        context!!.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+        context!!.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
 
     fun saveSelectedItem(id: String, str: String) = preferences.edit().putString(id, str).apply()
 
