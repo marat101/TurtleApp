@@ -8,8 +8,10 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.RemoteViews
-import com.turtleteam.domain.model.States
+import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.usecases.teachers.GetTeacherScheduleUseCase
+import com.turtleteam.domain.usecases.widget.GetScheduleWidget
+import com.turtleteam.domain.usecases.widget.SaveScheduleWidget
 import com.turtleteam.widget_schedule.R
 import com.turtleteam.widget_schedule.service.ScheduleViewService
 import com.turtleteam.widget_schedule.utils.ScheduleFormatter
@@ -22,11 +24,9 @@ import org.koin.core.component.inject
 class ScheduleWidgetProvider : AppWidgetProvider(), KoinComponent {
 
     private val teachersSchedule: GetTeacherScheduleUseCase by inject()
-    private val localTeachersSchedule: GetTeacherScheduleUseCase by inject()
-
     private val groupsSchedule: GetTeacherScheduleUseCase by inject()
-    private val localGroupssSchedule: GetTeacherScheduleUseCase by inject()
-
+    private val saveWidget: SaveScheduleWidget by inject()
+    private val getWidget: GetScheduleWidget by inject()
 
     companion object {
         const val EXTRA_ITEM = "EXTRA_ITEM"
@@ -63,7 +63,9 @@ class ScheduleWidgetProvider : AppWidgetProvider(), KoinComponent {
     fun updateWidget(id: Int, context: Context) {
         val componentName = ComponentName(context, ScheduleWidgetProvider::class.java)
         GlobalScope.launch(Dispatchers.IO) {
-            val intent = Intent(context, ScheduleViewService::class.java)
+
+            val service = ScheduleViewService()
+            val intent = Intent(context, service::class.java)
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id)
             intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
             val rv = RemoteViews(context.packageName, R.layout.layout_widget)
@@ -76,8 +78,8 @@ class ScheduleWidgetProvider : AppWidgetProvider(), KoinComponent {
             val schedule = groupsSchedule.execute("ИС-23")
 
             if (schedule is States.Success) {
-                ScheduleViewService.pairs =
-                    ScheduleFormatter.getFormattedList(schedule.value.days[0])
+                service.pairs =
+                    ScheduleFormatter.getFormattedList(schedule.value.days[0]).toMutableList()
                 rv.setTextViewText(R.id.widget_date, schedule.value.days[0].day)
             }
 

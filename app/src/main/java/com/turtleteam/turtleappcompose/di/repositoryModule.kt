@@ -2,9 +2,11 @@ package com.turtleteam.turtleappcompose.di
 
 import com.turtleteam.data.repository.GroupsRepositoryImpl
 import com.turtleteam.data.repository.ManageSettingsImpl
+import com.turtleteam.data.repository.ScheduleWidgetRepositiryImpl
 import com.turtleteam.data.repository.TeachersRepositoryImpl
 import com.turtleteam.domain.repository.ManageSettings
 import com.turtleteam.domain.repository.ScheduleRepository
+import com.turtleteam.domain.repository.WidgetRepository
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -23,6 +25,11 @@ val repositoryModule = module {
             preferencesStore = get()
         )
     }
+
+    single<WidgetRepository> {
+        ScheduleWidgetRepositiryImpl(get())
+    }
+
     single<ManageSettings> {
         ManageSettingsImpl(preferencesStore = get())
     }

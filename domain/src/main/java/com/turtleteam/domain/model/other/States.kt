@@ -1,4 +1,4 @@
-package com.turtleteam.domain.model
+package com.turtleteam.domain.model.other
 
 sealed class States<out T> {
 

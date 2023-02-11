@@ -3,6 +3,8 @@ package com.turtleteam.turtleappcompose.di
 import com.turtleteam.domain.usecases.groups.*
 import com.turtleteam.domain.usecases.teachers.*
 import com.turtleteam.domain.usecases.usersettings.*
+import com.turtleteam.domain.usecases.widget.GetScheduleWidget
+import com.turtleteam.domain.usecases.widget.SaveScheduleWidget
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -60,7 +62,15 @@ val domainModule = module {
         SetLastTargetTeacherUseCase(repository = get(named("teachers")))
     }
 
-    //Utils
+    // Widget
+    factory {
+        GetScheduleWidget(get())
+    }
+    factory {
+        SaveScheduleWidget(get())
+    }
+
+    // Utils
     factory {
         GetThemeStateUseCase(manageSettings = get())
     }

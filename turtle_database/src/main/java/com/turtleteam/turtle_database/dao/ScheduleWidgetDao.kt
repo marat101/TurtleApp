@@ -22,7 +22,8 @@ internal class ScheduleWidgetDaoImpl(database: TurtleDatabase) : ScheduleWidgetD
         query.getScheduleWidgetState(id.toLong()).executeAsOne()
     }
 
-    override suspend fun <T> insertWidget(id: Int, schedule: T, page: Int, isGroup: Boolean) = withContext(Dispatchers.IO) {
+    override suspend fun <T> insertWidget(id: Int, schedule: T, page: Int, isGroup: Boolean) =
+        withContext(Dispatchers.IO) {
             val type = if (isGroup) 1 else 0
             query.insertWidgetState(id.toLong(), schedule.toString(), page.toLong(), type.toLong())
         }

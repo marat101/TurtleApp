@@ -1,4 +1,4 @@
-package com.turtleteam.domain.model
+package com.turtleteam.domain.model.other
 
 import com.android.turtleapp.data.model.schedule.Day
 

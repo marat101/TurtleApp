@@ -1,6 +1,6 @@
 package com.turtleteam.ui.screens.scheduleselect.utils
 
-import com.turtleteam.domain.model.NamesList
+import com.android.turtleapp.data.model.teachersandgroups.NamesList
 import com.turtleteam.ui.utils.Communication
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

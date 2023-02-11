@@ -1,7 +1,8 @@
 package com.turtleteam.domain.repository
 
-import com.turtleteam.domain.model.States
+import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.schedule.DaysList
+import com.turtleteam.domain.model.widget.ScheduleWidgetState
 
 
 interface ScheduleRepository {
@@ -21,6 +22,7 @@ interface ScheduleRepository {
 
     fun savePinnedList(list: List<String>)
 
-    fun getLastTargetName():String
-    fun setLastTargetName(name:String)
+    fun getLastTargetName(): String
+
+    fun setLastTargetName(name: String)
 }

@@ -1,7 +1,7 @@
 package com.turtleteam.data.wrapper
 
-import com.turtleteam.domain.model.Schedule
-import com.turtleteam.domain.model.States
+import com.turtleteam.domain.model.other.Schedule
+import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.schedule.DaysList
 
 

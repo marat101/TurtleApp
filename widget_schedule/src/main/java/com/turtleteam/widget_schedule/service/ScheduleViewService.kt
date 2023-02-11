@@ -4,24 +4,30 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
-import com.android.turtleapp.data.model.schedule.Pair
+import com.turtleteam.domain.usecases.widget.GetScheduleWidget
 import com.turtleteam.widget_schedule.R
 import com.turtleteam.widget_schedule.widgetprovider.ScheduleWidgetProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class ScheduleViewService: RemoteViewsService(){
+class ScheduleViewService : RemoteViewsService(), KoinComponent {
 
-    companion object{
+    companion object {
         const val TIME_ICON = "⏳"
         const val DOCTRINE_ICON = "\uD83D\uDCD6"
         const val TEACHER_ICON = "\uD83C\uDF93"
         const val AUDITORIA_ICON = "\uD83D\uDD11"
         const val CORPUS_ICON = "\uD83C\uDFE2"
-
-        var pairs = emptyList<Pair>()
     }
 
+    var pairs = mutableListOf<com.android.turtleapp.data.model.schedule.Pair>()
+
     override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory {
-        return object : RemoteViewsFactory{
+        return object : RemoteViewsFactory {
             override fun onCreate() {
             }
 
@@ -34,14 +40,30 @@ class ScheduleViewService: RemoteViewsService(){
             override fun getCount(): Int = pairs.size
 
             override fun getViewAt(position: Int): RemoteViews {
-                val remoteView = RemoteViews(applicationContext.packageName, R.layout.layout_pair_item).apply {
-                    setTextViewText(R.id.widget_pairNumber, "${pairs[position].number} ПАРА")
-                    setTextViewText(R.id.widget_time, "${TIME_ICON} ${pairs[position].start} - ${pairs[position].end}")
-                    setTextViewText(R.id.widget_doctrine, "${DOCTRINE_ICON} ${pairs[position].doctrine}")
-                    setTextViewText(R.id.widget_name, "${TEACHER_ICON} ${pairs[position].teacher}")
-                    setTextViewText(R.id.widget_auditoria, "${AUDITORIA_ICON} ${pairs[position].auditoria}")
-                    setTextViewText(R.id.widget_corpus, "${CORPUS_ICON} ${pairs[position].corpus}")
-                }
+                val remoteView =
+                    RemoteViews(applicationContext.packageName, R.layout.layout_pair_item).apply {
+                        setTextViewText(R.id.widget_pairNumber, "${pairs[position].number} ПАРА")
+                        setTextViewText(
+                            R.id.widget_time,
+                            "${TIME_ICON} ${pairs[position].start} - ${pairs[position].end}"
+                        )
+                        setTextViewText(
+                            R.id.widget_doctrine,
+                            "${DOCTRINE_ICON} ${pairs[position].doctrine}"
+                        )
+                        setTextViewText(
+                            R.id.widget_name,
+                            "${TEACHER_ICON} ${pairs[position].teacher}"
+                        )
+                        setTextViewText(
+                            R.id.widget_auditoria,
+                            "${AUDITORIA_ICON} ${pairs[position].auditoria}"
+                        )
+                        setTextViewText(
+                            R.id.widget_corpus,
+                            "${CORPUS_ICON} ${pairs[position].corpus}"
+                        )
+                    }
                 val extras = Bundle()
                 extras.putInt(ScheduleWidgetProvider.EXTRA_ITEM, position)
                 val fillInIntent = Intent()

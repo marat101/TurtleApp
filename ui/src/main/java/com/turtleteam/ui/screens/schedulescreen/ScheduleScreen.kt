@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
 import com.android.turtleapp.data.model.schedule.Day
 import com.android.turtleapp.data.model.schedule.Pair
 import com.android.turtleapp.data.model.schedule.PairsList
-import com.turtleteam.domain.model.States
+import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.ui.R
 import com.turtleteam.ui.theme.JetTheme

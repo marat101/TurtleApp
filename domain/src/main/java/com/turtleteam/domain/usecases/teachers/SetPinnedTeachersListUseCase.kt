@@ -1,10 +1,10 @@
 package com.turtleteam.domain.usecases.teachers
 
-import com.turtleteam.domain.model.NamesList
+import com.android.turtleapp.data.model.teachersandgroups.NamesList
 import com.turtleteam.domain.repository.ScheduleRepository
 import com.turtleteam.domain.utils.SetPinnedListUC
 
-class SetPinnedTeachersListUseCase(private val repository: ScheduleRepository): SetPinnedListUC {
+class SetPinnedTeachersListUseCase(private val repository: ScheduleRepository) : SetPinnedListUC {
 
     /**
      * Юзкейс для Закрепления\Открепления преподавателей

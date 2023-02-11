@@ -1,8 +1,7 @@
 package com.turtleteam.data.wrapper
 
-import android.util.Log
-import com.turtleteam.domain.model.Schedule
-import com.turtleteam.domain.model.States
+import com.turtleteam.domain.model.other.Schedule
+import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.ktor_client.exceptions.HttpException
 import java.net.UnknownHostException

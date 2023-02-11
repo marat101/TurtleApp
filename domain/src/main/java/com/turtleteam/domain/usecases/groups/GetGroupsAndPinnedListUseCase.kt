@@ -1,6 +1,6 @@
 package com.turtleteam.domain.usecases.groups
 
-import com.turtleteam.domain.model.NamesList
+import com.android.turtleapp.data.model.teachersandgroups.NamesList
 import com.turtleteam.domain.repository.ScheduleRepository
 import com.turtleteam.domain.utils.GetListAndPinnedListUC
 
