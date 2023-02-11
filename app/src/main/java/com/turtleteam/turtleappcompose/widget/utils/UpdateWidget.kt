@@ -4,19 +4,22 @@ import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.widget.RemoteViews
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import com.turtleteam.turtleappcompose.R
 import com.turtleteam.turtleappcompose.WidgetActivity
-import com.turtleteam.turtleappcompose.widget.WidgetService
+import com.turtleteam.turtleappcompose.widget.ScheduleWidgetService
 import com.turtleteam.turtleappcompose.widget.model.ActionsScheduleWidget
 
 interface UpdateWidget {
 
     fun setListViewAdapter(view: RemoteViews, @IdRes listId: Int)
-    fun setText(view: RemoteViews, @IdRes viewId: Int, text: String)
-
+    fun setText(view: RemoteViews, @IdRes viewId: Int, text: String, @ColorInt color: Int)
+    fun setBackground(view: RemoteViews, @IdRes viewId: Int, @DrawableRes background: Int)
     fun notifyWidgetUpdated(view: RemoteViews, appWidgetManager: AppWidgetManager)
     fun notifyListUpdated(appWidgetManager: AppWidgetManager, @IdRes listId: Int)
 
@@ -28,21 +31,41 @@ interface UpdateWidget {
         override fun fullUpdate() {
             val manage = WidgetDataManage.Getters.Base(context)
             val view = RemoteViews(context.packageName, R.layout.schedule_widget)
-            setListViewAdapter(view, R.id.listView)
-            setText(view, R.id.widgetCurrentGroup, manage.getCurrentGroupName())
-            setText(view, R.id.widgetDay, manage.getCurrentDayString())
             val isNightMode = manage.isNightModeOn()
-            view.setTextColor(
-                R.id.widgetDay,
+            setListViewAdapter(view, R.id.listView)
+            setText(
+                view,
+                R.id.widgetCurrentGroup,
+                manage.getCurrentGroupName(),
                 context.getColor(
                     if (isNightMode) R.color.widgetTextTitleColor_NIGHT
                     else R.color.widgetTextTitleColor_DAY
                 )
             )
-            setText(view, R.id.widgetDayCount, manage.getDaysCount())
-            view.setInt(
+            setText(
+                view,
+                R.id.widgetDay,
+                manage.getCurrentDayString(),
+                context.getColor(
+                    if (isNightMode) R.color.widgetTextTitleColor_NIGHT
+                    else R.color.widgetTextTitleColor_DAY
+                )
+            )
+            setText(
+                view,
+                R.id.widgetDayCount,
+                manage.getDaysCount(),
+                Color.GRAY
+            )
+            setBackground(
+                view,
                 R.id.widgetRoot,
-                "setBackgroundResource",
+                if (isNightMode) R.drawable.block_corners_night
+                else R.drawable.block_corners
+            )
+            setBackground(
+                view,
+                R.id.widgetCurrentGroup,
                 if (isNightMode) R.drawable.block_corners_night
                 else R.drawable.block_corners
             )
@@ -85,7 +108,7 @@ interface UpdateWidget {
             view.setRemoteAdapter(
                 listId, Intent(
                     context,
-                    WidgetService::class.java//TODO
+                    ScheduleWidgetService::class.java//TODO
                 ).apply {
                     putExtra("id", appWidgetId)
                     data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
@@ -93,8 +116,22 @@ interface UpdateWidget {
             )
         }
 
-        override fun setText(view: RemoteViews, @IdRes viewId: Int, text: String) {
+        override fun setText(
+            view: RemoteViews,
+            @IdRes viewId: Int,
+            text: String,
+            @ColorInt color: Int,
+        ) {
             view.setCharSequence(viewId, "setText", text)
+            view.setTextColor(viewId, color)
+        }
+
+        override fun setBackground(
+            view: RemoteViews,
+            @IdRes viewId: Int,
+            @DrawableRes background: Int,
+        ) {
+            view.setInt(viewId, "setBackgroundResource", background)
         }
 
         override fun notifyListUpdated(appWidgetManager: AppWidgetManager, @IdRes listId: Int) {

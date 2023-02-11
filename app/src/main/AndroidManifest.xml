@@ -49,7 +49,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".widget.WidgetService"
+        <service android:name=".widget.ScheduleWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
 
