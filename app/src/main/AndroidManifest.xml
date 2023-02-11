@@ -15,33 +15,13 @@
         android:theme="@style/Theme.TurtleApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".WidgetActivity"
-            android:excludeFromRecents="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
-            </intent-filter>
-        </activity>
-
-        <receiver
-            android:name=".widget.ScheduleWidgetProvider"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/schedule_widget_info" />
-        </receiver>
 
         <activity
             android:name="com.turtleteam.ui.MainActivity"
             android:exported="true"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TurtleApp"
-            android:launchMode="singleTop"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,8 +29,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".widget.ScheduleWidgetService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+
+        <!--        WIDGET COMPONENTS-->
+        <activity
+            android:name="com.turtleteam.widget.WidgetActivity"
+            android:excludeFromRecents="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name="com.turtleteam.widget.widget.ScheduleWidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/schedule_widget_info" />
+        </receiver>
+
+        <service
+            android:name="com.turtleteam.widget.widget.ScheduleWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <!--        WIDGET COMPONENTS-->
     </application>
 
 </manifest>

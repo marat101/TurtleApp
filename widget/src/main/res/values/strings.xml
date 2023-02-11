@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TurtleApp</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="error_target_value_is_default">Выберите расписание</string>
+    <string name="index_number_apair">%s пара</string>
+</resources>
