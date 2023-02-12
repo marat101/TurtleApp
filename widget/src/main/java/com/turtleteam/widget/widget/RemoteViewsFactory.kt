@@ -1,15 +1,18 @@
 package com.turtleteam.widget.widget
 
+import android.content.Context
+import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.turtleteam.widget.widget.model.WidgetScheduleState
 import com.turtleteam.widget.widget.utils.WidgetDataManage
 
 class RemoteViewsFactory(
-    private val manageWidgetData: WidgetDataManage.Getters,
-    private val packageName: String,
+    private val context: Context,
+//    private val manageWidgetData: WidgetDataManage.Getters,
+//    private val packageName: String,
 ) : RemoteViewsService.RemoteViewsFactory {
-
+    private val manageWidgetData = WidgetDataManage.Getters.Base(context)
     private var widgetData: WidgetScheduleState = WidgetScheduleState.ErrorScheduleNotSelected
     private var currentDay = 0
     private var isNightTheme = false
@@ -17,12 +20,13 @@ class RemoteViewsFactory(
         currentDay = manageWidgetData.getCurrentDayInt()
         widgetData = manageWidgetData.getCurrentSchedule()
         isNightTheme = manageWidgetData.isNightModeOn()
+        Log.d("xdd", "onDataSetChanged: $currentDay")
     }
 
 
     override fun getViewAt(position: Int): RemoteViews {
         return widgetData.inflateRemoteView(
-            packageName = packageName,
+            packageName = context.packageName,
             position = position,
             currentDay = currentDay,
             isNightTheme = isNightTheme

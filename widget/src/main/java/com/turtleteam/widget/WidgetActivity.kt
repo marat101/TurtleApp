@@ -1,11 +1,12 @@
 package com.turtleteam.widget
 
+import android.appwidget.AppWidgetManager
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.turtleteam.widget.databinding.ActivityWidgetBinding
-import com.turtleteam.widget.widget.utils.UpdateWidget
+import com.turtleteam.widget.widget.updateScheduleWidget
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -41,7 +42,7 @@ class WidgetActivity : AppCompatActivity() {
         binding.grid.setOnItemClickListener { _, _, position, _ ->
             lifecycleScope.launch {
                 vModel.setNewSchedule(list[position])
-                UpdateWidget.Base(this@WidgetActivity,wId).fullUpdate()
+                updateScheduleWidget(this@WidgetActivity, wId, AppWidgetManager.getInstance(this@WidgetActivity))
                 finish()
             }
         }

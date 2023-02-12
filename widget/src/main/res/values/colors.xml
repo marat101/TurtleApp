@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="widgetTextDayCount">#808080</color>
     <color name="widgetTextTitleColor_DAY">#96D162</color>
     <color name="widgetTextSecondColor_DAY">#15956F</color>
     <color name="widgetTextTitleColor_NIGHT">#8D91D1</color>
