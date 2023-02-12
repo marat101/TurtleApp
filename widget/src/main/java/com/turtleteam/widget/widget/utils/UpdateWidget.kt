@@ -8,14 +8,17 @@ import android.widget.RemoteViews
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
-import com.turtleteam.widget.widget.ScheduleWidgetService
 
 interface UpdateWidget {
 
-    fun setListViewAdapter(view: RemoteViews, @IdRes listId: Int)
+    fun setListViewAdapter(view: RemoteViews, @IdRes listId: Int, cls: Class<*>)
     fun setText(view: RemoteViews, @IdRes viewId: Int, text: String, @ColorInt color: Int)
     fun setBackground(view: RemoteViews, @IdRes viewId: Int, @DrawableRes background: Int)
-    fun setOnClickListener(view: RemoteViews, @IdRes viewId: Int, onClickIntent: PendingIntent): RemoteViews
+    fun setOnClickListener(
+        view: RemoteViews,
+        @IdRes viewId: Int,
+        onClickIntent: PendingIntent,
+    ): RemoteViews
 
     class Base(
         private val context: Context,
@@ -25,13 +28,10 @@ interface UpdateWidget {
         override fun setListViewAdapter(
             view: RemoteViews,
             @IdRes listId: Int,
-            //java: Class<out AppWidgetProvider>,//TODO
+            cls: Class<*>,
         ) {
             view.setRemoteAdapter(
-                listId, Intent(
-                    context,
-                    ScheduleWidgetService::class.java//TODO
-                ).apply {
+                listId, Intent(context, cls).apply {
                     putExtra("id", appWidgetId)
                     data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
                 }

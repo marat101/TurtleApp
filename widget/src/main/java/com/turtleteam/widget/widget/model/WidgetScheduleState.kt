@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.RemoteViews
 import androidx.annotation.IdRes
 import com.turtleteam.widget.R
+import com.turtleteam.widget.widget.utils.ManageWidgetColor
 
 sealed interface WidgetScheduleState {
     fun getCountItems(day: Int): Int
@@ -30,6 +31,7 @@ sealed interface WidgetScheduleState {
         private val data: WidgetSuccessStateData,
         private val context: Context,
     ) : WidgetScheduleState {
+        val color = ManageWidgetColor.Base()
         override fun getCountItems(day: Int): Int = data.getCountApairs(day)
         fun getCountDays() = data.getCountDays()
         fun getCurrentDay(day: Int): String = data.getDayName(day)
@@ -40,7 +42,6 @@ sealed interface WidgetScheduleState {
             isNightTheme: Boolean,
         ): RemoteViews {
             val view = RemoteViews(packageName, R.layout.item_one_pair_widget)
-
             view.setTextViewText(
                 R.id.widgetApairNumber,
                 data.getNumber(currentDay, position, context)
@@ -48,8 +49,7 @@ sealed interface WidgetScheduleState {
             view.setTextColor(
                 R.id.widgetApairNumber,
                 context.getColor(
-                    if (isNightTheme) R.color.widgetTextTitleColor_NIGHT
-                    else R.color.widgetTextTitleColor_DAY
+                    color.getTitleTextColor(isNightTheme)
                 )
             )
             updateTextView(
@@ -95,10 +95,7 @@ sealed interface WidgetScheduleState {
             view.setTextViewText(textViewId, text)
             view.setTextColor(
                 textViewId,
-                context.getColor(
-                    if (isNightTheme) R.color.widgetTextSecondColor_NIGHT
-                    else R.color.widgetTextSecondColor_DAY
-                )
+                context.getColor(color.getSecondTextColor(isNightTheme))
             )
         }
     }

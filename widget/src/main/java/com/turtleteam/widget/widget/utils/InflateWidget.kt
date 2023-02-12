@@ -5,6 +5,7 @@ import android.widget.RemoteViews
 import com.turtleteam.widget.R
 import com.turtleteam.widget.WidgetActivity
 import com.turtleteam.widget.widget.ScheduleWidgetProvider
+import com.turtleteam.widget.widget.ScheduleWidgetService
 import com.turtleteam.widget.widget.model.ActionsScheduleWidget
 
 interface InflateWidget {
@@ -23,6 +24,8 @@ interface InflateWidget {
         private val managePendingIntent: ManagePendingIntent,
         private val context: Context,
         private val dataManage: WidgetDataManage.Getters,
+        private val drawable: ManageWidgetDrawable = ManageWidgetDrawable.Base(),
+        private val color: ManageWidgetColor = ManageWidgetColor.Base(),
     ) : InflateWidget {
         private val isNightMode = dataManage.isNightModeOn()
         fun get() = view
@@ -70,9 +73,13 @@ interface InflateWidget {
                 R.id.widgetCurrentGroup,
                 dataManage.getCurrentGroupName(),
                 context.getColor(
-                    if (isNightMode) R.color.widgetTextTitleColor_NIGHT
-                    else R.color.widgetTextTitleColor_DAY
+                    color.getTitleTextColor(isNightMode)
                 )
+            )
+            updateWidget.setBackground(
+                view,
+                R.id.widgetCurrentGroup,
+                drawable.getBackground(isNightMode)
             )
         }
 
@@ -82,8 +89,7 @@ interface InflateWidget {
                 R.id.widgetDay,
                 dataManage.getCurrentDayString(),
                 context.getColor(
-                    if (isNightMode) R.color.widgetTextTitleColor_NIGHT
-                    else R.color.widgetTextTitleColor_DAY
+                    color.getTitleTextColor(isNightMode)
                 )
             )
         }
@@ -93,19 +99,19 @@ interface InflateWidget {
                 view,
                 R.id.widgetDayCount,
                 dataManage.getDaysCount(),
-                context.getColor(R.color.widgetTextDayCount)
+                context.getColor(color.getDayCountTextColor(isNightMode))
             )
         }
 
         override fun inflateLiseView() {
-            updateWidget.setListViewAdapter(view, R.id.listView)
+            updateWidget.setListViewAdapter(view, R.id.listView, ScheduleWidgetService::class.java)
         }
 
         override fun inflateRootBackground() {
             updateWidget.setBackground(
                 view,
                 R.id.widgetRoot,
-                if (isNightMode) R.drawable.block_corners_night else R.drawable.block_corners
+                drawable.getRootBackground(isNightMode)
             )
         }
     }

@@ -8,9 +8,7 @@ import com.turtleteam.widget.widget.model.WidgetScheduleState
 import com.turtleteam.widget.widget.utils.WidgetDataManage
 
 class RemoteViewsFactory(
-    private val context: Context,
-//    private val manageWidgetData: WidgetDataManage.Getters,
-//    private val packageName: String,
+    private val context: Context
 ) : RemoteViewsService.RemoteViewsFactory {
     private val manageWidgetData = WidgetDataManage.Getters.Base(context)
     private var widgetData: WidgetScheduleState = WidgetScheduleState.ErrorScheduleNotSelected
