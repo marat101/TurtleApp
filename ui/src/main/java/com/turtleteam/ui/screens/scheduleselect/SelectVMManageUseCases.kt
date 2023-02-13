@@ -1,14 +1,6 @@
 package com.turtleteam.ui.screens.scheduleselect
 
 import com.turtleteam.domain.model.NamesList
-import com.turtleteam.domain.usecases.groups.GetGroupsAndPinnedListUseCase
-import com.turtleteam.domain.usecases.groups.GetLastTargetGroupUseCase
-import com.turtleteam.domain.usecases.groups.SetLastTargetGroupUseCase
-import com.turtleteam.domain.usecases.groups.SetPinnedGroupsListUseCase
-import com.turtleteam.domain.usecases.teachers.GetLastTargetTeacherUseCase
-import com.turtleteam.domain.usecases.teachers.GetTeachersAndPinnedListUseCase
-import com.turtleteam.domain.usecases.teachers.SetLastTargetTeacherUseCase
-import com.turtleteam.domain.usecases.teachers.SetPinnedTeachersListUseCase
 import com.turtleteam.domain.usecases.usersettings.GetHintStateUseCase
 import com.turtleteam.domain.usecases.usersettings.UpdateHintStateUseCase
 import com.turtleteam.domain.utils.GetLastTargetUC
@@ -33,10 +25,10 @@ sealed class SelectVMManageUseCases(
     fun getTipState(): Boolean = getHintStateUseCase.execute()
 
     class Groups(
-        private val groupsList: GetGroupsAndPinnedListUseCase,
-        private val getLastTargetGroupUseCase: GetLastTargetGroupUseCase,
-        private val setLastTargetGroupUseCase: SetLastTargetGroupUseCase,
-        private val setPinnedList: SetPinnedGroupsListUseCase,
+        private val groupsList: GetListAndPinnedListUC,
+        private val getLastTargetGroupUseCase: GetLastTargetUC,
+        private val setLastTargetGroupUseCase: SetLastTargetUC,
+        private val setPinnedList: SetPinnedListUC,
         private val updateHintStateUseCase: UpdateHintStateUseCase,
         private val getHintStateUseCase: GetHintStateUseCase
     ) : SelectVMManageUseCases(
@@ -49,10 +41,10 @@ sealed class SelectVMManageUseCases(
     )
 
     class Teachers(
-        private val teachersList: GetTeachersAndPinnedListUseCase,
-        private val getLastTargetTeacherUseCase: GetLastTargetTeacherUseCase,
-        private val setLastTargetTeacherUseCase: SetLastTargetTeacherUseCase,
-        private val setPinnedList: SetPinnedTeachersListUseCase,
+        private val teachersList: GetListAndPinnedListUC,
+        private val getLastTargetTeacherUseCase: GetLastTargetUC,
+        private val setLastTargetTeacherUseCase: SetLastTargetUC,
+        private val setPinnedList: SetPinnedListUC,
         private val updateHintStateUseCase: UpdateHintStateUseCase,
         private val getHintStateUseCase: GetHintStateUseCase
     ) : SelectVMManageUseCases(

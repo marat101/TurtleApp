@@ -3,61 +3,69 @@ package com.turtleteam.turtleappcompose.di
 import com.turtleteam.domain.usecases.groups.*
 import com.turtleteam.domain.usecases.teachers.*
 import com.turtleteam.domain.usecases.usersettings.*
+import com.turtleteam.domain.utils.*
+import org.koin.core.qualifier.named
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val domainModule = module {
 
     // Группы
-    factory {
+    factory(named("GroupUseCase")) {
         GetGroupsListUseCase(repository = get())
     }
-    factory {
+    factory(named("GroupUseCase")) {
         GetGroupScheduleUseCase(repository = get())
-    }
-    factory {
+    } bind GetScheduleUC::class
+
+    factory(named("GroupUseCase")) {
         GetSavedGroupScheduleUseCase(repository = get())
-    }
-    factory {
+    } bind GetSavedScheduleUC::class
+
+    factory(named("GroupUseCase")) {
         SaveGroupScheduleUseCase(repository = get())
-    }
-    factory {
+    } bind SaveScheduleUC::class
+
+    factory(named("GroupUseCase")) {
         GetGroupsAndPinnedListUseCase(repository = get())
-    }
-    factory {
+    } bind GetListAndPinnedListUC::class
+
+    factory(named("GroupUseCase")) {
         SetPinnedGroupsListUseCase(repository = get())
-    }
-    factory {
+    } bind SetPinnedListUC::class
+
+    factory(named("GroupUseCase")) {
         GetLastTargetGroupUseCase(repository = get())
-    }
-    factory {
+    } bind GetLastTargetUC::class
+    factory(named("GroupUseCase")) {
         SetLastTargetGroupUseCase(repository = get())
-    }
+    } bind SetLastTargetUC::class
 
     // Преподаватели
-    factory {
+    factory(named("TeacherUseCase")) {
         GetTeachersListUseCase(repository = get())
     }
-    factory {
+    factory(named("TeacherUseCase")) {
         GetTeacherScheduleUseCase(repository = get())
-    }
-    factory {
+    } bind GetScheduleUC::class
+    factory(named("TeacherUseCase")) {
         GetSavedTeacherScheduleUseCase(repository = get())
-    }
-    factory {
+    } bind GetSavedScheduleUC::class
+    factory(named("TeacherUseCase")) {
         SaveTeacherScheduleUseCase(repository = get())
-    }
-    factory {
+    } bind SaveScheduleUC::class
+    factory(named("TeacherUseCase")) {
         GetTeachersAndPinnedListUseCase(repository = get())
-    }
-    factory {
+    } bind GetListAndPinnedListUC::class
+    factory(named("TeacherUseCase")) {
         SetPinnedTeachersListUseCase(repository = get())
-    }
-    factory {
+    } bind SetPinnedListUC::class
+    factory(named("TeacherUseCase")) {
         GetLastTargetTeacherUseCase(repository = get())
-    }
-    factory {
+    } bind GetLastTargetUC::class
+    factory(named("TeacherUseCase")) {
         SetLastTargetTeacherUseCase(repository = get())
-    }
+    } bind SetLastTargetUC::class
     //Utils
     factory {
         GetThemeStateUseCase(manageSettings = get())

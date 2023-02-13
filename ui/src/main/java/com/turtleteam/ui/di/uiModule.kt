@@ -18,10 +18,10 @@ val uiModule = module {
     viewModel(named("groups")) {
         ScheduleSelectViewModel(
             selectVM = SelectVMManageUseCases.Groups(
-                groupsList = get(),
-                getLastTargetGroupUseCase = get(),
-                setLastTargetGroupUseCase = get(),
-                setPinnedList = get(),
+                groupsList = get(named("GroupUseCase")),
+                getLastTargetGroupUseCase = get(named("GroupUseCase")),
+                setLastTargetGroupUseCase = get(named("GroupUseCase")),
+                setPinnedList = get(named("GroupUseCase")),
                 updateHintStateUseCase = get(),
                 getHintStateUseCase = get(),
             ),
@@ -33,10 +33,10 @@ val uiModule = module {
     viewModel(named("teachers")) {
         ScheduleSelectViewModel(
             selectVM = SelectVMManageUseCases.Teachers(
-                teachersList = get(),
-                getLastTargetTeacherUseCase = get(),
-                setLastTargetTeacherUseCase = get(),
-                setPinnedList = get(),
+                teachersList = get(named("TeacherUseCase")),
+                getLastTargetTeacherUseCase = get(named("TeacherUseCase")),
+                setLastTargetTeacherUseCase = get(named("TeacherUseCase")),
+                setPinnedList = get(named("TeacherUseCase")),
                 updateHintStateUseCase = get(),
                 getHintStateUseCase = get(),
             ),
@@ -49,9 +49,9 @@ val uiModule = module {
     viewModel(named("group")) {
         ScheduleScreenViewModel(
             ScheduleVMManageUseCases.Group(
-                getGroupScheduleUseCase = get(),
-                saveGroupScheduleUseCase = get(),
-                getSavedGroupScheduleUseCase = get()
+                getGroupScheduleUseCase = get(named("GroupUseCase")),
+                saveGroupScheduleUseCase = get(named("GroupUseCase")),
+                getSavedGroupScheduleUseCase = get(named("GroupUseCase"))
             ),
             communication = ScheduleCommunication(),
             dispatchersList = DispatchersList.Base()
@@ -61,9 +61,9 @@ val uiModule = module {
     viewModel(named("teacher")) {
         ScheduleScreenViewModel(
             ScheduleVMManageUseCases.Teacher(
-                getTeachersScheduleUseCase = get(),
-                saveTeacherScheduleUseCase = get(),
-                getSavedTeacherScheduleUseCase = get()
+                getTeachersScheduleUseCase = get(named("TeacherUseCase")),
+                saveTeacherScheduleUseCase = get(named("TeacherUseCase")),
+                getSavedTeacherScheduleUseCase = get(named("TeacherUseCase"))
             ),
             communication = ScheduleCommunication(),
             dispatchersList = DispatchersList.Base()

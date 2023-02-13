@@ -18,17 +18,35 @@ interface InflateWidget {
     fun inflateLiseView()
     fun inflateRootBackground()
 
-    class Base(
-        private val view: RemoteViews,
-        private val updateWidget: UpdateWidget,
-        private val managePendingIntent: ManagePendingIntent,
+    fun getView(): RemoteViews
+    class Base private constructor(
+        private val widgetLayoutId: Int,
         private val context: Context,
         private val dataManage: WidgetDataManage.Getters,
-        private val drawable: ManageWidgetDrawable = ManageWidgetDrawable.Base(),
-        private val color: ManageWidgetColor = ManageWidgetColor.Base(),
-    ) : InflateWidget {
+        private val updateWidget: UpdateWidget,
+        private val managePendingIntent: ManagePendingIntent,
+        private val drawable: ManageWidgetDrawable,
+        private val color: ManageWidgetColor,
+
+        ) : InflateWidget {
+        constructor(
+            widgetLayoutId: Int,
+            context: Context,
+            widgetId: Int,
+        ) : this(
+            widgetLayoutId = widgetLayoutId,
+            context = context,
+            dataManage = WidgetDataManage.Getters.Base(context),
+            updateWidget = UpdateWidget.Base(context, widgetId),
+            managePendingIntent = ManagePendingIntent.Base(context, widgetId),
+            drawable = ManageWidgetDrawable.Base(),
+            color = ManageWidgetColor.Base()
+        )
+
+        private val view = RemoteViews(context.packageName, widgetLayoutId)
         private val isNightMode = dataManage.isNightModeOn()
-        fun get() = view
+
+        override fun getView() = view
         override fun inflateBtnPrev() {
             updateWidget.setOnClickListener(
                 view,
