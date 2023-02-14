@@ -8,6 +8,7 @@ import android.widget.RemoteViews
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
+import com.turtleteam.widget.widget.ScheduleWidgetService
 
 interface UpdateWidget {
 
@@ -30,11 +31,14 @@ interface UpdateWidget {
             @IdRes listId: Int,
             cls: Class<*>,
         ) {
+            val cl = ScheduleWidgetService()
+            val intent = Intent(context, cl.javaClass)
+            intent.putExtra("id", appWidgetId)
+            intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
+
             view.setRemoteAdapter(
-                listId, Intent(context, cls).apply {
-                    putExtra("id", appWidgetId)
-                    data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
-                }
+                listId,
+                intent
             )
         }
 

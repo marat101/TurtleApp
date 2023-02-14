@@ -10,7 +10,7 @@ data class WidgetDay(
     companion object{
         fun fromDays(day: Day): WidgetDay {
             val list = mutableListOf<Pair>()
-            day.apairs.forEach { list += it.apair }
+            day.apairs.forEach { list.addAll(it.apair)  }
             return WidgetDay(
                 apairs = list,
                 day = day.day

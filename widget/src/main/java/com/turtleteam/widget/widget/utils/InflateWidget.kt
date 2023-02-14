@@ -122,7 +122,8 @@ interface InflateWidget {
         }
 
         override fun inflateLiseView() {
-            updateWidget.setListViewAdapter(view, R.id.listView, ScheduleWidgetService::class.java)
+            val cl =ScheduleWidgetService()
+            updateWidget.setListViewAdapter(view, R.id.listView, cl.javaClass)
         }
 
         override fun inflateRootBackground() {

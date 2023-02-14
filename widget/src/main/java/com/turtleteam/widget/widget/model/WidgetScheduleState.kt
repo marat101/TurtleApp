@@ -99,16 +99,4 @@ sealed interface WidgetScheduleState {
             )
         }
     }
-
-    object Error : WidgetScheduleState {
-        override fun getCountItems(day: Int): Int = 1
-        override fun inflateRemoteView(
-            packageName: String,
-            position: Int,
-            currentDay: Int,
-            isNightTheme: Boolean,
-        ): RemoteViews {
-            return RemoteViews(packageName, R.layout.widget_error_state)
-        }
-    }
 }

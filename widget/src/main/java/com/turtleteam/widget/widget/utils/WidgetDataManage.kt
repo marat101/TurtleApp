@@ -94,9 +94,12 @@ interface WidgetDataManage {
             }
 
             override fun setNextDay(): Boolean {
-                val currentDay = getter.getCurrentDayInt()
-                val count = currentDay + 1
-                return if (count > (getter.getCountOfDays() - 1)) false
+                val count = getter.getCurrentDayInt().plus(1)
+                val countDays = getter.getCountOfDays().minus(1)
+                return if (count > countDays){
+                    editSharedPreference.putInt(CURRENT_DAY_INT, 0).apply()
+                    true
+                }
                 else {
                     editSharedPreference.putInt(CURRENT_DAY_INT, count).apply()
                     true
