@@ -66,7 +66,11 @@ interface WidgetDataManage {
             }
 
             override fun getDaysCount(): String {
-                return "${getCurrentDayInt() + 1}/${getCountOfDays()}"
+                val countOfDays = getCountOfDays()
+                return if ( countOfDays == 0)
+                    context.getString(R.string.error_0_days)
+                else
+                    "${getCurrentDayInt() + 1}/${countOfDays}"
             }
 
             override fun isNightModeOn():Boolean {

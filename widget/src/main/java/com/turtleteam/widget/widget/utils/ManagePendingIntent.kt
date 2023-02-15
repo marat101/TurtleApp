@@ -17,28 +17,28 @@ interface ManagePendingIntent {
             action: ActionsScheduleWidget,
             widgetProvider: Class<*>
         ): PendingIntent {
-            val int = Intent(context, widgetProvider).apply {
-                this.action = action.actionName
-                putExtra("id", appWidgetId)
-            }
-
             return PendingIntent.getBroadcast(
                 context,
                 0,
-                int,
-                PendingIntent.FLAG_UPDATE_CURRENT// or PendingIntent.FLAG_MUTABLE
+                Intent(context, widgetProvider).apply {
+                    this.action = action.actionName
+                    putExtra("id", appWidgetId)
+                },
+//                PendingIntent.FLAG_IMMUTABLE
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                //PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
             )
         }
 
         override fun createPendingOpenActivity(activity:Class<*>): PendingIntent {
-            val intent = Intent(context,activity ).apply {
-                putExtra("id", appWidgetId)
-            }
             return PendingIntent.getActivity(
                 context,
                 0,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT// or PendingIntent.FLAG_MUTABLE
+                Intent(context,activity ).apply {
+                    putExtra("id", appWidgetId)
+                },
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+//                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
             )
         }
     }

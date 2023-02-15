@@ -23,7 +23,7 @@ interface InflateWidget {
         private val widgetLayoutId: Int,
         private val context: Context,
         private val dataManage: WidgetDataManage.Getters,
-        private val updateWidget: UpdateWidget,
+        private val updateWidgetHelper: UpdateWidgetHelper,
         private val managePendingIntent: ManagePendingIntent,
         private val drawable: ManageWidgetDrawable,
         private val color: ManageWidgetColor,
@@ -37,7 +37,7 @@ interface InflateWidget {
             widgetLayoutId = widgetLayoutId,
             context = context,
             dataManage = WidgetDataManage.Getters.Base(context),
-            updateWidget = UpdateWidget.Base(context, widgetId),
+            updateWidgetHelper = UpdateWidgetHelper.Base(context, widgetId),
             managePendingIntent = ManagePendingIntent.Base(context, widgetId),
             drawable = ManageWidgetDrawable.Base(),
             color = ManageWidgetColor.Base()
@@ -48,7 +48,7 @@ interface InflateWidget {
 
         override fun getView() = view
         override fun inflateBtnPrev() {
-            updateWidget.setOnClickListener(
+            updateWidgetHelper.setOnClickListener(
                 view,
                 R.id.btnPrev,
                 managePendingIntent.createPendingBroadcastIntent(
@@ -59,7 +59,7 @@ interface InflateWidget {
         }
 
         override fun inflateBtnNext() {
-            updateWidget.setOnClickListener(
+            updateWidgetHelper.setOnClickListener(
                 view,
                 R.id.btnNext,
                 managePendingIntent.createPendingBroadcastIntent(
@@ -70,7 +70,7 @@ interface InflateWidget {
         }
 
         override fun inflateBtnRefresh() {
-            updateWidget.setOnClickListener(
+            updateWidgetHelper.setOnClickListener(
                 view,
                 R.id.btnRefresh,
                 managePendingIntent.createPendingBroadcastIntent(
@@ -81,12 +81,12 @@ interface InflateWidget {
         }
 
         override fun inflateBtnCurrentGroup() {
-            updateWidget.setOnClickListener(
+            updateWidgetHelper.setOnClickListener(
                 view,
                 R.id.widgetCurrentGroup,
                 managePendingIntent.createPendingOpenActivity(WidgetActivity::class.java)
             )
-            updateWidget.setText(
+            updateWidgetHelper.setText(
                 view,
                 R.id.widgetCurrentGroup,
                 dataManage.getCurrentGroupName(),
@@ -94,7 +94,7 @@ interface InflateWidget {
                     color.getTitleTextColor(isNightMode)
                 )
             )
-            updateWidget.setBackground(
+            updateWidgetHelper.setBackground(
                 view,
                 R.id.widgetCurrentGroup,
                 drawable.getBackground(isNightMode)
@@ -102,7 +102,7 @@ interface InflateWidget {
         }
 
         override fun inflateCurrentDay() {
-            updateWidget.setText(
+            updateWidgetHelper.setText(
                 view,
                 R.id.widgetDay,
                 dataManage.getCurrentDayString(),
@@ -113,7 +113,7 @@ interface InflateWidget {
         }
 
         override fun inflateDayCounter() {
-            updateWidget.setText(
+            updateWidgetHelper.setText(
                 view,
                 R.id.widgetDayCount,
                 dataManage.getDaysCount(),
@@ -123,11 +123,11 @@ interface InflateWidget {
 
         override fun inflateLiseView() {
             val cl =ScheduleWidgetService()
-            updateWidget.setListViewAdapter(view, R.id.listView, cl.javaClass)
+            updateWidgetHelper.setListViewAdapter(view, R.id.listView, cl.javaClass)
         }
 
         override fun inflateRootBackground() {
-            updateWidget.setBackground(
+            updateWidgetHelper.setBackground(
                 view,
                 R.id.widgetRoot,
                 drawable.getRootBackground(isNightMode)

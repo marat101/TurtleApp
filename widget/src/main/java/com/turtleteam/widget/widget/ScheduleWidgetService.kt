@@ -5,7 +5,7 @@ import android.widget.RemoteViewsService
 
 class ScheduleWidgetService : RemoteViewsService() {
     override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
-        return RemoteViewsFactory(this)
+        return RemoteViewsFactory(applicationContext)
     }
 }
 

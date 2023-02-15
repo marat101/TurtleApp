@@ -21,4 +21,5 @@
     <string name="schedule_error">Не удалось загрузить расписание</string>
     <string name="retry">Повторить</string>
     <string name="schedule_pin_hint">Удерживайте, чтобы закрепить расписание</string>
+    <string name="error_0_days" />
 </resources>
