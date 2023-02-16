@@ -7,25 +7,27 @@ import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Outline
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.drawOutline
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.geometry.CornerRadius
 
-class SelectButtonIndicator() : Indication {
+class SelectButtonIndicator(val color: Color, val radius: Dp) : Indication {
 
     private inner class IndInstance(
         private val isPressed: State<Boolean>,
-        ) : IndicationInstance {
+    ) : IndicationInstance {
         override fun ContentDrawScope.drawIndication() {
 
             drawContent()
             when {
                 isPressed.value -> {
+                    drawRoundRect(
+                        color,
+                        style = Stroke(5F),
+                        cornerRadius = CornerRadius(radius.toPx(), radius.toPx())
+                    )
                 }
             }
         }
