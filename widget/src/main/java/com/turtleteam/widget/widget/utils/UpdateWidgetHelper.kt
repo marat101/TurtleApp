@@ -11,7 +11,14 @@ import androidx.annotation.IdRes
 
 interface UpdateWidgetHelper {
 
-    fun setListViewAdapter(view: RemoteViews, @IdRes listId: Int, cls: Class<*>)
+    fun setListViewAdapter(
+        view: RemoteViews,
+        @IdRes listId: Int,
+        cls: Class<*>,
+        context: Context,
+        appWidgetId: Int,
+    )
+
     fun setText(view: RemoteViews, @IdRes viewId: Int, text: String, @ColorInt color: Int)
     fun setBackground(view: RemoteViews, @IdRes viewId: Int, @DrawableRes background: Int)
     fun setOnClickListener(
@@ -20,15 +27,14 @@ interface UpdateWidgetHelper {
         onClickIntent: PendingIntent,
     )
 
-    class Base(
-        private val context: Context,
-        private val appWidgetId: Int,
-    ) : UpdateWidgetHelper {
+    class Base() : UpdateWidgetHelper {
 
         override fun setListViewAdapter(
             view: RemoteViews,
             @IdRes listId: Int,
             cls: Class<*>,
+            context: Context,
+            appWidgetId: Int,
         ) {
             view.setRemoteAdapter(
                 listId,

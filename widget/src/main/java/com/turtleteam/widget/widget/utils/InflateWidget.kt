@@ -27,7 +27,7 @@ interface InflateWidget {
         private val managePendingIntent: ManagePendingIntent,
         private val drawable: ManageWidgetDrawable,
         private val color: ManageWidgetColor,
-
+        private val widgetId:Int
         ) : InflateWidget {
         constructor(
             widgetLayoutId: Int,
@@ -37,10 +37,11 @@ interface InflateWidget {
             widgetLayoutId = widgetLayoutId,
             context = context,
             dataManage = WidgetDataManage.Getters.Base(context),
-            updateWidgetHelper = UpdateWidgetHelper.Base(context, widgetId),
+            updateWidgetHelper = UpdateWidgetHelper.Base(),
             managePendingIntent = ManagePendingIntent.Base(context, widgetId),
             drawable = ManageWidgetDrawable.Base(),
-            color = ManageWidgetColor.Base()
+            color = ManageWidgetColor.Base(),
+            widgetId = widgetId
         )
 
         private val view = RemoteViews(context.packageName, widgetLayoutId)
@@ -123,7 +124,7 @@ interface InflateWidget {
 
         override fun inflateLiseView() {
             val cl =ScheduleWidgetService()
-            updateWidgetHelper.setListViewAdapter(view, R.id.listView, cl.javaClass)
+            updateWidgetHelper.setListViewAdapter(view, R.id.listView, cl.javaClass,context,widgetId)
         }
 
         override fun inflateRootBackground() {

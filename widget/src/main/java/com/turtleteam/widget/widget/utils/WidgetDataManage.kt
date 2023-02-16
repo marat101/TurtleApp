@@ -32,10 +32,7 @@ interface WidgetDataManage {
             }
 
             override fun getCurrentDayString(): String {
-                return when (val schedule = getCurrentSchedule()) {
-                    is WidgetScheduleState.Success -> schedule.getCurrentDay(getCurrentDayInt())
-                    else -> ""
-                }
+                return getCurrentSchedule().getCurrentDay(getCurrentDayInt())
             }
 
             override fun getCurrentScheduleString(): String {
@@ -59,18 +56,13 @@ interface WidgetDataManage {
             }
 
             override fun getCountOfDays(): Int {
-                return when (val schedule = getCurrentSchedule()) {
-                    is WidgetScheduleState.Success -> schedule.getCountDays()
-                    else -> 0
-                }
+                return getCurrentSchedule().getCountDays()
             }
 
             override fun getDaysCount(): String {
                 val countOfDays = getCountOfDays()
-                return if ( countOfDays == 0)
-                    context.getString(R.string.error_0_days)
-                else
-                    "${getCurrentDayInt() + 1}/${countOfDays}"
+                return if ( countOfDays == 0) context.getString(R.string.error_0_days)
+                else "${getCurrentDayInt() + 1}/${countOfDays}"
             }
 
             override fun isNightModeOn():Boolean {
@@ -88,24 +80,22 @@ interface WidgetDataManage {
                 context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).edit()
             private val getter = Getters.Base(context)
             override fun setPreviousDay(): Boolean {
-                val currentDay = getter.getCurrentDayInt()
-                val count = currentDay - 1
-                return if (count < 0) false
+                val previousDay = getter.getCurrentDayInt() - 1
+                return if (previousDay < 0) false
                 else {
-                    editSharedPreference.putInt(CURRENT_DAY_INT, count).apply()
+                    editSharedPreference.putInt(CURRENT_DAY_INT, previousDay).apply()
                     true
                 }
             }
 
             override fun setNextDay(): Boolean {
-                val count = getter.getCurrentDayInt().plus(1)
+                val nextDay = getter.getCurrentDayInt().plus(1)
                 val countDays = getter.getCountOfDays().minus(1)
-                return if (count > countDays){
+                return if (nextDay > countDays){
                     editSharedPreference.putInt(CURRENT_DAY_INT, 0).apply()
                     true
-                }
-                else {
-                    editSharedPreference.putInt(CURRENT_DAY_INT, count).apply()
+                } else {
+                    editSharedPreference.putInt(CURRENT_DAY_INT, nextDay).apply()
                     true
                 }
             }

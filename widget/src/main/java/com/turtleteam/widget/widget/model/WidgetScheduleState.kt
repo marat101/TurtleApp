@@ -2,12 +2,14 @@ package com.turtleteam.widget.widget.model
 
 import android.content.Context
 import android.widget.RemoteViews
-import androidx.annotation.IdRes
 import com.turtleteam.widget.R
 import com.turtleteam.widget.widget.utils.ManageWidgetColor
+import com.turtleteam.widget.widget.utils.UpdateWidgetHelper
 
 sealed interface WidgetScheduleState {
     fun getCountItems(day: Int): Int
+    fun getCountDays(): Int
+    fun getCurrentDay(day: Int): String
     fun inflateRemoteView(
         packageName: String,
         position: Int,
@@ -16,6 +18,8 @@ sealed interface WidgetScheduleState {
     ): RemoteViews
 
     object ErrorScheduleNotSelected : WidgetScheduleState {
+        override fun getCountDays(): Int = 0
+        override fun getCurrentDay(day: Int): String = ""
         override fun getCountItems(day: Int): Int = 1
         override fun inflateRemoteView(
             packageName: String,
@@ -31,10 +35,9 @@ sealed interface WidgetScheduleState {
         private val data: WidgetSuccessStateData,
         private val context: Context,
     ) : WidgetScheduleState {
-        val color = ManageWidgetColor.Base()
+        override fun getCountDays(): Int = data.getCountDays()
+        override fun getCurrentDay(day: Int): String = data.getDayName(day)
         override fun getCountItems(day: Int): Int = data.getCountApairs(day)
-        fun getCountDays() = data.getCountDays()
-        fun getCurrentDay(day: Int): String = data.getDayName(day)
         override fun inflateRemoteView(
             packageName: String,
             position: Int,
@@ -42,61 +45,46 @@ sealed interface WidgetScheduleState {
             isNightTheme: Boolean,
         ): RemoteViews {
             val view = RemoteViews(packageName, R.layout.item_one_pair_widget)
-            view.setTextViewText(
-                R.id.widgetApairNumber,
-                data.getNumber(currentDay, position, context)
-            )
-            view.setTextColor(
-                R.id.widgetApairNumber,
-                context.getColor(
-                    color.getTitleTextColor(isNightTheme)
+            val colorManager = ManageWidgetColor.Base()
+            UpdateWidgetHelper.Base().apply {
+                setText(
+                    view = view,
+                    viewId = R.id.widgetApairNumber,
+                    text = data.getNumber(currentDay, position, context),
+                    color = context.getColor(colorManager.getTitleTextColor(isNightTheme))
                 )
-            )
-            updateTextView(
-                view = view,
-                isNightTheme = isNightTheme,
-                textViewId = R.id.widgetTimeText,
-                text = data.getTime(currentDay, position)
-            )
-            updateTextView(
-                view = view,
-                isNightTheme = isNightTheme,
-                textViewId = R.id.widgetDoctrineText,
-                text = data.getDoctrine(currentDay, position)
-            )
-            updateTextView(
-                view = view,
-                isNightTheme = isNightTheme,
-                textViewId = R.id.widgetTeacherText,
-                text = data.getTeacher(currentDay, position)
-            )
-            updateTextView(
-                view = view,
-                isNightTheme = isNightTheme,
-                textViewId = R.id.widgetAuditoriaText,
-                text = data.getAuditoria(currentDay, position)
-            )
-            updateTextView(
-                view = view,
-                isNightTheme = isNightTheme,
-                textViewId = R.id.widgetCorpusText,
-                text = data.getCorpus(currentDay, position)
-            )
-
+                setText(
+                    view = view,
+                    viewId = R.id.widgetTimeText,
+                    text = data.getTime(currentDay, position),
+                    color = context.getColor(colorManager.getSecondTextColor(isNightTheme))
+                )
+                setText(
+                    view = view,
+                    viewId = R.id.widgetDoctrineText,
+                    text = data.getDoctrine(currentDay, position),
+                    color = context.getColor(colorManager.getSecondTextColor(isNightTheme))
+                )
+                setText(
+                    view = view,
+                    viewId = R.id.widgetTeacherText,
+                    text = data.getTeacher(currentDay,position),
+                    color = context.getColor(colorManager.getSecondTextColor(isNightTheme))
+                )
+                setText(
+                    view = view,
+                    viewId = R.id.widgetAuditoriaText,
+                    text = data.getAuditoria(currentDay, position),
+                    color = context.getColor(colorManager.getSecondTextColor(isNightTheme))
+                )
+                setText(
+                    view = view,
+                    viewId = R.id.widgetCorpusText,
+                    text = data.getCorpus(currentDay, position),
+                    color = context.getColor(colorManager.getSecondTextColor(isNightTheme))
+                )
+            }
             return view
-        }
-
-        private fun updateTextView(
-            view: RemoteViews,
-            isNightTheme: Boolean,
-            @IdRes textViewId: Int,
-            text: String,
-        ) {
-            view.setTextViewText(textViewId, text)
-            view.setTextColor(
-                textViewId,
-                context.getColor(color.getSecondTextColor(isNightTheme))
-            )
         }
     }
 }
