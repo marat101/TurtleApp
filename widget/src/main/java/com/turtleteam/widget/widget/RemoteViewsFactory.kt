@@ -32,7 +32,7 @@ class RemoteViewsFactory(
     }
 
     override fun getCount(): Int = widgetData.getCountItems(currentDay)
-    override fun getViewTypeCount(): Int = 1
+    override fun getViewTypeCount(): Int = 2
     override fun getItemId(position: Int): Long = position.toLong()
     override fun hasStableIds(): Boolean = true
     override fun onCreate() {}
