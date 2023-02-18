@@ -1,7 +1,6 @@
 package com.turtleteam.widget.widget.utils
 
 import android.content.Context
-import com.turtleteam.data.preferences.PreferencesStore
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.widget.R
 import com.turtleteam.widget.widget.model.WidgetScheduleState
@@ -66,8 +65,8 @@ interface WidgetDataManage {
             }
 
             override fun isNightModeOn():Boolean {
-                return context.getSharedPreferences(PreferencesStore.PREFERENCES, Context.MODE_PRIVATE)
-                    .getBoolean(PreferencesStore.THEME_NAME, false)
+                return context.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+                    .getBoolean("theme", false)
             }
         }
     }

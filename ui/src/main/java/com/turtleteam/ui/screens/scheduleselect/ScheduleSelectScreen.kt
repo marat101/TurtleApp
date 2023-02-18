@@ -1,7 +1,6 @@
 package com.turtleteam.ui.screens.scheduleselect
 
 import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
@@ -12,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -22,10 +20,10 @@ import com.turtleteam.domain.utils.SearchNames
 import com.turtleteam.ui.R
 import com.turtleteam.ui.screens.navigation.Routes
 import com.turtleteam.ui.theme.*
-import com.turtleteam.ui.utils.TextWithFont
-import com.turtleteam.ui.utils.TiledButton
 import com.turtleteam.ui.utils.switch
 import com.turtleteam.ui.utils.views.GradientButton
+import com.turtleteam.ui.utils.views.TextWithFont
+import com.turtleteam.ui.utils.views.TiledButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -245,7 +243,7 @@ fun NameItem(
             .combinedClickable(
                 onLongClick = {
                     viewModel.pinOrUnpinItem(title)
-                    if (isHintVisible.value){
+                    if (isHintVisible.value) {
                         isHintVisible.switch()
                         viewModel.notShowHint()
                     }

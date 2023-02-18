@@ -2,8 +2,8 @@ package com.turtleteam.widget
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.turtleteam.domain.model.NamesList
-import com.turtleteam.domain.model.States
+import com.android.turtleapp.data.model.teachersandgroups.NamesList
+import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.domain.usecases.usersettings.GetHintStateUseCase
 import com.turtleteam.domain.usecases.usersettings.UpdateHintStateUseCase

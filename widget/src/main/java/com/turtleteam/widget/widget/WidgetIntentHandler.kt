@@ -3,7 +3,7 @@ package com.turtleteam.widget.widget
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.util.Log
-import com.turtleteam.domain.model.States
+import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.domain.usecases.groups.GetGroupScheduleUseCase
 import com.turtleteam.widget.R

@@ -12,59 +12,59 @@ val domainModule = module {
 
     // Группы
     factory(named("GroupUseCase")) {
-        GetGroupsListUseCase(repository = get())
+        GetGroupsListUseCase(repository = get(named("ScheduleGroupsRepository")))
     }
     factory(named("GroupUseCase")) {
-        GetGroupScheduleUseCase(repository = get())
+        GetGroupScheduleUseCase(repository = get(named("ScheduleGroupsRepository")))
     } bind GetScheduleUC::class
 
     factory(named("GroupUseCase")) {
-        GetSavedGroupScheduleUseCase(repository = get())
+        GetSavedGroupScheduleUseCase(repository = get(named("ScheduleGroupsRepository")))
     } bind GetSavedScheduleUC::class
 
     factory(named("GroupUseCase")) {
-        SaveGroupScheduleUseCase(repository = get())
+        SaveGroupScheduleUseCase(repository = get(named("ScheduleGroupsRepository")))
     } bind SaveScheduleUC::class
 
     factory(named("GroupUseCase")) {
-        GetGroupsAndPinnedListUseCase(repository = get())
+        GetGroupsAndPinnedListUseCase(repository = get(named("ScheduleGroupsRepository")))
     } bind GetListAndPinnedListUC::class
 
     factory(named("GroupUseCase")) {
-        SetPinnedGroupsListUseCase(repository = get())
+        SetPinnedGroupsListUseCase(repository = get(named("ScheduleGroupsRepository")))
     } bind SetPinnedListUC::class
 
     factory(named("GroupUseCase")) {
-        GetLastTargetGroupUseCase(repository = get())
+        GetLastTargetGroupUseCase(repository = get(named("ScheduleGroupsRepository")))
     } bind GetLastTargetUC::class
     factory(named("GroupUseCase")) {
-        SetLastTargetGroupUseCase(repository = get())
+        SetLastTargetGroupUseCase(repository = get(named("ScheduleGroupsRepository")))
     } bind SetLastTargetUC::class
 
     // Преподаватели
     factory(named("TeacherUseCase")) {
-        GetTeachersListUseCase(repository = get())
+        GetTeachersListUseCase(repository = get(named("ScheduleTeachersRepository")))
     }
     factory(named("TeacherUseCase")) {
-        GetTeacherScheduleUseCase(repository = get())
+        GetTeacherScheduleUseCase(repository = get(named("ScheduleTeachersRepository")))
     } bind GetScheduleUC::class
     factory(named("TeacherUseCase")) {
-        GetSavedTeacherScheduleUseCase(repository = get())
+        GetSavedTeacherScheduleUseCase(repository = get(named("ScheduleTeachersRepository")))
     } bind GetSavedScheduleUC::class
     factory(named("TeacherUseCase")) {
-        SaveTeacherScheduleUseCase(repository = get())
+        SaveTeacherScheduleUseCase(repository = get(named("ScheduleTeachersRepository")))
     } bind SaveScheduleUC::class
     factory(named("TeacherUseCase")) {
-        GetTeachersAndPinnedListUseCase(repository = get())
+        GetTeachersAndPinnedListUseCase(repository = get(named("ScheduleTeachersRepository")))
     } bind GetListAndPinnedListUC::class
     factory(named("TeacherUseCase")) {
-        SetPinnedTeachersListUseCase(repository = get())
+        SetPinnedTeachersListUseCase(repository = get(named("ScheduleTeachersRepository")))
     } bind SetPinnedListUC::class
     factory(named("TeacherUseCase")) {
-        GetLastTargetTeacherUseCase(repository = get())
+        GetLastTargetTeacherUseCase(repository = get(named("ScheduleTeachersRepository")))
     } bind GetLastTargetUC::class
     factory(named("TeacherUseCase")) {
-        SetLastTargetTeacherUseCase(repository = get())
+        SetLastTargetTeacherUseCase(repository = get(named("ScheduleTeachersRepository")))
     } bind SetLastTargetUC::class
     //Utils
     factory {

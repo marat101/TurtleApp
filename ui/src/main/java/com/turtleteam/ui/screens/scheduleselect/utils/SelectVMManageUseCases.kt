@@ -1,6 +1,6 @@
 package com.turtleteam.ui.screens.scheduleselect.utils
 
-import com.turtleteam.domain.model.NamesList
+import com.android.turtleapp.data.model.teachersandgroups.NamesList
 import com.turtleteam.domain.usecases.usersettings.GetHintStateUseCase
 import com.turtleteam.domain.usecases.usersettings.UpdateHintStateUseCase
 import com.turtleteam.domain.utils.GetLastTargetUC

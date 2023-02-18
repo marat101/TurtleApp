@@ -24,8 +24,9 @@ interface ManagePendingIntent {
                     this.action = action.actionName
                     putExtra("id", appWidgetId)
                 },
-//                PendingIntent.FLAG_IMMUTABLE
                 PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+//                PendingIntent.FLAG_IMMUTABLE
+//                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
                 //PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
             )
         }

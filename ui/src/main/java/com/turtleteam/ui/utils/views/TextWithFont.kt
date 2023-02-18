@@ -1,4 +1,4 @@
-package com.turtleteam.ui.utils
+package com.turtleteam.ui.utils.views
 
 
 import androidx.compose.material.Text

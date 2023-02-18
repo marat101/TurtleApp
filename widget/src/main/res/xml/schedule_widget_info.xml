@@ -6,5 +6,5 @@
     android:previewImage="@drawable/schedule_widget_preview"
     android:minHeight="110dp"
     android:resizeMode="vertical"
-    android:widgetCategory="home_screen"
-    android:updatePeriodMillis="1080000"/>
+    android:widgetCategory="home_screen"/>
+<!--    android:updatePeriodMillis="1080000"-->

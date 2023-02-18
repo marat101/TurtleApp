@@ -29,7 +29,7 @@ import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.ui.R
 import com.turtleteam.ui.theme.JetTheme
-import com.turtleteam.ui.utils.TextWithFont
+import com.turtleteam.ui.utils.views.TextWithFont
 
 @Composable
 fun ScheduleScreen(

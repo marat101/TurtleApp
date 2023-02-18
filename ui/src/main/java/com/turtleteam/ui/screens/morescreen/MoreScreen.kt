@@ -19,7 +19,7 @@ import androidx.navigation.NavHostController
 import com.turtleteam.ui.R
 import com.turtleteam.ui.screens.navigation.Routes
 import com.turtleteam.ui.theme.JetTheme
-import com.turtleteam.ui.utils.TextWithFont
+import com.turtleteam.ui.utils.views.TextWithFont
 
 @Composable
 fun MoreScreen(navController: NavHostController) {
