@@ -19,15 +19,11 @@ import org.koin.dsl.module
 val uiModule = module {
 
     single<NavigationController> {
-        get<NavigationControllerImpl>()
-    }
-
-    single {
         NavigationControllerImpl()
     }
 
     single<Navigator> {
-        get<NavigationControllerImpl>()
+        get<NavigationController>()
     }
 
     viewModel(named("groups")) {

@@ -3,13 +3,13 @@ package com.turtleteam.ui.navigation
 import androidx.navigation.NavHostController
 import com.turtleteam.ui.screens.navigation.Routes
 
-interface NavigationController {
+interface NavigationController : Navigator {
     var navController: NavHostController?
 }
 
 class NavigationControllerImpl(
     override var navController: NavHostController? = null
-) : NavigationController, Navigator {
+) : NavigationController {
     override fun navigateBack() {
         navController?.popBackStack()
     }
