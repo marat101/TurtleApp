@@ -66,7 +66,7 @@ fun TurtleNavHost(
 
             ScheduleScreen(name, vModel)
         }
-        composable(Routes.SCHEDULE_LIST.route) {
+        composable(Routes.CALLS_SCHEDULE_LIST.route) {
             ScheduleListScreen()
         }
     }

@@ -43,6 +43,6 @@ class ScheduleSelectViewModel(
     fun getHintState() = selectVM.getTipState()
 
     fun navigateToScheduleScreen(name: String, isTeacher: Boolean){
-        navigator.navigateToHomeScreen(name, isTeacher)
+        navigator.navigateToScheduleScreen(name, isTeacher)
     }
 }

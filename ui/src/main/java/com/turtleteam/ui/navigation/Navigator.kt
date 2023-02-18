@@ -4,9 +4,9 @@ interface Navigator {
 
     fun navigateBack()
 
-    fun navigateToHomeScreen(name: String, isTeacher: Boolean)
+    fun navigateToScheduleScreen(name: String, isTeacher: Boolean)
 
-    fun navigateToScheduleScreen()
+    fun navigateToHomeScreen()
 
     fun navigateToCallsSchedule()
 }

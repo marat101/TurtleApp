@@ -14,13 +14,15 @@ class NavigationControllerImpl(
         navController?.popBackStack()
     }
 
-    override fun navigateToHomeScreen(name: String, isTeacher: Boolean) {
+    override fun navigateToScheduleScreen(name: String, isTeacher: Boolean) {
         navController?.navigate(Routes.SCHEDULE_SCREEN.route + "/$name/$isTeacher")
     }
 
-    override fun navigateToScheduleScreen() {
+    override fun navigateToHomeScreen() {
+        navController?.navigate(Routes.HOME_PAGER_SCREEN.route)
     }
 
     override fun navigateToCallsSchedule() {
+        navController?.navigate(Routes.CALLS_SCHEDULE_LIST.route)
     }
 }

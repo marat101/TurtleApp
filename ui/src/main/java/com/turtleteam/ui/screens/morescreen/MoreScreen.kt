@@ -34,7 +34,7 @@ fun MoreScreen(navController: NavHostController) {
                 stringResource(R.string.schedule_list),
                 JetTheme.color.moreScreenIconsTint
             ) {
-                navController.navigate(Routes.SCHEDULE_LIST.route)
+                navController.navigate(Routes.CALLS_SCHEDULE_LIST.route)
             }
             MoreScreenOneItem(
                 drawableId = R.drawable.ic_googlesheets,
