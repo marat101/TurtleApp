@@ -2,8 +2,9 @@ package com.turtleteam.ui.screens.schedulescreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.turtleteam.domain.model.States
+import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.schedule.DaysList
+import com.turtleteam.ui.screens.schedulescreen.utils.ScheduleVMManageUseCases
 import com.turtleteam.ui.utils.Communication
 import com.turtleteam.ui.utils.DispatchersList
 import kotlinx.coroutines.launch

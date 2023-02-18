@@ -1,10 +1,10 @@
 package com.turtleteam.domain.usecases.groups
 
-import com.turtleteam.domain.model.NamesList
-import com.turtleteam.domain.repository.GroupsRepository
+import com.android.turtleapp.data.model.teachersandgroups.NamesList
+import com.turtleteam.domain.repository.ScheduleRepository
 import com.turtleteam.domain.utils.SetPinnedListUC
 
-class SetPinnedGroupsListUseCase(private val repository: GroupsRepository): SetPinnedListUC {
+class SetPinnedGroupsListUseCase(private val repository: ScheduleRepository): SetPinnedListUC {
 
     /**
      * Юзкейс для Закрепления\Открепления групп

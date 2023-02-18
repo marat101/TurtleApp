@@ -27,7 +27,8 @@ class TurtleApp : Application() {
                     uiModule,
                     domainModule,
                     databaseModule,
-                    widgetModule
+                    widgetModule,
+                    networkModule
                 )
             )
         }

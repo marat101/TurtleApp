@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    Используется для бэкграунда-->
+    <color name="color1">#D93C3030</color>
+
+    <color name="color3">#BF76C2</color>
+    <color name="color2">#8D91D1</color>
+
+    <!--    button selector color-->
+    <color name="color4">#4D8D91D1</color>
+
+    <color name="gray2">#888888</color>
+</resources>

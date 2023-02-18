@@ -1,13 +1,13 @@
 package com.turtleteam.data.repository
 
-import com.android.turtleapp.data.repository.interfaces.TeachersRepository
-import com.turtleteam.data.api.ApiService
+import com.turtleteam.ktor_client.api.ApiService
 import com.turtleteam.data.preferences.PreferencesStore
 import com.turtleteam.data.wrapper.LocalResultWrapper
 import com.turtleteam.data.wrapper.NetworkResultWrapper
-import com.turtleteam.domain.model.States
+import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.schedule.DaysList
-import com.turtleteam.turtle_database.database.TeachersScheduleDao
+import com.turtleteam.domain.repository.ScheduleRepository
+import com.turtleteam.turtle_database.dao.TeachersScheduleDao
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -16,14 +16,14 @@ class TeachersRepositoryImpl(
     private val teachersScheduleDao: TeachersScheduleDao,
     private val apiService: ApiService,
     private val preferencesStore: PreferencesStore
-) : TeachersRepository {
+) : ScheduleRepository {
 
-    override suspend fun getSchedule(teacher: String): States<DaysList> =
-        NetworkResultWrapper.wrapWithResult { apiService.getTeachersSchedulelist(teacher) }
+    override suspend fun getSchedule(name: String): States<DaysList> =
+        NetworkResultWrapper.wrapWithResult { apiService.getSchedule(name) }
 
-    override suspend fun getSavedSchedule(teacher: String): States<DaysList> =
+    override suspend fun getSavedSchedule(name: String): States<DaysList> =
         LocalResultWrapper().wrapWithResult {
-            val value = teachersScheduleDao.getTeacherDaysList(teacher)
+            val value = teachersScheduleDao.getTeacherDaysList(name)
             DaysList(Json.decodeFromString(value.days), value.name)
         }
 
@@ -36,8 +36,8 @@ class TeachersRepositoryImpl(
     override fun saveName(string: String) =
         preferencesStore.saveSelectedItem(PreferencesStore.SELECTED_ID2, string)
 
-    override suspend fun getTeachersList(): List<String> =
-        runCatching { apiService.getGroupsList().teacher }.getOrDefault(teachersScheduleDao.getSavedScheduleList())
+    override suspend fun getNamesList(): List<String> =
+        runCatching { apiService.getList().teacher }.getOrDefault(teachersScheduleDao.getSavedScheduleList())
 
     override fun getPinnedList(): List<String> =
         runCatching { preferencesStore.getPinnedList(PreferencesStore.PINNED_TEACHERS) }.getOrDefault(
@@ -48,11 +48,11 @@ class TeachersRepositoryImpl(
         preferencesStore.savePinnedList(PreferencesStore.PINNED_TEACHERS, list)
 
 
-    override fun getLastTargetTeacher(): String {
+    override fun getLastTargetName(): String {
         return preferencesStore.getLastTargetTeacher()
     }
 
-    override fun setLastTargetTeacher(teacher: String) {
-        preferencesStore.setLastTargetTeacher(teacher)
+    override fun setLastTargetName(name: String) {
+        preferencesStore.setLastTargetTeacher(name)
     }
 }

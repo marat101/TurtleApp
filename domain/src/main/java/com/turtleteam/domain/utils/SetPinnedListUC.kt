@@ -1,7 +1,7 @@
 package com.turtleteam.domain.utils
 
-import com.turtleteam.domain.model.NamesList
+import com.android.turtleapp.data.model.teachersandgroups.NamesList
 
-interface SetPinnedListUC{
+interface SetPinnedListUC {
     fun execute(currentList: NamesList, item: String): NamesList
 }

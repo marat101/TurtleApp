@@ -2,7 +2,8 @@ package com.turtleteam.ui.screens.scheduleselect
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.turtleteam.domain.model.NamesList
+import com.android.turtleapp.data.model.teachersandgroups.NamesList
+import com.turtleteam.ui.screens.scheduleselect.utils.SelectVMManageUseCases
 import com.turtleteam.ui.utils.Communication
 import com.turtleteam.ui.utils.DispatchersList
 import kotlinx.coroutines.launch
@@ -16,6 +17,7 @@ class ScheduleSelectViewModel(
     init {
         targetGroupCommunication.map(selectVM.getLastTarget())
     }
+
     fun pinOrUnpinItem(item: String) {
         groupListCommunication.map(
             selectVM.setPinnedList(groupListCommunication.observe().value, item)

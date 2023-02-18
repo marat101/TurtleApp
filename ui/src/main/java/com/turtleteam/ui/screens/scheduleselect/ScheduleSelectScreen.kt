@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -24,6 +25,7 @@ import com.turtleteam.ui.theme.*
 import com.turtleteam.ui.utils.TextWithFont
 import com.turtleteam.ui.utils.TiledButton
 import com.turtleteam.ui.utils.switch
+import com.turtleteam.ui.utils.views.GradientButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -75,22 +77,17 @@ fun ScheduleSelectScreen(
                     textSize = 24.sp
                 )
             }
-            TiledButton(
+            GradientButton(
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
                     .padding(horizontal = 16.dp, vertical = 8.dp)
-                    .padding(bottom = 16.dp),
+                    .padding(bottom = 16.dp)
+                    .height(50.dp),
                 onClick = {
-                    val validate = ValidateGroupAndTeacher(groupButtonText.value)
-                    if (validate.isCurrentValueDefault(context,isTeacher)){
-                        viewModel.updateGroupsList()
-                        composableScope.launch { sheetState.show() }
-                        Toast.makeText(context, context.getString(R.string.error_target_value_is_default),Toast.LENGTH_SHORT).show()
-                    } else {
-                        navController.navigate(Routes.SCHEDULE_SCREEN.route + "/${groupButtonText.value}/$isTeacher")
-                    }
+                    navController.navigate(Routes.SCHEDULE_SCREEN.route + "/${groupButtonText.value}/$isTeacher")
                 },
-                backgroundDrawableId = JetTheme.images.btnNext,
+                gradient = JetTheme.color.toolbarGradient,
+                indicationColor = JetTheme.color.secondText
             ) {
                 TextWithFont(
                     text = stringResource(id = R.string.done),
@@ -111,6 +108,7 @@ fun ScheduleSelectScreen(
         )
     }
 }
+
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

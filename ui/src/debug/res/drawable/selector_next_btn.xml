@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" >
+        <shape>
+            <stroke
+                android:width="2dp"
+                android:color="#96D162" />
+            <corners
+                android:radius="22px" />
+            <padding
+                android:left="22px"
+                android:top="22px"
+                android:right="22px"
+                android:bottom="22px" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/btnnext"/>
+</selector>
