@@ -36,7 +36,7 @@ fun BottomNavigationMenu(
     backStack: State<NavBackStackEntry?>
 ) {
     val coroutine = rememberCoroutineScope()
-    if (backStack.value?.destination?.route != Routes.MAIN_PAGER_SCREEN.route) return
+    if (backStack.value?.destination?.route != Routes.HOME_PAGER_SCREEN.route) return
     BottomNavigation(
         modifier = Modifier
             .fillMaxWidth()

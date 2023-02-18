@@ -31,6 +31,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import com.turtleteam.domain.usecases.usersettings.GetThemeStateUseCase
 import com.turtleteam.domain.usecases.usersettings.SaveThemeStateUseCase
+import com.turtleteam.ui.navigation.NavigationController
 import com.turtleteam.ui.screens.navigation.BottomNavigationMenu
 import com.turtleteam.ui.screens.navigation.TopBar
 import com.turtleteam.ui.screens.navigation.TurtleNavHost
@@ -43,6 +44,8 @@ class MainActivity : ComponentActivity() {
     private val getThemeStateUseCase: GetThemeStateUseCase by inject()
     private val saveThemeStateUseCase: SaveThemeStateUseCase by inject()
 
+    private val navigation: NavigationController by inject()
+
     @OptIn(ExperimentalPagerApi::class)
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +55,7 @@ class MainActivity : ComponentActivity() {
             val isDarkMode = remember { mutableStateOf(getThemeStateUseCase.execute()) }
             val pagerState = rememberPagerState()
             val navController = rememberNavController()
+            navigation.navController = navController
             TurtleAppTheme(isDarkMode.value) {
                 window.setBackgroundDrawableResource(JetTheme.images.windowBackground)
                 Scaffold(

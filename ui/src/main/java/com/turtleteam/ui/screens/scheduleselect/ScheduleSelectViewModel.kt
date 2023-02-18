@@ -3,6 +3,7 @@ package com.turtleteam.ui.screens.scheduleselect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.turtleapp.data.model.teachersandgroups.NamesList
+import com.turtleteam.ui.navigation.Navigator
 import com.turtleteam.ui.screens.scheduleselect.utils.SelectVMManageUseCases
 import com.turtleteam.ui.utils.Communication
 import com.turtleteam.ui.utils.DispatchersList
@@ -12,7 +13,8 @@ class ScheduleSelectViewModel(
     private val selectVM: SelectVMManageUseCases,
     private val groupListCommunication: Communication<NamesList>,
     private val targetGroupCommunication: Communication<String>,
-    private val dispatchersList: DispatchersList
+    private val dispatchersList: DispatchersList,
+    private val navigator: Navigator
 ) : ViewModel() {
     init {
         targetGroupCommunication.map(selectVM.getLastTarget())
@@ -37,7 +39,10 @@ class ScheduleSelectViewModel(
         targetGroupCommunication.map(group)
     }
 
-
     fun notShowHint() = selectVM.updateTipState(false)
     fun getHintState() = selectVM.getTipState()
+
+    fun navigateToScheduleScreen(name: String, isTeacher: Boolean){
+        navigator.navigateToHomeScreen(name, isTeacher)
+    }
 }

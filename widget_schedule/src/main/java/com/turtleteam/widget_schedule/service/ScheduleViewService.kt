@@ -4,15 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
-import com.turtleteam.domain.usecases.widget.GetScheduleWidget
 import com.turtleteam.widget_schedule.R
 import com.turtleteam.widget_schedule.widgetprovider.ScheduleWidgetProvider
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 class ScheduleViewService : RemoteViewsService(), KoinComponent {
 

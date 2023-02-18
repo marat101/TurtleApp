@@ -9,7 +9,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -17,7 +16,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.turtleteam.domain.utils.SearchNames
 import com.turtleteam.ui.R
-import com.turtleteam.ui.screens.navigation.Routes
 import com.turtleteam.ui.theme.*
 import com.turtleteam.ui.utils.TextWithFont
 import com.turtleteam.ui.utils.TiledButton
@@ -79,7 +77,7 @@ fun ScheduleSelectScreen(
                     .padding(bottom = 16.dp)
                     .height(50.dp),
                 onClick = {
-                    navController.navigate(Routes.SCHEDULE_SCREEN.route + "/${groupButtonText.value}/$isTeacher")
+                    viewModel.navigateToScheduleScreen(groupButtonText.value, isTeacher)
                 },
                 gradient = JetTheme.color.toolbarGradient,
                 indicationColor = JetTheme.color.secondText

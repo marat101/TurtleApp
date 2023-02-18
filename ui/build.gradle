@@ -49,7 +49,6 @@ dependencies {
 
     //Koin
     def koin = "3.2.2"
-    implementation("io.insert-koin:koin-android:$koin")
     implementation("io.insert-koin:koin-androidx-compose:$koin")
 
     // Navigation

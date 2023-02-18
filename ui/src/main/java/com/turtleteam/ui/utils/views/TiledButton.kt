@@ -3,6 +3,7 @@ package com.turtleteam.ui.utils
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
@@ -26,7 +27,7 @@ fun TiledButton(
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     content: @Composable RowScope.() -> Unit
 ) {
-    Box(modifier,contentAlignment = Alignment.Center) {
+    Box(modifier.clickable { onClick() },contentAlignment = Alignment.Center) {
         Image(
             painter = painterResource(id = backgroundDrawableId),
             contentScale = ContentScale.Crop,

@@ -24,8 +24,8 @@ fun TurtleNavHost(
     navController: NavHostController,
     pagerState: PagerState,
 ) {
-    NavHost(navController = navController, startDestination = Routes.MAIN_PAGER_SCREEN.route) {
-        composable(Routes.MAIN_PAGER_SCREEN.route) {
+    NavHost(navController = navController, startDestination = Routes.HOME_PAGER_SCREEN.route) {
+        composable(Routes.HOME_PAGER_SCREEN.route) {
             HorizontalPager(count = 3, state = pagerState) {
                 when (it) {
                     0 ->

@@ -1,11 +1,14 @@
 package com.turtleteam.ui.di
 
+import com.turtleteam.ui.navigation.NavigationController
+import com.turtleteam.ui.navigation.NavigationControllerImpl
+import com.turtleteam.ui.navigation.Navigator
 import com.turtleteam.ui.screens.schedulelist.ScheduleListViewModel
-import com.turtleteam.ui.screens.schedulescreen.utils.ScheduleCommunication
 import com.turtleteam.ui.screens.schedulescreen.ScheduleScreenViewModel
+import com.turtleteam.ui.screens.schedulescreen.utils.ScheduleCommunication
 import com.turtleteam.ui.screens.schedulescreen.utils.ScheduleVMManageUseCases
-import com.turtleteam.ui.screens.scheduleselect.utils.GroupListCommunication
 import com.turtleteam.ui.screens.scheduleselect.ScheduleSelectViewModel
+import com.turtleteam.ui.screens.scheduleselect.utils.GroupListCommunication
 import com.turtleteam.ui.screens.scheduleselect.utils.SelectVMManageUseCases
 import com.turtleteam.ui.screens.scheduleselect.utils.TargetGroupCommunication
 import com.turtleteam.ui.utils.DispatchersList
@@ -14,6 +17,19 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val uiModule = module {
+
+    single<NavigationController> {
+        get<NavigationControllerImpl>()
+    }
+
+    single {
+        NavigationControllerImpl()
+    }
+
+    single<Navigator> {
+        get<NavigationControllerImpl>()
+    }
+
     viewModel(named("groups")) {
         ScheduleSelectViewModel(
             selectVM = SelectVMManageUseCases.Groups(
@@ -26,7 +42,8 @@ val uiModule = module {
             ),
             groupListCommunication = GroupListCommunication(),
             dispatchersList = DispatchersList.Base(),
-            targetGroupCommunication = TargetGroupCommunication()
+            targetGroupCommunication = TargetGroupCommunication(),
+            navigator = get()
         )
     }
     viewModel(named("teachers")) {
@@ -41,7 +58,8 @@ val uiModule = module {
             ),
             groupListCommunication = GroupListCommunication(),
             dispatchersList = DispatchersList.Base(),
-            targetGroupCommunication = TargetGroupCommunication()
+            targetGroupCommunication = TargetGroupCommunication(),
+            navigator = get()
         )
     }
 
