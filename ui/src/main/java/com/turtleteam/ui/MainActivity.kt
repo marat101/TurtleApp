@@ -54,9 +54,9 @@ class MainActivity : ComponentActivity() {
                         topBarTitle.value
                     )
 //                    TurtleNavHost(navController, pagerState)
-//                    HomeScreen(pagerState = pagerState)
+                    HomeScreen(pagerState = pagerState)
                     BottomNavigationMenu(
-//                        pagerState,
+                        pagerState,
 //                        navController.currentBackStackEntryAsState()
                     )
                 }

@@ -1,6 +1,8 @@
 package com.turtleteam.ui.screens.screenhome
 
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -14,7 +16,7 @@ import com.turtleteam.ui.theme.TurtleTheme
 fun HomeScreen(pagerState: PagerState) {
 
     HorizontalPager(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().fillMaxHeight(),
         count = 2,
         state = pagerState
     ) { index ->
@@ -31,6 +33,7 @@ fun HomeScreen(pagerState: PagerState) {
                 onNextClick = { /*TODO*/ },
                 name = "aaaaaa"
             )
+
         }
     }
 }
