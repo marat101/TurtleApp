@@ -2,7 +2,6 @@ package com.turtleteam.domain.repository
 
 import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.schedule.DaysList
-import com.turtleteam.domain.model.widget.ScheduleWidgetState
 
 
 interface ScheduleRepository {

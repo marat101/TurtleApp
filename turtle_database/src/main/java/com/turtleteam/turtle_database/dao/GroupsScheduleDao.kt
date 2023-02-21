@@ -14,17 +14,19 @@ interface GroupsScheduleDao {
     suspend fun getSavedScheduleList(): List<String>
 }
 
-internal class GroupsScheduleDaoImpl(database: TurtleDatabase): GroupsScheduleDao {
+internal class GroupsScheduleDaoImpl(database: TurtleDatabase) : GroupsScheduleDao {
 
     private val query = database.turtleDatabaseQueries
 
-    override suspend fun getGroupDaysList(name: String): GroupsDaysList = withContext(Dispatchers.IO) {
+    override suspend fun getGroupDaysList(name: String): GroupsDaysList =
+        withContext(Dispatchers.IO) {
             query.selectGroupScheduleByName(name).executeAsOne()
         }
 
-    override suspend fun saveGroupDaysList(days: String, name: String) = withContext(Dispatchers.IO) {
-        query.insertGroup(days, name)
-    }
+    override suspend fun saveGroupDaysList(days: String, name: String) =
+        withContext(Dispatchers.IO) {
+            query.insertGroup(days, name)
+        }
 
     override suspend fun getSavedScheduleList(): List<String> = withContext(Dispatchers.IO) {
         query.getSavedGroupsList().executeAsList()

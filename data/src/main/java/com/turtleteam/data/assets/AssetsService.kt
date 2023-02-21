@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 
 class AssetsService(private val context: Context) : Assets {
 
-    override fun getCallsSchedule():  ArrayList<CallsItem> {
+    override fun getCallsSchedule(): ArrayList<CallsItem> {
         return Json.decodeFromString(
             context.assets.readAssetsFile("callschedule.json")
         )

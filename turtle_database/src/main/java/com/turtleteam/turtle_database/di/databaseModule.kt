@@ -1,12 +1,9 @@
 package com.turtleteam.turtle_database.di
 
-import android.content.Context
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.squareup.sqldelight.db.SqlDriver
 import com.turtleteam.turtle_database.TurtleDatabase
 import com.turtleteam.turtle_database.dao.*
-import com.turtleteam.turtle_database.dao.GroupsScheduleDaoImpl
-import com.turtleteam.turtle_database.dao.TeachersScheduleDaoImpl
 import org.koin.dsl.module
 
 val databaseModule = module {

@@ -5,7 +5,7 @@ import com.turtleteam.domain.repository.ManageSettings
 
 class ManageSettingsImpl(
     private val preferencesStore: PreferencesStore
-):ManageSettings {
+) : ManageSettings {
     override fun saveThemeState(isDarkThemeOn: Boolean) {
         preferencesStore.saveTheme(isDarkThemeOn)
     }

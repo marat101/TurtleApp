@@ -1,6 +1,5 @@
 package com.turtleteam.ktor_client.api
 
-import android.util.Log
 import com.android.turtleapp.data.model.teachersandgroups.Groups
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.ktor_client.exceptions.HttpException
@@ -30,7 +29,10 @@ internal class Ktor(private val ktorClient: HttpClient) : ApiService {
         return Json.decodeFromString(response.body())
     }
 
-    private fun checkResponse(response: HttpResponse){
-        if (response.status != HttpStatusCode.OK) throw HttpException(response.status.description, response.status.value)
+    private fun checkResponse(response: HttpResponse) {
+        if (response.status != HttpStatusCode.OK) throw HttpException(
+            response.status.description,
+            response.status.value
+        )
     }
 }

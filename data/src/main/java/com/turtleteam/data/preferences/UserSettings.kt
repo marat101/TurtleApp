@@ -4,7 +4,7 @@ import android.content.Context
 
 class UserSettings(context: Context) {
 
-    companion object{
+    companion object {
         private const val PREFS_NAME = "settings_prefs"
 
         private const val THEME_NAME = "theme"

@@ -45,6 +45,7 @@ dependencies {
     val sqlDelightVersion = "1.5.5"
     implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
     implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
+    implementation("com.squareup.sqldelight:coroutines-extensions:$sqlDelightVersion")
 
     //kotlinx
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")

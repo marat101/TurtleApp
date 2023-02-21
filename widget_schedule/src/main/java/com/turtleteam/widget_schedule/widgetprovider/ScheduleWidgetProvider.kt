@@ -9,9 +9,9 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.RemoteViews
 import com.turtleteam.domain.model.other.States
-import com.turtleteam.domain.usecases.teachers.GetTeacherScheduleUseCase
-import com.turtleteam.domain.usecases.widget.GetScheduleWidget
-import com.turtleteam.domain.usecases.widget.SaveScheduleWidget
+import com.turtleteam.domain.usecases_impl.teachers.GetTeacherScheduleUseCase
+import com.turtleteam.domain.usecases_impl.widget.GetScheduleWidget
+import com.turtleteam.domain.usecases_impl.widget.SaveScheduleWidget
 import com.turtleteam.widget_schedule.R
 import com.turtleteam.widget_schedule.service.ScheduleViewService
 import com.turtleteam.widget_schedule.utils.ScheduleFormatter

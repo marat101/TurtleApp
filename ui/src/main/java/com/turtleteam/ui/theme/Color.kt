@@ -21,9 +21,10 @@ data class Colors(
     val toolbarGradient: Brush,
     val bottomNavBarGradient: Brush,
     val backgroundBrush: Brush,
+    val themeChangeButton: Color
 )
 
-val colo1 = Colors(
+val darkColors = Colors(
     transparentBackground = Color(0xBF575756),
     btnGroupTeacherText = Purple,
     btnDoneText = Purple,
@@ -42,10 +43,11 @@ val colo1 = Colors(
     bottomNavBarGradient = Brush.linearGradient(
         listOf(Color(0xFF033E4A), Color(0xFF033E4A))
     ),
-    backgroundBrush = Brush.horizontalGradient(listOf(Color(0xFF3C3030), Color(0xFF3C3030)))
+    backgroundBrush = Brush.horizontalGradient(listOf(Color(0xFF3C3030), Color(0xFF3C3030))),
+    themeChangeButton = Color(0xFF8D91D1)
 )
 
-val color2 = Colors(
+val colors = Colors(
     transparentBackground = Color(0xBFFFFFFF),
     btnGroupTeacherText = Color.Black,
     btnDoneText = Color.White,
@@ -61,7 +63,8 @@ val color2 = Colors(
     ),
     backgroundBrush = Brush.horizontalGradient(
         listOf(Color(0xFFB5E7AB), Color(0xFFFCFDD7)),
-    )
+    ),
+    themeChangeButton = Color.White
 )
 
 

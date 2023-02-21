@@ -4,7 +4,7 @@
     <style name="Theme.TurtleApp" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-<!--        todo splash screen -->
+        <!--        todo splash screen -->
         <item name="android:windowBackground">@drawable/toolbar_gradient</item>
     </style>
 </resources>

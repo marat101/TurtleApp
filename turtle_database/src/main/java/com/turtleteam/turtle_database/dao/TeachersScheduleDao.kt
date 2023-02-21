@@ -14,7 +14,7 @@ interface TeachersScheduleDao {
     suspend fun getSavedScheduleList(): List<String>
 }
 
-internal class TeachersScheduleDaoImpl(database: TurtleDatabase): TeachersScheduleDao {
+internal class TeachersScheduleDaoImpl(database: TurtleDatabase) : TeachersScheduleDao {
 
     private val query = database.turtleDatabaseQueries
 

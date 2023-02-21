@@ -4,6 +4,6 @@ import com.android.turtleapp.data.model.callschedule.CallsItem
 
 interface Assets {
 
-    fun getCallsSchedule():  ArrayList<CallsItem>
+    fun getCallsSchedule(): ArrayList<CallsItem>
 
 }

@@ -9,7 +9,7 @@ interface DispatchersList {
     fun dispatcherMain(): CoroutineDispatcher
     fun dispatcherUnconfined(): CoroutineDispatcher
 
-    class Base: DispatchersList {
+    class Base : DispatchersList {
         override fun dispatcherIO(): CoroutineDispatcher = Dispatchers.IO
         override fun dispatcherDefault(): CoroutineDispatcher = Dispatchers.Default
         override fun dispatcherMain(): CoroutineDispatcher = Dispatchers.Main

@@ -1,10 +1,10 @@
 package com.turtleteam.turtleappcompose.di
 
-import com.turtleteam.domain.usecases.groups.*
-import com.turtleteam.domain.usecases.teachers.*
-import com.turtleteam.domain.usecases.usersettings.*
-import com.turtleteam.domain.usecases.widget.GetScheduleWidget
-import com.turtleteam.domain.usecases.widget.SaveScheduleWidget
+import com.turtleteam.domain.usecases_impl.groups.*
+import com.turtleteam.domain.usecases_impl.teachers.*
+import com.turtleteam.domain.usecases_impl.usersettings.*
+import com.turtleteam.domain.usecases_impl.widget.GetScheduleWidget
+import com.turtleteam.domain.usecases_impl.widget.SaveScheduleWidget
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 

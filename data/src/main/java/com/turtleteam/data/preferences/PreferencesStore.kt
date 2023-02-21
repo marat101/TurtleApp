@@ -45,7 +45,7 @@ class PreferencesStore(private val context: Context?) {
 
     fun isShowHint(): Boolean = preferences.getBoolean(HINT, true)
 
-    fun updateHintState(state:Boolean) = preferences.edit().putBoolean(HINT, state).apply()
+    fun updateHintState(state: Boolean) = preferences.edit().putBoolean(HINT, state).apply()
 
     fun saveUrl(url: String) = preferences.edit().putString(SAVED_URL, url).apply()
 
@@ -67,11 +67,13 @@ class PreferencesStore(private val context: Context?) {
     fun getLastTargetGroup(): String = preferences.getString(
         LAST_GROUP, context!!.getString(R.string.target_group_default_value)
     )!!
+
     fun setLastTargetGroup(group: String) = preferences.edit().putString(LAST_GROUP, group).apply()
 
     fun getLastTargetTeacher(): String = preferences.getString(
         LAST_TEACHER, context!!.getString(R.string.target_teacher_default_value)
     )!!
+
     fun setLastTargetTeacher(teacher: String) =
         preferences.edit().putString(LAST_TEACHER, teacher).apply()
 
