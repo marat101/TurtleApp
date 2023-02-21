@@ -1,11 +1,19 @@
 package com.turtleteam.ui.di
 
+import com.turtleteam.ui.screens.common.viewmodel.NamesListUsecasesManager
+import com.turtleteam.ui.screens.common.viewmodel.NamesListViewModel
 import com.turtleteam.ui.screens.navigation.controller.NavigationController
 import com.turtleteam.ui.screens.navigation.controller.NavigationControllerImpl
 import com.turtleteam.ui.screens.navigation.controller.Navigator
+import com.turtleteam.ui.screens.common.viewmodel.NamesViewModelImpl
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val uiModule = module {
+
+    val groupsKey = "Groups"
+    val teachersKey = "Teachers"
 
     single<NavigationController> {
         NavigationControllerImpl()
@@ -15,22 +23,30 @@ val uiModule = module {
         get<NavigationController>()
     }
 
-//    viewModel(named("groups")) {
-//        ScheduleSelectViewModel(
-//            selectVM = SelectVMManageUseCases.Groups(
-//                groupsList = get(),
-//                getLastTargetGroupUseCase = get(),
-//                setLastTargetGroupUseCase = get(),
-//                setPinnedList = get(),
-//                updateHintStateUseCase = get(),
-//                getHintStateUseCase = get(),
-//            ),
-//            groupListCommunication = GroupListCommunication(),
-//            dispatchersList = DispatchersList.Base(),
-//            targetGroupCommunication = TargetGroupCommunication(),
-//            navigator = get()
-//        )
-//    }
+    viewModel<NamesListViewModel>(named(groupsKey)) {
+        NamesViewModelImpl(
+            get(),
+            NamesListUsecasesManager(
+                get(named(groupsKey)),
+                get(named(groupsKey)),
+                get(named(groupsKey)),
+                get(named(groupsKey))
+            )
+        )
+    }
+
+    viewModel<NamesListViewModel>(named(teachersKey)) {
+        NamesViewModelImpl(
+            get(),
+            NamesListUsecasesManager(
+                get(named(teachersKey)),
+                get(named(teachersKey)),
+                get(named(teachersKey)),
+                get(named(teachersKey))
+            )
+        )
+    }
+
 //    viewModel(named("teachers")) {
 //        ScheduleSelectViewModel(
 //            selectVM = SelectVMManageUseCases.Teachers(

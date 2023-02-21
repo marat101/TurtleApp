@@ -1,5 +1,6 @@
 package com.turtleteam.turtleappcompose.di
 
+import com.turtleteam.domain.usecases.*
 import com.turtleteam.domain.usecases_impl.groups.*
 import com.turtleteam.domain.usecases_impl.teachers.*
 import com.turtleteam.domain.usecases_impl.usersettings.*
@@ -10,29 +11,32 @@ import org.koin.dsl.module
 
 val domainModule = module {
 
+    val groupsKey = "Groups"
+    val teachersKey = "Teachers"
+
     // Группы
     factory {
         GetGroupsListUseCase(repository = get(named("groups")))
     }
-    factory {
+    factory<GetScheduleUC>(named(groupsKey)) {
         GetGroupScheduleUseCase(repository = get(named("groups")))
     }
-    factory {
+    factory<GetSavedScheduleUC>(named(groupsKey)) {
         GetSavedGroupScheduleUseCase(repository = get(named("groups")))
     }
-    factory {
+    factory<SaveScheduleUC>(named(groupsKey)) {
         SaveGroupScheduleUseCase(repository = get(named("groups")))
     }
-    factory {
+    factory<GetListAndPinnedListUC>(named(groupsKey)) {
         GetGroupsAndPinnedListUseCase(repository = get(named("groups")))
     }
-    factory {
+    factory<SetPinnedListUC>(named(groupsKey)) {
         SetPinnedGroupsListUseCase(repository = get(named("groups")))
     }
-    factory {
+    factory<GetLastTargetUC>(named(groupsKey)) {
         GetLastTargetGroupUseCase(repository = get(named("groups")))
     }
-    factory {
+    factory<SetLastTargetUC>(named(groupsKey)) {
         SetLastTargetGroupUseCase(repository = get(named("groups")))
     }
 
@@ -40,25 +44,25 @@ val domainModule = module {
     factory {
         GetTeachersListUseCase(repository = get(named("teachers")))
     }
-    factory {
+    factory<GetScheduleUC>(named(teachersKey)) {
         GetTeacherScheduleUseCase(repository = get(named("teachers")))
     }
-    factory {
+    factory<GetSavedScheduleUC>((named(teachersKey))) {
         GetSavedTeacherScheduleUseCase(repository = get(named("teachers")))
     }
-    factory {
+    factory<SaveScheduleUC>(named(teachersKey)) {
         SaveTeacherScheduleUseCase(repository = get(named("teachers")))
     }
-    factory {
+    factory<GetListAndPinnedListUC>(named(teachersKey)) {
         GetTeachersAndPinnedListUseCase(repository = get(named("teachers")))
     }
-    factory {
+    factory<SetPinnedListUC>(named(teachersKey)) {
         SetPinnedTeachersListUseCase(repository = get(named("teachers")))
     }
-    factory {
+    factory<GetLastTargetUC>(named(teachersKey)) {
         GetLastTargetTeacherUseCase(repository = get(named("teachers")))
     }
-    factory {
+    factory<SetLastTargetUC>(named(teachersKey)) {
         SetLastTargetTeacherUseCase(repository = get(named("teachers")))
     }
 

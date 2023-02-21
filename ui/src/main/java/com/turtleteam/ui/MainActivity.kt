@@ -9,18 +9,16 @@ import androidx.compose.material.*
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import com.turtleteam.domain.usecases_impl.usersettings.GetThemeStateUseCase
 import com.turtleteam.domain.usecases_impl.usersettings.SaveThemeStateUseCase
-import com.turtleteam.ui.screens.common.components.ScheduleSelectFrame
 import com.turtleteam.ui.screens.navigation.view.BottomNavigationMenu
 import com.turtleteam.ui.screens.common.components.TopBar
 import com.turtleteam.ui.screens.navigation.controller.NavigationController
-import com.turtleteam.ui.screens.navigation.view.TurtleNavHost
-import com.turtleteam.ui.screens.screenhome.HomeScreen
+import com.turtleteam.ui.screens.screen_home.HomeScreen
 import com.turtleteam.ui.theme.TurtleAppTheme
 import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.utils.views.TurtlesBackground
@@ -45,21 +43,28 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             navigation.navController = navController
             TurtleAppTheme(isDarkMode.value) {
-                window.setBackgroundDrawableResource(TurtleTheme.images.windowBackground)
                 TurtlesBackground()
-                Column(modifier = Modifier.fillMaxSize(),verticalArrangement = Arrangement.SpaceBetween) {
+                Scaffold(backgroundColor = Color.Transparent,topBar = {
                     TopBar(
                         isDarkMode = isDarkMode,
                         onThemeChange = { saveThemeStateUseCase.execute(it) },
                         topBarTitle.value
                     )
-//                    TurtleNavHost(navController, pagerState)
-                    HomeScreen(pagerState = pagerState)
+                }, bottomBar = {
                     BottomNavigationMenu(
                         pagerState,
 //                        navController.currentBackStackEntryAsState()
                     )
-                }
+                }, content = { padding ->
+                    HomeScreen(
+                        pagerState = pagerState,
+                        modifier = Modifier.padding(
+                            bottom = padding.calculateBottomPadding(),
+                            top = padding.calculateTopPadding()
+                        )
+                    )
+                })
+                window.setBackgroundDrawableResource(TurtleTheme.images.windowBackground)
             }
         }
     }

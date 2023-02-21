@@ -1,6 +1,6 @@
 package com.turtleteam.domain.usecases
 
-import com.android.turtleapp.data.model.teachersandgroups.NamesList
+import com.turtleteam.domain.model.teachersandgroups.NamesList
 
 interface GetListAndPinnedListUC {
     suspend fun execute(): NamesList
