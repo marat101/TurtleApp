@@ -4,7 +4,6 @@ import com.turtleteam.domain.model.other.Schedule
 import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.ktor_client.exceptions.HttpException
-import java.net.UnknownHostException
 
 object NetworkResultWrapper {
 
@@ -18,8 +17,6 @@ object NetworkResultWrapper {
             }
         } catch (httpException: HttpException) {
             States.Error(httpException)
-        } catch (unknownHostException: UnknownHostException) {
-            States.ConnectionError
         } catch (throwable: Throwable) {
             States.Error(throwable)
         }

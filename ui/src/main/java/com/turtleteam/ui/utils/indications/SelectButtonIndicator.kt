@@ -2,8 +2,7 @@ package com.turtleteam.ui.utils.indications
 
 import androidx.compose.foundation.Indication
 import androidx.compose.foundation.IndicationInstance
-import androidx.compose.foundation.interaction.InteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.interaction.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember

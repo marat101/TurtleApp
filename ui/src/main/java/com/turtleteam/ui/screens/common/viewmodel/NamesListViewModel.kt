@@ -2,6 +2,7 @@ package com.turtleteam.ui.screens.common.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.teachersandgroups.NamesList
 import com.turtleteam.domain.usecases.GetLastTargetUC
 import com.turtleteam.domain.usecases.GetListAndPinnedListUC
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 
 abstract class NamesListViewModel : ViewModel() {
 
-    abstract val state: StateFlow<NamesList>
+    abstract val state: StateFlow<States<NamesList>>
 
     abstract fun setLastTargetName(name: String)
 
@@ -29,7 +30,7 @@ abstract class NamesListViewModel : ViewModel() {
     abstract fun getLastTargetName(): String
 }
 
-class NamesListUsecasesManager(
+class NamesListUsecasesProvider(
     val getLastTargetUC: GetLastTargetUC,
     val setLastTargetUC: SetLastTargetUC,
     val setPinnedListUC: SetPinnedListUC,
@@ -38,25 +39,23 @@ class NamesListUsecasesManager(
 
 class NamesViewModelImpl(
     private val navigator: Navigator,
-    private val usecase: NamesListUsecasesManager
+    private val usecase: NamesListUsecasesProvider
 ) : NamesListViewModel() {
 
-    private val _state = MutableStateFlow(NamesList.empty)
-    override val state: StateFlow<NamesList>
+    private val _state = MutableStateFlow<States<NamesList>>(States.Loading)
+    override val state: StateFlow<States<NamesList>>
         get() = _state.asStateFlow()
 
-    override fun setLastTargetName(name: String) {
-        usecase.setLastTargetUC.execute(name)
-    }
+    override fun setLastTargetName(name: String) = usecase.setLastTargetUC.execute(name)
 
     override fun getNamesList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _state.value = usecase.getPinnedListUC.execute()
+            _state.value = States.Success(usecase.getPinnedListUC.execute())
         }
     }
 
     override fun setPinnedList(list: NamesList, item: String) {
-        usecase.setPinnedListUC.execute(list, item)
+        _state.value = States.Success(usecase.setPinnedListUC.execute(list, item))
     }
 
     override fun navigateToScheduleScreen(name: String, isTeacher: Boolean) {

@@ -1,6 +1,6 @@
 package com.turtleteam.ui.di
 
-import com.turtleteam.ui.screens.common.viewmodel.NamesListUsecasesManager
+import com.turtleteam.ui.screens.common.viewmodel.NamesListUsecasesProvider
 import com.turtleteam.ui.screens.common.viewmodel.NamesListViewModel
 import com.turtleteam.ui.screens.navigation.controller.NavigationController
 import com.turtleteam.ui.screens.navigation.controller.NavigationControllerImpl
@@ -26,7 +26,7 @@ val uiModule = module {
     viewModel<NamesListViewModel>(named(groupsKey)) {
         NamesViewModelImpl(
             get(),
-            NamesListUsecasesManager(
+            NamesListUsecasesProvider(
                 get(named(groupsKey)),
                 get(named(groupsKey)),
                 get(named(groupsKey)),
@@ -38,7 +38,7 @@ val uiModule = module {
     viewModel<NamesListViewModel>(named(teachersKey)) {
         NamesViewModelImpl(
             get(),
-            NamesListUsecasesManager(
+            NamesListUsecasesProvider(
                 get(named(teachersKey)),
                 get(named(teachersKey)),
                 get(named(teachersKey)),

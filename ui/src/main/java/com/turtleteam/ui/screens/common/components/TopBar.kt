@@ -1,6 +1,8 @@
 package com.turtleteam.ui.screens.common.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
@@ -31,7 +33,7 @@ fun TopBar(
             fontSize = 23.sp
         )
     },
-        modifier = Modifier.background(TurtleTheme.color.toolbarGradient),
+        modifier = Modifier.background(TurtleTheme.color.toolbarGradient).height(60.dp),
         contentColor = Color.White,
         backgroundColor = Color.Transparent,
         elevation = 0.dp,

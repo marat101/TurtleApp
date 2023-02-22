@@ -26,9 +26,9 @@ fun TeachersScreen(
             imageId = TurtleTheme.images.selectTeacher,
             onOpenList = { /*TODO*/ },
             onNextClick = { /*TODO*/ },
-            name = "aaaaaa"
+            name = viewModelWrapper.getLastTargetName()
         )
-        Text(text = state.value.groups.toString())
+//        Text(text = state.value.groups.toString())
     }
     LaunchedEffect(key1 = null){
         viewModelWrapper.getNamesList()

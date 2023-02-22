@@ -23,13 +23,13 @@ import com.turtleteam.ui.utils.views.GradientButton
 fun ScheduleSelectFrame(
     imageId: Int,
     onOpenList: () -> Unit,
-    onNextClick: () -> Unit,
+    onNextClick: (name: String) -> Unit,
     name: String
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp)
+            .height(330.dp)
             .padding(horizontal = 15.dp)
             .background(TurtleTheme.color.transparentBackground, TurtleTheme.shapes.medium)
             .padding(horizontal = 20.dp),
@@ -48,7 +48,7 @@ fun ScheduleSelectFrame(
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(60.dp)
+                    .height(57.dp)
                     .clip(TurtleTheme.shapes.medium),
                 painter = painterResource(id = TurtleTheme.images.btnSelect),
                 contentScale = ContentScale.Crop,
@@ -66,9 +66,9 @@ fun ScheduleSelectFrame(
             radius = 10.dp,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(60.dp),
+                .height(57.dp),
             indicationColor = TurtleTheme.color.secondText,
-            onClick = onNextClick
+            onClick = { onNextClick(name) }
         ) {
             Text(
                 text = "ДАЛЕЕ",
