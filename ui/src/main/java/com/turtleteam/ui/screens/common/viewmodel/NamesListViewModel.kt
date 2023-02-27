@@ -28,6 +28,8 @@ abstract class NamesListViewModel : ViewModel() {
     abstract fun navigateToScheduleScreen(name: String, isTeacher: Boolean)
 
     abstract fun getLastTargetName(): String
+
+    abstract fun refreshNamesList()
 }
 
 class NamesListUsecasesProvider(
@@ -50,7 +52,12 @@ class NamesViewModelImpl(
 
     override fun getNamesList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _state.value = States.Success(usecase.getPinnedListUC.execute())
+            val list = usecase.getPinnedListUC.execute()
+            _state.value = if (list.groups.isEmpty() && list.pinned.isEmpty()) {
+                States.Error
+            } else {
+                States.Success(list)
+            }
         }
     }
 
@@ -63,4 +70,8 @@ class NamesViewModelImpl(
     }
 
     override fun getLastTargetName(): String = usecase.getLastTargetUC.execute()
+    override fun refreshNamesList() {
+        _state.value = States.Loading
+        getNamesList()
+    }
 }

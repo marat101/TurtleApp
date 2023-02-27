@@ -16,7 +16,7 @@ class LocalResultWrapper {
                 States.Success(DaysList(value.days, value.name))
             }
         } catch (throwable: Throwable) {
-            States.Error(throwable)
+            States.Error
         }
     }
 }

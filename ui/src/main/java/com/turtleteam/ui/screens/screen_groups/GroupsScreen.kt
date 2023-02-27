@@ -5,7 +5,6 @@ import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -21,12 +20,12 @@ import org.koin.core.qualifier.named
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun GroupsScreen(
-    viewModelWrapper: NamesListViewModel = getViewModel(named("Groups"))
+    viewModel: NamesListViewModel = getViewModel(named("Groups"))
 ) {
-    val state = viewModelWrapper.state.collectAsState()
+    val state = viewModel.state.collectAsState()
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
-    val name = remember { mutableStateOf(viewModelWrapper.getLastTargetName()) }
+    val name = remember { mutableStateOf(viewModel.getLastTargetName()) }
     val backgroundShape =
         remember { mutableStateOf(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)) }
 
@@ -37,7 +36,7 @@ fun GroupsScreen(
         ScheduleSelectFrame(
             imageId = TurtleTheme.images.selectGroup,
             onOpenList = { scope.launch(Dispatchers.Main) { sheetState.show() } },
-            onNextClick = { viewModelWrapper.navigateToScheduleScreen(it, false) },
+            onNextClick = { viewModel.navigateToScheduleScreen(it, false) },
             name = name.value
         )
 
@@ -52,13 +51,14 @@ fun GroupsScreen(
                     cornersState = backgroundShape,
                     sheetState = sheetState,
                     isTeacher = false,
-                    getList = { viewModelWrapper.getNamesList() },
+                    getList = { viewModel.getNamesList() },
                     onItemClick = {
-                        viewModelWrapper.setLastTargetName(it)
+                        viewModel.setLastTargetName(it)
                         name.value = it
                         scope.launch { sheetState.hide() }
                     },
-                    onLongClick = { list, item -> viewModelWrapper.setPinnedList(list, item) })
+                    onLongClick = { list, item -> viewModel.setPinnedList(list, item) },
+                    onRefreshClick = { viewModel.refreshNamesList() })
             })
     }
 }
