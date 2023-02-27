@@ -84,6 +84,8 @@ fun NamesList(
             )
         )
 
+        HintBox()
+
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.TopCenter
