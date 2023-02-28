@@ -2,10 +2,10 @@ package com.turtleteam.ui.di
 
 import com.turtleteam.ui.screens.common.viewmodel.NamesListUsecasesProvider
 import com.turtleteam.ui.screens.common.viewmodel.NamesListViewModel
+import com.turtleteam.ui.screens.common.viewmodel.NamesViewModelImpl
 import com.turtleteam.ui.screens.navigation.controller.NavigationController
 import com.turtleteam.ui.screens.navigation.controller.NavigationControllerImpl
 import com.turtleteam.ui.screens.navigation.controller.Navigator
-import com.turtleteam.ui.screens.common.viewmodel.NamesViewModelImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -30,7 +30,9 @@ val uiModule = module {
                 get(named(groupsKey)),
                 get(named(groupsKey)),
                 get(named(groupsKey)),
-                get(named(groupsKey))
+                get(named(groupsKey)),
+                get(),
+                get()
             )
         )
     }
@@ -42,7 +44,9 @@ val uiModule = module {
                 get(named(teachersKey)),
                 get(named(teachersKey)),
                 get(named(teachersKey)),
-                get(named(teachersKey))
+                get(named(teachersKey)),
+                get(),
+                get()
             )
         )
     }

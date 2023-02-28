@@ -25,7 +25,7 @@ import org.koin.core.qualifier.named
 @Composable
 fun TeachersScreen(
     viewModel: NamesListViewModel = getViewModel(named("Teachers"))
-){
+) {
     val state = viewModel.state.collectAsState()
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
@@ -50,7 +50,7 @@ fun TeachersScreen(
             content = {},
             sheetContent = {
                 NamesList(
-                    sheetModelState = state.value,
+                    listState = state.value,
                     cornersState = backgroundShape,
                     sheetState = sheetState,
                     isTeacher = true,
@@ -61,7 +61,10 @@ fun TeachersScreen(
                         scope.launch { sheetState.hide() }
                     },
                     onLongClick = { list, item -> viewModel.setPinnedList(list, item) },
-                    onRefreshClick = { viewModel.refreshNamesList() })
+                    onRefreshClick = { viewModel.refreshNamesList() },
+                    onHideHint = { viewModel.setHintBoxVisibility() },
+                    hint = viewModel.getHintBoxVisibility()
+                )
             })
     }
 }

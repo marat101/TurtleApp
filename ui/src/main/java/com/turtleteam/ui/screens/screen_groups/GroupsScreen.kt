@@ -47,7 +47,7 @@ fun GroupsScreen(
             content = {},
             sheetContent = {
                 NamesList(
-                    sheetModelState = state.value,
+                    listState = state.value,
                     cornersState = backgroundShape,
                     sheetState = sheetState,
                     isTeacher = false,
@@ -58,7 +58,10 @@ fun GroupsScreen(
                         scope.launch { sheetState.hide() }
                     },
                     onLongClick = { list, item -> viewModel.setPinnedList(list, item) },
-                    onRefreshClick = { viewModel.refreshNamesList() })
+                    onRefreshClick = { viewModel.refreshNamesList() },
+                    onHideHint = { viewModel.setHintBoxVisibility() },
+                    hint = viewModel.getHintBoxVisibility()
+                )
             })
     }
 }

@@ -8,6 +8,8 @@ import com.turtleteam.domain.usecases.GetLastTargetUC
 import com.turtleteam.domain.usecases.GetListAndPinnedListUC
 import com.turtleteam.domain.usecases.SetLastTargetUC
 import com.turtleteam.domain.usecases.SetPinnedListUC
+import com.turtleteam.domain.usecases_impl.usersettings.GetHintStateUseCase
+import com.turtleteam.domain.usecases_impl.usersettings.UpdateHintStateUseCase
 import com.turtleteam.ui.screens.navigation.controller.Navigator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,13 +32,19 @@ abstract class NamesListViewModel : ViewModel() {
     abstract fun getLastTargetName(): String
 
     abstract fun refreshNamesList()
+
+    abstract fun setHintBoxVisibility()
+
+    abstract fun getHintBoxVisibility(): Boolean
 }
 
 class NamesListUsecasesProvider(
     val getLastTargetUC: GetLastTargetUC,
     val setLastTargetUC: SetLastTargetUC,
     val setPinnedListUC: SetPinnedListUC,
-    val getPinnedListUC: GetListAndPinnedListUC
+    val getPinnedListUC: GetListAndPinnedListUC,
+    val setHintStateUC: UpdateHintStateUseCase,
+    val getHintStateUC: GetHintStateUseCase
 )
 
 class NamesViewModelImpl(
@@ -74,4 +82,10 @@ class NamesViewModelImpl(
         _state.value = States.Loading
         getNamesList()
     }
+
+    override fun setHintBoxVisibility() {
+        usecase.setHintStateUC.execute(false)
+    }
+
+    override fun getHintBoxVisibility(): Boolean = usecase.getHintStateUC.execute()
 }

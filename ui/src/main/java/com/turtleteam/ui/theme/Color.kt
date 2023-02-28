@@ -22,7 +22,8 @@ data class Colors(
     val bottomNavBarGradient: Brush,
     val backgroundBrush: Brush,
     val themeChangeButton: Color,
-    val bottomSheetView: Color
+    val bottomSheetView: Color,
+    val nameItemBackground: Color
 )
 
 val darkColors = Colors(
@@ -46,7 +47,8 @@ val darkColors = Colors(
     ),
     backgroundBrush = Brush.horizontalGradient(listOf(Color(0xFF3C3030), Color(0xFF3C3030))),
     themeChangeButton = Color(0xFF8D91D1),
-    bottomSheetView = Color(0xFF8D91D1)
+    bottomSheetView = Color(0xFF8D91D1),
+    nameItemBackground = Color(0xFF575756)
 )
 
 val colors = Colors(
@@ -67,7 +69,8 @@ val colors = Colors(
         listOf(Color(0xFFFCFDD7), Color(0xFFB5E7AB)),
     ),
     themeChangeButton = Color.White,
-    bottomSheetView = Color(0xFF15956F)
+    bottomSheetView = Color(0xFF15956F),
+    nameItemBackground = Color(0xFFFFFFFF)
 )
 
 
