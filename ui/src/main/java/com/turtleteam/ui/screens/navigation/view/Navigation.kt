@@ -44,9 +44,6 @@ fun ColumnScope.TurtleNavHost(
                 ?: throw NullPointerException("the screen require name argument")
             val isTeacher = it.arguments?.getBoolean("isTeacher")
                 ?: throw NullPointerException("the screen require isTeacher argument")
-//            val vModel: ScheduleScreenViewModel =
-//                if (isTeacher) koinViewModel(named("teacher"))
-//                else koinViewModel(named("group"))
 
             ScheduleScreen(name)
         }

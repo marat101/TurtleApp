@@ -6,11 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
@@ -20,7 +18,6 @@ import com.turtleteam.ui.screens.common.components.TopBar
 import com.turtleteam.ui.screens.navigation.controller.NavigationController
 import com.turtleteam.ui.screens.navigation.view.BottomNavigationMenu
 import com.turtleteam.ui.screens.navigation.view.TurtleNavHost
-import com.turtleteam.ui.screens.screen_home.HomeScreen
 import com.turtleteam.ui.theme.TurtleAppTheme
 import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.utils.views.TurtlesBackground
@@ -45,6 +42,10 @@ class MainActivity : ComponentActivity() {
             val pagerState = rememberPagerState()
             val navController = rememberNavController()
             navigation.navController = navController
+            navigation.setTopBarTitle(topBarTitle)
+            LaunchedEffect(pagerState.currentPage){
+
+            }
 
             TurtleAppTheme(isDarkMode.value) {
                 TurtlesBackground()

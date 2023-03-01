@@ -204,7 +204,7 @@ fun NameItem(
 ) {
     Box(
         modifier = Modifier
-            .padding(bottom = 9.dp)
+            .padding(bottom = 7.dp)
             .height(45.dp)
             .shadow(5.dp, TurtleTheme.shapes.medium)
             .background(
