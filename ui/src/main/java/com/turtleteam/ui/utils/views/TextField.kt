@@ -51,7 +51,8 @@ fun BaseTextField(
                 Divider(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 5.dp)
+                        .padding(top = 5.dp),
+                    color = Color.DarkGray
                 )
             }
         }

@@ -11,11 +11,13 @@ import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.turtleteam.ui.screens.common.components.NamesList
 import com.turtleteam.ui.screens.common.components.ScheduleSelectFrame
 import com.turtleteam.ui.screens.common.viewmodel.NamesListViewModel
 import com.turtleteam.ui.theme.TurtleTheme
+import com.turtleteam.ui.utils.views.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
@@ -30,8 +32,8 @@ fun TeachersScreen(
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val name = remember { mutableStateOf(viewModel.getLastTargetName()) }
-    val backgroundShape =
-        remember { mutableStateOf(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)) }
+    val backgroundShape = remember { mutableStateOf(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)) }
+    var showSnackbar by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -40,13 +42,18 @@ fun TeachersScreen(
         ScheduleSelectFrame(
             imageId = TurtleTheme.images.selectTeacher,
             onOpenList = { scope.launch(Dispatchers.Main) { sheetState.show() } },
-            onNextClick = { viewModel.navigateToScheduleScreen(it, true) },
+            onNextClick = { if (it != "Преподаватели") viewModel.navigateToScheduleScreen(
+                it,
+                true
+            ) else showSnackbar = true },
             name = name.value
         )
+
 
         ModalBottomSheetLayout(modifier = Modifier.fillMaxWidth(),
             sheetState = sheetState,
             sheetShape = backgroundShape.value,
+            scrimColor = Color(0xA6000000),
             content = {},
             sheetContent = {
                 NamesList(
@@ -66,5 +73,13 @@ fun TeachersScreen(
                     hint = viewModel.getHintBoxVisibility()
                 )
             })
+        if (showSnackbar)
+            Snackbar(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                message = "Выберите расписание!",
+                showSb = showSnackbar
+            ) {
+                showSnackbar = it
+            }
     }
 }

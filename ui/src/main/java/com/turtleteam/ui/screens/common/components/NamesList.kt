@@ -20,11 +20,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.teachersandgroups.NamesList
 import com.turtleteam.domain.utils.SearchNames
+import com.turtleteam.ui.R
 import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.theme.fontGanelas
 import com.turtleteam.ui.utils.views.BaseTextField
@@ -69,13 +71,22 @@ fun NamesList(
                 .height(5.dp)
                 .background(TurtleTheme.color.bottomSheetView, TurtleTheme.shapes.small)
         )
-        BaseTextField(
-            modifier = Modifier.padding(horizontal = 3.dp, vertical = 3.dp),
-            placeholder = "Поиск…",
-            value = searchState.value,
-            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-            onValueChange = { searchState.value = it })
-
+        Row {
+            BaseTextField(
+                modifier = Modifier.weight(1F).padding(horizontal = 3.dp, vertical = 3.dp),
+                placeholder = "Поиск…",
+                value = searchState.value,
+                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+                onValueChange = { searchState.value = it })
+            if (searchState.value.isNotEmpty())
+                IconButton(onClick = { searchState.value = "" }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_close),
+                        contentDescription = null,
+                        tint = TurtleTheme.color.secondText
+                    )
+                }
+        }
         if (hintVisibility.value)
             HintBox()
 

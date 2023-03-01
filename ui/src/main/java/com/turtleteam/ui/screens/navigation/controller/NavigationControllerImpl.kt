@@ -3,12 +3,10 @@
 package com.turtleteam.ui.screens.navigation.controller
 
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.NavHostController
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.PagerState
 
-interface NavigationController : Navigator, PagerController {
+interface NavigationController : Navigator {
     var navController: NavHostController?
     fun setTopBarTitle(topBarTitle: MutableState<String>)
 }
@@ -16,10 +14,7 @@ interface NavigationController : Navigator, PagerController {
 class NavigationControllerImpl(
     override var navController: NavHostController? = null,
     private var topBarTitle: MutableState<String>? = null,
-    private var pager: PagerState? = null
 ) : NavigationController {
-
-    val userPgerScroll = mutableStateOf(true)
 
     override fun setTopBarTitle(topBarTitle: MutableState<String>) {
         this.topBarTitle = topBarTitle
@@ -28,13 +23,6 @@ class NavigationControllerImpl(
                 this.topBarTitle?.value = "TurtleApp"
             }
         }
-    }
-
-    override fun setPagerState(pagerState: PagerState) {
-        pager = pagerState
-    }
-
-    override fun setPagerScroll(enabled: Boolean) {
     }
 
     override fun navigateBack() {
