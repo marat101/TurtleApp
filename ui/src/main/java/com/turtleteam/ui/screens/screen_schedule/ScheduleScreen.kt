@@ -4,7 +4,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun ScheduleScreen(name: String) {
+fun ScheduleScreen(name: String,
+                   isTeacher: Boolean,
+) {
 
-    Text(text = name)
+    Text(text = name + isTeacher.toString())
 }

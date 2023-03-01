@@ -45,7 +45,7 @@ fun ColumnScope.TurtleNavHost(
             val isTeacher = it.arguments?.getBoolean("isTeacher")
                 ?: throw NullPointerException("the screen require isTeacher argument")
 
-            ScheduleScreen(name)
+            ScheduleScreen(name, isTeacher)
         }
 //        composable(Routes.CALLS_SCHEDULE_LIST.route) {
 //            ScheduleListScreen()
