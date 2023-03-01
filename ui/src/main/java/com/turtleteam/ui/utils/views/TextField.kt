@@ -1,15 +1,17 @@
 package com.turtleteam.ui.utils.views
 
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.theme.fontGanelas
@@ -21,6 +23,8 @@ fun BaseTextField(
     value: String,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     onValueChange: (String) -> Unit,
+    fontSize: TextUnit = 18.sp,
+    fontFamily: FontFamily = fontGanelas,
 ) {
 
     BasicTextField(
@@ -30,20 +34,26 @@ fun BaseTextField(
         keyboardActions = keyboardActions,
         textStyle = TextStyle(
             color = TurtleTheme.color.secondText,
-            fontFamily = fontGanelas,
-            fontSize = 25.sp
+            fontFamily = fontFamily,
+            fontSize = fontSize
         ),
         decorationBox = { innerTextField ->
-            Row(modifier = Modifier.fillMaxWidth()) {
-                if (value.isEmpty()) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Box(modifier = Modifier.padding(horizontal = 3.dp)) {
                     Text(
-                        text = placeholder,
-                        color = if (isSystemInDarkTheme()) Color(0xFF969EBD) else Color.Gray,
-                        fontSize = 14.sp
+                        text = if (value.isEmpty()) placeholder else "",
+                        fontFamily = fontFamily,
+                        color = Color.Gray,
+                        fontSize = fontSize
                     )
+                    innerTextField()
                 }
+                Divider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 5.dp)
+                )
             }
-            innerTextField()
         }
     )
 }

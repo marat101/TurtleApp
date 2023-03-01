@@ -29,7 +29,7 @@ import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.theme.fontGanelas
 import com.turtleteam.ui.utils.views.BaseTextField
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun NamesList(
     listState: States<NamesList>,
@@ -69,40 +69,9 @@ fun NamesList(
                 .height(5.dp)
                 .background(TurtleTheme.color.bottomSheetView, TurtleTheme.shapes.small)
         )
-//        TextField(
-//            modifier = Modifier
-//                .fillMaxWidth(),
-//            value = TextFieldValue(),
-//            onValueChange = {
-//                searchState.value
-//            },
-//            singleLine = true,
-//            colors = TextFieldDefaults.apply {
-//                TextFieldDecorationBox(
-//                    value = searchState.value,
-//                    innerTextField = {},
-//                    enabled = false,
-//                    singleLine = true,
-//                    visualTransformation = VisualTransformation.None,
-//                    interactionSource = MutableInteractionSource(),
-//                    contentPadding = PaddingValues(0.dp)
-//                )
-//                textFieldColors(
-//                    textColor = TurtleTheme.color.secondText,
-//                    cursorColor = Color.Gray,
-//                    backgroundColor = Color.Transparent,
-//                    focusedIndicatorColor = Color.Gray
-//                )
-//            },
-//            textStyle = TextStyle(
-//                fontFamily = fontGanelas,
-//                fontSize = 25.sp
-//            ),
-//            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
-//        )
         BaseTextField(
             modifier = Modifier.padding(horizontal = 3.dp, vertical = 3.dp),
-            placeholder = "Поиск",
+            placeholder = "Поиск…",
             value = searchState.value,
             keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
             onValueChange = { searchState.value = it })
@@ -175,8 +144,7 @@ fun NamesList(
                                 )
                             }
 
-                            items(state.value.groups,
-                                span = { GridItemSpan(spanSize) }) {
+                            items(state.value.groups, span = { GridItemSpan(spanSize) }) {
                                 NameItem(
                                     onItemClick = { onItemClick(it) },
                                     onLongClick = {

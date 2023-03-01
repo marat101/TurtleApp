@@ -7,6 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.turtleteam.ui.screens.common.components.NamesList
 import com.turtleteam.ui.screens.common.components.ScheduleSelectFrame
@@ -26,8 +27,7 @@ fun GroupsScreen(
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val name = remember { mutableStateOf(viewModel.getLastTargetName()) }
-    val backgroundShape =
-        remember { mutableStateOf(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)) }
+    val backgroundShape = remember { mutableStateOf(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)) }
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -44,6 +44,7 @@ fun GroupsScreen(
         ModalBottomSheetLayout(modifier = Modifier.fillMaxWidth(),
             sheetState = sheetState,
             sheetShape = backgroundShape.value,
+            scrimColor = Color(0xA6000000),
             content = {},
             sheetContent = {
                 NamesList(
