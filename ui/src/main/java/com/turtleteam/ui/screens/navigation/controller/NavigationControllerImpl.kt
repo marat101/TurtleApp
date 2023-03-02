@@ -8,11 +8,13 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 
 interface NavigationController : Navigator {
     var navController: NavHostController?
+    var bottomBarVisible: MutableState<Boolean>?
     fun setTopBarTitle(topBarTitle: MutableState<String>)
 }
 
 class NavigationControllerImpl(
     override var navController: NavHostController? = null,
+    override var bottomBarVisible: MutableState<Boolean>? = null,
     private var topBarTitle: MutableState<String>? = null,
 ) : NavigationController {
 
@@ -21,6 +23,9 @@ class NavigationControllerImpl(
         navController?.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.route == Routes.HOME_PAGER_SCREEN.name) {
                 this.topBarTitle?.value = "TurtleApp"
+                bottomBarVisible?.value = false
+            } else {
+                bottomBarVisible?.value = true
             }
         }
     }

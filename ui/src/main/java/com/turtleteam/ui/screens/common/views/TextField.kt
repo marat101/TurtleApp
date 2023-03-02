@@ -1,4 +1,4 @@
-package com.turtleteam.ui.utils.views
+package com.turtleteam.ui.screens.common.views
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField

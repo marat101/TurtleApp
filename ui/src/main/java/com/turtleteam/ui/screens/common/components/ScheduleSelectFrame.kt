@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.theme.fontGanelas
 import com.turtleteam.ui.utils.indications.SelectButtonIndicator
-import com.turtleteam.ui.utils.views.GradientButton
+import com.turtleteam.ui.screens.common.views.GradientButton
 
 @Composable
 fun ScheduleSelectFrame(

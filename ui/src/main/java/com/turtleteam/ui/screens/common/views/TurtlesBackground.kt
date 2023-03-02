@@ -1,4 +1,4 @@
-package com.turtleteam.ui.utils.views
+package com.turtleteam.ui.screens.common.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,7 +15,7 @@ val big = 140.dp
 
 @Composable
 fun TurtlesBackground() {
-    Box(Modifier.fillMaxSize().padding(vertical = 60.dp).background(TurtleTheme.color.backgroundBrush)) {
+    Box(Modifier.fillMaxSize().background(TurtleTheme.color.backgroundBrush).padding(vertical = 60.dp)) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
             Image(
                 modifier = Modifier.size(small),

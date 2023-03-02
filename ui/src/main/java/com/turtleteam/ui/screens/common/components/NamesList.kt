@@ -27,9 +27,9 @@ import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.teachersandgroups.NamesList
 import com.turtleteam.domain.utils.SearchNames
 import com.turtleteam.ui.R
+import com.turtleteam.ui.screens.common.views.BaseTextField
 import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.theme.fontGanelas
-import com.turtleteam.ui.utils.views.BaseTextField
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -73,7 +73,9 @@ fun NamesList(
         )
         Row {
             BaseTextField(
-                modifier = Modifier.weight(1F).padding(horizontal = 3.dp, vertical = 3.dp),
+                modifier = Modifier
+                    .weight(1F)
+                    .padding(horizontal = 3.dp, vertical = 3.dp),
                 placeholder = "Поиск…",
                 value = searchState.value,
                 keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),

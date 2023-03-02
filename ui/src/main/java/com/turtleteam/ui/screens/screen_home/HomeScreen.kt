@@ -1,8 +1,8 @@
 package com.turtleteam.ui.screens.screen_home
 
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -15,16 +15,17 @@ import com.turtleteam.ui.screens.screen_teachers.TeachersScreen
 @Composable
 fun HomeScreen(pagerState: PagerState, modifier: Modifier = Modifier) {
 
-    val screens = listOf<@Composable () -> Unit>(
-        { GroupsScreen() },
-        { TeachersScreen() },
-        { AdditionalScreen() }
-    )
+    val screens = remember {
+        listOf<@Composable () -> Unit>(
+            { GroupsScreen() },
+            { TeachersScreen() },
+            { AdditionalScreen() }
+        )
+    }
 
     HorizontalPager(
         modifier = modifier
-            .fillMaxSize()
-            .fillMaxHeight(),
+            .fillMaxSize(),
         count = screens.size,
         state = pagerState
     ) { index ->

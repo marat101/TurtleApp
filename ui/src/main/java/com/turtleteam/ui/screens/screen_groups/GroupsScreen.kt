@@ -7,13 +7,14 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.turtleteam.ui.screens.common.components.NamesList
 import com.turtleteam.ui.screens.common.components.ScheduleSelectFrame
 import com.turtleteam.ui.screens.common.viewmodel.NamesListViewModel
+import com.turtleteam.ui.screens.common.views.Snackbar
 import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.utils.views.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
@@ -28,8 +29,10 @@ fun GroupsScreen(
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val name = remember { mutableStateOf(viewModel.getLastTargetName()) }
-    val backgroundShape = remember { mutableStateOf(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)) }
+    val backgroundShape =
+        remember { mutableStateOf(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)) }
     var showSnackbar by remember { mutableStateOf(false) }
+    val sheetAlpha = remember { mutableStateOf(1F) }
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -37,7 +40,12 @@ fun GroupsScreen(
     ) {
         ScheduleSelectFrame(
             imageId = TurtleTheme.images.selectGroup,
-            onOpenList = { scope.launch(Dispatchers.Main) { sheetState.show() } },
+            onOpenList = {
+                scope.launch(Dispatchers.Main) {
+                    sheetAlpha.value = 1F
+                    sheetState.show()
+                }
+            },
             onNextClick = {
                 if (it != "Группы") viewModel.navigateToScheduleScreen(
                     it,
@@ -48,7 +56,10 @@ fun GroupsScreen(
         )
 
 
-        ModalBottomSheetLayout(modifier = Modifier.fillMaxWidth(),
+        ModalBottomSheetLayout(
+            modifier = Modifier
+                .fillMaxWidth()
+                .alpha(sheetAlpha.value),
             sheetState = sheetState,
             sheetShape = backgroundShape.value,
             scrimColor = Color(0xA6000000),
@@ -71,6 +82,9 @@ fun GroupsScreen(
                     hint = viewModel.getHintBoxVisibility()
                 )
             })
+        LaunchedEffect(sheetState.isVisible) {
+            if (!sheetState.isVisible) sheetAlpha.value = 0F
+        }
         if (showSnackbar)
             Snackbar(
                 modifier = Modifier.align(Alignment.BottomCenter),
