@@ -46,9 +46,9 @@ fun NamesList(
     isTeacher: Boolean
 ) {
 
-    val state = remember { mutableStateOf(NamesList.empty) }
     val spanSize = if (isTeacher) 4 else 2
     val header = if (isTeacher) "Все преподаватели" else "Все группы"
+    val state = remember { mutableStateOf(NamesList.empty) }
     val searchState = remember { mutableStateOf("") }
     val hintVisibility = remember { mutableStateOf(hint) }
     val focusManager = LocalFocusManager.current

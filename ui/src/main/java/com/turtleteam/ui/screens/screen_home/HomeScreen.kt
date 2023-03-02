@@ -15,17 +15,14 @@ import com.turtleteam.ui.screens.screen_teachers.TeachersScreen
 @Composable
 fun HomeScreen(pagerState: PagerState, modifier: Modifier = Modifier) {
 
-    val screens = remember {
-        listOf<@Composable () -> Unit>(
+    val screens = listOf<@Composable () -> Unit>(
             { GroupsScreen() },
             { TeachersScreen() },
             { AdditionalScreen() }
         )
-    }
 
     HorizontalPager(
-        modifier = modifier
-            .fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         count = screens.size,
         state = pagerState
     ) { index ->

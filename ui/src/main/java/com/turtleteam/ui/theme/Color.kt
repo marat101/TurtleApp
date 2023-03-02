@@ -1,12 +1,12 @@
 package com.turtleteam.ui.theme
 
-import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 val Purple = Color(0xFFBF76C2)
 
-val LocalColors = staticCompositionLocalOf<Colors> { error("colors wasnt provided") }
+val LocalColors = compositionLocalOf<Colors> { error("colors wasnt provided") }
 
 data class Colors(
     val transparentBackground: Color,

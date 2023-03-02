@@ -1,10 +1,11 @@
 package com.turtleteam.ui.theme
 
 import androidx.annotation.DrawableRes
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.staticCompositionLocalOf
 import com.turtleteam.ui.R
 
-val LocalImages = staticCompositionLocalOf<Images> { error("images wasnt provided") }
+val LocalImages = compositionLocalOf<Images> { error("images wasnt provided") }
 
 data class Images(
     @DrawableRes val btnNext: Int,

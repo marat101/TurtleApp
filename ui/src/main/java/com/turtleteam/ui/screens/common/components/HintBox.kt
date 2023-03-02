@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,11 +16,11 @@ import com.turtleteam.ui.R
 import com.turtleteam.ui.theme.TurtleTheme
 
 @Composable
-fun HintBox() {
+fun HintBox(onCloseClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(70.dp)
+            .height(73.dp)
             .border(BorderStroke((2.5).dp, TurtleTheme.color.secondText), TurtleTheme.shapes.medium)
             .padding(13.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -33,5 +34,8 @@ fun HintBox() {
             text = "Удерживайте, чтобы закрепить расписание.",
             color = Color.Gray
         )
+        IconButton(modifier = Modifier.align(Alignment.TopEnd),onClick = onCloseClick) {
+
+        }
     }
 }
