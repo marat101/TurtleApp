@@ -14,10 +14,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.turtleteam.ui.screens.common.views.GradientButton
 import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.theme.fontGanelas
 import com.turtleteam.ui.utils.indications.SelectButtonIndicator
-import com.turtleteam.ui.screens.common.views.GradientButton
 
 @Composable
 fun ScheduleSelectFrame(
@@ -36,7 +36,7 @@ fun ScheduleSelectFrame(
         verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(painter = painterResource(id = imageId), contentDescription = null)
+        Image(modifier = Modifier.height(100.dp),painter = painterResource(id = imageId), contentDescription = null)
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier.clickable(

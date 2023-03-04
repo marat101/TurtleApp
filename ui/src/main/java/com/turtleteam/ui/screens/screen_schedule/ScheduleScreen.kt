@@ -7,6 +7,5 @@ import androidx.compose.runtime.Composable
 fun ScheduleScreen(name: String,
                    isTeacher: Boolean,
 ) {
-
     Text(text = name + isTeacher.toString())
 }

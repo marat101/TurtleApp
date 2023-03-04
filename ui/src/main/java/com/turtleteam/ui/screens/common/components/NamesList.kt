@@ -81,8 +81,11 @@ fun NamesList(
                 keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
                 onValueChange = { searchState.value = it })
             if (searchState.value.isNotEmpty())
-                IconButton(onClick = { searchState.value = "" }) {
+                IconButton(
+                    modifier = Modifier.height(28.dp),
+                    onClick = { searchState.value = "" }) {
                     Icon(
+                        modifier = Modifier.height(20.dp),
                         painter = painterResource(id = R.drawable.ic_close),
                         contentDescription = null,
                         tint = TurtleTheme.color.secondText
@@ -90,7 +93,10 @@ fun NamesList(
                 }
         }
         if (hintVisibility.value)
-            HintBox()
+            HintBox(){
+                onHideHint()
+                hintVisibility.value = false
+            }
 
         Box(
             modifier = Modifier.fillMaxSize(),

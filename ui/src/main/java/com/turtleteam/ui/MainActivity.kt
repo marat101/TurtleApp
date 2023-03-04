@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val topBarTitle = mutableStateOf("TurtleApp")
-        val bottomNavViewVisible = mutableStateOf(false)
+        val bottomNavViewVisible = mutableStateOf(true)
         val isDarkMode = mutableStateOf(getThemeStateUseCase.execute())
 
         setContent {

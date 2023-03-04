@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -31,11 +32,21 @@ fun HintBox(onCloseClick: () -> Unit) {
             contentDescription = null
         )
         Text(
+            modifier = Modifier.weight(10F),
             text = "Удерживайте, чтобы закрепить расписание.",
             color = Color.Gray
         )
-        IconButton(modifier = Modifier.align(Alignment.TopEnd),onClick = onCloseClick) {
-
+        IconButton(modifier = Modifier
+            .weight(1F)
+            .align(Alignment.Top)
+            .size(15.dp),
+            onClick = onCloseClick){
+            Icon(
+                modifier = Modifier.size(15.dp),
+                painter = painterResource(id = R.drawable.ic_close),
+                contentDescription = null,
+                tint = Color.Gray
+            )
         }
     }
 }
