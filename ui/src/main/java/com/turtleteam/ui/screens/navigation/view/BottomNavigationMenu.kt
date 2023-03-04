@@ -43,8 +43,9 @@ fun BottomNavigationMenu(
         ),
         exit = slideOut(
             tween(
-                durationMillis = 140,
-                easing = LinearEasing
+                durationMillis = 130,
+                easing = LinearEasing,
+                delayMillis = 130
             ),
             targetOffset = { IntOffset(0, it.height) }
         )

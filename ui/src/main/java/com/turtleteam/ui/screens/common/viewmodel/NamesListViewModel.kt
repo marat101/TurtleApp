@@ -38,7 +38,7 @@ abstract class NamesListViewModel : ViewModel() {
     abstract fun getHintBoxVisibility(): Boolean
 }
 
-class NamesListUsecasesProvider(
+data class NamesListUsecasesProvider(
     val getLastTargetUC: GetLastTargetUC,
     val setLastTargetUC: SetLastTargetUC,
     val setPinnedListUC: SetPinnedListUC,
