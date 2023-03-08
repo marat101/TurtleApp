@@ -49,7 +49,7 @@ fun ScheduleScreen(
             }
         }
     }
-    LaunchedEffect(null){
+    LaunchedEffect(null) {
         viewModel.getSchedule()
     }
 }

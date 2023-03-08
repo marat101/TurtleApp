@@ -33,11 +33,11 @@ fun DayItem(day: Day) {
             text = day.day,
         )
         Column(
-            modifier = Modifier.padding(15.dp),
+            modifier = Modifier.padding(horizontal = 15.dp).padding(bottom = 15.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             day.apairs.forEach {
-                PairItem(it)
+                PairItem(it, day.day)
             }
         }
     }

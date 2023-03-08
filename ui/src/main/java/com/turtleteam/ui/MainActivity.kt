@@ -14,12 +14,12 @@ import com.google.accompanist.pager.rememberPagerState
 import com.turtleteam.domain.usecases_impl.usersettings.GetThemeStateUseCase
 import com.turtleteam.domain.usecases_impl.usersettings.SaveThemeStateUseCase
 import com.turtleteam.ui.screens.common.components.TopBar
+import com.turtleteam.ui.screens.common.views.TurtlesBackground
 import com.turtleteam.ui.screens.navigation.controller.NavigationController
 import com.turtleteam.ui.screens.navigation.view.BottomNavigationMenu
 import com.turtleteam.ui.screens.navigation.view.TurtleNavHost
 import com.turtleteam.ui.theme.TurtleAppTheme
 import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.screens.common.views.TurtlesBackground
 import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
@@ -33,7 +33,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val topBarTitle = mutableStateOf("TurtleApp")
-        val bottomNavViewVisible = mutableStateOf(true)
         val isDarkMode = mutableStateOf(getThemeStateUseCase.execute())
 
         setContent {
@@ -43,7 +42,6 @@ class MainActivity : ComponentActivity() {
 
             navigation.navController = navController
             navigation.setTopBarTitle(topBarTitle)
-            navigation.bottomBarVisible = bottomNavViewVisible
 
             TurtleAppTheme(isDarkMode.value) {
                 window.setBackgroundDrawableResource(TurtleTheme.images.windowBackground)
@@ -56,15 +54,14 @@ class MainActivity : ComponentActivity() {
                         isDarkMode = isDarkMode,
                         onThemeChange = {
                             saveThemeStateUseCase.execute(it)
-                            bottomNavViewVisible.value = !bottomNavViewVisible.value
+                            navigation.bottomBarVisible.value = !navigation.bottomBarVisible.value
                         },
                         topBarTitle.value
                     )
                     TurtleNavHost(navController, pagerState)
-                    BottomNavigationMenu(pagerState, bottomNavViewVisible)
+                    BottomNavigationMenu(pagerState, navigation.bottomBarVisible)
                 }
             }
         }
     }
-
 }

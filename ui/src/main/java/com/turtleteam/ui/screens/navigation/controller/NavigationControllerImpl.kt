@@ -3,29 +3,31 @@
 package com.turtleteam.ui.screens.navigation.controller
 
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.NavHostController
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 interface NavigationController : Navigator {
     var navController: NavHostController?
-    var bottomBarVisible: MutableState<Boolean>?
+    val bottomBarVisible: MutableState<Boolean>
     fun setTopBarTitle(topBarTitle: MutableState<String>)
 }
 
 class NavigationControllerImpl(
     override var navController: NavHostController? = null,
-    override var bottomBarVisible: MutableState<Boolean>? = null,
     private var topBarTitle: MutableState<String>? = null,
 ) : NavigationController {
+
+    override val bottomBarVisible = mutableStateOf(true)
 
     override fun setTopBarTitle(topBarTitle: MutableState<String>) {
         this.topBarTitle = topBarTitle
         navController?.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.route == Routes.HOME_PAGER_SCREEN.name) {
                 this.topBarTitle?.value = "TurtleApp"
-                bottomBarVisible?.value = false
+                bottomBarVisible.value = false
             } else {
-                bottomBarVisible?.value = true
+                bottomBarVisible.value = true
             }
         }
     }
