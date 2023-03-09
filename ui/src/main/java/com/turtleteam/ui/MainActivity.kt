@@ -2,6 +2,8 @@ package com.turtleteam.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.window.OnBackInvokedCallback
+import android.window.OnBackInvokedDispatcher
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
@@ -56,5 +58,8 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

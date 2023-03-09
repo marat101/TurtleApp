@@ -18,9 +18,14 @@ import androidx.compose.ui.unit.sp
 import com.turtleteam.ui.R
 import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.theme.fontGanelas
+import com.turtleteam.ui.utils.PagerListener
+import org.koin.androidx.compose.get
 
 @Composable
-fun AdditionalScreen() {
+fun AdditionalScreen(
+    page: Int,
+    pageListener: PagerListener = get()
+) {
 
     val modifier = Modifier
         .size(120.dp)

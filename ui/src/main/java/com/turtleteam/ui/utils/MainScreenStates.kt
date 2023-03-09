@@ -2,16 +2,18 @@
 
 package com.turtleteam.ui.utils
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 import com.turtleteam.domain.usecases_impl.usersettings.GetThemeStateUseCase
 import com.turtleteam.domain.usecases_impl.usersettings.SaveThemeStateUseCase
+import com.turtleteam.ui.screens.navigation.controller.Routes
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-interface MainScreenStates {
+interface MainScreenStates : PagerListener {
 
     val bottomBarVisible: MutableState<Boolean>
 
@@ -24,7 +26,7 @@ interface MainScreenStates {
     fun setTheme(dark: Boolean)
 }
 
-abstract class MainScreenStatesImpl : KoinComponent, MainScreenStates {
+abstract class MainScreenStatesImpl : KoinComponent, MainScreenStates, PagerListenerImpl() {
 
     private val getThemeStateUseCase: GetThemeStateUseCase by inject()
     private val saveThemeStateUseCase: SaveThemeStateUseCase by inject()

@@ -9,6 +9,8 @@ import com.turtleteam.ui.screens.navigation.controller.Navigator
 import com.turtleteam.ui.screens.screen_schedule.ScheduleViewModel
 import com.turtleteam.ui.screens.screen_schedule.ScheduleViewModelImpl
 import com.turtleteam.ui.utils.MainScreenStates
+import com.turtleteam.ui.utils.MainScreenStatesImpl
+import com.turtleteam.ui.utils.PagerListener
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -23,6 +25,10 @@ val uiModule = module {
     }
 
     single<Navigator> {
+        get<NavigationController>()
+    }
+
+    single<PagerListener> {
         get<NavigationController>()
     }
 

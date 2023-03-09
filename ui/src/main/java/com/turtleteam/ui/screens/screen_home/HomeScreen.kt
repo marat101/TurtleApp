@@ -13,12 +13,13 @@ import com.turtleteam.ui.screens.screen_teachers.TeachersScreen
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun HomeScreen(pagerState: PagerState, modifier: Modifier = Modifier) {
+fun HomeScreen(pagerState: PagerState,
+               modifier: Modifier = Modifier) {
 
     val screens = listOf<@Composable () -> Unit>(
-            { GroupsScreen() },
-            { TeachersScreen() },
-            { AdditionalScreen() }
+            { GroupsScreen(0) },
+            { TeachersScreen(1) },
+            { AdditionalScreen(2) }
         )
 
     HorizontalPager(
