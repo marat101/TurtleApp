@@ -1,6 +1,7 @@
 package com.turtleteam.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
@@ -10,7 +11,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.rememberPagerState
 import com.turtleteam.domain.usecases_impl.usersettings.GetThemeStateUseCase
 import com.turtleteam.domain.usecases_impl.usersettings.SaveThemeStateUseCase
 import com.turtleteam.ui.screens.common.components.TopBar
@@ -20,11 +20,10 @@ import com.turtleteam.ui.screens.navigation.view.BottomNavigationMenu
 import com.turtleteam.ui.screens.navigation.view.TurtleNavHost
 import com.turtleteam.ui.theme.TurtleAppTheme
 import com.turtleteam.ui.theme.TurtleTheme
+import com.turtleteam.ui.utils.MainScreenStates
 import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
-    private val getThemeStateUseCase: GetThemeStateUseCase by inject()
-    private val saveThemeStateUseCase: SaveThemeStateUseCase by inject()
 
     private val navigation: NavigationController by inject()
 
@@ -32,18 +31,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val topBarTitle = mutableStateOf("TurtleApp")
-        val isDarkMode = mutableStateOf(getThemeStateUseCase.execute())
-
         setContent {
 
-            val pagerState = rememberPagerState()
             val navController = rememberNavController()
 
-            navigation.navController = navController
-            navigation.setTopBarTitle(topBarTitle)
+            navigation.setNavController(navController)
 
-            TurtleAppTheme(isDarkMode.value) {
+            TurtleAppTheme(navigation.isDarkMode.value) {
                 window.setBackgroundDrawableResource(TurtleTheme.images.windowBackground)
                 TurtlesBackground()
                 Column(
@@ -51,15 +45,14 @@ class MainActivity : ComponentActivity() {
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     TopBar(
-                        isDarkMode = isDarkMode,
+                        isDarkMode = navigation.isDarkMode,
                         onThemeChange = {
-                            saveThemeStateUseCase.execute(it)
-                            navigation.bottomBarVisible.value = !navigation.bottomBarVisible.value
+                            navigation.setTheme(it)
                         },
-                        topBarTitle.value
+                        navigation.topBarTitle.value
                     )
-                    TurtleNavHost(navController, pagerState)
-                    BottomNavigationMenu(pagerState, navigation.bottomBarVisible)
+                    TurtleNavHost(navController, navigation.pagerState)
+                    BottomNavigationMenu(navigation.pagerState, navigation.bottomBarVisible)
                 }
             }
         }

@@ -2,29 +2,24 @@
 
 package com.turtleteam.ui.screens.navigation.controller
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.NavHostController
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.turtleteam.ui.utils.MainScreenStates
+import com.turtleteam.ui.utils.MainScreenStatesImpl
 
-interface NavigationController : Navigator {
-    var navController: NavHostController?
-    val bottomBarVisible: MutableState<Boolean>
-    fun setTopBarTitle(topBarTitle: MutableState<String>)
+interface NavigationController : Navigator, MainScreenStates {
+    fun setNavController(navController: NavHostController?)
 }
 
-class NavigationControllerImpl(
-    override var navController: NavHostController? = null,
-    private var topBarTitle: MutableState<String>? = null,
-) : NavigationController {
+class NavigationControllerImpl() : NavigationController, MainScreenStatesImpl() {
 
-    override val bottomBarVisible = mutableStateOf(true)
+    var navHostController: NavHostController? = null
 
-    override fun setTopBarTitle(topBarTitle: MutableState<String>) {
-        this.topBarTitle = topBarTitle
-        navController?.addOnDestinationChangedListener { _, destination, _ ->
+    override fun setNavController(navController: NavHostController?) {
+        navHostController = navController
+        navHostController?.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.route == Routes.HOME_PAGER_SCREEN.name) {
-                this.topBarTitle?.value = "TurtleApp"
+                topBarTitle.value = "TurtleApp"
                 bottomBarVisible.value = false
             } else {
                 bottomBarVisible.value = true
@@ -33,20 +28,20 @@ class NavigationControllerImpl(
     }
 
     override fun navigateBack() {
-        navController?.popBackStack()
+        navHostController?.popBackStack()
     }
 
     override fun navigateToScheduleScreen(name: String, isTeacher: Boolean) {
-        topBarTitle?.value = name
-        navController?.navigate(Routes.SCHEDULE_SCREEN.name + "/$name/$isTeacher")
+        topBarTitle.value = name
+        navHostController?.navigate(Routes.SCHEDULE_SCREEN.name + "/$name/$isTeacher")
     }
 
     override fun navigateToHomeScreen() {
-        navController?.navigate(Routes.HOME_PAGER_SCREEN.name)
+        navHostController?.navigate(Routes.HOME_PAGER_SCREEN.name)
     }
 
     override fun navigateToCallsSchedule() {
-        topBarTitle?.value = "Расписание звонков"
-        navController?.navigate(Routes.CALLS_SCHEDULE_LIST.name)
+        topBarTitle.value = "Расписание звонков"
+        navHostController?.navigate(Routes.CALLS_SCHEDULE_LIST.name)
     }
 }
