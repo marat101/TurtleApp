@@ -1,6 +1,5 @@
 package com.turtleteam.ui.screens.screen_groups
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,31 +17,26 @@ import com.turtleteam.ui.screens.common.views.Snackbar
 import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.utils.PagerListener
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
+import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun GroupsScreen(
-    page: Int,
+    page: Int = 0,
     pageListener: PagerListener = get(),
-    viewModel: NamesListViewModel = getViewModel(named("Groups"))
+    viewModel: NamesListViewModel = getViewModel(named("Groups"), parameters = { parametersOf(page) })
 ) {
     val state = viewModel.state.collectAsState()
     val scope = rememberCoroutineScope()
-    val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val name = remember { mutableStateOf(viewModel.getLastTargetName()) }
     val backgroundShape =
         remember { mutableStateOf(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)) }
     var showSnackbar by remember { mutableStateOf(false) }
     val sheetAlpha = remember { mutableStateOf(1F) }
-
-    LaunchedEffect(null) {
-        Log.e("currpage", "")
-    }
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -53,7 +47,7 @@ fun GroupsScreen(
             onOpenList = {
                 scope.launch(Dispatchers.Main) {
                     sheetAlpha.value = 1F
-                    sheetState.show()
+                    viewModel.sheetState.show()
                 }
             },
             onNextClick = {
@@ -70,7 +64,7 @@ fun GroupsScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .alpha(sheetAlpha.value),
-            sheetState = sheetState,
+            sheetState = viewModel.sheetState,
             sheetShape = backgroundShape.value,
             scrimColor = Color(0xA6000000),
             content = {},
@@ -78,13 +72,13 @@ fun GroupsScreen(
                 NamesList(
                     listState = state.value,
                     cornersState = backgroundShape,
-                    sheetState = sheetState,
+                    sheetState = viewModel.sheetState,
                     isTeacher = false,
                     getList = { viewModel.getNamesList() },
                     onItemClick = {
                         viewModel.setLastTargetName(it)
                         name.value = it
-                        scope.launch { sheetState.hide() }
+                        scope.launch { viewModel.sheetState.hide() }
                     },
                     onLongClick = { list, item -> viewModel.setPinnedList(list, item) },
                     onRefreshClick = { viewModel.refreshNamesList() },
@@ -92,8 +86,8 @@ fun GroupsScreen(
                     hint = viewModel.getHintBoxVisibility()
                 )
             })
-        LaunchedEffect(sheetState.isVisible) {
-            if (!sheetState.isVisible) sheetAlpha.value = 0F
+        LaunchedEffect(viewModel.sheetState.isVisible) {
+            if (!viewModel.sheetState.isVisible) sheetAlpha.value = 0F
         }
         if (showSnackbar)
             Snackbar(

@@ -5,13 +5,13 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.flow.Flow
 
 
-interface PagerListener: BackPress {
-    suspend fun getPageListener(page: Int): Flow<Boolean>
+interface PagerListener {
+    fun getPageListener(page: Int): Flow<Boolean>
 }
 
-abstract class PagerListenerImpl : MainScreenStates, PagerListener, BackPressImpl() {
+abstract class PagerListenerImpl : MainScreenStates, PagerListener {
     @OptIn(ExperimentalPagerApi::class)
-    override suspend fun getPageListener(page: Int): Flow<Boolean> {
+    override fun getPageListener(page: Int): Flow<Boolean> {
         return snapshotFlow {
             pagerState.currentPage == page
         }

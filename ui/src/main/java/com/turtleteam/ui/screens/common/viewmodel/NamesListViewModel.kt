@@ -1,6 +1,5 @@
 package com.turtleteam.ui.screens.common.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.teachersandgroups.NamesList
@@ -11,13 +10,15 @@ import com.turtleteam.domain.usecases.SetPinnedListUC
 import com.turtleteam.domain.usecases_impl.usersettings.GetHintStateUseCase
 import com.turtleteam.domain.usecases_impl.usersettings.UpdateHintStateUseCase
 import com.turtleteam.ui.screens.navigation.controller.Navigator
+import com.turtleteam.ui.utils.PagerListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-abstract class NamesListViewModel : ViewModel() {
+abstract class NamesListViewModel : NamesListStates() {
 
     abstract val state: StateFlow<States<NamesList>>
 
@@ -49,12 +50,24 @@ data class NamesListUsecasesProvider(
 
 class NamesViewModelImpl(
     private val navigator: Navigator,
-    private val usecase: NamesListUsecasesProvider
+    private val usecase: NamesListUsecasesProvider,
+    private val pagerListener: PagerListener,
+    private val page: Int? = null
 ) : NamesListViewModel() {
 
     private val _state = MutableStateFlow<States<NamesList>>(States.Loading)
     override val state: StateFlow<States<NamesList>>
         get() = _state.asStateFlow()
+
+    init {
+        page?.let {
+            viewModelScope.launch {
+                pagerListener.getPageListener(page = it).collectLatest { current ->
+
+                }
+            }
+        }
+    }
 
     override fun setLastTargetName(name: String) = usecase.setLastTargetUC.execute(name)
 
