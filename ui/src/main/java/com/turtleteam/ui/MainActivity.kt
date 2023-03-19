@@ -2,7 +2,6 @@ package com.turtleteam.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -17,21 +16,17 @@ import com.turtleteam.ui.screens.navigation.view.BottomNavigationMenu
 import com.turtleteam.ui.screens.navigation.view.TurtleNavHost
 import com.turtleteam.ui.theme.TurtleAppTheme
 import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.utils.BackPress
 import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
 
     private val navigation: NavigationController by inject()
-    private val onBack : BackPress by inject()
 
     //TODO VIEWMODEL
 
     @OptIn(ExperimentalPagerApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        onBackPressedDispatcher.addCallback(this, onBack.callBack)
 
         setContent {
 
@@ -57,6 +52,24 @@ class MainActivity : ComponentActivity() {
                     BottomNavigationMenu(navigation.pagerState, navigation.bottomBarVisible)
                 }
             }
+//            val count = 20
+//            val pagerState = rememberPagerState()
+//
+//            Box(Modifier.fillMaxSize()) {
+//                HorizontalPager(count = count, state = pagerState) {
+//                    Box(
+//                        Modifier
+//                            .fillMaxSize()
+//                            .background(Color.DarkGray)
+//                    ) {
+//                        Text(
+//                            text = it.toString(),
+//                            fontSize = 30.sp
+//                        )
+//                    }
+//                }
+//                PagerIndicator(modifier = Modifier.align(Alignment.BottomCenter),count = count, current = pagerState.currentPage)
+//            }
         }
     }
 }

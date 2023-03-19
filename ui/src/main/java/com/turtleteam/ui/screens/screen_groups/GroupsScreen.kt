@@ -1,22 +1,20 @@
 package com.turtleteam.ui.screens.screen_groups
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.turtleteam.ui.screens.common.components.NamesList
 import com.turtleteam.ui.screens.common.components.ScheduleSelectFrame
 import com.turtleteam.ui.screens.common.viewmodel.NamesListViewModel
 import com.turtleteam.ui.screens.common.views.Snackbar
 import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.utils.PagerListener
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
@@ -28,15 +26,22 @@ import org.koin.core.qualifier.named
 fun GroupsScreen(
     page: Int = 0,
     pageListener: PagerListener = get(),
-    viewModel: NamesListViewModel = getViewModel(named("Groups"), parameters = { parametersOf(page) })
+    viewModel: NamesListViewModel = getViewModel(
+        named("Groups"),
+        parameters = { parametersOf(page) })
 ) {
     val state = viewModel.state.collectAsState()
-    val scope = rememberCoroutineScope()
     val name = remember { mutableStateOf(viewModel.getLastTargetName()) }
-    val backgroundShape =
-        remember { mutableStateOf(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)) }
-    var showSnackbar by remember { mutableStateOf(false) }
-    val sheetAlpha = remember { mutableStateOf(1F) }
+    val scope = rememberCoroutineScope()
+
+    BackHandler(
+        pageListener.getPageListener(page)
+            .collectAsState(initial = false).value && viewModel.sheetState.isVisible
+    ) {
+        scope.launch {
+            viewModel.sheetState.hide()
+        }
+    }
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -45,8 +50,8 @@ fun GroupsScreen(
         ScheduleSelectFrame(
             imageId = TurtleTheme.images.selectGroup,
             onOpenList = {
-                scope.launch(Dispatchers.Main) {
-                    sheetAlpha.value = 1F
+                viewModel.sheetAlpha.value = 1F
+                scope.launch {
                     viewModel.sheetState.show()
                 }
             },
@@ -54,7 +59,7 @@ fun GroupsScreen(
                 if (it != "Группы") viewModel.navigateToScheduleScreen(
                     it,
                     false
-                ) else showSnackbar = true
+                ) else viewModel.showSnackbar = true
             },
             name = name.value
         )
@@ -63,15 +68,15 @@ fun GroupsScreen(
         ModalBottomSheetLayout(
             modifier = Modifier
                 .fillMaxWidth()
-                .alpha(sheetAlpha.value),
+                .alpha(viewModel.sheetAlpha.value),
             sheetState = viewModel.sheetState,
-            sheetShape = backgroundShape.value,
+            sheetShape = viewModel.backgroundShape.value,
             scrimColor = Color(0xA6000000),
             content = {},
             sheetContent = {
                 NamesList(
                     listState = state.value,
-                    cornersState = backgroundShape,
+                    cornersState = viewModel.backgroundShape,
                     sheetState = viewModel.sheetState,
                     isTeacher = false,
                     getList = { viewModel.getNamesList() },
@@ -87,15 +92,15 @@ fun GroupsScreen(
                 )
             })
         LaunchedEffect(viewModel.sheetState.isVisible) {
-            if (!viewModel.sheetState.isVisible) sheetAlpha.value = 0F
+            if (!viewModel.sheetState.isVisible) viewModel.sheetAlpha.value = 0F
         }
-        if (showSnackbar)
+        if (viewModel.showSnackbar)
             Snackbar(
                 modifier = Modifier.align(Alignment.BottomCenter),
                 message = "Выберите расписание!",
-                showSb = showSnackbar
+                showSb = viewModel.showSnackbar
             ) {
-                showSnackbar = it
+                viewModel.showSnackbar = it
             }
     }
 }
