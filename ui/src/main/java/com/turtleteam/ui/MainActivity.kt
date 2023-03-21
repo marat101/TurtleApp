@@ -1,20 +1,14 @@
 package com.turtleteam.ui
 
 import android.os.Bundle
-import android.util.Log
-import android.window.OnBackInvokedCallback
-import android.window.OnBackInvokedDispatcher
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.turtleteam.domain.usecases_impl.usersettings.GetThemeStateUseCase
-import com.turtleteam.domain.usecases_impl.usersettings.SaveThemeStateUseCase
 import com.turtleteam.ui.screens.common.components.TopBar
 import com.turtleteam.ui.screens.common.views.TurtlesBackground
 import com.turtleteam.ui.screens.navigation.controller.NavigationController
@@ -22,12 +16,13 @@ import com.turtleteam.ui.screens.navigation.view.BottomNavigationMenu
 import com.turtleteam.ui.screens.navigation.view.TurtleNavHost
 import com.turtleteam.ui.theme.TurtleAppTheme
 import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.utils.MainScreenStates
 import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
 
     private val navigation: NavigationController by inject()
+
+    //TODO VIEWMODEL
 
     @OptIn(ExperimentalPagerApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,9 +52,24 @@ class MainActivity : ComponentActivity() {
                     BottomNavigationMenu(navigation.pagerState, navigation.bottomBarVisible)
                 }
             }
+//            val count = 20
+//            val pagerState = rememberPagerState()
+//
+//            Box(Modifier.fillMaxSize()) {
+//                HorizontalPager(count = count, state = pagerState) {
+//                    Box(
+//                        Modifier
+//                            .fillMaxSize()
+//                            .background(Color.DarkGray)
+//                    ) {
+//                        Text(
+//                            text = it.toString(),
+//                            fontSize = 30.sp
+//                        )
+//                    }
+//                }
+//                PagerIndicator(modifier = Modifier.align(Alignment.BottomCenter),count = count, current = pagerState.currentPage)
+//            }
         }
-    }
-    override fun onBackPressed() {
-        super.onBackPressed()
     }
 }
