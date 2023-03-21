@@ -4,5 +4,5 @@ import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.schedule.DaysList
 
 interface GetScheduleUC {
-    suspend fun execute(name: String): States<DaysList>
+    suspend fun execute(name: String): DaysList
 }

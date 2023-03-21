@@ -1,13 +1,9 @@
 package com.turtleteam.ui.screens.navigation.view
 
-import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.ExperimentalTransitionApi
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -32,52 +28,15 @@ import kotlinx.coroutines.launch
 fun BottomNavigationMenu(
     //TODO сделать интерфейс для управления пейджером
     selected: PagerState,
+    modifier: Modifier,
     hidden: MutableState<Boolean>,
 ) {
 
-    val animValue = 60F
-
     val coroutine = rememberCoroutineScope()
-    val offset = remember { Animatable(0F) }
-    val height = remember { Animatable(animValue) }
-
-    LaunchedEffect(hidden.value) {
-        if (hidden.value) {
-            offset.animateTo(
-                animValue, animationSpec = tween(
-                    durationMillis = 140,
-                    easing = LinearEasing
-                )
-            )
-            height.animateTo(
-                0F, animationSpec = tween(
-                    durationMillis = 140,
-                    easing = LinearEasing,
-                    delayMillis = 140
-                )
-            )
-        } else {
-            height.animateTo(
-                animValue, animationSpec = tween(
-                    durationMillis = 250,
-                    easing = LinearEasing,
-                )
-            )
-            offset.animateTo(
-                0F, animationSpec = tween(
-                    durationMillis = 140,
-                    easing = LinearEasing,
-                    delayMillis = 50
-                )
-            )
-        }
-    }
 
     BottomNavigation(
-        modifier = Modifier
-            .offset(y = offset.value.dp)
+        modifier = modifier
             .fillMaxWidth()
-            .height(height.value.dp)
             .background(TurtleTheme.color.bottomNavBarGradient),
         backgroundColor = Color.Transparent,
         elevation = 0.dp

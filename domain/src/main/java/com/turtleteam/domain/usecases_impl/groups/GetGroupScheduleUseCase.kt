@@ -7,5 +7,5 @@ import com.turtleteam.domain.usecases.GetScheduleUC
 
 class GetGroupScheduleUseCase(private val repository: ScheduleRepository) : GetScheduleUC {
 
-    override suspend fun execute(name: String): States<DaysList> = repository.getSchedule(name)
+    override suspend fun execute(name: String): DaysList = repository.getSchedule(name)
 }

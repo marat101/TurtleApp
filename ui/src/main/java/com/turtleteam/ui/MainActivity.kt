@@ -3,10 +3,14 @@ package com.turtleteam.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.turtleteam.ui.screens.common.components.TopBar
@@ -33,25 +37,36 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
 
             navigation.setNavController(navController)
+            val visibility = remember { Animatable(60F) }
 
             TurtleAppTheme(navigation.isDarkMode.value) {
                 window.setBackgroundDrawableResource(TurtleTheme.images.windowBackground)
                 TurtlesBackground()
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.SpaceBetween
-                ) {
-                    TopBar(
-                        isDarkMode = navigation.isDarkMode,
-                        onThemeChange = {
-                            navigation.setTheme(it)
-                        },
-                        navigation.topBarTitle.value
+                Column(modifier = Modifier) {
+                    Column(
+                        modifier = Modifier.fillMaxSize().padding(bottom =visibility.value.dp),
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        TopBar(
+                            isDarkMode = navigation.isDarkMode,
+                            onThemeChange = {
+                                navigation.setTheme(it)
+                            },
+                            navigation.topBarTitle.value
+                        )
+                        TurtleNavHost(navController, navigation.pagerState)
+                    }
+                    BottomNavigationMenu(
+                        navigation.pagerState,
+                        Modifier.offset(visibility.value.dp),
+                        navigation.bottomBarVisible
                     )
-                    TurtleNavHost(navController, navigation.pagerState)
-                    BottomNavigationMenu(navigation.pagerState, navigation.bottomBarVisible)
                 }
             }
+            LaunchedEffect(key1 = navigation.bottomBarVisible, block = {
+                if (navigation.bottomBarVisible.value)
+                    visibility.animateTo(0F)
+            })
 //            val count = 20
 //            val pagerState = rememberPagerState()
 //
