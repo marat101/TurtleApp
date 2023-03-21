@@ -19,14 +19,12 @@ class GroupsRepositoryImpl(
     private val preferencesStore: PreferencesStore,
 ) : ScheduleRepository {
 
-    override suspend fun getSchedule(name: String): States<DaysList> =
-        NetworkResultWrapper.wrapWithResult { apiService.getSchedule(name) }
+    override suspend fun getSchedule(name: String): DaysList = apiService.getSchedule(name)
 
-    override suspend fun getSavedSchedule(name: String): States<DaysList> =
-        LocalResultWrapper().wrapWithResult {
-            val value = groupsScheduleDao.getGroupDaysList(name)
-            GroupsDaysList(Json.decodeFromString(value.days), value.name)
-        }
+    override suspend fun getSavedSchedule(name: String): DaysList {
+        val value = groupsScheduleDao.getGroupDaysList(name)
+        return DaysList(Json.decodeFromString(value.days), value.name)
+    }
 
     override suspend fun saveSchedule(schedule: DaysList) =
         groupsScheduleDao.saveGroupDaysList(Json.encodeToString(schedule.days), schedule.name)

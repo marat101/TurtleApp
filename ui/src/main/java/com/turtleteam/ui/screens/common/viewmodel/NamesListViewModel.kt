@@ -10,6 +10,7 @@ import com.turtleteam.domain.usecases.SetLastTargetUC
 import com.turtleteam.domain.usecases.SetPinnedListUC
 import com.turtleteam.domain.usecases_impl.usersettings.GetHintStateUseCase
 import com.turtleteam.domain.usecases_impl.usersettings.UpdateHintStateUseCase
+import com.turtleteam.ui.screens.common.viewmodel.base.BaseViewModel
 import com.turtleteam.ui.screens.navigation.controller.Navigator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +18,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-abstract class NamesListViewModel : ViewModel() {
+abstract class NamesListViewModel : BaseViewModel() {
 
     abstract val state: StateFlow<States<NamesList>>
 

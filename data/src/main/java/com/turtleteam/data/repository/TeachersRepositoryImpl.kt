@@ -18,14 +18,12 @@ class TeachersRepositoryImpl(
     private val preferencesStore: PreferencesStore
 ) : ScheduleRepository {
 
-    override suspend fun getSchedule(name: String): States<DaysList> =
-        NetworkResultWrapper.wrapWithResult { apiService.getSchedule(name) }
+    override suspend fun getSchedule(name: String): DaysList = apiService.getSchedule(name)
 
-    override suspend fun getSavedSchedule(name: String): States<DaysList> =
-        LocalResultWrapper().wrapWithResult {
-            val value = teachersScheduleDao.getTeacherDaysList(name)
-            DaysList(Json.decodeFromString(value.days), value.name)
-        }
+    override suspend fun getSavedSchedule(name: String): DaysList {
+        val value = teachersScheduleDao.getTeacherDaysList(name)
+        return DaysList(Json.decodeFromString(value.days), value.name)
+    }
 
     override suspend fun saveSchedule(schedule: DaysList) =
         teachersScheduleDao.saveTeacherDaysList(Json.encodeToString(schedule.days), schedule.name)

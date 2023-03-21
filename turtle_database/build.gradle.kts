@@ -37,6 +37,7 @@ android {
 
 dependencies {
 
+    implementation("androidx.test.ext:junit-ktx:1.1.5")
     // Koin
     val koin = "3.2.2"
     implementation("io.insert-koin:koin-android:$koin")
@@ -51,7 +52,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
-
+    implementation("com.squareup.sqldelight:sqlite-driver:1.4.4")
+    testImplementation("org.robolectric:robolectric:4.10-alpha-1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

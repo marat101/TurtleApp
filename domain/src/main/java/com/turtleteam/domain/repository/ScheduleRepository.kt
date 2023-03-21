@@ -5,9 +5,9 @@ import com.turtleteam.domain.model.schedule.DaysList
 
 
 interface ScheduleRepository {
-    suspend fun getSchedule(name: String): States<DaysList>
+    suspend fun getSchedule(name: String): DaysList
 
-    suspend fun getSavedSchedule(name: String): States<DaysList>
+    suspend fun getSavedSchedule(name: String): DaysList
 
     suspend fun saveSchedule(schedule: DaysList)
 

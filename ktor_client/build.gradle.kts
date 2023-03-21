@@ -36,6 +36,7 @@ android {
 
 dependencies {
     implementation(project(path = ":domain"))
+    implementation("androidx.test.ext:junit-ktx:1.1.5")
 
     // Koin
     val koin = "3.2.0"
@@ -49,6 +50,7 @@ dependencies {
     // Kotlin Serialization
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
+    testImplementation("org.robolectric:robolectric:4.10-alpha-1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

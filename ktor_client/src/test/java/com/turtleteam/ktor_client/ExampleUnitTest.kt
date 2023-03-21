@@ -1,16 +1,39 @@
 package com.turtleteam.ktor_client
 
+import com.turtleteam.domain.model.schedule.DaysList
+import com.turtleteam.ktor_client.api.ApiService
+import com.turtleteam.ktor_client.api.Ktor
+import io.ktor.client.*
+import io.ktor.client.engine.okhttp.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
+
+@RunWith(RobolectricTestRunner::class)
+class KtorClientTest {
+
+    private lateinit var api: ApiService
+    private var sc = DaysList(emptyList(), "AAAAAA")
+
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun getSchedule() {
+        CoroutineScope(Dispatchers.IO).launch {
+            api = Ktor(HttpClient(OkHttp))
+            val schedule = api.getSchedule("ИС-23")
+            sc = schedule
+            println(schedule)
+            assertEquals(schedule, null)
+        }
+    }
+
+    @After
+    fun test(){
+        println(sc)
     }
 }
