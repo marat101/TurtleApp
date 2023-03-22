@@ -1,12 +1,12 @@
 package com.turtleteam.domain.model.other
 
-sealed class States<out T> {
+sealed interface States {
 
-    data class Success<out T>(val value: T) : States<T>()
+    object Success : States
 
-    object Error : States<Nothing>()
+    object Error : States
 
-    object NotFoundError : States<Nothing>()
+    object NotFoundError : States
 
-    object Loading : States<Nothing>()
+    object Loading : States
 }

@@ -1,6 +1,5 @@
 package com.turtleteam.ui.screens.navigation.view
 
-import androidx.compose.animation.core.ExperimentalTransitionApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -9,7 +8,8 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -23,13 +23,12 @@ import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.theme.fontGanelas
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalPagerApi::class, ExperimentalTransitionApi::class)
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun BottomNavigationMenu(
     //TODO сделать интерфейс для управления пейджером
     selected: PagerState,
     modifier: Modifier,
-    hidden: MutableState<Boolean>,
 ) {
 
     val coroutine = rememberCoroutineScope()

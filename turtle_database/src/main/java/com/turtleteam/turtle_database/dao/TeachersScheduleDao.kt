@@ -7,20 +7,20 @@ import kotlinx.coroutines.withContext
 
 interface TeachersScheduleDao {
 
-    suspend fun getTeacherDaysList(name: String): TeachersDaysList
+    suspend fun getTeacherDaysList(name: String): TeachersDaysList?
 
     suspend fun saveTeacherDaysList(days: String, name: String)
 
-    suspend fun getSavedScheduleList(): List<String>
+    suspend fun getSavedScheduleList(): List<String>?
 }
 
 internal class TeachersScheduleDaoImpl(database: TurtleDatabase) : TeachersScheduleDao {
 
     private val query = database.turtleDatabaseQueries
 
-    override suspend fun getTeacherDaysList(name: String): TeachersDaysList =
+    override suspend fun getTeacherDaysList(name: String): TeachersDaysList? =
         withContext(Dispatchers.IO) {
-            query.selectTeacherScheduleByName(name).executeAsOne()
+            query.selectTeacherScheduleByName(name).executeAsOneOrNull()
         }
 
     override suspend fun saveTeacherDaysList(days: String, name: String) =

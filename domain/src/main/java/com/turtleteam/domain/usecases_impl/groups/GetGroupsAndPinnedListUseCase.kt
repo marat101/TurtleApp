@@ -1,23 +1,13 @@
 package com.turtleteam.domain.usecases_impl.groups
 
-import com.turtleteam.domain.model.teachersandgroups.NamesList
 import com.turtleteam.domain.repository.ScheduleRepository
-import com.turtleteam.domain.usecases.GetListAndPinnedListUC
+import com.turtleteam.domain.usecases.GetPinnedListUC
 
 class GetGroupsAndPinnedListUseCase(
     private val repository: ScheduleRepository
-) : GetListAndPinnedListUC {
+) : GetPinnedListUC {
 
-    /**
-     * Получение отфильтрованного списка всех групп
-     */
-
-    override suspend fun execute(): NamesList {
-        val allgroups = repository.getNamesList().toMutableList()
-        val pinnedGroups = repository.getPinnedList()
-
-        allgroups.removeAll(pinnedGroups)
-
-        return NamesList(pinnedGroups, allgroups)
+    override suspend fun execute(): List<String> {
+        return repository.getPinnedList()
     }
 }

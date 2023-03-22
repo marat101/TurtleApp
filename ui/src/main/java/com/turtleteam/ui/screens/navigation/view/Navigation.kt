@@ -23,7 +23,7 @@ fun ColumnScope.TurtleNavHost(
     pagerState: PagerState
 ) {
     NavHost(
-        modifier = Modifier.fillMaxSize().weight(1F),
+        modifier = Modifier.fillMaxSize(),
         navController = navController,
         startDestination = Routes.HOME_PAGER_SCREEN.name
     ) {

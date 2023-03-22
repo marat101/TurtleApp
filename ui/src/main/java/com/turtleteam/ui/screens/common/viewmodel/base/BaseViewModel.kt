@@ -6,12 +6,15 @@ abstract class BaseViewModel(): ViewModel() {
 
     suspend fun handleResult(
         execute: suspend () -> Unit,
-        onFailure: (suspend (exception: Throwable) -> Unit)? = null
+        onFailure: (suspend (exception: Throwable) -> Unit)? = null,
+        finally: (suspend () -> Unit)? = null
     ){
         try {
             execute()
         } catch (e: Throwable){
             onFailure?.invoke(e)
+        } finally {
+            finally?.invoke()
         }
     }
 }

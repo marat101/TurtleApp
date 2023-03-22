@@ -30,7 +30,7 @@ val uiModule = module {
         get<NavigationController>()
     }
 
-    viewModel<NamesListViewModel>(named(groupsKey)) { page ->
+    viewModel<NamesListViewModel>(named(groupsKey)) {
         NamesViewModelImpl(
             get(),
             NamesListUsecasesProvider(
@@ -38,15 +38,15 @@ val uiModule = module {
                 get(named(groupsKey)),
                 get(named(groupsKey)),
                 get(named(groupsKey)),
+                get(named(groupsKey)),
+                get(named(groupsKey)),
                 get(),
                 get()
-            ),
-            get(),
-            page.get()
+            )
         )
     }
 
-    viewModel<NamesListViewModel>(named(teachersKey)) { page ->
+    viewModel<NamesListViewModel>(named(teachersKey)) {
         NamesViewModelImpl(
             get(),
             NamesListUsecasesProvider(
@@ -54,11 +54,11 @@ val uiModule = module {
                 get(named(teachersKey)),
                 get(named(teachersKey)),
                 get(named(teachersKey)),
+                get(named(teachersKey)),
+                get(named(teachersKey)),
                 get(),
                 get()
-            ),
-            get(),
-            page.get()
+            )
         )
     }
 

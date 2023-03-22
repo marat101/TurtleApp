@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.ui.R
@@ -43,7 +44,7 @@ fun AdditionalScreen(
                     interactionSource = MutableInteractionSource(),
                     indication = rememberRipple(),
                     onClick = {}
-                )
+                ).padding(5.dp)
             ) {
                 Icon(
                     modifier = Modifier
@@ -57,6 +58,7 @@ fun AdditionalScreen(
                 Text(
                     modifier = Modifier.align(Alignment.BottomCenter),
                     text = "Расписание звонков",
+                    textAlign = TextAlign.Center,
                     fontFamily = fontGanelas,
                     fontSize = 14.sp,
                     color = TurtleTheme.color.simpleText
@@ -66,7 +68,7 @@ fun AdditionalScreen(
                 interactionSource = MutableInteractionSource(),
                 indication = rememberRipple(),
                 onClick = {}
-            )) {
+            ).padding(5.dp)) {
                 Icon(
                     modifier = Modifier
                         .align(Alignment.TopCenter)
@@ -74,6 +76,14 @@ fun AdditionalScreen(
                     painter = painterResource(id = R.drawable.ic_googlesheets),
                     contentDescription = null,
                     tint = TurtleTheme.color.moreScreenIconsTint
+                )
+                Text(
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    text = "Планшетка",
+                    textAlign = TextAlign.Center,
+                    fontFamily = fontGanelas,
+                    fontSize = 14.sp,
+                    color = TurtleTheme.color.simpleText
                 )
             }
         }
@@ -90,6 +100,14 @@ fun AdditionalScreen(
                     .padding(bottom = 20.dp, start = 5.dp, end = 5.dp),
                 painter = painterResource(id = R.drawable.ic_turtle_team),
                 contentDescription = null,
+            )
+            Text(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                text = "Turtle Team",
+                textAlign = TextAlign.Center,
+                fontFamily = fontGanelas,
+                fontSize = 14.sp,
+                color = TurtleTheme.color.simpleText
             )
         }
     }

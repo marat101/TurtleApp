@@ -1,12 +1,9 @@
 package com.turtleteam.domain.usecases_impl.groups
 
 import com.turtleteam.domain.repository.ScheduleRepository
+import com.turtleteam.domain.usecases.GetNamesListUC
 
-class GetGroupsListUseCase(private val repository: ScheduleRepository) {
+class GetGroupsListUseCase(private val repository: ScheduleRepository): GetNamesListUC {
 
-    /**
-     * Возвращает все группы без разделения на закрепленные и незакрепленные
-     */
-
-    suspend fun execute(): List<String> = repository.getNamesList()
+    override suspend fun execute(): List<String> = repository.getNamesList()
 }

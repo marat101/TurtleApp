@@ -27,11 +27,17 @@ val domainModule = module {
     factory<SaveScheduleUC>(named(groupsKey)) {
         SaveGroupScheduleUseCase(repository = get(named("groups")))
     }
-    factory<GetListAndPinnedListUC>(named(groupsKey)) {
+    factory<GetPinnedListUC>(named(groupsKey)) {
         GetGroupsAndPinnedListUseCase(repository = get(named("groups")))
     }
     factory<SetPinnedListUC>(named(groupsKey)) {
         SetPinnedGroupsListUseCase(repository = get(named("groups")))
+    }
+    factory<GetNamesListUC>(named(groupsKey)) {
+        GetGroupsListUseCase(repository = get(named("groups")))
+    }
+    factory<GetSavedNamesListUC>(named(groupsKey)) {
+        GetSavedGroupsListUseCase(repository = get(named("groups")))
     }
     factory<GetLastTargetUC>(named(groupsKey)) {
         GetLastTargetGroupUseCase(repository = get(named("groups")))
@@ -53,11 +59,17 @@ val domainModule = module {
     factory<SaveScheduleUC>(named(teachersKey)) {
         SaveTeacherScheduleUseCase(repository = get(named("teachers")))
     }
-    factory<GetListAndPinnedListUC>(named(teachersKey)) {
+    factory<GetPinnedListUC>(named(teachersKey)) {
         GetTeachersAndPinnedListUseCase(repository = get(named("teachers")))
     }
     factory<SetPinnedListUC>(named(teachersKey)) {
         SetPinnedTeachersListUseCase(repository = get(named("teachers")))
+    }
+    factory<GetNamesListUC>(named(teachersKey)) {
+        GetTeachersListUseCase(repository = get(named("teachers")))
+    }
+    factory<GetSavedNamesListUC>(named(teachersKey)) {
+        GetSavedTeachersListUseCase(repository = get(named("teachers")))
     }
     factory<GetLastTargetUC>(named(teachersKey)) {
         GetLastTargetTeacherUseCase(repository = get(named("teachers")))

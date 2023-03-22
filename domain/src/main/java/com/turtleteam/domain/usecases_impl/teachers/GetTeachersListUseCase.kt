@@ -1,12 +1,9 @@
 package com.turtleteam.domain.usecases_impl.teachers
 
 import com.turtleteam.domain.repository.ScheduleRepository
+import com.turtleteam.domain.usecases.GetNamesListUC
 
-class GetTeachersListUseCase(private val repository: ScheduleRepository) {
+class GetTeachersListUseCase(private val repository: ScheduleRepository): GetNamesListUC {
 
-    /**
-     * Возвращает список всех преподавателей без разделения на закрепленные и незакрепленные
-     */
-
-    suspend fun execute(): List<String> = repository.getNamesList()
+    override suspend fun execute(): List<String> = repository.getNamesList()
 }

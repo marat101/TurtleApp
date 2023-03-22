@@ -31,7 +31,7 @@ fun TeachersScreen(
     pageListener: PagerListener = get(),
     viewModel: NamesListViewModel = getViewModel(
         named("Teachers"),
-        parameters = { parametersOf(page) })
+    )
 ) {
     val state = viewModel.state.collectAsState()
     val name = remember { mutableStateOf(viewModel.getLastTargetName()) }
@@ -88,7 +88,6 @@ fun TeachersScreen(
                         scope.launch { viewModel.sheetState.hide() }
                     },
                     onLongClick = { list, item -> viewModel.setPinnedList(list, item) },
-                    onRefreshClick = { viewModel.refreshNamesList() },
                     onHideHint = { viewModel.setHintBoxVisibility() },
                     hint = viewModel.getHintBoxVisibility()
                 )

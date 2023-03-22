@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.turtleteam.domain.model.other.States
-import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.ui.screens.common.components.ErrorView
 import com.turtleteam.ui.screens.screen_schedule.components.ScheduleList
 import com.turtleteam.ui.theme.TurtleTheme
@@ -34,7 +33,7 @@ fun ScheduleScreen(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        when (state.value) {
+        when (state.value.loadingState) {
             States.Error,
             States.NotFoundError -> {
                 ErrorView(Modifier.height(90.dp)) {
@@ -45,7 +44,9 @@ fun ScheduleScreen(
                 CircularProgressIndicator(color = TurtleTheme.color.bottomSheetView)
             }
             is States.Success -> {
-                ScheduleList((state.value as States.Success<DaysList>).value)
+                state.value.data?.let{
+                    ScheduleList(it)
+                }
             }
         }
     }

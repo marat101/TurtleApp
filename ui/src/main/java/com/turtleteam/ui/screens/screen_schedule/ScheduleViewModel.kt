@@ -1,27 +1,25 @@
 package com.turtleteam.ui.screens.screen_schedule
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.turtleteam.domain.model.other.StatefulModel
 import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.domain.usecases.GetSavedScheduleUC
 import com.turtleteam.domain.usecases.GetScheduleUC
 import com.turtleteam.domain.usecases.SaveScheduleUC
+import com.turtleteam.ui.screens.common.viewmodel.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-abstract class ScheduleViewModel : ViewModel() {
+abstract class ScheduleViewModel : BaseViewModel() {
 
-    abstract val state: StateFlow<States<DaysList>>
+    abstract val state: StateFlow<StatefulModel<DaysList>>
 
     abstract fun getSchedule()
-
-    abstract fun getSavedSchedule()
-
-    abstract fun saveSchedule()
 }
 
 class ScheduleViewModelImpl(
@@ -31,27 +29,36 @@ class ScheduleViewModelImpl(
     private val name: String
 ) : ScheduleViewModel() {
 
-    private val _state = MutableStateFlow<States<DaysList>>(States.Loading)
-    override val state: StateFlow<States<DaysList>>
+    private val _state = MutableStateFlow<StatefulModel<DaysList>>(StatefulModel())
+    override val state: StateFlow<StatefulModel<DaysList>>
         get() = _state.asStateFlow()
 
     override fun getSchedule() {
         viewModelScope.launch(Dispatchers.IO) {
-            _state.value = States.Loading
-            _state.value = getScheduleUC.execute(name)
-        }
-    }
-
-    override fun getSavedSchedule() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _state.value = getSavedScheduleUC.execute(name)
-        }
-    }
-
-    override fun saveSchedule() {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (_state.value is States.Success<DaysList>)
-                saveScheduleUC.execute((_state.value as States.Success<DaysList>).value)
+            handleResult(
+                execute = {
+                    _state.update {
+                        it.copy(
+                            data = getScheduleUC.execute(name),
+                            loadingState = States.Success
+                        )
+                    }
+                },
+                onFailure = {
+                    _state.update {
+                        it.copy(
+                            data = getSavedScheduleUC.execute(name),
+                            loadingState = States.Success
+                        )
+                    }
+                },
+                finally = {
+                    _state.value.data?.let {
+                        saveScheduleUC.execute(it)
+                    }
+                    if (_state.value.data == null) _state.value.loadingState = States.Error
+                }
+            )
         }
     }
 }

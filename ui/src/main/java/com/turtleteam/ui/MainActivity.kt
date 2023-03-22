@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
@@ -37,14 +38,14 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
 
             navigation.setNavController(navController)
-            val visibility = remember { Animatable(60F) }
+            val visibility = remember { Animatable(0F) }
 
             TurtleAppTheme(navigation.isDarkMode.value) {
                 window.setBackgroundDrawableResource(TurtleTheme.images.windowBackground)
                 TurtlesBackground()
-                Column(modifier = Modifier) {
+                Box(modifier = Modifier.fillMaxSize()) {
                     Column(
-                        modifier = Modifier.fillMaxSize().padding(bottom =visibility.value.dp),
+                        modifier = Modifier.fillMaxSize().padding(bottom = (60F - visibility.value).dp),
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
                         TopBar(
@@ -58,33 +59,16 @@ class MainActivity : ComponentActivity() {
                     }
                     BottomNavigationMenu(
                         navigation.pagerState,
-                        Modifier.offset(visibility.value.dp),
-                        navigation.bottomBarVisible
+                        Modifier.align(Alignment.BottomCenter).height(60.dp).offset(y = visibility.value.dp)
                     )
                 }
             }
-            LaunchedEffect(key1 = navigation.bottomBarVisible, block = {
+            LaunchedEffect(key1 = navigation.bottomBarVisible.value, block = {
                 if (navigation.bottomBarVisible.value)
+                    visibility.animateTo(60F)
+                else
                     visibility.animateTo(0F)
             })
-//            val count = 20
-//            val pagerState = rememberPagerState()
-//
-//            Box(Modifier.fillMaxSize()) {
-//                HorizontalPager(count = count, state = pagerState) {
-//                    Box(
-//                        Modifier
-//                            .fillMaxSize()
-//                            .background(Color.DarkGray)
-//                    ) {
-//                        Text(
-//                            text = it.toString(),
-//                            fontSize = 30.sp
-//                        )
-//                    }
-//                }
-//                PagerIndicator(modifier = Modifier.align(Alignment.BottomCenter),count = count, current = pagerState.currentPage)
-//            }
         }
     }
 }

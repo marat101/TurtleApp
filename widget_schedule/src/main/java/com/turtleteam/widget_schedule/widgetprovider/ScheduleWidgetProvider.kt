@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.RemoteViews
-import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.usecases_impl.teachers.GetTeacherScheduleUseCase
 import com.turtleteam.domain.usecases_impl.widget.GetScheduleWidget
 import com.turtleteam.domain.usecases_impl.widget.SaveScheduleWidget
@@ -77,11 +76,9 @@ class ScheduleWidgetProvider : AppWidgetProvider(), KoinComponent {
             rv.setTextViewText(R.id.widget_select_schedule, "ИС-23")
             val schedule = groupsSchedule.execute("ИС-23")
 
-            if (schedule is States.Success) {
-                service.pairs =
-                    ScheduleFormatter.getFormattedList(schedule.value.days[0]).toMutableList()
-                rv.setTextViewText(R.id.widget_date, schedule.value.days[0].day)
-            }
+            service.pairs =
+                ScheduleFormatter.getFormattedList(schedule.days[0]).toMutableList()
+            rv.setTextViewText(R.id.widget_date, schedule.days[0].day)
 
             rv.setOnClickPendingIntent(
                 R.id.widget_refresh,

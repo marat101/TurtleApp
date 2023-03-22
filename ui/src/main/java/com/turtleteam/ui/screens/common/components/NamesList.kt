@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.turtleteam.domain.model.other.StatefulModel
 import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.teachersandgroups.NamesList
 import com.turtleteam.domain.utils.SearchNames
@@ -34,13 +35,12 @@ import com.turtleteam.ui.theme.fontGanelas
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun NamesList(
-    listState: States<NamesList>,
+    listState: StatefulModel<NamesList>,
     cornersState: MutableState<RoundedCornerShape>,
     sheetState: ModalBottomSheetState,
     getList: () -> Unit,
     onItemClick: (name: String) -> Unit,
     onLongClick: (list: NamesList, item: String) -> Unit,
-    onRefreshClick: () -> Unit,
     onHideHint: () -> Unit,
     hint: Boolean,
     isTeacher: Boolean
@@ -93,124 +93,128 @@ fun NamesList(
                 }
         }
         if (hintVisibility.value)
-            HintBox(){
+            HintBox() {
                 onHideHint()
                 hintVisibility.value = false
             }
 
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.TopCenter
+
+
+
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(4),
+            horizontalArrangement = Arrangement.spacedBy(5.dp)
         ) {
+            listState.data?.let { names ->
+                state.value = SearchNames.filterList(searchState.value, names)
 
-            when (listState) {
-                States.Loading -> {
-                    CircularProgressIndicator(
-                        modifier = Modifier.padding(100.dp),
-                        color = TurtleTheme.color.bottomSheetView
-                    )
-                }
-                is States.Success -> {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(4),
-                        horizontalArrangement = Arrangement.spacedBy(5.dp)
-                    ) {
-
-                        state.value =
-                            SearchNames.filterList(searchState.value, listState.value)
-
-                        if (state.value.pinned.isNotEmpty()) {
-                            item(span = { GridItemSpan(4) }) {
-                                Text(
-                                    modifier = Modifier
-                                        .align(Alignment.BottomStart)
-                                        .padding(bottom = 7.dp),
-                                    text = "Закреплённые",
-                                    fontFamily = fontGanelas,
-                                    fontSize = 18.sp,
-                                    color = Color.Gray
+                if (state.value.pinned.isNotEmpty()) {
+                    item(span = { GridItemSpan(4) }) {
+                        Text(
+                            modifier = Modifier
+                                .padding(bottom = 7.dp),
+                            text = "Закреплённые",
+                            fontFamily = fontGanelas,
+                            fontSize = 18.sp,
+                            color = Color.Gray
+                        )
+                    }
+                    items(state.value.pinned,
+                        span = { GridItemSpan(spanSize) }) {
+                        NameItem(
+                            onItemClick = { onItemClick(it) },
+                            onLongClick = {
+                                onLongClick(
+                                    names,
+                                    it
                                 )
-                            }
-                            items(state.value.pinned,
-                                span = { GridItemSpan(spanSize) }) {
-                                NameItem(
-                                    onItemClick = { onItemClick(it) },
-                                    onLongClick = {
-                                        onLongClick(
-                                            listState.value,
-                                            it
-                                        )
-                                        if (hintVisibility.value) {
-                                            hintVisibility.value = false
-                                            onHideHint()
-                                        }
-                                    },
-                                    item = it
-                                )
-                            }
-                        }
-
-                        if (state.value.groups.isNotEmpty()) {
-                            item(span = { GridItemSpan(4) }) {
-                                Text(
-                                    modifier = Modifier
-                                        .align(Alignment.BottomStart)
-                                        .padding(bottom = 7.dp),
-                                    text = header,
-                                    fontFamily = fontGanelas,
-                                    fontSize = 18.sp,
-                                    color = Color.Gray
-                                )
-                            }
-
-                            items(state.value.groups, span = { GridItemSpan(spanSize) }) {
-                                NameItem(
-                                    onItemClick = { onItemClick(it) },
-                                    onLongClick = {
-                                        onLongClick(
-                                            listState.value,
-                                            it
-                                        )
-                                        if (hintVisibility.value) {
-                                            hintVisibility.value = false
-                                            onHideHint()
-                                        }
-                                    },
-                                    item = it
-                                )
-                            }
-                        }
+                                if (hintVisibility.value) {
+                                    hintVisibility.value = false
+                                    onHideHint()
+                                }
+                            },
+                            item = it
+                        )
                     }
                 }
-                is States.Error,
-                States.NotFoundError -> {
-                    ErrorView(
-                        Modifier
-                            .padding(top = 90.dp)
-                            .height(80.dp)
-                    ) {
-                        onRefreshClick()
+
+                if (state.value.groups.isNotEmpty()) {
+                    item(span = { GridItemSpan(4) }) {
+                        Text(
+                            modifier = Modifier
+                                .padding(bottom = 7.dp),
+                            text = header,
+                            fontFamily = fontGanelas,
+                            fontSize = 18.sp,
+                            color = Color.Gray
+                        )
+                    }
+
+                    items(state.value.groups, span = { GridItemSpan(spanSize) }) {
+                        NameItem(
+                            onItemClick = { onItemClick(it) },
+                            onLongClick = {
+                                onLongClick(
+                                    names,
+                                    it
+                                )
+                                if (hintVisibility.value) {
+                                    hintVisibility.value = false
+                                    onHideHint()
+                                }
+                            },
+                            item = it
+                        )
                     }
                 }
             }
-            LaunchedEffect(sheetState.isVisible) {
-                if (sheetState.isVisible) {
-                    getList()
-                } else {
-                    searchState.value = ""
-                    focusManager.clearFocus()
-                }
-            }
-            LaunchedEffect(sheetState.currentValue) {
-                if (sheetState.currentValue != ModalBottomSheetValue.Expanded) {
-                    cornersState.value =
-                        RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
-                } else {
-                    cornersState.value =
-                        RoundedCornerShape(topStart = 0.dp, topEnd = 0.dp)
+            item(span = { GridItemSpan(4) }) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    when (listState.loadingState) {
+                        States.Error -> {
+                            ErrorView(
+                                Modifier
+                                    .padding(top = 40.dp)
+                                    .height(80.dp)
+                            ) {
+                                getList()
+                            }
+                        }
+                        States.Loading -> {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .padding(vertical = 40.dp)
+                                    .size(35.dp),
+                                color = TurtleTheme.color.bottomSheetView
+                            )
+                        }
+                        else -> {}
+                    }
                 }
             }
         }
+        LaunchedEffect(sheetState.isVisible) {
+            if (sheetState.isVisible) {
+                getList()
+            } else {
+                searchState.value = ""
+                focusManager.clearFocus()
+            }
+        }
+        LaunchedEffect(sheetState.currentValue) {
+            if (sheetState.currentValue != ModalBottomSheetValue.Expanded) {
+                cornersState.value =
+                    RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+            } else {
+                cornersState.value =
+                    RoundedCornerShape(topStart = 0.dp, topEnd = 0.dp)
+            }
+        }
+
     }
 }
 

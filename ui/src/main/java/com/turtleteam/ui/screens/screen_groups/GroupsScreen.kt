@@ -86,7 +86,6 @@ fun GroupsScreen(
                         scope.launch { viewModel.sheetState.hide() }
                     },
                     onLongClick = { list, item -> viewModel.setPinnedList(list, item) },
-                    onRefreshClick = { viewModel.refreshNamesList() },
                     onHideHint = { viewModel.setHintBoxVisibility() },
                     hint = viewModel.getHintBoxVisibility()
                 )

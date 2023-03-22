@@ -1,10 +1,6 @@
 package com.turtleteam.data.repository
 
-import com.android.turtleapp.data.local.entity.GroupsDaysList
 import com.turtleteam.data.preferences.PreferencesStore
-import com.turtleteam.data.wrapper.LocalResultWrapper
-import com.turtleteam.data.wrapper.NetworkResultWrapper
-import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.domain.repository.ScheduleRepository
 import com.turtleteam.ktor_client.api.ApiService
@@ -21,9 +17,9 @@ class GroupsRepositoryImpl(
 
     override suspend fun getSchedule(name: String): DaysList = apiService.getSchedule(name)
 
-    override suspend fun getSavedSchedule(name: String): DaysList {
+    override suspend fun getSavedSchedule(name: String): DaysList? {
         val value = groupsScheduleDao.getGroupDaysList(name)
-        return DaysList(Json.decodeFromString(value.days), value.name)
+        return if (value != null) DaysList(Json.decodeFromString(value.days), value.name) else null
     }
 
     override suspend fun saveSchedule(schedule: DaysList) =
@@ -35,8 +31,9 @@ class GroupsRepositoryImpl(
     override fun saveName(string: String) =
         preferencesStore.saveSelectedItem(PreferencesStore.SELECTED_ID, string)
 
-    override suspend fun getNamesList(): List<String> =
-        runCatching { apiService.getList().group }.getOrDefault(groupsScheduleDao.getSavedScheduleList())
+    override suspend fun getNamesList(): List<String> = apiService.getList().group
+
+    override suspend fun getSavedNamesList(): List<String>? = groupsScheduleDao.getSavedScheduleList()
 
     override fun getPinnedList(): List<String> =
         runCatching { preferencesStore.getPinnedList(PreferencesStore.PINNED_GROUPS) }.getOrDefault(
