@@ -10,18 +10,17 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 
 @Composable
 fun BoxScope.TopErrorView() {
 
     val state = remember { ErrorViewState() }
-
     AnimatedVisibility(
         modifier = Modifier.align(Alignment.TopCenter),
         visibleState = state.visibleState,
@@ -36,9 +35,16 @@ fun BoxScope.TopErrorView() {
                 .background(Color.White.copy(alpha = 0.35F)),
             contentAlignment = Alignment.Center
         ) {
-            Text("Обновление расписания")
+            Text(state.text.value)
         }
     }
+    LaunchedEffect(key1 = state, block = {
+        state.currentState.value = State.ERROR
+        delay(2000)
+        state.currentState.value = State.HIDDEN
+        delay(2000)
+        state.currentState.value = State.SUCCESS
+    })
 }
 
 enum class State(description: String) {
@@ -50,16 +56,19 @@ enum class State(description: String) {
 }
 
 class ErrorViewState(
-    val visibleState: MutableTransitionState<Boolean> = MutableTransitionState(true),
-    state: State = State.HIDDEN,
+    val visibleState: MutableTransitionState<Boolean> = MutableTransitionState(false),
+    val currentState: MutableState<State> = mutableStateOf(State.HIDDEN),
+    val text: MutableState<String> = mutableStateOf("")
 ) {
     init {
-        when(state){
-            State.ERROR -> {}
-            State.SUCCESS -> {}
-            State.LOADING -> {}
-            State.SAVED -> {}
-            State.HIDDEN -> {}
+        when (currentState.value) {
+            State.HIDDEN -> {
+                visibleState.targetState = false
+            }
+            else -> {
+                text.value = currentState.value.name
+                visibleState.targetState = true
+            }
         }
     }
 }
