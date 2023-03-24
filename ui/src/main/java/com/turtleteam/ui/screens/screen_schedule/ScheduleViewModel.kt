@@ -9,10 +9,7 @@ import com.turtleteam.domain.usecases.GetScheduleUC
 import com.turtleteam.domain.usecases.SaveScheduleUC
 import com.turtleteam.ui.screens.common.viewmodel.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 abstract class ScheduleViewModel : BaseViewModel() {
@@ -29,34 +26,21 @@ class ScheduleViewModelImpl(
     private val name: String
 ) : ScheduleViewModel() {
 
-    private val _state = MutableStateFlow<StatefulModel<DaysList>>(StatefulModel())
-    override val state: StateFlow<StatefulModel<DaysList>>
-        get() = _state.asStateFlow()
+    private val loadingState = MutableStateFlow<States>(States.Loading)
+    override val state: StateFlow<StatefulModel<DaysList>> =
+        getSavedScheduleUC.execute(name).map { StatefulModel(it) }
+            .combine(loadingState) { days, state -> StatefulModel(days.data, state) }
+            .stateIn(viewModelScope, SharingStarted.Lazily, StatefulModel())
 
     override fun getSchedule() {
         viewModelScope.launch(Dispatchers.IO) {
             handleResult(
                 execute = {
-                    _state.update {
-                        it.copy(
-                            data = getScheduleUC.execute(name),
-                            loadingState = States.Success
-                        )
-                    }
+                    saveScheduleUC.execute(getScheduleUC.execute(name))
                 },
                 onFailure = {
-                    _state.update {
-                        it.copy(
-                            data = getSavedScheduleUC.execute(name),
-                            loadingState = States.Success
-                        )
-                    }
                 },
                 finally = {
-                    _state.value.data?.let {
-                        saveScheduleUC.execute(it)
-                    }
-                    if (_state.value.data == null) _state.value.loadingState = States.Error
                 }
             )
         }

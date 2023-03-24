@@ -6,5 +6,5 @@ import com.turtleteam.domain.usecases.GetSavedScheduleUC
 class GetSavedTeacherScheduleUseCase(private val repository: ScheduleRepository) :
     GetSavedScheduleUC {
 
-    override suspend fun execute(name: String) = repository.getSavedSchedule(name)
+    override fun execute(name: String) = repository.getSavedSchedule(name)
 }

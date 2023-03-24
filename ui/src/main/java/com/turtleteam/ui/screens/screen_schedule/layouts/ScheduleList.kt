@@ -1,4 +1,4 @@
-package com.turtleteam.ui.screens.screen_schedule.components
+package com.turtleteam.ui.screens.screen_schedule.layouts
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
@@ -11,9 +11,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import com.turtleteam.domain.model.schedule.DaysList
+import com.turtleteam.ui.screens.screen_schedule.components.DayItem
 
 @Composable
-fun ScheduleList(value: DaysList) {
+fun ScheduleLayout(value: DaysList) {
 
     val visible = remember { Animatable(0F) }
 

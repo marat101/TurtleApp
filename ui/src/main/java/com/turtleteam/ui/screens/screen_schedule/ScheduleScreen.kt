@@ -12,7 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.turtleteam.domain.model.other.States
 import com.turtleteam.ui.screens.common.components.ErrorView
-import com.turtleteam.ui.screens.screen_schedule.components.ScheduleList
+import com.turtleteam.ui.screens.common.views.TopErrorView
+import com.turtleteam.ui.screens.screen_schedule.layouts.ScheduleLayout
 import com.turtleteam.ui.theme.TurtleTheme
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
@@ -33,6 +34,7 @@ fun ScheduleScreen(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
+        TopErrorView()
         when (state.value.loadingState) {
             States.Error,
             States.NotFoundError -> {
@@ -45,7 +47,7 @@ fun ScheduleScreen(
             }
             is States.Success -> {
                 state.value.data?.let{
-                    ScheduleList(it)
+                    ScheduleLayout(it)
                 }
             }
         }

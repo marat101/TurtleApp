@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -45,7 +47,9 @@ class MainActivity : ComponentActivity() {
                 TurtlesBackground()
                 Box(modifier = Modifier.fillMaxSize()) {
                     Column(
-                        modifier = Modifier.fillMaxSize().padding(bottom = (60F - visibility.value).dp),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(bottom = (60F - visibility.value).dp),
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
                         TopBar(
@@ -59,15 +63,30 @@ class MainActivity : ComponentActivity() {
                     }
                     BottomNavigationMenu(
                         navigation.pagerState,
-                        Modifier.align(Alignment.BottomCenter).height(60.dp).offset(y = visibility.value.dp)
+                        Modifier
+                            .align(Alignment.BottomCenter)
+                            .height(60.dp)
+                            .offset(y = visibility.value.dp)
                     )
                 }
             }
             LaunchedEffect(key1 = navigation.bottomBarVisible.value, block = {
                 if (navigation.bottomBarVisible.value)
-                    visibility.animateTo(60F)
+                    visibility.animateTo(
+                        60F,
+                        animationSpec = tween(
+                            durationMillis = 150,
+                            easing = LinearEasing
+                        )
+                    )
                 else
-                    visibility.animateTo(0F)
+                    visibility.animateTo(
+                        0F,
+                        animationSpec = tween(
+                            durationMillis = 150,
+                            easing = LinearEasing
+                        )
+                    )
             })
         }
     }

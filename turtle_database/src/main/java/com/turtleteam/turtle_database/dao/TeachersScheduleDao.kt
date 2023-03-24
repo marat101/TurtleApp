@@ -1,13 +1,16 @@
 package com.turtleteam.turtle_database.dao
 
+import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.turtleteam.turtle_database.TurtleDatabase
 import com.turtleteam.turtledatabase.TeachersDaysList
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 interface TeachersScheduleDao {
 
-    suspend fun getTeacherDaysList(name: String): TeachersDaysList?
+    fun getTeacherDaysList(name: String): Flow<TeachersDaysList?>
 
     suspend fun saveTeacherDaysList(days: String, name: String)
 
@@ -18,10 +21,7 @@ internal class TeachersScheduleDaoImpl(database: TurtleDatabase) : TeachersSched
 
     private val query = database.turtleDatabaseQueries
 
-    override suspend fun getTeacherDaysList(name: String): TeachersDaysList? =
-        withContext(Dispatchers.IO) {
-            query.selectTeacherScheduleByName(name).executeAsOneOrNull()
-        }
+    override fun getTeacherDaysList(name: String): Flow<TeachersDaysList?> = query.selectTeacherScheduleByName(name).asFlow().map { it.executeAsOneOrNull() }
 
     override suspend fun saveTeacherDaysList(days: String, name: String) =
         withContext(Dispatchers.IO) {

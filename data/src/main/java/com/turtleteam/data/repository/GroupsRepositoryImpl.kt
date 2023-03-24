@@ -5,6 +5,8 @@ import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.domain.repository.ScheduleRepository
 import com.turtleteam.ktor_client.api.ApiService
 import com.turtleteam.turtle_database.dao.GroupsScheduleDao
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -17,9 +19,13 @@ class GroupsRepositoryImpl(
 
     override suspend fun getSchedule(name: String): DaysList = apiService.getSchedule(name)
 
-    override suspend fun getSavedSchedule(name: String): DaysList? {
-        val value = groupsScheduleDao.getGroupDaysList(name)
-        return if (value != null) DaysList(Json.decodeFromString(value.days), value.name) else null
+    override fun getSavedSchedule(name: String): Flow<DaysList?> {
+        return groupsScheduleDao.getGroupDaysList(name).map {
+            if (it != null)
+                DaysList(Json.decodeFromString(it.days), it.name)
+            else
+                null
+        }
     }
 
     override suspend fun saveSchedule(schedule: DaysList) =
@@ -33,7 +39,8 @@ class GroupsRepositoryImpl(
 
     override suspend fun getNamesList(): List<String> = apiService.getList().group
 
-    override suspend fun getSavedNamesList(): List<String>? = groupsScheduleDao.getSavedScheduleList()
+    override suspend fun getSavedNamesList(): List<String>? =
+        groupsScheduleDao.getSavedScheduleList()
 
     override fun getPinnedList(): List<String> =
         runCatching { preferencesStore.getPinnedList(PreferencesStore.PINNED_GROUPS) }.getOrDefault(

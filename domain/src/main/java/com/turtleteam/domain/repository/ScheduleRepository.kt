@@ -1,13 +1,13 @@
 package com.turtleteam.domain.repository
 
-import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.schedule.DaysList
+import kotlinx.coroutines.flow.Flow
 
 
 interface ScheduleRepository {
     suspend fun getSchedule(name: String): DaysList
 
-    suspend fun getSavedSchedule(name: String): DaysList?
+    fun getSavedSchedule(name: String): Flow<DaysList?>
 
     suspend fun saveSchedule(schedule: DaysList)
 
