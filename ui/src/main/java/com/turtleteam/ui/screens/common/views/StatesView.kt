@@ -45,11 +45,21 @@ enum class State(description: String) {
     ERROR("Не удалось загрузить расписание"),
     SUCCESS("Расписание обновлено"),
     LOADING("Обновление расписания"),
-    SAVED("Не удалось обновить расписание")
+    SAVED("Не удалось обновить расписание"),
+    HIDDEN("")
 }
 
 class ErrorViewState(
     val visibleState: MutableTransitionState<Boolean> = MutableTransitionState(true),
+    state: State = State.HIDDEN,
 ) {
-
+    init {
+        when(state){
+            State.ERROR -> {}
+            State.SUCCESS -> {}
+            State.LOADING -> {}
+            State.SAVED -> {}
+            State.HIDDEN -> {}
+        }
+    }
 }
