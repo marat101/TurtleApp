@@ -41,15 +41,15 @@ fun BoxScope.TopErrorView() {
     }
 }
 
+enum class State(description: String) {
+    ERROR("Не удалось загрузить расписание"),
+    SUCCESS("Расписание обновлено"),
+    LOADING("Обновление расписания"),
+    SAVED("Не удалось обновить расписание")
+}
+
 class ErrorViewState(
     val visibleState: MutableTransitionState<Boolean> = MutableTransitionState(true),
 ) {
-
-    companion object{
-        val ERROR = "Не удалось загрузить расписание"
-        val SUCCESS = "Расписание обновлено"
-        val LOADING = "Обновление расписания"
-        val SAVED = "Не удалось обновить расписание"
-    }
 
 }
