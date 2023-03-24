@@ -35,7 +35,15 @@ fun BoxScope.TopErrorView() {
                 .background(Color.White.copy(alpha = 0.35F)),
             contentAlignment = Alignment.Center
         ) {
-            Text(state.text.value)
+            Text(state.currentState.value.description)
+        }
+    }
+    when (state.currentState.value) {
+        State.HIDDEN -> {
+            state.visibleState.targetState = false
+        }
+        else -> {
+            state.visibleState.targetState = true
         }
     }
     LaunchedEffect(key1 = state, block = {
@@ -47,7 +55,7 @@ fun BoxScope.TopErrorView() {
     })
 }
 
-enum class State(description: String) {
+enum class State(val description: String) {
     ERROR("Не удалось загрузить расписание"),
     SUCCESS("Расписание обновлено"),
     LOADING("Обновление расписания"),
@@ -55,20 +63,7 @@ enum class State(description: String) {
     HIDDEN("")
 }
 
-class ErrorViewState(
+data class ErrorViewState(
     val visibleState: MutableTransitionState<Boolean> = MutableTransitionState(false),
     val currentState: MutableState<State> = mutableStateOf(State.HIDDEN),
-    val text: MutableState<String> = mutableStateOf("")
-) {
-    init {
-        when (currentState.value) {
-            State.HIDDEN -> {
-                visibleState.targetState = false
-            }
-            else -> {
-                text.value = currentState.value.name
-                visibleState.targetState = true
-            }
-        }
-    }
-}
+)

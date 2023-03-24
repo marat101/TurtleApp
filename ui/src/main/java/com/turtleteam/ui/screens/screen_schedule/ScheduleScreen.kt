@@ -34,7 +34,6 @@ fun ScheduleScreen(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        TopErrorView()
         when (state.value.loadingState) {
             States.Error,
             States.NotFoundError -> {
