@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.turtleteam.domain.model.other.States
 import com.turtleteam.ui.screens.common.components.ErrorView
-import com.turtleteam.ui.screens.common.views.TopErrorView
 import com.turtleteam.ui.screens.screen_schedule.layouts.ScheduleLayout
 import com.turtleteam.ui.theme.TurtleTheme
 import org.koin.androidx.compose.getViewModel
@@ -45,10 +44,10 @@ fun ScheduleScreen(
                 CircularProgressIndicator(color = TurtleTheme.color.bottomSheetView)
             }
             is States.Success -> {
-                state.value.data?.let{
-                    ScheduleLayout(it)
-                }
             }
+        }
+        state.value.data?.let {
+            ScheduleLayout(it)
         }
     }
     LaunchedEffect(null) {

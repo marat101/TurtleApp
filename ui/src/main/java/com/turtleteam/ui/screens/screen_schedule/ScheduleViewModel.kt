@@ -28,8 +28,8 @@ class ScheduleViewModelImpl(
 
     private val loadingState = MutableStateFlow<States>(States.Loading)
     override val state: StateFlow<StatefulModel<DaysList>> =
-        getSavedScheduleUC.execute(name).map { StatefulModel(it) }
-            .combine(loadingState) { days, state -> StatefulModel(days.data, state) }
+        getSavedScheduleUC.execute(name)
+            .combine(loadingState) { days, state -> StatefulModel(days, state) }
             .stateIn(viewModelScope, SharingStarted.Lazily, StatefulModel())
 
     override fun getSchedule() {
@@ -39,8 +39,7 @@ class ScheduleViewModelImpl(
                     saveScheduleUC.execute(getScheduleUC.execute(name))
                 },
                 onFailure = {
-                },
-                finally = {
+                    loadingState.value = States.Error
                 }
             )
         }

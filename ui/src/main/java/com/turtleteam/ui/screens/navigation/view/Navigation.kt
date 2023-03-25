@@ -1,6 +1,5 @@
 package com.turtleteam.ui.screens.navigation.view
 
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,7 +17,7 @@ import com.turtleteam.ui.screens.screen_schedule.ScheduleScreen
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun ColumnScope.TurtleNavHost(
+fun TurtleNavHost(
     navController: NavHostController,
     pagerState: PagerState
 ) {
