@@ -21,7 +21,7 @@ abstract class ScheduleViewModel : BaseViewModel() {
 
 class ScheduleViewModelImpl(
     private val getScheduleUC: GetScheduleUC,
-    private val getSavedScheduleUC: GetSavedScheduleUC,
+    getSavedScheduleUC: GetSavedScheduleUC,
     private val saveScheduleUC: SaveScheduleUC,
     private val name: String
 ) : ScheduleViewModel() {

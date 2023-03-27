@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.turtleteam.domain.model.other.States
 import com.turtleteam.ui.screens.common.components.ErrorView
+import com.turtleteam.ui.screens.common.views.TopErrorView
 import com.turtleteam.ui.screens.screen_schedule.layouts.ScheduleLayout
 import com.turtleteam.ui.theme.TurtleTheme
 import org.koin.androidx.compose.getViewModel
@@ -33,9 +34,9 @@ fun ScheduleScreen(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
+        TopErrorView()
         when (state.value.loadingState) {
-            States.Error,
-            States.NotFoundError -> {
+            States.Error -> {
                 ErrorView(Modifier.height(90.dp)) {
                     viewModel.getSchedule()
                 }

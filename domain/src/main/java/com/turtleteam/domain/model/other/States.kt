@@ -6,7 +6,5 @@ sealed interface States {
 
     object Error : States
 
-    object NotFoundError : States
-
     object Loading : States
 }

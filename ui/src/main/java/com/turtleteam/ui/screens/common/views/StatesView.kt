@@ -10,20 +10,27 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.delay
+import com.turtleteam.domain.model.other.States
+import com.turtleteam.ui.theme.TurtleTheme
+import com.turtleteam.ui.theme.fontGanelas
 
 @Composable
-fun BoxScope.TopErrorView() {
+fun BoxScope.TopErrorView(state: States) {
 
-    val state = remember { ErrorViewState() }
+    val visible = remember { MutableTransitionState(false) }
+    val text = remember { mutableStateOf("") }
+
     AnimatedVisibility(
         modifier = Modifier.align(Alignment.TopCenter),
-        visibleState = state.visibleState,
+        visibleState = visible,
         label = "",
         enter = slideInVertically(),
         exit = slideOutVertically()
@@ -35,23 +42,19 @@ fun BoxScope.TopErrorView() {
                 .background(Color.White.copy(alpha = 0.35F)),
             contentAlignment = Alignment.Center
         ) {
-            Text(state.currentState.value.description)
-        }
-    }
-    when (state.currentState.value) {
-        State.HIDDEN -> {
-            state.visibleState.targetState = false
-        }
-        else -> {
-            state.visibleState.targetState = true
+            Text(
+                text = text.value,
+                font = fontGanelas,
+                color = TurtleTheme.color
+            )
         }
     }
     LaunchedEffect(key1 = state, block = {
-        state.currentState.value = State.ERROR
-        delay(2000)
-        state.currentState.value = State.HIDDEN
-        delay(2000)
-        state.currentState.value = State.SUCCESS
+        when (state) {
+            States.Error -> TODO()
+            States.Loading -> TODO()
+            States.Success -> TODO()
+        }
     })
 }
 
@@ -62,8 +65,3 @@ enum class State(val description: String) {
     SAVED("Не удалось обновить расписание"),
     HIDDEN("")
 }
-
-data class ErrorViewState(
-    val visibleState: MutableTransitionState<Boolean> = MutableTransitionState(false),
-    val currentState: MutableState<State> = mutableStateOf(State.HIDDEN),
-)
