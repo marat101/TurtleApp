@@ -22,7 +22,9 @@ import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.theme.fontGanelas
 
 @Composable
-fun BoxScope.TopErrorView(state: States) {
+fun BoxScope.ErrorView(state: States) {
+
+    //TODO найти дизайн и реализовать
 
     val visible = remember { MutableTransitionState(true) }
     val text = remember { mutableStateOf(State.LOADING.description) }
