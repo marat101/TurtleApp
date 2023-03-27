@@ -49,7 +49,6 @@ fun BoxScope.TopErrorView(state: States) {
                     overflow = TextOverflow.Ellipsis,
                     fontSize = 20.sp
                 )
-
             }
         }
     }
