@@ -3,6 +3,7 @@ package com.turtleteam.ui.screens.screen_schedule.layouts
 import androidx.compose.animation.*
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,6 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.ui.screens.screen_schedule.components.DayItem
 import kotlinx.coroutines.delay
@@ -26,20 +28,23 @@ fun ScheduleLayout(value: DaysList) {
         enter = scaleIn(
             initialScale = 0.6F,
             animationSpec = tween(
-                durationMillis = 400,
+                delayMillis = 150,
+                durationMillis = 150,
                 easing = LinearEasing
             )
         ) + fadeIn(
             initialAlpha = 0F,
             animationSpec = tween(
-                durationMillis = 600,
+                delayMillis = 150,
+                durationMillis = 450,
                 easing = LinearEasing
             )
         )
     ) {
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxSize(),
+            contentPadding = PaddingValues(top = 17.dp)
         ) {
             items(value.days) {
                 DayItem(it)

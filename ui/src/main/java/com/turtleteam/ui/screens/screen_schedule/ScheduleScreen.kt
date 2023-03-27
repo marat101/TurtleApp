@@ -34,7 +34,7 @@ fun ScheduleScreen(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        TopErrorView()
+        TopErrorView(state.value.loadingState)
         when (state.value.loadingState) {
             States.Error -> {
                 ErrorView(Modifier.height(90.dp)) {
