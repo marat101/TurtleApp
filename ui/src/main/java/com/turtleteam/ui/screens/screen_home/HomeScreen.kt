@@ -1,32 +1,33 @@
 package com.turtleteam.ui.screens.screen_home
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.PagerState
 import com.turtleteam.ui.screens.screen_additional.AdditionalScreen
 import com.turtleteam.ui.screens.screen_groups.GroupsScreen
 import com.turtleteam.ui.screens.screen_teachers.TeachersScreen
 
-@OptIn(ExperimentalPagerApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(pagerState: PagerState,
-               modifier: Modifier = Modifier) {
+fun HomeScreen(
+    pagerState: PagerState,
+    modifier: Modifier = Modifier
+) {
 
-    val screens = listOf<@Composable () -> Unit>(
-            { GroupsScreen(0) },
-            { TeachersScreen(1) },
-            { AdditionalScreen(2) }
-        )
 
     HorizontalPager(
         modifier = modifier.fillMaxSize(),
-        count = screens.size,
+        pageCount = 3,
+        beyondBoundsPageCount = 2,
         state = pagerState
     ) { index ->
-        screens[index].invoke()
+        when (index) {
+            0 -> GroupsScreen(index)
+            1 -> TeachersScreen(index)
+            2 -> AdditionalScreen(index)
+        }
     }
 }

@@ -1,15 +1,12 @@
-@file:OptIn(ExperimentalPagerApi::class)
+@file:OptIn(ExperimentalFoundationApi::class)
 
 package com.turtleteam.ui.utils
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.*
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.PagerState
 import com.turtleteam.domain.usecases_impl.usersettings.GetThemeStateUseCase
 import com.turtleteam.domain.usecases_impl.usersettings.SaveThemeStateUseCase
-import com.turtleteam.ui.screens.navigation.controller.Routes
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

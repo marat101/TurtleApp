@@ -1,9 +1,6 @@
-@file:OptIn(ExperimentalPagerApi::class)
-
 package com.turtleteam.ui.screens.navigation.controller
 
 import androidx.navigation.NavHostController
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.turtleteam.ui.utils.MainScreenStates
 import com.turtleteam.ui.utils.MainScreenStatesImpl
 
