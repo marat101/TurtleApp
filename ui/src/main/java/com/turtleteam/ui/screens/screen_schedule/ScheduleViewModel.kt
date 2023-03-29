@@ -1,5 +1,6 @@
 package com.turtleteam.ui.screens.screen_schedule
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.turtleteam.domain.model.other.StatefulModel
 import com.turtleteam.domain.model.other.States
@@ -39,6 +40,7 @@ class ScheduleViewModelImpl(
                     saveScheduleUC.execute(getScheduleUC.execute(name))
                 },
                 onFailure = {
+                    Log.e("AAAAA", it.message.toString())
                     loadingState.value = States.Error
                 }
             )

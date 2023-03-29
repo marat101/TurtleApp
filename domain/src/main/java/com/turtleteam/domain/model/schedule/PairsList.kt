@@ -5,5 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PairsList(
     val apair: List<Pair>,
-    val time: String
+    val time: String,
+    val isoDateStart: String,
+    val isoDateEnd: String
 )
