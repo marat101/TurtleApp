@@ -28,13 +28,12 @@ import kotlinx.coroutines.launch
 fun BottomNavigationMenu(
     //TODO сделать интерфейс для управления пейджером
     selected: PagerState,
-    modifier: Modifier,
 ) {
 
     val coroutine = rememberCoroutineScope()
 
     BottomNavigation(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
             .background(TurtleTheme.color.bottomNavBarGradient),
         backgroundColor = Color.Transparent,
@@ -105,5 +104,4 @@ fun BottomNavigationMenu(
                 )
             })
     }
-
 }

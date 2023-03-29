@@ -1,9 +1,9 @@
 package com.turtleteam.domain.repository
 
-import com.android.turtleapp.data.model.callschedule.CallsItem
+import com.turtleteam.domain.model.callschedule.Calls
 
 interface Assets {
 
-    fun getCallsSchedule(): ArrayList<CallsItem>
+    fun getCallsSchedule(): ArrayList<Calls>
 
 }
