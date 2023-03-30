@@ -2,7 +2,6 @@ package com.turtleteam.ui.screens.common.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -12,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontGanelas
+import com.turtleteam.ui.theme.fontQanelas
 import com.turtleteam.ui.screens.common.views.GradientButton
 
 @Composable
@@ -26,7 +25,7 @@ fun ErrorView(
     ) {
         Text(
             text = "Не удалось загрузить",
-            fontFamily = fontGanelas,
+            fontFamily = fontQanelas,
             color = Color.Gray,
         )
         GradientButton(
@@ -40,7 +39,7 @@ fun ErrorView(
         ) {
             Text(
                 text = "Повторить",
-                fontFamily = fontGanelas,
+                fontFamily = fontQanelas,
                 color = TurtleTheme.color.btnDoneText,
                 fontSize = 18.sp
             )

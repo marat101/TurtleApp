@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.ui.screens.common.views.GradientButton
 import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontGanelas
+import com.turtleteam.ui.theme.fontQanelas
 import com.turtleteam.ui.utils.indications.SelectButtonIndicator
 
 @Composable
@@ -58,7 +58,7 @@ fun ScheduleSelectFrame(
                 text = name,
                 color = TurtleTheme.color.btnGroupTeacherText,
                 fontSize = 27.sp,
-                fontFamily = fontGanelas
+                fontFamily = fontQanelas
             )
         }
         GradientButton(
@@ -74,7 +74,7 @@ fun ScheduleSelectFrame(
                 text = "ДАЛЕЕ",
                 color = TurtleTheme.color.btnDoneText,
                 fontSize = 22.sp,
-                fontFamily = fontGanelas
+                fontFamily = fontQanelas
             )
         }
     }

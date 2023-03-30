@@ -2,7 +2,7 @@ package com.turtleteam.turtleappcompose.di
 
 import com.turtleteam.data.repository.GroupsRepositoryImpl
 import com.turtleteam.data.repository.ManageSettingsImpl
-import com.turtleteam.data.repository.ScheduleWidgetRepositiryImpl
+import com.turtleteam.data.repository.ScheduleWidgetRepositoryImpl
 import com.turtleteam.data.repository.TeachersRepositoryImpl
 import com.turtleteam.domain.repository.ManageSettings
 import com.turtleteam.domain.repository.ScheduleRepository
@@ -27,7 +27,7 @@ val repositoryModule = module {
     }
 
     single<WidgetRepository> {
-        ScheduleWidgetRepositiryImpl(get())
+        ScheduleWidgetRepositoryImpl(get())
     }
 
     single<ManageSettings> {

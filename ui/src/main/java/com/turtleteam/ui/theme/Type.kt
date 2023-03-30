@@ -8,13 +8,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.turtleteam.ui.R
 
-val fontGanelas = FontFamily(
+val fontQanelas = FontFamily(
     Font(R.font.qanelas, weight = FontWeight.Normal)
 )
 
 // Set of Material typography styles to start with
 val Typography = Typography(
-    defaultFontFamily = fontGanelas,
+    defaultFontFamily = fontQanelas,
     body1 = TextStyle(
         fontFamily = FontFamily(Font(R.font.qanelas)),
         fontWeight = FontWeight.Normal,

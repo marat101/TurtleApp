@@ -30,7 +30,7 @@ import com.turtleteam.domain.utils.SearchNames
 import com.turtleteam.ui.R
 import com.turtleteam.ui.screens.common.views.BaseTextField
 import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontGanelas
+import com.turtleteam.ui.theme.fontQanelas
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -114,7 +114,7 @@ fun NamesList(
                             modifier = Modifier
                                 .padding(bottom = 7.dp),
                             text = "Закреплённые",
-                            fontFamily = fontGanelas,
+                            fontFamily = fontQanelas,
                             fontSize = 18.sp,
                             color = Color.Gray
                         )
@@ -144,7 +144,7 @@ fun NamesList(
                             modifier = Modifier
                                 .padding(bottom = 7.dp),
                             text = header,
-                            fontFamily = fontGanelas,
+                            fontFamily = fontQanelas,
                             fontSize = 18.sp,
                             color = Color.Gray
                         )
@@ -249,7 +249,7 @@ fun NameItem(
         Text(
             modifier = Modifier.padding(8.dp),
             text = item,
-            fontFamily = fontGanelas,
+            fontFamily = fontQanelas,
             color = TurtleTheme.color.titleText,
             fontSize = 23.sp
         )

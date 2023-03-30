@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontGanelas
+import com.turtleteam.ui.theme.fontQanelas
 
 @Composable
 fun BaseTextField(
@@ -24,7 +24,7 @@ fun BaseTextField(
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     onValueChange: (String) -> Unit,
     fontSize: TextUnit = 18.sp,
-    fontFamily: FontFamily = fontGanelas,
+    fontFamily: FontFamily = fontQanelas,
 ) {
 
     BasicTextField(

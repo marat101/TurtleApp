@@ -1,119 +1,136 @@
 package com.turtleteam.ui.screens.screen_schedule.components
 
-import android.os.Build
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.android.turtleapp.data.model.schedule.PairsList
-import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontGanelas
-import com.turtleteam.ui.utils.Calendar
-import java.time.LocalTime
-import java.util.*
+import com.soywiz.klock.DateFormat
+import com.soywiz.klock.DateTime
+import com.soywiz.klock.ISO8601
+import com.soywiz.klock.parse
+import com.turtleteam.ui.R
+import com.turtleteam.ui.theme.fontQanelas
 
 @Composable
-fun PairItem(pairs: PairsList, day: String) {
-
-    val TIME_ICON = "⏳"
-    val DOCTRINE_ICON = "\uD83D\uDCD6"
-    val TEACHER_ICON = "\uD83C\uDF93"
-    val AUDITORIA_ICON = "\uD83D\uDD11"
-    val CORPUS_ICON = "\uD83C\uDFE2"
-
-
+fun PairItem(pairs: PairsList) {
     pairs.apair.forEach { item ->
-
-        val currentPair = remember { mutableStateOf(false) }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val calendar = Calendar()
-            val current_day = day.removeRange(0,2).split(" ")
-            val start_pair = item.start.split(":")
-            val end_pair = item.end.split(":")
-            val current_hour = Date().hours.toString()
-            val current_minute = Date().minutes.toString()
-            val start_time = LocalTime.parse("${start_pair[0]}:${start_pair[1]}")
-            val end_time = LocalTime.parse("${end_pair[0]}:${end_pair[1]}")
-            val current_time =
-                LocalTime.parse(
-                    "${if (current_hour.length > 1) current_hour else "0$current_hour"}:${
-                        if (current_minute.length > 1) current_minute else "0$current_minute"
-                    }"
-                )
-            if (current_day[0] == calendar.changeDay()) {
-                if (current_time in start_time..end_time) {
-                    currentPair.value = true
-                }
-            }
-        }
-
-        Row(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(IntrinsicSize.Min)
-                .clip(TurtleTheme.shapes.medium),
-            horizontalArrangement = Arrangement.spacedBy(7.dp)
+                .height(180.dp)
+                .width(330.dp)
+                .background(color = Color(0xFFF5F6F1), shape = RoundedCornerShape(12.dp))
         ) {
-            if (currentPair.value)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 23.dp, end = 11.dp, top = 14.dp),
+                verticalAlignment = Alignment.Bottom
+            ) {
+                Row(
+                    modifier = Modifier
+                        .size(25.dp)
+                        .background(color = Color(0xFF417B65), shape = CircleShape)
+                        .padding(end = 23.dp)
+                ) {
+                    Text(
+                        text = item.number.toString(), style = TextStyle(
+                            color = Color.White,
+                            fontFamily = fontQanelas,
+                            fontSize = 20.sp,
+                        )
+                    )
+                }
                 Box(
                     modifier = Modifier
-                        .fillMaxHeight()
-                        .width(10.dp)
-                        .background(
-                            TurtleTheme.color.bottomSheetView,
-                            RoundedCornerShape(
-                                topEnd = 3.dp,
-                                bottomEnd = 3.dp,
+                        .width(246.dp)
+                        .background(color = Color(0xFFA7CE7B), shape = RoundedCornerShape(30.dp))
+                ) {
+                    Text(
+                        text = item.doctrine,
+                        style = TextStyle(
+                            color = Color(0xFF417B65),
+                            fontFamily = fontQanelas,
+                            fontSize = if (item.doctrine.length < 25) 16.sp else 14.sp
+                        ),
+                        modifier = Modifier.padding(
+                            top = 14.dp,
+                            bottom = 14.dp,
+                            end = 16.dp,
+                            start = 16.dp
+                        )
+                    )
+                }
+            }
+
+            val formatter = DateFormat("yyyy-MM-dd'T'HH:mm:ss")
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 11.dp)) {
+                Column(Modifier.padding(start = 15.dp, end = 22.dp)) {
+                    Text(text = formatter.parse(pairs.isoDateStart).toString("HH:mm"))
+                    Text(text = formatter.parse(pairs.isoDateEnd).toString("HH:mm"))
+                }
+                Column {
+                    Row {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_teachers),
+                            contentDescription = "",
+                            tint = Color(0xFF9E9C9F),
+                            modifier = Modifier
+                                .size(25.dp)
+                                .padding(end = 10.dp)
+                        )
+                        Text(
+                            text = item.teacher, style = TextStyle(
+                                fontFamily = fontQanelas,
+                                fontSize = 14.sp,
+                                color = Color(0xFF9E9C9F)
                             )
                         )
-                )
-
-            Column(modifier = Modifier.padding(vertical = 5.dp)) {
-                Text(
-                    text = "${item.number} ПАРА",
-                    fontSize = 17.sp,
-                    fontFamily = fontGanelas,
-                    color = TurtleTheme.color.titleText
-                )
-                Text(
-                    text = "$TIME_ICON ${item.start} - ${item.end}",
-                    fontSize = 17.sp,
-                    fontFamily = fontGanelas,
-                    color = TurtleTheme.color.secondText
-                )
-                Text(
-                    text = "$DOCTRINE_ICON ${item.doctrine}",
-                    fontSize = 17.sp,
-                    fontFamily = fontGanelas,
-                    color = TurtleTheme.color.secondText,
-                )
-                Text(
-                    text = "$TEACHER_ICON ${item.teacher}",
-                    fontSize = 17.sp,
-                    fontFamily = fontGanelas,
-                    color = TurtleTheme.color.secondText,
-                )
-                Text(
-                    text = "$AUDITORIA_ICON ${item.auditoria}",
-                    fontSize = 17.sp,
-                    fontFamily = fontGanelas,
-                    color = TurtleTheme.color.secondText,
-                )
-                Text(
-                    text = "$CORPUS_ICON ${item.corpus}",
-                    fontSize = 17.sp,
-                    fontFamily = fontGanelas,
-                    color = TurtleTheme.color.secondText,
-                )
+                    }
+                    Row {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_teachers),
+                            contentDescription = "",
+                            tint = Color(0xFF9E9C9F),
+                            modifier = Modifier
+                                .size(25.dp)
+                                .padding(end = 10.dp)
+                        )
+                        Text(text = item.auditoria, style = TextStyle(
+                            fontFamily = fontQanelas,
+                            fontSize = 14.sp,
+                            color = Color(0xFF9E9C9F)
+                        ))
+                    }
+                    Row {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_teachers),
+                            contentDescription = "",
+                            tint = Color(0xFF9E9C9F),
+                            modifier = Modifier
+                                .size(25.dp)
+                                .padding(end = 10.dp)
+                        )
+                        Text(text = item.corpus, style = TextStyle(
+                            fontFamily = fontQanelas,
+                            fontSize = 14.sp,
+                            color = Color(0xFF9E9C9F)
+                        ))
+                    }
+                }
             }
         }
     }

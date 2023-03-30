@@ -6,7 +6,7 @@ import com.turtleteam.turtle_database.dao.ScheduleWidgetDao
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-class ScheduleWidgetRepositiryImpl(
+class ScheduleWidgetRepositoryImpl(
     private val widgetDao: ScheduleWidgetDao
 ) : WidgetRepository {
 

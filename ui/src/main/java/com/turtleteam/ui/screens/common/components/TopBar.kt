@@ -1,7 +1,6 @@
 package com.turtleteam.ui.screens.common.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -17,7 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontGanelas
+import com.turtleteam.ui.theme.fontQanelas
 
 @Composable
 fun TopBar(
@@ -28,7 +27,7 @@ fun TopBar(
         Text(modifier = Modifier.padding(top = 4.dp),
             text = title,
             color = TurtleTheme.color.btnDoneText,
-            fontFamily = fontGanelas,
+            fontFamily = fontQanelas,
             fontSize = 23.sp
         )
     },
