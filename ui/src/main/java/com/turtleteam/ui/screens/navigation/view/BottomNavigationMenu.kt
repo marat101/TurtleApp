@@ -64,7 +64,8 @@ fun BottomNavigationMenu(
                     modifier = Modifier
                         .height(30.dp)
                         .width(30.dp),
-                    painter = painterResource(id = R.drawable.ic_teachers),
+                    //TODO
+                    painter = painterResource(id = R.drawable.ic_teachers_mini),
                     contentDescription = null
                 )
             },

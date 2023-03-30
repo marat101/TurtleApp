@@ -100,7 +100,7 @@ fun PairItem(pairs: PairsList) {
                     Column {
                         Row {
                             Icon(
-                                painter = painterResource(id = R.drawable.ic_teachers),
+                                painter = painterResource(id = R.drawable.ic_teachers_mini),
                                 contentDescription = "",
                                 tint = Color(0xFF9E9C9F),
                                 modifier = Modifier
@@ -117,7 +117,7 @@ fun PairItem(pairs: PairsList) {
                         }
                         Row {
                             Icon(
-                                painter = painterResource(id = R.drawable.ic_teachers),
+                                painter = painterResource(id = R.drawable.ic_auditoria_mini),
                                 contentDescription = "",
                                 tint = Color(0xFF9E9C9F),
                                 modifier = Modifier
@@ -134,7 +134,7 @@ fun PairItem(pairs: PairsList) {
                         }
                         Row {
                             Icon(
-                                painter = painterResource(id = R.drawable.ic_teachers),
+                                painter = painterResource(id = R.drawable.ic_corpus_mini),
                                 contentDescription = "",
                                 tint = Color(0xFF9E9C9F),
                                 modifier = Modifier
