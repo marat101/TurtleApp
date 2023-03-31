@@ -2,18 +2,16 @@ package com.turtleteam.ui.screens.screen_additional
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.ui.R
@@ -22,93 +20,56 @@ import com.turtleteam.ui.theme.fontGanelas
 import com.turtleteam.ui.utils.PagerListener
 import org.koin.androidx.compose.get
 
+//TODO viewmodel
+
 @Composable
 fun AdditionalScreen(
     page: Int,
     pageListener: PagerListener = get()
 ) {
-
-    val modifier = Modifier
-        .size(120.dp)
-        .background(TurtleTheme.color.transparentBackground, TurtleTheme.shapes.medium)
-        .clip(TurtleTheme.shapes.medium)
-
-    Column(
+    LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically)
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+        contentPadding = PaddingValues(16.dp)
     ) {
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            Box(
-                modifier = modifier.clickable(
-                    interactionSource = MutableInteractionSource(),
-                    indication = rememberRipple(),
-                    onClick = {}
-                ).padding(5.dp)
-            ) {
-                Icon(
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .padding(start = 7.dp, bottom = 25.dp),
-                    painter = painterResource(id = R.drawable.ic_call_schedule),
-                    contentDescription = null,
-                    tint = TurtleTheme.color.moreScreenIconsTint
-                )
+        item {
+            Image(modifier = Modifier.size(89.dp),painter = painterResource(id = R.drawable.ic_turtle), contentDescription = null)
+        }
+        item {
+            Item("Расписание звонков")
+        }
+        item {
+            Item("Планшетка")
+        }
+        item {
+            Item("Данные преподавателей")
+        }
+    }
+}
 
-                Text(
-                    modifier = Modifier.align(Alignment.BottomCenter),
-                    text = "Расписание звонков",
-                    textAlign = TextAlign.Center,
-                    fontFamily = fontGanelas,
-                    fontSize = 14.sp,
-                    color = TurtleTheme.color.simpleText
-                )
-            }
-            Box(modifier = modifier.clickable(
-                interactionSource = MutableInteractionSource(),
-                indication = rememberRipple(),
-                onClick = {}
-            ).padding(5.dp)) {
-                Icon(
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .padding(top = 15.dp, end = 15.dp, start = 15.dp, bottom = 38.dp),
-                    painter = painterResource(id = R.drawable.ic_googlesheets),
-                    contentDescription = null,
-                    tint = TurtleTheme.color.moreScreenIconsTint
-                )
-                Text(
-                    modifier = Modifier.align(Alignment.BottomCenter),
-                    text = "Планшетка",
-                    textAlign = TextAlign.Center,
-                    fontFamily = fontGanelas,
-                    fontSize = 14.sp,
-                    color = TurtleTheme.color.simpleText
-                )
-            }
-        }
-        Box(modifier = modifier
-            .clickable(
-                interactionSource = MutableInteractionSource(),
-                indication = rememberRipple(),
-                onClick = {}
-            )
-            .padding(5.dp)) {
-            Image(
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .padding(bottom = 20.dp, start = 5.dp, end = 5.dp),
-                painter = painterResource(id = R.drawable.ic_turtle_team),
-                contentDescription = null,
-            )
-            Text(
-                modifier = Modifier.align(Alignment.BottomCenter),
-                text = "Turtle Team",
-                textAlign = TextAlign.Center,
-                fontFamily = fontGanelas,
-                fontSize = 14.sp,
-                color = TurtleTheme.color.simpleText
-            )
-        }
+@Composable
+fun Item(text: String) {
+    Row(
+        modifier = Modifier
+            .height(61.dp)
+            .fillMaxWidth()
+            .background(TurtleTheme.color.transparentBackground, RoundedCornerShape(12.dp))
+            .padding(start = 15.dp, end = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = text,
+            fontFamily = fontGanelas,
+            fontWeight = FontWeight(700),
+            fontSize = 22.sp,
+            color = TurtleTheme.color.secondText
+        )
+        Icon(
+            modifier = Modifier.size(25.dp),
+            painter = painterResource(id = R.drawable.arrow),
+            contentDescription = null,
+            tint = TurtleTheme.color.secondText
+        )
     }
 }
