@@ -37,9 +37,7 @@ fun CallsList(
     val isTablet = ((screen.screenLayout
             and Configuration.SCREENLAYOUT_SIZE_MASK)
             >= Configuration.SCREENLAYOUT_SIZE_LARGE)
-
-    val divider =
-        if (!isTablet) if (screen.orientation == 1) 5 else 3 else 3
+    val divider = if (!isTablet) if (screen.orientation == 1) 5.4F else 3F else 3F
 
     val contentPadding = (screen.screenWidthDp.toFloat() / divider).dp
 
