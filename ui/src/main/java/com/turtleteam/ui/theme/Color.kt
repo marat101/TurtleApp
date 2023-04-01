@@ -23,11 +23,16 @@ data class Colors(
     val backgroundBrush: Brush,
     val themeChangeButton: Color,
     val bottomSheetView: Color,
-    val nameItemBackground: Color
+    val nameItemBackground: Color,
+
+    //Calls colors
+    val callTypeColor: Color,
+    val numberBackground: Color,
+    val callTimeColor: Color
 )
 
 val darkColors = Colors(
-    transparentBackground = Color(0xBF575756),
+    transparentBackground = Color(0xD9464F6B),
     btnGroupTeacherText = Purple,
     btnDoneText = Purple,
     bottomDialogBackItemColor = Color(0xBF575756),
@@ -48,16 +53,19 @@ val darkColors = Colors(
     backgroundBrush = Brush.horizontalGradient(listOf(Color(0xFF3C3030), Color(0xFF3C3030))),
     themeChangeButton = Color(0xFF8D91D1),
     bottomSheetView = Color(0xFF8D91D1),
-    nameItemBackground = Color(0xFF575756)
+    nameItemBackground = Color(0xFF575756),
+    callTypeColor = Color.White,
+    numberBackground = Color(0xFF8D91D1),
+    callTimeColor = Color(0xFFCCD6F6)
 )
 
 val colors = Colors(
-    transparentBackground = Color(0xBFFFFFFF),
+    transparentBackground = Color(0xC2F5F6F1),
     btnGroupTeacherText = Color.Black,
     btnDoneText = Color.White,
     bottomDialogBackItemColor = Color.White,
     titleText = Color(0xFF96D162),
-    secondText = Color(0xFF15956F),
+    secondText = Color(0xFF417B65),
     simpleText = Color.Gray,
     moreScreenIconsTint = Color.Black,
     bottomNavMenuColors = BottomNavMenuColors.DayColors,
@@ -70,7 +78,11 @@ val colors = Colors(
     ),
     themeChangeButton = Color.White,
     bottomSheetView = Color(0xFF15956F),
-    nameItemBackground = Color(0xFFFFFFFF)
+    nameItemBackground = Color(0xFFFFFFFF),
+
+    callTypeColor = Color(0xFFA7CE7B),
+    numberBackground = Color(0xFF417B65),
+    callTimeColor = Color(0xFF9E9C9F)
 )
 
 
