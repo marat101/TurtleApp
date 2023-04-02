@@ -13,6 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.turtleteam.domain.usecases_impl.usersettings.GetCallsScheduleUseCase
 import com.turtleteam.ui.R
+import com.turtleteam.ui.screens.navigation.controller.Navigator
 import com.turtleteam.ui.screens.screen_additional.components.CallsList
 import com.turtleteam.ui.screens.screen_additional.components.Item
 import com.turtleteam.ui.theme.TurtleTheme
@@ -26,7 +27,8 @@ import org.koin.androidx.compose.get
 fun AdditionalScreen(
     page: Int = 0,
     pageListener: PagerListener = get(),
-    usecase: GetCallsScheduleUseCase = get()
+    usecase: GetCallsScheduleUseCase = get(),
+    navigator: Navigator = get()
 ) {
 
     var isVisible by remember { mutableStateOf(false) }
@@ -65,7 +67,10 @@ fun AdditionalScreen(
             }
 
         item {
-            Item("Планшетка", {})
+            Item("Планшетка", {
+                //TODO получение ссылки из файрбейз
+                navigator.openLink("https://drive.google.com/drive/folders/1UH5pcJc0pxkYFWBMI_bNCxrdlApqv3nX")
+            })
         }
         item {
             Item("Данные преподавателей", {})

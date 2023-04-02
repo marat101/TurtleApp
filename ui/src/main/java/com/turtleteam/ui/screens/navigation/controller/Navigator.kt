@@ -8,5 +8,5 @@ interface Navigator {
 
     fun navigateToHomeScreen()
 
-    fun navigateToCallsSchedule()
+    fun openLink(link: String)
 }

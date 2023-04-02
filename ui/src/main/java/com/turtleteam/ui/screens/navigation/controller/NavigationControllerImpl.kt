@@ -3,6 +3,8 @@ package com.turtleteam.ui.screens.navigation.controller
 import androidx.navigation.NavHostController
 import com.turtleteam.ui.utils.MainScreenStates
 import com.turtleteam.ui.utils.MainScreenStatesImpl
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 interface NavigationController : Navigator, MainScreenStates {
     fun setNavController(navController: NavHostController?)
@@ -37,8 +39,8 @@ class NavigationControllerImpl() : NavigationController, MainScreenStatesImpl() 
         navHostController?.navigate(Routes.HOME_PAGER_SCREEN.name)
     }
 
-    override fun navigateToCallsSchedule() {
-        topBarTitle.value = "Расписание звонков"
-        navHostController?.navigate(Routes.CALLS_SCHEDULE_LIST.name)
+    override fun openLink(link: String) {
+        val encodedUrl = URLEncoder.encode(link, StandardCharsets.UTF_8.toString())
+        navHostController?.navigate(Routes.LINK.name + "/$encodedUrl")
     }
 }
