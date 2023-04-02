@@ -26,7 +26,7 @@ import com.turtleteam.ui.theme.fontGanelas
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CallsList(
-    calls: ArrayList<Calls>,
+    calls: List<Calls>,
     onBackPress: () -> Unit
 ) {
     BackHandler(true) {

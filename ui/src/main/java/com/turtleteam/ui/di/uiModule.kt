@@ -6,6 +6,8 @@ import com.turtleteam.ui.screens.common.viewmodel.NamesViewModelImpl
 import com.turtleteam.ui.screens.navigation.controller.NavigationController
 import com.turtleteam.ui.screens.navigation.controller.NavigationControllerImpl
 import com.turtleteam.ui.screens.navigation.controller.Navigator
+import com.turtleteam.ui.screens.screen_additional.AdditionalViewModel
+import com.turtleteam.ui.screens.screen_additional.AdditionalViewModelImpl
 import com.turtleteam.ui.screens.screen_schedule.ScheduleViewModel
 import com.turtleteam.ui.screens.screen_schedule.ScheduleViewModelImpl
 import com.turtleteam.ui.utils.PagerListener
@@ -28,6 +30,15 @@ val uiModule = module {
 
     single<PagerListener> {
         get<NavigationController>()
+    }
+
+    viewModel<AdditionalViewModel>(){page ->
+        AdditionalViewModelImpl(
+            page.get(),
+            get(),
+            get(),
+            get()
+        )
     }
 
     viewModel<NamesListViewModel>(named(groupsKey)) {

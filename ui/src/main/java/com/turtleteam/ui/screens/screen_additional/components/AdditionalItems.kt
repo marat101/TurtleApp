@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -28,13 +29,13 @@ fun Item(text: String,
         modifier = Modifier
             .height(61.dp)
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 16.dp)
+            .shadow(4.dp,RoundedCornerShape(12.dp)),
         colors = ButtonDefaults.buttonColors(backgroundColor = TurtleTheme.color.transparentBackground),
         shape = RoundedCornerShape(12.dp),
         elevation = ButtonDefaults.elevation(
             defaultElevation = 0.dp,
             pressedElevation = 0.dp,
-            disabledElevation = 1.dp
         ),
         contentPadding = PaddingValues(end = 18.dp, start = 15.dp),
         onClick = onClick
@@ -47,7 +48,8 @@ fun Item(text: String,
             fontSize = 22.sp,
             color = TurtleTheme.color.secondText,
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
+            letterSpacing = 0.sp
         )
         Icon(
             modifier = Modifier.size(9.dp, 17.dp).rotate(rotation),

@@ -60,7 +60,7 @@ val darkColors = Colors(
 )
 
 val colors = Colors(
-    transparentBackground = Color(0xC2F5F6F1),
+    transparentBackground = Color(0xFFECF4E4),
     btnGroupTeacherText = Color.Black,
     btnDoneText = Color.White,
     bottomDialogBackItemColor = Color.White,
