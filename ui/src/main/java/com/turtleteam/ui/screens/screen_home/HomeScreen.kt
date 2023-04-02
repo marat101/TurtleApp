@@ -1,33 +1,46 @@
 package com.turtleteam.ui.screens.screen_home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import com.turtleteam.ui.screens.navigation.view.BottomNavigationMenu
 import com.turtleteam.ui.screens.screen_additional.AdditionalScreen
 import com.turtleteam.ui.screens.screen_groups.GroupsScreen
 import com.turtleteam.ui.screens.screen_teachers.TeachersScreen
+import org.koin.androidx.compose.getViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
-    pagerState: PagerState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = getViewModel()
 ) {
 
+    val pagerState = rememberPagerState()
+    viewModel.setPager(pagerState)
+    val state = viewModel.state.collectAsState()
 
-    HorizontalPager(
-        modifier = modifier.fillMaxSize(),
-        pageCount = 3,
-        beyondBoundsPageCount = 2,
-        state = pagerState
-    ) { index ->
-        when (index) {
-            0 -> GroupsScreen(index)
-            1 -> TeachersScreen(index)
-            2 -> AdditionalScreen(index)
+    Column {
+        HorizontalPager(
+            modifier = modifier.weight(1F),
+            pageCount = 3,
+            beyondBoundsPageCount = 2,
+            state = pagerState
+        ) { index ->
+            when (index) {
+                0 -> GroupsScreen(index)
+                1 -> TeachersScreen(index)
+                2 -> AdditionalScreen(index)
+            }
         }
+            BottomNavigationMenu(viewModel, pagerState.currentPage)
     }
+    LaunchedEffect(key1 = state.value.currentPage, block = {
+        pagerState.animateScrollToPage(state.value.currentPage)
+    })
 }

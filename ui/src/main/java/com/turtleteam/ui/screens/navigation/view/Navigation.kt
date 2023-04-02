@@ -26,7 +26,6 @@ import java.nio.charset.StandardCharsets
 @Composable
 fun ColumnScope.TurtleNavHost(
     navController: NavHostController,
-    pagerState: PagerState
 ) {
     NavHost(
         modifier = Modifier
@@ -36,7 +35,7 @@ fun ColumnScope.TurtleNavHost(
         startDestination = Routes.HOME_PAGER_SCREEN.name
     ) {
         composable(Routes.HOME_PAGER_SCREEN.name) {
-            HomeScreen(pagerState)
+            HomeScreen()
         }
         composable(
             route = Routes.SCHEDULE_SCREEN.name + "/{name}/{isTeacher}",

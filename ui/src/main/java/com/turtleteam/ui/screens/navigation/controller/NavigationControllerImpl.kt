@@ -1,27 +1,24 @@
 package com.turtleteam.ui.screens.navigation.controller
 
 import androidx.navigation.NavHostController
-import com.turtleteam.ui.utils.MainScreenStates
-import com.turtleteam.ui.utils.MainScreenStatesImpl
+import com.turtleteam.ui.utils.TopBarTitleState
+import com.turtleteam.ui.utils.TopBarTitleStateImpl
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
-interface NavigationController : Navigator, MainScreenStates {
+interface NavigationController : Navigator, TopBarTitleState {
     fun setNavController(navController: NavHostController?)
 }
 
-class NavigationControllerImpl() : NavigationController, MainScreenStatesImpl() {
+class NavigationControllerImpl() : NavigationController, TopBarTitleStateImpl() {
 
-    var navHostController: NavHostController? = null
+    private var navHostController: NavHostController? = null
 
     override fun setNavController(navController: NavHostController?) {
         navHostController = navController
         navHostController?.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.route == Routes.HOME_PAGER_SCREEN.name) {
                 topBarTitle.value = "TurtleApp"
-                bottomBarVisible.value = false
-            } else {
-                bottomBarVisible.value = true
             }
         }
     }

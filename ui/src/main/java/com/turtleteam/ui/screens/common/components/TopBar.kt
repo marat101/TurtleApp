@@ -21,8 +21,7 @@ import com.turtleteam.ui.theme.fontGanelas
 
 @Composable
 fun TopBar(
-    isDarkMode: MutableState<Boolean>,
-    onThemeChange: (darkTheme: Boolean) -> Unit,
+    onThemeChange: () -> Unit,
     title: String
 ) {
     TopAppBar(title = {
@@ -39,8 +38,7 @@ fun TopBar(
         elevation = 0.dp,
         actions = {
             IconButton(modifier = Modifier.padding(top = 4.dp),onClick = {
-                isDarkMode.value = !isDarkMode.value
-                onThemeChange(isDarkMode.value)
+                onThemeChange()
             }) {
                 Icon(
                     tint = TurtleTheme.color.themeChangeButton,

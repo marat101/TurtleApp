@@ -1,17 +1,14 @@
 package com.turtleteam.ui.screens.navigation.view
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -19,18 +16,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.ui.R
+import com.turtleteam.ui.screens.screen_home.HomeViewModel
 import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.theme.fontGanelas
-import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BottomNavigationMenu(
-    //TODO сделать интерфейс для управления пейджером
-    selected: PagerState,
+    viewModel: HomeViewModel,
+    currentPage: Int,
 ) {
-
-    val coroutine = rememberCoroutineScope()
 
     BottomNavigation(
         modifier = Modifier
@@ -40,8 +34,8 @@ fun BottomNavigationMenu(
         elevation = 0.dp
     ) {
         BottomNavigationItem(
-            selected = selected.currentPage == 0,
-            onClick = { coroutine.launch { selected.animateScrollToPage(0) } },
+            selected = currentPage == 0,
+            onClick = { viewModel.navigateToGroups() },
             selectedContentColor = TurtleTheme.color.bottomNavMenuColors.getColor(true),
             unselectedContentColor = TurtleTheme.color.bottomNavMenuColors.getColor(false),
             icon = {
@@ -61,8 +55,8 @@ fun BottomNavigationMenu(
                 )
             })
         BottomNavigationItem(
-            selected = selected.currentPage == 1,
-            onClick = { coroutine.launch { selected.animateScrollToPage(1) } },
+            selected = currentPage == 1,
+            onClick = { viewModel.navigateToTeachers() },
             selectedContentColor = TurtleTheme.color.bottomNavMenuColors.getColor(true),
             unselectedContentColor = TurtleTheme.color.bottomNavMenuColors.getColor(false),
             icon = {
@@ -83,8 +77,8 @@ fun BottomNavigationMenu(
                 )
             })
         BottomNavigationItem(
-            selected = selected.currentPage == 2,
-            onClick = { coroutine.launch { selected.animateScrollToPage(2) } },
+            selected = currentPage == 2,
+            onClick = { viewModel.navigateToAdditional()},
             selectedContentColor = TurtleTheme.color.bottomNavMenuColors.getColor(true),
             unselectedContentColor = TurtleTheme.color.bottomNavMenuColors.getColor(false),
             icon = {
