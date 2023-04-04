@@ -2,6 +2,7 @@ package com.turtleteam.turtleappcompose
 
 import android.app.Application
 import com.turtleteam.ktor_client.di.networkModule
+import com.turtleteam.remote_database.firestoreModule
 import com.turtleteam.turtle_database.di.databaseModule
 import com.turtleteam.turtleappcompose.di.dataModule
 import com.turtleteam.turtleappcompose.di.domainModule
@@ -27,7 +28,8 @@ class TurtleApp : Application() {
                     uiModule,
                     domainModule,
                     databaseModule,
-                    networkModule
+                    networkModule,
+                    firestoreModule
                 )
             )
         }

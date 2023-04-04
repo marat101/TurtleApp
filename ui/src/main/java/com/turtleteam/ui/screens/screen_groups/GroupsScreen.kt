@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import com.turtleteam.remote_database.UpdateService
 import com.turtleteam.ui.screens.common.components.NamesList
 import com.turtleteam.ui.screens.common.components.ScheduleSelectFrame
 import com.turtleteam.ui.screens.common.viewmodel.NamesListViewModel
@@ -26,6 +27,7 @@ import org.koin.core.qualifier.named
 fun GroupsScreen(
     page: Int = 0,
     pageListener: PagerListener = get(),
+    update: UpdateService = get(),
     viewModel: NamesListViewModel = getViewModel(
         named("Groups"),
         parameters = { parametersOf(page) })
@@ -42,6 +44,8 @@ fun GroupsScreen(
             viewModel.sheetState.hide()
         }
     }
+
+    LaunchedEffect(key1 = null, block = { update.getLatestVersion() })
 
     Box(
         modifier = Modifier.fillMaxSize(),

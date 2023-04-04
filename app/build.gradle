@@ -56,4 +56,5 @@ dependencies {
     implementation project(path: ':turtle_database')
     implementation project(path: ':ktor_client')
     implementation project(path: ':widget_schedule')
+    implementation project(path: ':remote_database')
 }
