@@ -3,6 +3,7 @@ package com.turtleteam.ui.screens.navigation.view
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -65,7 +66,7 @@ fun BottomNavigationMenu(
                         .height(30.dp)
                         .width(30.dp),
                     //TODO
-                    painter = painterResource(id = R.drawable.ic_teachers_mini),
+                    painter = painterResource(id = R.drawable.ic_teachers),
                     contentDescription = null
                 )
             },
@@ -84,10 +85,8 @@ fun BottomNavigationMenu(
             unselectedContentColor = TurtleTheme.color.bottomNavMenuColors.getColor(false),
             icon = {
                 Icon(
-                    modifier = Modifier
-                        .height(28.dp)
-                        .width(329.dp),
-                    painter = painterResource(id = R.drawable.ic_more),
+                    modifier = Modifier.size(30.dp),
+                    painter = painterResource(id = R.drawable.ic_additional),
                     contentDescription = null
                 )
             },

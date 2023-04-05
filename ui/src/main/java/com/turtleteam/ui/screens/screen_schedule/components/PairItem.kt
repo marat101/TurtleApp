@@ -1,8 +1,9 @@
 package com.turtleteam.ui.screens.screen_schedule.components
 
-import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -12,9 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.HorizontalAlignmentLine
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -26,8 +25,10 @@ import com.soywiz.klock.parse
 import com.turtleteam.ui.R
 import com.turtleteam.ui.theme.fontQanelas
 
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PairItem(pairs: PairsList) {
+fun PairItem(pairs: PairsList, slider: Boolean? = false, pagerState: PagerState? = null) {
     pairs.apair.forEach { item ->
         Card(
             modifier = Modifier
@@ -37,7 +38,11 @@ fun PairItem(pairs: PairsList) {
             elevation = 4.dp,
             backgroundColor = Color(0xFFF5F6F1),
         ) {
-            Column(Modifier.fillMaxSize().padding(top = 14.dp, bottom = 14.dp, start = 23.dp, end = 11.dp)) {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .padding(top = 14.dp, bottom = 14.dp, start = 23.dp, end = 11.dp)
+            ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -65,7 +70,10 @@ fun PairItem(pairs: PairsList) {
                         ),
                         modifier = Modifier
                             .width(246.dp)
-                            .background(color = Color(0xFFA7CE7B).copy(0.2f), shape = RoundedCornerShape(30.dp))
+                            .background(
+                                color = Color(0xFFA7CE7B).copy(0.2f),
+                                shape = RoundedCornerShape(30.dp)
+                            )
                             .padding(vertical = 14.dp, horizontal = 16.dp)
                     )
                 }
@@ -100,7 +108,7 @@ fun PairItem(pairs: PairsList) {
                     Column {
                         Row {
                             Icon(
-                                painter = painterResource(id = R.drawable.ic_teachers_mini),
+                                painter = painterResource(id = R.drawable.ic_teachers),
                                 contentDescription = "",
                                 tint = Color(0xFF9E9C9F),
                                 modifier = Modifier
@@ -117,7 +125,7 @@ fun PairItem(pairs: PairsList) {
                         }
                         Row {
                             Icon(
-                                painter = painterResource(id = R.drawable.ic_auditoria_mini),
+                                painter = painterResource(id = R.drawable.ic_auditorium),
                                 contentDescription = "",
                                 tint = Color(0xFF9E9C9F),
                                 modifier = Modifier
@@ -134,7 +142,7 @@ fun PairItem(pairs: PairsList) {
                         }
                         Row {
                             Icon(
-                                painter = painterResource(id = R.drawable.ic_corpus_mini),
+                                painter = painterResource(id = R.drawable.ic_corpus),
                                 contentDescription = "",
                                 tint = Color(0xFF9E9C9F),
                                 modifier = Modifier
@@ -150,8 +158,29 @@ fun PairItem(pairs: PairsList) {
                             )
                         }
                     }
+                    if (slider == true){
+                        Row(
+                            Modifier
+                                .height(50.dp)
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            repeat(2) { iteration ->
+                                val color = if (pagerState?.currentPage == iteration) Color.DarkGray else Color.LightGray
+                                Box(
+                                    modifier = Modifier
+                                        .padding(2.dp)
+                                        .clip(CircleShape)
+                                        .background(color)
+                                        .size(20.dp)
+
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 }
+

@@ -1,5 +1,6 @@
 package com.turtleteam.ui.screens.screen_schedule.layouts
 
+import android.util.Log
 import androidx.compose.animation.*
 import androidx.compose.animation.R
 import androidx.compose.animation.core.LinearEasing
@@ -53,19 +54,22 @@ fun ScheduleLayout(value: DaysList) {
             )
         )
     ) {
-        HorizontalPager(pageCount = value.days.size, modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.Top) { page ->
-            PairLayout(day = value.days[page])
-            DayItem(day = value.days[page])
+        value.days.forEach {day ->
+            day.apairs.forEach { pair ->
+                if (pair.apair.size > 1) {
+//                    Log.e("aasd", "Инглиш")
+                }
+            }
         }
-//        LazyColumn(
-//            modifier = Modifier
-//                .fillMaxSize(),
-//            contentPadding = PaddingValues(top = 17.dp)
-//        ) {
-//            items(value.days) {
-//                DayItem(it)
-//            }
-//        }
+        HorizontalPager(pageCount = value.days.size, modifier = Modifier.fillMaxSize()) { page ->
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                DayItem(day = value.days[page])
+                PairLayout(day = value.days[page])
+            }
+        }
     }
     LaunchedEffect(key1 = visible, block = {
         delay(150)
