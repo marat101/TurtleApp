@@ -5,12 +5,16 @@ package com.turtleteam.ui.screens.screen_home
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.turtleteam.remote_database.UpdateService
 import com.turtleteam.ui.screens.navigation.controller.NavigationController
 import com.turtleteam.ui.utils.PagerListener
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 data class HomeScreenState(
     val currentPage: Int = 0,
@@ -31,11 +35,18 @@ abstract class HomeViewModel: ViewModel() {
 
 class HomeViewModelImpl(
     private val pagerListener: PagerListener,
+    private val updateService: UpdateService
 ): HomeViewModel() {
 
     private val _state = MutableStateFlow(HomeScreenState())
     override val state: StateFlow<HomeScreenState>
         get() = _state.asStateFlow()
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            updateService.getLatestVersion()
+        }
+    }
 
     override fun navigateToGroups() {
         _state.update { it.copy(currentPage = 0) }

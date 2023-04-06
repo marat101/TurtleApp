@@ -22,7 +22,6 @@ import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ColumnScope.TurtleNavHost(
     navController: NavHostController,

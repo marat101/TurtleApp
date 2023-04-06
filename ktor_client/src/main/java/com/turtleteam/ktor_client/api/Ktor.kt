@@ -10,8 +10,12 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-internal class Ktor(private val ktorClient: HttpClient) : ApiService {
+internal class Ktor(private val ktorClient: HttpClient) : KoinComponent, ApiService {
+
+    private val json: Json by inject()
 
     companion object {
         private const val BASE_URL = "http://45.155.207.232:8080/api/v2/"
@@ -20,13 +24,13 @@ internal class Ktor(private val ktorClient: HttpClient) : ApiService {
     override suspend fun getSchedule(name: String): DaysList {
         val response = ktorClient.get(BASE_URL + "schedule/$name")
         checkResponse(response)
-        return Json.decodeFromString(response.body())
+        return json.decodeFromString(response.body())
     }
 
     override suspend fun getList(): Groups {
         val response = ktorClient.get(BASE_URL + "schedule/list")
         checkResponse(response)
-        return Json.decodeFromString(response.body())
+        return json.decodeFromString(response.body())
     }
 
     private fun checkResponse(response: HttpResponse) {

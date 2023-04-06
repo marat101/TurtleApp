@@ -94,5 +94,8 @@ fun AdditionalScreen(
         item {
             Item("Данные преподавателей", {})
         }
+        item {
+            Item("Данные преподавателей", {})
+        }
     }
 }

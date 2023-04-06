@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -39,6 +40,13 @@ dependencies {
     // Koin
     val koin = "3.2.0"
     implementation("io.insert-koin:koin-android:$koin")
+
+    // Ktor
+    val ktorVersion = "2.2.2"
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+
+    // Kotlin Serialization
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

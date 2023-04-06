@@ -15,4 +15,5 @@ val networkModule = module {
     single<ApiService> {
         Ktor(get())
     }
+
 }

@@ -1,5 +1,6 @@
 package com.turtleteam.ui.screens.screen_groups
 
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
@@ -9,13 +10,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import com.turtleteam.remote_database.UpdateService
+import com.turtleteam.remote_database.Update
 import com.turtleteam.ui.screens.common.components.NamesList
 import com.turtleteam.ui.screens.common.components.ScheduleSelectFrame
 import com.turtleteam.ui.screens.common.viewmodel.NamesListViewModel
 import com.turtleteam.ui.screens.common.views.Snackbar
 import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.utils.PagerListener
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
@@ -27,7 +30,7 @@ import org.koin.core.qualifier.named
 fun GroupsScreen(
     page: Int = 0,
     pageListener: PagerListener = get(),
-    update: UpdateService = get(),
+    update: Update = get(),
     viewModel: NamesListViewModel = getViewModel(
         named("Groups"),
         parameters = { parametersOf(page) })
@@ -45,7 +48,12 @@ fun GroupsScreen(
         }
     }
 
-    LaunchedEffect(key1 = null, block = { update.getLatestVersion() })
+
+    LaunchedEffect(key1 = null, block = {
+        update.state.collectLatest {
+            Log.e("oiajdoasdka",it.toString())
+        }
+    })
 
     Box(
         modifier = Modifier.fillMaxSize(),

@@ -38,6 +38,10 @@ dependencies {
     implementation project(path: ':turtle_database')
     implementation project(path: ":ktor_client")
 
+    // Koin
+    def koin = "3.2.2"
+    implementation("io.insert-koin:koin-android:$koin")
+
     def ktorVersion = "2.2.2"
     // Kotlin Serialization
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")

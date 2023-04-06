@@ -34,7 +34,7 @@ class AdditionalViewModelImpl(
     page: Int = 0,
     private val pageListener: PagerListener,
     private val usecase: GetCallsScheduleUseCase,
-    private val navigator: Navigator
+    private val navigator: Navigator,
 ) : AdditionalViewModel() {
 
     private val _state = MutableStateFlow(AdditionalState())
