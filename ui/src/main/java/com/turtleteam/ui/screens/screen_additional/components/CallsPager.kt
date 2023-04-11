@@ -5,9 +5,11 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.animation.*
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -40,14 +42,18 @@ fun CallsList(
     val divider = if (!isTablet) if (screen.orientation == 1) 5.4F else 3F else 3F
 
     val contentPadding = (screen.screenWidthDp.toFloat() / divider).dp
+    val listState = rememberLazyListState(1)
 
-    HorizontalPager(
-        state = rememberPagerState(1),
-        pageCount = calls.size,
+
+    LazyRow(
+        state = listState,
+        flingBehavior = rememberSnapFlingBehavior(lazyListState = listState),
+        horizontalArrangement = Arrangement.spacedBy(15.dp),
         contentPadding = PaddingValues(horizontal = contentPadding),
-        pageSpacing = 15.dp
     ) {
-        CallsItem(calls = calls[it])
+        items(calls) {
+            CallsItem(calls = it)
+        }
     }
 
 }
