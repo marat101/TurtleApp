@@ -1,6 +1,5 @@
 package com.turtleteam.ui.screens.screen_schedule
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.turtleteam.domain.model.other.StatefulModel
 import com.turtleteam.domain.model.other.States
@@ -33,14 +32,19 @@ class ScheduleViewModelImpl(
             .combine(loadingState) { days, state -> StatefulModel(days, state) }
             .stateIn(viewModelScope, SharingStarted.Lazily, StatefulModel())
 
+    init {
+        getSchedule()
+    }
+
     override fun getSchedule() {
         viewModelScope.launch(Dispatchers.IO) {
             handleResult(
                 execute = {
+                    loadingState.value = States.Loading
                     saveScheduleUC.execute(getScheduleUC.execute(name))
+                    loadingState.value = States.Success
                 },
                 onFailure = {
-                    Log.e("AAAAA", it.message.toString())
                     loadingState.value = States.Error
                 }
             )

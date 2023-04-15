@@ -22,7 +22,7 @@ import com.turtleteam.ui.R
 import com.turtleteam.ui.screens.screen_additional.components.CallsList
 import com.turtleteam.ui.screens.screen_additional.components.Item
 import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontGanelas
+import com.turtleteam.ui.theme.fontQanelas
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -64,7 +64,7 @@ fun AdditionalScreen(
                 Text(
                     modifier = Modifier.padding(top = 5.dp),
                     text = "Turtle Team",
-                    fontFamily = fontGanelas,
+                    fontFamily = fontQanelas,
                     fontWeight = FontWeight(700),
                     fontSize = 16.sp,
                     color = TurtleTheme.color.secondText,

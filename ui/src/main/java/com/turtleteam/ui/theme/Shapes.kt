@@ -9,6 +9,6 @@ val LocalShapes = staticCompositionLocalOf<Shapes> { error("shapes wasnt provide
 
 val turtleShapes = Shapes(
     small = RoundedCornerShape(5.dp),
-    medium = RoundedCornerShape(10.dp),
+    medium = RoundedCornerShape(12.dp),
     large = RoundedCornerShape(0.dp)
 )

@@ -1,25 +1,23 @@
 package com.turtleteam.ui.screens.screen_schedule
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.turtleteam.domain.model.other.States
-import com.turtleteam.ui.R
 import com.turtleteam.ui.screens.common.components.ErrorView
 import com.turtleteam.ui.screens.screen_schedule.layouts.ScheduleLayout
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
 
+
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ScheduleScreen(
     name: String,
@@ -31,34 +29,29 @@ fun ScheduleScreen(
         })
 ) {
     val state = viewModel.state.collectAsState()
+    val loading = remember { derivedStateOf { state.value.loadingState == States.Loading } }
+    val refreshState = rememberPullRefreshState(
+        refreshing = loading.value,
+        onRefresh = { viewModel.getSchedule() })
+
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .pullRefresh(refreshState),
         contentAlignment = Alignment.Center
     ) {
-        when (state.value.loadingState) {
-            States.Error -> {
-                ErrorView(Modifier.height(90.dp)) {
-                    viewModel.getSchedule()
-                }
-            }
-            States.Loading -> {
-                //TODO StatesView
-                Icon(
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .padding(4.dp),
-                    painter = painterResource(id = R.drawable.ic_refreshing),
-                    contentDescription = null
-                )
-            }
-            is States.Success -> {
+        if (state.value.loadingState == States.Error && state.value.data?.days.isNullOrEmpty()) {
+            ErrorView(Modifier.height(90.dp)) {
+                viewModel.getSchedule()
             }
         }
         state.value.data?.let {
             ScheduleLayout(it)
         }
-    }
-    LaunchedEffect(null) {
-        viewModel.getSchedule()
+        PullRefreshIndicator(
+            modifier = Modifier.align(Alignment.TopCenter),
+            refreshing = state.value.loadingState == States.Loading,
+            state = refreshState
+        )
     }
 }

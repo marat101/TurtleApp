@@ -1,0 +1,25 @@
+-- Merging decision tree log ---
+manifest
+ADDED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml:2:1-4:12
+INJECTED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml:2:1-4:12
+INJECTED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml:2:1-4:12
+	package
+		INJECTED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml
+		ADDED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml:2:1-4:12
+		INJECTED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml:2:11-69
+uses-sdk
+INJECTED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml
+INJECTED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml
+INJECTED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml
+INJECTED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml
+		ADDED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml
+		INJECTED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml
+		ADDED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml
+		INJECTED from Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml

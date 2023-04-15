@@ -1,38 +1,33 @@
 package com.turtleteam.ui.screens.screen_schedule.layouts
 
-import android.util.Log
-import androidx.compose.animation.*
-import androidx.compose.animation.R
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.turtleteam.domain.model.schedule.DaysList
-import com.turtleteam.ui.screens.screen_schedule.components.DayItem
-import com.turtleteam.ui.theme.fontQanelas
+import com.turtleteam.ui.screens.screen_schedule.components.DateItem
+import com.turtleteam.ui.screens.screen_schedule.components.PairItem
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalFoundationApi::class)
 @Composable
-fun ScheduleLayout(value: DaysList) {
+fun ScheduleLayout(data: DaysList) {
 
     val visible = remember { mutableStateOf(false) }
 
@@ -54,20 +49,24 @@ fun ScheduleLayout(value: DaysList) {
             )
         )
     ) {
-        value.days.forEach {day ->
-            day.apairs.forEach { pair ->
-                if (pair.apair.size > 1) {
-//                    Log.e("aasd", "Инглиш")
-                }
-            }
-        }
-        HorizontalPager(pageCount = value.days.size, modifier = Modifier.fillMaxSize()) { page ->
-            Column(
+        HorizontalPager(pageCount = data.days.size, modifier = Modifier.fillMaxSize()) { page ->
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                contentPadding = PaddingValues(
+                    top = 30.dp,
+                    end = 16.dp,
+                    start = 16.dp,
+                    bottom = 16.dp
+                ),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
             ) {
-                DayItem(day = value.days[page])
-                PairLayout(day = value.days[page])
+                stickyHeader {
+                    DateItem(day = data.days[page])
+                }
+                items(data.days[page].apairs) {
+                    PairItem(pairs = it)
+                }
             }
         }
     }

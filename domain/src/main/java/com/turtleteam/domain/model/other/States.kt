@@ -7,4 +7,6 @@ sealed interface States {
     object Error : States
 
     object Loading : States
+
+    object Empty : States
 }

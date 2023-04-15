@@ -1,6 +1,5 @@
 package com.turtleteam.ui.screens.screen_additional.components
 
-import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.*
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -13,17 +12,17 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.domain.model.callschedule.Calls
 import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontGanelas
+import com.turtleteam.ui.theme.fontQanelas
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -34,28 +33,21 @@ fun CallsList(
     BackHandler(true) {
         onBackPress()
     }
-    val screen = LocalConfiguration.current
 
-    val isTablet = ((screen.screenLayout
-            and Configuration.SCREENLAYOUT_SIZE_MASK)
-            >= Configuration.SCREENLAYOUT_SIZE_LARGE)
-    val divider = if (!isTablet) if (screen.orientation == 1) 5.4F else 3F else 3F
+    val offset = with(LocalDensity.current) { 372.dp.toPx() }
 
-    val contentPadding = (screen.screenWidthDp.toFloat() / divider).dp
-    val listState = rememberLazyListState(1)
-
+    val listState = rememberLazyListState(initialFirstVisibleItemScrollOffset = offset.toInt()/2)
+    val flingBehavior = rememberSnapFlingBehavior(listState)
 
     LazyRow(
         state = listState,
-        flingBehavior = rememberSnapFlingBehavior(lazyListState = listState),
+        flingBehavior = flingBehavior,
         horizontalArrangement = Arrangement.spacedBy(15.dp),
-        contentPadding = PaddingValues(horizontal = contentPadding),
     ) {
         items(calls) {
             CallsItem(calls = it)
         }
     }
-
 }
 
 @Composable
@@ -76,7 +68,7 @@ fun CallsItem(calls: Calls) {
                 .padding(vertical = 7.dp)
                 .align(Alignment.CenterHorizontally),
             text = calls.type,
-            fontFamily = fontGanelas,
+            fontFamily = fontQanelas,
             fontSize = 18.sp,
             color = TurtleTheme.color.callTypeColor,
             fontWeight = FontWeight(700)
@@ -96,7 +88,7 @@ fun CallsItem(calls: Calls) {
                 ) {
                     Text(
                         text = it.number.toString(),
-                        fontFamily = fontGanelas,
+                        fontFamily = fontQanelas,
                         fontSize = 20.sp,
                         color = Color.White,
                         fontWeight = FontWeight(700)
@@ -110,21 +102,21 @@ fun CallsItem(calls: Calls) {
                 ) {
                     Text(
                         text = it.start,
-                        fontFamily = fontGanelas,
+                        fontFamily = fontQanelas,
                         fontSize = 20.sp,
                         fontWeight = FontWeight(700),
                         color = TurtleTheme.color.callTimeColor
                     )
                     Text(
                         text = "-",
-                        fontFamily = fontGanelas,
+                        fontFamily = fontQanelas,
                         fontSize = 20.sp,
                         fontWeight = FontWeight(700),
                         color = TurtleTheme.color.callTimeColor
                     )
                     Text(
                         text = it.end,
-                        fontFamily = fontGanelas,
+                        fontFamily = fontQanelas,
                         fontSize = 20.sp,
                         fontWeight = FontWeight(700),
                         color = TurtleTheme.color.callTimeColor

@@ -12,7 +12,7 @@ abstract class BaseViewModel(): ViewModel() {
         try {
             execute()
         } catch (e: Throwable){
-            println(e)
+            println("VIEWMODELHANDLER " + e)
             onFailure?.invoke(e)
         } finally {
             finally?.invoke()

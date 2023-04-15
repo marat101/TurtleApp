@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
+      <module name="TurtleApp.remote_database" target="11" />
       <module name="TurtleApp.utils" target="11" />
     </bytecodeTargetLevel>
   </component>

@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.ui.R
 import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontGanelas
+import com.turtleteam.ui.theme.fontQanelas
 
 @Composable
 fun Item(text: String,
@@ -43,7 +43,7 @@ fun Item(text: String,
         Text(
             modifier = Modifier.weight(1F),
             text = text,
-            fontFamily = fontGanelas,
+            fontFamily = fontQanelas,
             fontWeight = FontWeight(700),
             fontSize = 22.sp,
             color = TurtleTheme.color.secondText,

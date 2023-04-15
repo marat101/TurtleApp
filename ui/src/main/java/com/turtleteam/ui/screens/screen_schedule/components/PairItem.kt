@@ -1,186 +1,287 @@
 package com.turtleteam.ui.screens.screen_schedule.components
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.android.turtleapp.data.model.schedule.Pair
 import com.android.turtleapp.data.model.schedule.PairsList
-import com.soywiz.klock.DateFormat
-import com.soywiz.klock.parse
 import com.turtleteam.ui.R
-import com.turtleteam.ui.theme.fontQanelas
+import com.turtleteam.ui.theme.LocalColors
+import com.turtleteam.ui.theme.LocalShapes
+import com.turtleteam.ui.utils.extensions.toDate
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PairItem(pairs: PairsList, slider: Boolean? = false, pagerState: PagerState? = null) {
-    pairs.apair.forEach { item ->
-        Card(
-            modifier = Modifier
-                .width(330.dp)
-//                .background(Color(0xFFF5F6F1).copy(0.76f))
-                .clip(RoundedCornerShape(12.dp)),
-            elevation = 4.dp,
-            backgroundColor = Color(0xFFF5F6F1),
-        ) {
-            Column(
-                Modifier
-                    .fillMaxSize()
-                    .padding(top = 14.dp, bottom = 14.dp, start = 23.dp, end = 11.dp)
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.Bottom,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = item.number.toString(), style = TextStyle(
-                            color = Color.White,
-                            fontFamily = fontQanelas,
-                            fontSize = 20.sp,
-                            textAlign = TextAlign.Center
-                        ),
-                        modifier = Modifier
-                            .size(25.dp)
-                            .background(color = Color(0xFF417B65), shape = CircleShape)
-                    )
+fun PairItem(pairs: PairsList) {
+    val currentMillis = System.currentTimeMillis()
+    val startMillis = pairs.isoDateStart.toDate().time
+    val endMillis = pairs.isoDateEnd.toDate().time
 
-                    Text(
-                        text = item.doctrine,
-                        style = TextStyle(
-                            color = Color(0xFF417B65),
-                            fontFamily = fontQanelas,
-                            fontSize = if (item.doctrine.length < 25) 16.sp else 14.sp
-                        ),
-                        modifier = Modifier
-                            .width(246.dp)
-                            .background(
-                                color = Color(0xFFA7CE7B).copy(0.2f),
-                                shape = RoundedCornerShape(30.dp)
-                            )
-                            .padding(vertical = 14.dp, horizontal = 16.dp)
-                    )
-                }
-
-                val formatter = DateFormat("yyyy-MM-dd'T'HH:mm:ss")
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 11.dp)
-                ) {
-                    Column(
-                        Modifier.padding(start = 15.dp, end = 22.dp),
-                        horizontalAlignment = Alignment.End
-                    ) {
-                        Text(
-                            text = formatter.parse(pairs.isoDateStart).toString("HH:mm"),
-                            style = TextStyle(
-                                color = Color(0xFF417B65),
-                                fontSize = 20.sp,
-                                fontFamily = fontQanelas
-                            )
-                        )
-                        Text(
-                            text = formatter.parse(pairs.isoDateEnd).toString("HH:mm"),
-                            style = TextStyle(
-                                color = Color(0xFF9E9C9F),
-                                fontSize = 14.sp,
-                                fontFamily = fontQanelas
-                            )
-                        )
-                    }
-                    Column {
-                        Row {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_teachers),
-                                contentDescription = "",
-                                tint = Color(0xFF9E9C9F),
-                                modifier = Modifier
-                                    .size(25.dp)
-                                    .padding(end = 10.dp)
-                            )
-                            Text(
-                                text = item.teacher, style = TextStyle(
-                                    fontFamily = fontQanelas,
-                                    fontSize = 14.sp,
-                                    color = Color(0xFF9E9C9F)
-                                )
-                            )
-                        }
-                        Row {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_auditorium),
-                                contentDescription = "",
-                                tint = Color(0xFF9E9C9F),
-                                modifier = Modifier
-                                    .size(25.dp)
-                                    .padding(end = 10.dp)
-                            )
-                            Text(
-                                text = item.auditoria, style = TextStyle(
-                                    fontFamily = fontQanelas,
-                                    fontSize = 14.sp,
-                                    color = Color(0xFF9E9C9F)
-                                )
-                            )
-                        }
-                        Row {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_corpus),
-                                contentDescription = "",
-                                tint = Color(0xFF9E9C9F),
-                                modifier = Modifier
-                                    .size(25.dp)
-                                    .padding(end = 10.dp)
-                            )
-                            Text(
-                                text = item.corpus, style = TextStyle(
-                                    fontFamily = fontQanelas,
-                                    fontSize = 14.sp,
-                                    color = Color(0xFF9E9C9F)
-                                )
-                            )
-                        }
-                    }
-                    if (slider == true){
-                        Row(
-                            Modifier
-                                .height(50.dp)
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.Center
-                        ) {
-                            repeat(2) { iteration ->
-                                val color = if (pagerState?.currentPage == iteration) Color.DarkGray else Color.LightGray
-                                Box(
-                                    modifier = Modifier
-                                        .padding(2.dp)
-                                        .clip(CircleShape)
-                                        .background(color)
-                                        .size(20.dp)
-
-                                )
-                            }
-                        }
-                    }
-                }
-            }
+    Box(
+    ) {
+        if (currentMillis in (startMillis + 1) until endMillis) {
+            val default = endMillis - startMillis
+            val progress = (currentMillis - startMillis).toFloat()
+            val end = default - progress
+            CurrentPair(progress, end, pairs)
+        } else {
+            Pair(pairs)
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList) {
+    val pagerState = rememberPagerState()
+    val progressColor = LocalColors.current.numberBackground
+    val endColor = LocalColors.current.pairInfo
+    var height by remember { mutableStateOf(0) }
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+    ) {
+        Column(
+            modifier = Modifier
+                .width(55.dp)
+                .height(with(LocalDensity.current) { height.toDp() }),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                fontSize = 20.sp,
+                text = pairs.apair.first().start,
+                color = progressColor,
+            )
+            Box(
+                modifier = Modifier
+                    .width(3.dp)
+                    .background(progressColor)
+                    .weight(progress)
+            )
+            Box(
+                modifier = Modifier
+                    .width(3.dp)
+                    .weight(end)
+                    .background(endColor)
+            )
+            Text(
+                fontSize = 20.sp,
+                text = pairs.apair.first().end,
+                color = endColor,
+            )
+        }
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .shadow(4.dp, LocalShapes.current.medium)
+                .background(LocalColors.current.baseItemBackground, LocalShapes.current.medium)
+                .padding(start = 12.dp)
+                .onGloballyPositioned {
+                    height = it.size.height
+                }
+        ) {
+            if (pairs.apair.size > 1)
+                HorizontalPager(
+                    state = pagerState,
+                    pageSpacing = 10.dp,
+                    pageCount = pairs.apair.size
+                ) {
+                    PairInfo(pairs.apair[it])
+                }
+            else
+                PairInfo(pairs.apair.first())
+        }
+    }
+
+    Text(
+        modifier = Modifier
+            .padding(bottom = 15.dp, end = 11.dp)
+            .size(25.dp)
+            .background(LocalColors.current.numberBackground, CircleShape)
+            .align(Alignment.BottomEnd),
+        fontSize = 20.sp,
+        text = pairs.apair.first().number.toString(),
+        color = Color.White,
+        textAlign = TextAlign.Center
+    )
+
+    if (pairs.apair.size > 1)
+        PageIndicator(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 6.dp),
+            count = pairs.apair.size,
+            current = pagerState.currentPage
+        )
+
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun BoxScope.Pair(pairs: PairsList) {
+    val pagerState = rememberPagerState()
+
+    Row(
+        Modifier
+            .fillMaxSize()
+            .shadow(4.dp, LocalShapes.current.medium)
+            .background(LocalColors.current.baseItemBackground, LocalShapes.current.medium)
+    ) {
+        Column(modifier = Modifier.width(71.dp), horizontalAlignment = Alignment.End) {
+            Text(
+                modifier = Modifier
+                    .padding(top = 40.dp)
+                    .size(25.dp)
+                    .background(LocalColors.current.numberBackground, CircleShape)
+                    .align(Alignment.CenterHorizontally),
+                fontSize = 20.sp,
+                text = pairs.apair.first().number.toString(),
+                color = Color.White,
+                textAlign = TextAlign.Center
+            )
+            Text(
+                modifier = Modifier
+                    .padding(top = 3.dp, end = 6.dp),
+                fontSize = 20.sp,
+                text = pairs.apair.first().start,
+                color = LocalColors.current.numberBackground,
+            )
+            Text(
+                modifier = Modifier
+                    .padding(end = 8.dp),
+                fontSize = 14.sp,
+                text = pairs.apair.first().end,
+                color = LocalColors.current.pairInfo,
+            )
+        }
+        if (pairs.apair.size > 1)
+            HorizontalPager(
+                state = pagerState,
+                pageSpacing = 10.dp,
+                pageCount = pairs.apair.size
+            ) {
+                PairInfo(pairs.apair[it])
+            }
+        else
+            PairInfo(pairs.apair.first())
+    }
+    if (pairs.apair.size > 1)
+        PageIndicator(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 6.dp),
+            count = pairs.apair.size,
+            current = pagerState.currentPage
+        )
+}
+
+@Composable
+fun PairInfo(pair: Pair) {
+    Column(
+        Modifier
+            .padding(end = 11.dp)
+            .padding(vertical = 14.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 40.dp)
+                .background(LocalColors.current.doctrineBackground, RoundedCornerShape(35.dp))
+                .padding(horizontal = 15.dp, vertical = 6.dp),
+            contentAlignment = Alignment.CenterStart
+        ) {
+            Text(
+                text = pair.doctrine,
+                fontSize = 14.sp,
+                color = LocalColors.current.textColor,
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, top = 11.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Icon(
+                modifier = Modifier.size(16.dp),
+                painter = painterResource(id = R.drawable.ic_teachers),
+                contentDescription = "",
+                tint = LocalColors.current.pairInfo
+            )
+            Text(
+                text = pair.teacher,
+                fontSize = 14.sp,
+                color = LocalColors.current.pairInfo,
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, top = 6.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Icon(
+                modifier = Modifier.size(16.dp),
+                painter = painterResource(id = R.drawable.ic_auditorium),
+                contentDescription = "",
+                tint = LocalColors.current.pairInfo
+            )
+            Text(
+                text = pair.auditoria,
+                fontSize = 14.sp,
+                color = LocalColors.current.pairInfo,
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, top = 6.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Icon(
+                modifier = Modifier.size(16.dp),
+                painter = painterResource(id = R.drawable.ic_corpus),
+                contentDescription = "",
+                tint = LocalColors.current.pairInfo
+            )
+            Text(
+                text = pair.corpus,
+                fontSize = 14.sp,
+                color = LocalColors.current.pairInfo,
+            )
+        }
+    }
+}
+
+@Composable
+fun PageIndicator(modifier: Modifier = Modifier, count: Int, current: Int) {
+    val enabled = LocalColors.current.numberBackground
+    val disabled = LocalColors.current.pairInfo
+
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally)
+    ) {
+        repeat(count) { iteration ->
+            Canvas(modifier = Modifier.size(5.dp), onDraw = {
+                drawCircle(if (current == iteration) enabled else disabled)
+            })
+        }
+    }
+}
