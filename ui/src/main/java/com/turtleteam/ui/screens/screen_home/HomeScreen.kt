@@ -40,6 +40,9 @@ fun HomeScreen(
         }
             BottomNavigationMenu(viewModel, pagerState.currentPage)
     }
+    LaunchedEffect(key1 = pagerState.targetPage, block = {
+        viewModel.onPageChanged(pagerState.targetPage)
+    })
     LaunchedEffect(key1 = state.value.currentPage, block = {
         pagerState.animateScrollToPage(state.value.currentPage)
     })

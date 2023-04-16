@@ -12,7 +12,7 @@ interface Update {
 
 internal abstract class UpdateImpl : Update, KoinComponent {
 
-    protected val update = MutableSharedFlow<AppUpdate>(replay = 1)
+    protected val update = MutableSharedFlow<AppUpdate>(replay = 1, extraBufferCapacity = 1)
     override val state = update.asSharedFlow()
 }
 

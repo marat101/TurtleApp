@@ -2,8 +2,12 @@ package com.turtleteam.ui.screens.screen_additional.components
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.*
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -15,8 +19,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,20 +38,33 @@ fun CallsList(
         onBackPress()
     }
 
-    val offset = with(LocalDensity.current) { 372.dp.toPx() }
-
-    val listState = rememberLazyListState(initialFirstVisibleItemScrollOffset = offset.toInt()/2)
+    val listState = rememberLazyListState(1)
     val flingBehavior = rememberSnapFlingBehavior(listState)
+    val alpha = remember { Animatable(0F) }
 
     LazyRow(
+        modifier = Modifier.alpha(alpha.value),
         state = listState,
         flingBehavior = flingBehavior,
         horizontalArrangement = Arrangement.spacedBy(15.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp)
     ) {
         items(calls) {
             CallsItem(calls = it)
         }
     }
+
+    LaunchedEffect(key1 = Unit, block = {
+        val itemInfo = listState.layoutInfo.visibleItemsInfo.firstOrNull { it.index == 1 }
+        if (itemInfo != null) {
+            val center = listState.layoutInfo.viewportEndOffset / 2
+            val childCenter = itemInfo.offset + itemInfo.size / 2
+            listState.scrollBy((childCenter - center).toFloat())
+        } else {
+            listState.scrollToItem(1)
+        }
+        alpha.animateTo(1f, tween(durationMillis = 350, easing = FastOutSlowInEasing))
+    })
 }
 
 @Composable

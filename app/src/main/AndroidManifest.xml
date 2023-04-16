@@ -19,6 +19,7 @@
             android:name="com.turtleteam.ui.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.TurtleApp"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 
 data class HomeScreenState(
     val currentPage: Int = 0,
-    val bottomBarVisible: Boolean = true
+    val bottomBarVisible: Boolean = true,
 )
 
 abstract class HomeViewModel: ViewModel() {
@@ -30,23 +30,18 @@ abstract class HomeViewModel: ViewModel() {
 
     abstract fun navigateToAdditional()
 
+    abstract fun onPageChanged(page: Int)
+
     abstract fun setPager(pagerState: PagerState)
 }
 
 class HomeViewModelImpl(
-    private val pagerListener: PagerListener,
-    private val updateService: UpdateService
+    private val pagerListener: PagerListener
 ): HomeViewModel() {
 
     private val _state = MutableStateFlow(HomeScreenState())
     override val state: StateFlow<HomeScreenState>
         get() = _state.asStateFlow()
-
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            updateService.getLatestVersion()
-        }
-    }
 
     override fun navigateToGroups() {
         _state.update { it.copy(currentPage = 0) }
@@ -60,7 +55,14 @@ class HomeViewModelImpl(
         _state.update { it.copy(currentPage = 2) }
     }
 
+    override fun onPageChanged(page: Int) {
+        _state.update { it.copy(currentPage = page) }
+    }
+
     override fun setPager(pagerState: PagerState) {
+
+        viewModelScope
+
         pagerListener.setPagerState(pagerState)
     }
 }

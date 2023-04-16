@@ -9,18 +9,26 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.turtleteam.remote_database.AppUpdate
 import com.turtleteam.ui.R
 import com.turtleteam.ui.screens.screen_additional.components.CallsList
 import com.turtleteam.ui.screens.screen_additional.components.Item
+import com.turtleteam.ui.theme.LocalColors
+import com.turtleteam.ui.theme.LocalTheme
 import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.theme.fontQanelas
 import org.koin.androidx.compose.getViewModel
@@ -32,10 +40,11 @@ import org.koin.core.parameter.parametersOf
 fun AdditionalScreen(
     page: Int = 0,
     viewModel: AdditionalViewModel = getViewModel(
-        parameters = { parametersOf(page) })
+        parameters = { parametersOf(page) }),
 ) {
 
     val state = viewModel.state.collectAsState()
+    val imageFilter = LocalColors.current.transparentBackground.copy(0.45F)
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -55,11 +64,11 @@ fun AdditionalScreen(
                 Image(
                     modifier = Modifier
                         .size(89.dp)
-                        //TODO colors
-                        .background(TurtleTheme.color.nameItemBackground, CircleShape)
+                        .background(LocalColors.current.turtleImageBackground, CircleShape)
                         .clip(CircleShape),
                     painter = painterResource(id = R.drawable.ic_turtle),
-                    contentDescription = null
+                    contentDescription = null,
+                    colorFilter = if(LocalTheme.current) ColorFilter.tint(imageFilter, BlendMode.Darken) else null
                 )
                 Text(
                     modifier = Modifier.padding(top = 5.dp),
@@ -94,8 +103,14 @@ fun AdditionalScreen(
         item {
             Item("Данные преподавателей", {})
         }
-        item {
-            Item("Данные преподавателей", {})
+        if (state.value.updateState is AppUpdate.Success) {
+            if ((state.value.updateState as AppUpdate.Success).isUpdateAvaible)
+                item {
+                    Item("Обновление", {viewModel.clickOnUpdate()})
+                }
         }
     }
+    LaunchedEffect(key1 = viewModel, block = {
+        viewModel.initPageListener()
+    })
 }

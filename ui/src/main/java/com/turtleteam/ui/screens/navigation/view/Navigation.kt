@@ -2,10 +2,8 @@ package com.turtleteam.ui.screens.navigation.view
 
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier

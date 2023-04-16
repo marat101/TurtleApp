@@ -35,12 +35,13 @@ val uiModule = module {
     }
 
     viewModel<HomeViewModel>(){
-        HomeViewModelImpl(get(), get())
+        HomeViewModelImpl(get())
     }
 
     viewModel<AdditionalViewModel>(){page ->
         AdditionalViewModelImpl(
             page.get(),
+            get(),
             get(),
             get(),
             get()

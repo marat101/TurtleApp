@@ -1,8 +1,9 @@
 package com.turtleteam.remote_database
 
-import android.content.Context
+import android.app.Application
 import android.content.pm.PackageManager
 import com.turtleteam.remote_database.firestore_model.UpdateFirestore
+import com.turtleteam.remote_database.utils.UpdatePrefs
 import com.turtleteam.remote_database.utils.toUpdate
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -16,7 +17,10 @@ interface UpdateService : Update {
     suspend fun getLatestVersion()
 }
 
-internal class UpdateServiceImpl(private val ktorClient: HttpClient) : KoinComponent,
+internal class UpdateServiceImpl(
+    private val ktorClient: HttpClient,
+    private val prefs: UpdatePrefs
+) : KoinComponent,
     UpdateService, UpdateImpl() {
 
     private val json: Json by inject()
@@ -27,17 +31,21 @@ internal class UpdateServiceImpl(private val ktorClient: HttpClient) : KoinCompo
     }
 
     override suspend fun getLatestVersion() {
-        //TODO сохранение обновы, обработка исключений, сравнение текущей версии приложения с версией в файрбейз
-
         try {
             val request = ktorClient.get(FIRESTORE_URL + "test/update")
-            val response = json.decodeFromString(UpdateFirestore.serializer(), request.body()).toUpdate()
-            val context: Context by inject()
-            val versionNCode = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_META_DATA).versionCode
+            val response =
+                json.decodeFromString(UpdateFirestore.serializer(), request.body()).toUpdate()
+            val context: Application by inject()
+            val versionNCode = context.packageManager.getPackageInfo(
+                context.packageName,
+                PackageManager.GET_META_DATA
+            ).versionCode
+            val state = response.copy(isUpdateAvaible = response.number > versionNCode)
 
-            update.emit(response.copy(isUpdateAvaible = response.number > versionNCode))
+            update.emit(state)
+            prefs.savedUpdateState(state)
         } catch (e: Exception) {
-            update.emit(AppUpdate.Error(e))
+            update.emit(prefs.getSavedUpdateState())
         }
     }
 }

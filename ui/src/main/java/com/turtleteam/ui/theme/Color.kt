@@ -35,7 +35,9 @@ data class Colors(
     val dateBackground: Color,
     val baseItemBackground: Color,
     val doctrineBackground: Color,
-    val pairInfo: Color
+    val pairInfo: Color,
+
+    val turtleImageBackground: Color
 )
 
 val darkColors = Colors(
@@ -60,7 +62,7 @@ val darkColors = Colors(
     backgroundBrush = Brush.horizontalGradient(listOf(Color(0xFF0A192F), Color(0xFF0A192F))),
     themeChangeButton = Color(0xFF8D91D1),
     bottomSheetView = Color(0xFF8D91D1),
-    nameItemBackground = Color(0xFF575756),
+    nameItemBackground = Color(0xD93D4762),
     callTypeColor = Color.White,
     numberBackground = Color(0xFF8D91D1),
     callTimeColor = Color(0xFFCCD6F6),
@@ -70,7 +72,9 @@ val darkColors = Colors(
     dateBackground = Color(0xFF3D4762),
     baseItemBackground = Color(0xD93D4762),
     doctrineBackground = Color(0x59112240),
-    pairInfo = Color(0xFFCFCFCF)
+    pairInfo = Color(0xFFCFCFCF),
+
+    turtleImageBackground = Color(0xFF3D4762)
 )
 
 val colors = Colors(
@@ -103,7 +107,9 @@ val colors = Colors(
     dateBackground = Color(0xFFF2F6E8),
     baseItemBackground = Color(0xFFEEF5E5),
     doctrineBackground = Color(0x3BA7CE7B),
-    pairInfo = Color(0xFF9E9C9F)
+    pairInfo = Color(0xFF9E9C9F),
+
+    turtleImageBackground = Color.White
 )
 
 
@@ -114,7 +120,7 @@ sealed class BottomNavMenuColors(
     fun getColor(isChecked: Boolean): Color = if (isChecked) isCheckedTrue else isCheckedFalse
 
     object NightColors : BottomNavMenuColors(
-        isCheckedTrue = Color(0xFF8D91D1), isCheckedFalse = Color(0xFF57596D)
+        isCheckedTrue = Color(0xFF8D91D1), isCheckedFalse = Color(0xFF9E9C9F)
     )
 
     object DayColors : BottomNavMenuColors(

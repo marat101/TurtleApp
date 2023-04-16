@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.turtleteam.domain.model.other.States
 import com.turtleteam.ui.screens.common.components.ErrorView
 import com.turtleteam.ui.screens.screen_schedule.layouts.ScheduleLayout
+import com.turtleteam.ui.theme.LocalColors
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
@@ -51,7 +52,9 @@ fun ScheduleScreen(
         PullRefreshIndicator(
             modifier = Modifier.align(Alignment.TopCenter),
             refreshing = state.value.loadingState == States.Loading,
-            state = refreshState
+            state = refreshState,
+            backgroundColor = LocalColors.current.dateBackground,
+            contentColor = LocalColors.current.textColor
         )
     }
 }

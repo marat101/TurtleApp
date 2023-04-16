@@ -16,6 +16,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.ui.R
+import com.turtleteam.ui.theme.LocalColors
 import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.theme.fontQanelas
 
@@ -46,7 +47,7 @@ fun Item(text: String,
             fontFamily = fontQanelas,
             fontWeight = FontWeight(700),
             fontSize = 22.sp,
-            color = TurtleTheme.color.secondText,
+            color = LocalColors.current.textColor,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             letterSpacing = 0.sp
@@ -55,7 +56,7 @@ fun Item(text: String,
             modifier = Modifier.size(9.dp, 17.dp).rotate(rotation),
             painter = painterResource(id = R.drawable.ic_arrow_right),
             contentDescription = null,
-            tint = TurtleTheme.color.secondText
+            tint = LocalColors.current.textColor
         )
     }
 }
