@@ -3,6 +3,7 @@ package com.turtleteam.ui.screens.common.views
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -10,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -17,7 +19,7 @@ import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.theme.fontQanelas
 
 @Composable
-fun BaseTextField(
+fun CustomTextField(
     modifier: Modifier = Modifier,
     placeholder: String,
     value: String,
@@ -32,6 +34,8 @@ fun BaseTextField(
         value = value,
         onValueChange = onValueChange,
         keyboardActions = keyboardActions,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+        singleLine = true,
         textStyle = TextStyle(
             color = TurtleTheme.color.secondText,
             fontFamily = fontFamily,

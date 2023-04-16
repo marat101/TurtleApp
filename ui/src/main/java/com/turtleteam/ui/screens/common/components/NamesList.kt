@@ -28,7 +28,7 @@ import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.teachersandgroups.NamesList
 import com.turtleteam.domain.utils.SearchNames
 import com.turtleteam.ui.R
-import com.turtleteam.ui.screens.common.views.BaseTextField
+import com.turtleteam.ui.screens.common.views.CustomTextField
 import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.theme.fontQanelas
 
@@ -72,7 +72,7 @@ fun NamesList(
                 .background(TurtleTheme.color.bottomSheetView, TurtleTheme.shapes.small)
         )
         Row {
-            BaseTextField(
+            CustomTextField(
                 modifier = Modifier
                     .weight(1F)
                     .padding(horizontal = 3.dp, vertical = 3.dp),
