@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -41,6 +42,7 @@ fun CallsList(
     val listState = rememberLazyListState(1)
     val flingBehavior = rememberSnapFlingBehavior(listState)
     val alpha = remember { Animatable(0F) }
+    val paddings = with(LocalDensity.current){ 8.dp.toPx() }
 
     LazyRow(
         modifier = Modifier.alpha(alpha.value),
@@ -59,7 +61,7 @@ fun CallsList(
         if (itemInfo != null) {
             val center = listState.layoutInfo.viewportEndOffset / 2
             val childCenter = itemInfo.offset + itemInfo.size / 2
-            listState.scrollBy((childCenter - center).toFloat())
+            listState.scrollBy((childCenter - center + paddings).toFloat())
         } else {
             listState.scrollToItem(1)
         }
