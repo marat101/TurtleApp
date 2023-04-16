@@ -99,7 +99,6 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList) {
             if (pairs.apair.size > 1)
                 HorizontalPager(
                     state = pagerState,
-                    pageSpacing = 10.dp,
                     pageCount = pairs.apair.size
                 ) {
                     PairInfo(pairs.apair[it])
@@ -173,7 +172,6 @@ fun BoxScope.Pair(pairs: PairsList) {
         if (pairs.apair.size > 1)
             HorizontalPager(
                 state = pagerState,
-                pageSpacing = 10.dp,
                 pageCount = pairs.apair.size
             ) {
                 PairInfo(pairs.apair[it])
@@ -208,7 +206,7 @@ fun PairInfo(pair: Pair) {
         ) {
             Text(
                 text = pair.doctrine,
-                fontSize = 14.sp,
+                fontSize = if(pair.doctrine.length > 20) 14.sp else 18.sp,
                 color = LocalColors.current.textColor,
             )
         }

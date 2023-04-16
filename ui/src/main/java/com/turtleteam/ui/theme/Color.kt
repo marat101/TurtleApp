@@ -23,6 +23,8 @@ data class Colors(
     val bottomSheetView: Color,
     val nameItemBackground: Color,
 
+    val backgroundTurtle: Color,
+
     //Calls colors
     val callTypeColor: Color,
     val numberBackground: Color,
@@ -37,7 +39,10 @@ data class Colors(
     val doctrineBackground: Color,
     val pairInfo: Color,
 
-    val turtleImageBackground: Color
+    val turtleImageBackground: Color,
+    val buttonSelectBackground: Color,
+    val buttonSelectTurtle: Color,
+    val buttonNextBackground: Brush
 )
 
 val darkColors = Colors(
@@ -74,7 +79,11 @@ val darkColors = Colors(
     doctrineBackground = Color(0x59112240),
     pairInfo = Color(0xFFCFCFCF),
 
-    turtleImageBackground = Color(0xFF3D4762)
+    turtleImageBackground = Color(0xFF3D4762),
+    buttonSelectBackground = Color(0x590A192F),
+    buttonSelectTurtle = Color(0xFF313A55),
+    buttonNextBackground = Brush.horizontalGradient(listOf(Color(0xFF0A192F), Color(0xFF0A192F))),
+    backgroundTurtle = Color(0xD9464F6B)
 )
 
 val colors = Colors(
@@ -87,7 +96,7 @@ val colors = Colors(
     simpleText = Color.Gray,
     moreScreenIconsTint = Color.Black,
     bottomNavMenuColors = BottomNavMenuColors.DayColors,
-    toolbarGradient = Brush.horizontalGradient(listOf(Color(0xFF15956F), Color(0xFF96D162))),
+    toolbarGradient = Brush.horizontalGradient(listOf(Color(0xFF417B65), Color(0xFFA7CE7B))),
     bottomNavBarGradient = Brush.linearGradient(
         listOf(Color(0xFF86C8A7), Color(0xFFB3E3AE))
     ),
@@ -109,7 +118,11 @@ val colors = Colors(
     doctrineBackground = Color(0x3BA7CE7B),
     pairInfo = Color(0xFF9E9C9F),
 
-    turtleImageBackground = Color.White
+    turtleImageBackground = Color.White,
+    buttonSelectBackground = Color.White,
+    buttonSelectTurtle = Color(0xFFE8F0DF),
+    buttonNextBackground = Brush.horizontalGradient(listOf(Color(0xFF417B65), Color(0xFFA7CE7B))),
+    backgroundTurtle = Color(0x47417B65)
 )
 
 

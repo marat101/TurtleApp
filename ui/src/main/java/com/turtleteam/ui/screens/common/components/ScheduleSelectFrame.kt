@@ -2,21 +2,23 @@ package com.turtleteam.ui.screens.common.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.turtleteam.ui.R
 import com.turtleteam.ui.screens.common.views.GradientButton
-import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontQanelas
+import com.turtleteam.ui.theme.*
 import com.turtleteam.ui.utils.indications.SelectButtonIndicator
 
 @Composable
@@ -29,51 +31,63 @@ fun ScheduleSelectFrame(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(330.dp)
-            .padding(horizontal = 15.dp)
+            .height(258.dp)
+            .padding(horizontal = 32.dp)
             .background(TurtleTheme.color.transparentBackground, TurtleTheme.shapes.medium)
-            .padding(horizontal = 20.dp),
+            .padding(horizontal = 23.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(modifier = Modifier.height(100.dp),painter = painterResource(id = imageId), contentDescription = null)
+        Image(
+            modifier = Modifier.height(83.dp),
+            painter = painterResource(id = imageId),
+            contentDescription = null
+        )
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier.clickable(
-                interactionSource = MutableInteractionSource(),
-                indication = SelectButtonIndicator(TurtleTheme.color.secondText, 10.dp),
-                onClick = onOpenList
-            )
+            modifier = Modifier
+                .height(56.dp)
+                .fillMaxWidth()
+                .background(LocalColors.current.buttonSelectBackground, LocalShapes.current.medium)
+                .border(
+                    1.dp,
+                    if (!LocalTheme.current) LocalColors.current.textColor.copy(0.35F) else Color.Transparent, LocalShapes.current.medium
+                )
+                .clickable(
+                    interactionSource = MutableInteractionSource(),
+                    indication = SelectButtonIndicator(TurtleTheme.color.secondText, 12.dp),
+                    onClick = onOpenList
+                )
+                .clip(TurtleTheme.shapes.medium)
         ) {
-            Image(
+            Icon(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(57.dp)
-                    .clip(TurtleTheme.shapes.medium),
-                painter = painterResource(id = TurtleTheme.images.btnSelect),
-                contentScale = ContentScale.Crop,
+                    .fillMaxHeight()
+                    .align(Alignment.TopEnd),
+                painter = painterResource(id = R.drawable.btn_select_image),
+                tint = LocalColors.current.buttonSelectTurtle,
                 contentDescription = null
             )
             Text(
                 text = name,
-                color = TurtleTheme.color.btnGroupTeacherText,
-                fontSize = 27.sp,
+                color = LocalColors.current.numberBackground,
+                fontSize = 22.sp,
                 fontFamily = fontQanelas
             )
         }
         GradientButton(
-            gradient = TurtleTheme.color.toolbarGradient,
+            gradient = LocalColors.current.buttonNextBackground,
             radius = 10.dp,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(57.dp),
+                .height(56.dp),
             indicationColor = TurtleTheme.color.secondText,
             onClick = { onNextClick(name) }
         ) {
             Text(
                 text = "ДАЛЕЕ",
                 color = TurtleTheme.color.btnDoneText,
-                fontSize = 22.sp,
+                fontSize = 20.sp,
                 fontFamily = fontQanelas
             )
         }

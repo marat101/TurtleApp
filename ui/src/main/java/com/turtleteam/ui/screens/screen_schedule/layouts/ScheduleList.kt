@@ -49,7 +49,7 @@ fun ScheduleLayout(data: DaysList) {
             )
         )
     ) {
-        HorizontalPager(pageCount = data.days.size, modifier = Modifier.fillMaxSize()) { page ->
+        HorizontalPager(beyondBoundsPageCount = 1,pageCount = data.days.size, modifier = Modifier.fillMaxSize()) { page ->
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
