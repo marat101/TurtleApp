@@ -1,8 +1,11 @@
 package com.turtleteam.ui.screens.screen_schedule.components
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,7 +31,7 @@ import com.turtleteam.ui.utils.extensions.toDate
 
 
 @Composable
-fun PairItem(pairs: PairsList) {
+fun PairItem(pairs: PairsList, scrollInProgress: Boolean) {
     val currentMillis = System.currentTimeMillis()
     val startMillis = pairs.isoDateStart.toDate().time
     val endMillis = pairs.isoDateEnd.toDate().time
@@ -39,16 +42,16 @@ fun PairItem(pairs: PairsList) {
             val default = endMillis - startMillis
             val progress = (currentMillis - startMillis).toFloat()
             val end = default - progress
-            CurrentPair(progress, end, pairs)
+            CurrentPair(progress, end, pairs, scrollInProgress)
         } else {
-            Pair(pairs)
+            Pair(pairs, scrollInProgress)
         }
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList) {
+fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList, scrollInProgress: Boolean) {
     val pagerState = rememberPagerState()
     val progressColor = LocalColors.current.numberBackground
     val endColor = LocalColors.current.pairInfo
@@ -98,8 +101,15 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList) {
         ) {
             if (pairs.apair.size > 1)
                 HorizontalPager(
+                    userScrollEnabled = !scrollInProgress,
                     state = pagerState,
-                    pageCount = pairs.apair.size
+                    pageCount = pairs.apair.size,
+                    flingBehavior = PagerDefaults.flingBehavior(state = pagerState,
+                        lowVelocityAnimationSpec = tween(
+                            easing = LinearEasing,
+                            durationMillis = 200
+                        )
+                    )
                 ) {
                     PairInfo(pairs.apair[it])
                 }
@@ -133,7 +143,7 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun BoxScope.Pair(pairs: PairsList) {
+fun BoxScope.Pair(pairs: PairsList, scrollInProgress: Boolean) {
     val pagerState = rememberPagerState()
 
     Row(
@@ -171,8 +181,14 @@ fun BoxScope.Pair(pairs: PairsList) {
         }
         if (pairs.apair.size > 1)
             HorizontalPager(
+                userScrollEnabled = !scrollInProgress,
                 state = pagerState,
-                pageCount = pairs.apair.size
+                pageCount = pairs.apair.size,
+                flingBehavior = PagerDefaults.flingBehavior(state = pagerState,
+                    lowVelocityAnimationSpec = tween(
+                        easing = LinearEasing,
+                        durationMillis = 200
+                    ))
             ) {
                 PairInfo(pairs.apair[it])
             }

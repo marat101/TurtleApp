@@ -13,7 +13,7 @@ android {
         applicationId "com.android.turtleapp"
         minSdk 24
         targetSdk 33
-        versionCode 9
+        versionCode 10
         versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

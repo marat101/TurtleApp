@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerDefaults
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -30,6 +32,7 @@ import kotlinx.coroutines.delay
 fun ScheduleLayout(data: DaysList) {
 
     val visible = remember { mutableStateOf(false) }
+    val pagerState = rememberPagerState()
 
     AnimatedVisibility(
         visible = visible.value,
@@ -49,7 +52,16 @@ fun ScheduleLayout(data: DaysList) {
             )
         )
     ) {
-        HorizontalPager(beyondBoundsPageCount = 1,pageCount = data.days.size, modifier = Modifier.fillMaxSize()) { page ->
+        HorizontalPager(
+            state = pagerState,
+            beyondBoundsPageCount = 1,
+            pageCount = data.days.size,
+            flingBehavior = PagerDefaults.flingBehavior(state = pagerState,
+                lowVelocityAnimationSpec = tween(
+                easing = LinearEasing,
+                durationMillis = 250
+            )),
+            modifier = Modifier.fillMaxSize()) { page ->
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -65,7 +77,7 @@ fun ScheduleLayout(data: DaysList) {
                     DateItem(day = data.days[page])
                 }
                 items(data.days[page].apairs) {
-                    PairItem(pairs = it)
+                    PairItem(pairs = it, pagerState.isScrollInProgress)
                 }
             }
         }
