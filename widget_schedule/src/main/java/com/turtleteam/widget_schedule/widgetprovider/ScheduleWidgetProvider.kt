@@ -3,29 +3,22 @@ package com.turtleteam.widget_schedule.widgetprovider
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
-import android.widget.RemoteViews
-import com.turtleteam.domain.usecases_impl.teachers.GetTeacherScheduleUseCase
-import com.turtleteam.domain.usecases_impl.widget.GetScheduleWidget
-import com.turtleteam.domain.usecases_impl.widget.SaveScheduleWidget
-import com.turtleteam.widget_schedule.R
-import com.turtleteam.widget_schedule.service.ScheduleViewService
-import com.turtleteam.widget_schedule.utils.ScheduleFormatter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import androidx.work.*
+import com.turtleteam.domain.usecases.GetScheduleUC
+import com.turtleteam.widget_schedule.MyWork
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import org.koin.core.qualifier.named
+import java.util.concurrent.TimeUnit
 
 class ScheduleWidgetProvider : AppWidgetProvider(), KoinComponent {
 
-    private val teachersSchedule: GetTeacherScheduleUseCase by inject()
-    private val groupsSchedule: GetTeacherScheduleUseCase by inject()
-    private val saveWidget: SaveScheduleWidget by inject()
-    private val getWidget: GetScheduleWidget by inject()
+    //    private val teachersSchedule: GetTeacherScheduleUseCase by inject()
+//    private val saveWidget: SaveScheduleWidget by inject()
+//    private val getWidget: GetScheduleWidget by inject()
+    private val getSchedule: GetScheduleUC by inject(named("Groups"))
 
     companion object {
         const val EXTRA_ITEM = "EXTRA_ITEM"
@@ -41,8 +34,7 @@ class ScheduleWidgetProvider : AppWidgetProvider(), KoinComponent {
         super.onReceive(context, intent)
         when (intent?.action) {
             CLICK_ON_REFRESH -> {
-                val ids = intent.getIntExtra("widgetId", 0)
-                updateWidget(ids, context!!)
+
                 return
             }
         }
@@ -53,56 +45,21 @@ class ScheduleWidgetProvider : AppWidgetProvider(), KoinComponent {
         appWidgetManager: AppWidgetManager?,
         appWidgetIds: IntArray?
     ) {
+        val work = OneTimeWorkRequestBuilder<MyWork>().build()
+
+        WorkManager.getInstance(context!!).enqueueUniqueWork("updateWidget", ExistingWorkPolicy.REPLACE, work)
+
         super.onUpdate(context, appWidgetManager, appWidgetIds)
-        for (i in appWidgetIds!!) {
-            updateWidget(i, context!!)
-        }
     }
 
-    fun updateWidget(id: Int, context: Context) {
-        val componentName = ComponentName(context, ScheduleWidgetProvider::class.java)
-        GlobalScope.launch(Dispatchers.IO) {
+    override fun onEnabled(context: Context?) {
+//        val work = PeriodicWorkRequestBuilder<MyWork>(30L, TimeUnit.MINUTES).setInitialDelay(50000L, TimeUnit.DAYS).build()
+//
+//        WorkManager.getInstance(context!!).enqueueUniquePeriodicWork("updateWidget", ExistingPeriodicWorkPolicy.KEEP, work)
+    }
 
-            val service = ScheduleViewService()
-            val intent = Intent(context, service::class.java)
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id)
-            intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
-            val rv = RemoteViews(context.packageName, R.layout.layout_widget)
-            rv.setRemoteAdapter(
-                R.id.widget_listview,
-                intent
-            )
-
-            rv.setTextViewText(R.id.widget_select_schedule, "ИС-23")
-            val schedule = groupsSchedule.execute("ИС-23")
-
-            service.pairs =
-                ScheduleFormatter.getFormattedList(schedule.days[0]).toMutableList()
-            rv.setTextViewText(R.id.widget_date, schedule.days[0].day)
-
-            rv.setOnClickPendingIntent(
-                R.id.widget_refresh,
-                getPendingIntent(context, id, CLICK_ON_REFRESH)
-            )
-            rv.setOnClickPendingIntent(
-                R.id.widget_button_next,
-                getPendingIntent(context, id, CLICK_ON_NEXT)
-            )
-            rv.setOnClickPendingIntent(
-                R.id.widget_button_previous,
-                getPendingIntent(context, id, CLICK_ON_PREVIOUS)
-            )
-            rv.setOnClickPendingIntent(
-                R.id.widget_select_schedule,
-                getPendingIntent(context, id, CLICK_ON_SCHEDULE_SELECT)
-            )
-
-            val appWidgetManager = AppWidgetManager.getInstance(context)
-
-            appWidgetManager?.notifyAppWidgetViewDataChanged(id, R.id.widget_listview)
-            appWidgetManager?.updateAppWidget(componentName, null)
-            appWidgetManager?.updateAppWidget(componentName, rv)
-        }
+    override fun onDisabled(context: Context?) {
+//        WorkManager.getInstance(context!!).cancelUniqueWork("updateWidget")
     }
 }
 

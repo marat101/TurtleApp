@@ -18,8 +18,8 @@
         <activity
             android:name="com.turtleteam.ui.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.TurtleApp"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.TurtleApp"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +27,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name="com.turtleteam.widget_schedule.service.ScheduleViewService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <receiver
             android:name="com.turtleteam.widget_schedule.widgetprovider.ScheduleWidgetProvider"

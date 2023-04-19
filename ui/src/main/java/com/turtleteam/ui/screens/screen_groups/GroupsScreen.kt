@@ -48,13 +48,6 @@ fun GroupsScreen(
         }
     }
 
-
-    LaunchedEffect(key1 = null, block = {
-        update.state.collectLatest {
-            Log.e("oiajdoasdka",it.toString())
-        }
-    })
-
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
