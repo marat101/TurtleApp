@@ -2,6 +2,7 @@ package com.turtleteam.widget_schedule.widgetprovider
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
+import android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
@@ -31,11 +32,12 @@ class ScheduleWidgetProvider : AppWidgetProvider(), KoinComponent {
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        super.onReceive(context, intent)
         when (intent?.action) {
             CLICK_ON_REFRESH -> {
-
                 return
+            }
+            ACTION_APPWIDGET_UPDATE -> {
+                onUpdate(context)
             }
         }
     }
@@ -45,21 +47,22 @@ class ScheduleWidgetProvider : AppWidgetProvider(), KoinComponent {
         appWidgetManager: AppWidgetManager?,
         appWidgetIds: IntArray?
     ) {
-        val work = OneTimeWorkRequestBuilder<MyWork>().build()
-
-        WorkManager.getInstance(context!!).enqueueUniqueWork("updateWidget", ExistingWorkPolicy.REPLACE, work)
+//        val work = OneTimeWorkRequestBuilder<MyWork>().build()
+//
+//        WorkManager.getInstance(context!!).enqueueUniqueWork("updateWidget", ExistingWorkPolicy.REPLACE, work)
 
         super.onUpdate(context, appWidgetManager, appWidgetIds)
     }
 
     override fun onEnabled(context: Context?) {
-//        val work = PeriodicWorkRequestBuilder<MyWork>(30L, TimeUnit.MINUTES).setInitialDelay(50000L, TimeUnit.DAYS).build()
-//
-//        WorkManager.getInstance(context!!).enqueueUniquePeriodicWork("updateWidget", ExistingPeriodicWorkPolicy.KEEP, work)
+        val work = PeriodicWorkRequestBuilder<MyWork>(1L, TimeUnit.MINUTES).build()
+
+        WorkManager.getInstance(context!!)
+            .enqueueUniquePeriodicWork("updateWidget", ExistingPeriodicWorkPolicy.KEEP, work)
     }
 
     override fun onDisabled(context: Context?) {
-//        WorkManager.getInstance(context!!).cancelUniqueWork("updateWidget")
+        WorkManager.getInstance(context!!).cancelUniqueWork("updateWidget")
     }
 }
 
