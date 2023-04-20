@@ -3,6 +3,7 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="TurtleApp.utils" target="11" />
+      <module name="TurtleApp.widget" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

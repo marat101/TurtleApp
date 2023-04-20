@@ -4,14 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
-import com.android.turtleapp.data.model.schedule.Pair
+import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.domain.usecases.GetScheduleUC
-import com.turtleteam.domain.usecases_impl.groups.GetGroupScheduleUseCase
-import com.turtleteam.domain.usecases_impl.teachers.GetTeacherScheduleUseCase
 import com.turtleteam.widget_schedule.R
 import com.turtleteam.widget_schedule.utils.ScheduleFormatter
 import com.turtleteam.widget_schedule.widgetprovider.ScheduleWidgetProvider
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
@@ -19,29 +21,32 @@ import org.koin.core.qualifier.named
 class ScheduleViewService : RemoteViewsService(), KoinComponent {
 
     companion object {
+        const val PAIRS_EXTRA = "pairs"
+        const val EXTRA_DAY = "targetday"
+
         const val TIME_ICON = "⏳"
         const val DOCTRINE_ICON = "\uD83D\uDCD6"
         const val TEACHER_ICON = "\uD83C\uDF93"
         const val AUDITORIA_ICON = "\uD83D\uDD11"
         const val CORPUS_ICON = "\uD83C\uDFE2"
-
-        var pairs = mutableListOf<Pair>()
     }
 
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.IO + job)
-
-
+    private val json: Json by inject()
     private val groupsSchedule: GetScheduleUC by inject(named("Groups"))
+
     override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory {
+
+        val schedule = json.decodeFromString<DaysList>(intent?.getStringExtra(PAIRS_EXTRA)?: "[]")
+        var pairs = ScheduleFormatter.getFormattedList(schedule.days[intent?.getIntExtra(EXTRA_DAY, 0)?: 0])
+
         return object : RemoteViewsFactory {
             override fun onCreate() {
             }
 
             override fun onDataSetChanged() {
-                scope.launch {
-                    pairs = ScheduleFormatter.getFormattedList(groupsSchedule.execute("ИС-23").days.first()).toMutableList()
-                }
+                pairs = ScheduleFormatter.getFormattedList(schedule.days[intent?.getIntExtra(EXTRA_DAY, 0)?: 0])
             }
 
             override fun onDestroy() {

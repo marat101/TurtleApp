@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -36,6 +37,8 @@ dependencies {
     implementation(project(":domain"))
 
     implementation("androidx.work:work-runtime-ktx:2.8.1")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
 
     // ViewPager
     implementation("androidx.viewpager2:viewpager2:1.0.0")
