@@ -58,7 +58,7 @@ INSERT OR REPLACE INTO ScheduleWidgetState(
 VALUES (?,?,?, ?);
 
 getScheduleWidgetState:
-SELECT * FROM ScheduleWidgetState WHERE id = ?;
+SELECT * FROM ScheduleWidgetState;
 
 deleteScheduleWidgetState:
-DELETE FROM ScheduleWidgetState WHERE id = ?;
+DELETE FROM ScheduleWidgetState;

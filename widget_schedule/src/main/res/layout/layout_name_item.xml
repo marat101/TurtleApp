@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background_name"
+    android:id="@+id/name_button"
+    android:elevation="5dp"
+    android:layout_marginHorizontal="2dp"
+    android:layout_marginVertical="3dp">
+
+    <TextView
+        android:id="@+id/name_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|start"
+        android:fontFamily="@font/font_qanelas"
+        android:letterSpacing="0"
+        android:textSize="23sp"
+        android:padding="8dp"
+        android:textColor="@color/color2"
+        tools:text="NAME228"/>
+</FrameLayout>

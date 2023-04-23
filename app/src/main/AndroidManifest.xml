@@ -28,6 +28,13 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.turtleteam.widget_schedule.schedule_select.ScheduleSelectActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.TurtleApp"
+            tools:ignore="LockedOrientationActivity"/>
+
         <service
             android:name="com.turtleteam.widget_schedule.service.ScheduleViewService"
             android:enabled="true"
@@ -39,14 +46,17 @@
             android:exported="true"
             android:icon="@drawable/ic_logo"
             android:label="@string/app_name"
-            android:roundIcon="@drawable/ic_logo">
+            android:roundIcon="@drawable/ic_logo"
+            android:enabled="true"
+            android:directBootAware="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/widget_schedule_metadata" />
+                android:resource="@xml/widget_schedule_metadata"
+                />
         </receiver>
     </application>
 </manifest>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:inputType="text"
+        android:hint="@string/search"
+        android:fontFamily="@font/font_qanelas"
+        android:paddingHorizontal="10dp"
+        android:letterSpacing="0"
+        android:maxLines="1"
+        android:imeOptions="actionSearch"
+        android:importantForAutofill="no" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:splitMotionEvents="false"
+        tools:listitem="@layout/layout_name_item"
+        tools:itemCount="10" />
+</LinearLayout>

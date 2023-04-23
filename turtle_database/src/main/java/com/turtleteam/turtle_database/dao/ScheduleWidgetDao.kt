@@ -7,28 +7,28 @@ import kotlinx.coroutines.withContext
 
 interface ScheduleWidgetDao {
 
-    suspend fun getWidgetById(id: Int): ScheduleWidgetState
+    suspend fun getWidgetById(): ScheduleWidgetState?
 
-    suspend fun <T> insertWidget(id: Int, schedule: T, page: Int, isGroup: Boolean)
+    suspend fun insertWidget(id: Int, schedule: String, page: Int, isGroup: Boolean)
 
-    suspend fun deleteWidget(id: Int)
+    suspend fun deleteWidget()
 }
 
 internal class ScheduleWidgetDaoImpl(database: TurtleDatabase) : ScheduleWidgetDao {
 
     private val query = database.turtleDatabaseQueries
 
-    override suspend fun getWidgetById(id: Int): ScheduleWidgetState = withContext(Dispatchers.IO) {
-        query.getScheduleWidgetState(id.toLong()).executeAsOne()
+    override suspend fun getWidgetById(): ScheduleWidgetState? = withContext(Dispatchers.IO) {
+        query.getScheduleWidgetState().executeAsOneOrNull()
     }
 
-    override suspend fun <T> insertWidget(id: Int, schedule: T, page: Int, isGroup: Boolean) =
+    override suspend fun insertWidget(id: Int, schedule: String, page: Int, isGroup: Boolean) =
         withContext(Dispatchers.IO) {
             val type = if (isGroup) 1 else 0
-            query.insertWidgetState(id.toLong(), schedule.toString(), page.toLong(), type.toLong())
+            query.insertWidgetState(id.toLong(), schedule, page.toLong(), type.toLong())
         }
 
-    override suspend fun deleteWidget(id: Int) = withContext(Dispatchers.IO) {
-        query.deleteScheduleWidgetState(id.toLong())
+    override suspend fun deleteWidget() = withContext(Dispatchers.IO) {
+        query.deleteScheduleWidgetState()
     }
 }

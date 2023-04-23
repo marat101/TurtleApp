@@ -9,6 +9,7 @@ import com.turtleteam.remote_database.UpdateService
 import com.turtleteam.turtleappcompose.di.domainModule
 import com.turtleteam.turtleappcompose.di.repositoryModule
 import com.turtleteam.ui.di.uiModule
+import com.turtleteam.widget_schedule.di.widgetModule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -36,7 +37,8 @@ class TurtleApp : Application() {
                     domainModule,
                     databaseModule,
                     networkModule,
-                    firestoreModule
+                    firestoreModule,
+                    widgetModule
                 )
             )
         }
