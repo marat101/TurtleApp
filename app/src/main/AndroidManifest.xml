@@ -27,13 +27,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.turtleteam.widget_schedule.schedule_select.ScheduleSelectActivity"
-            android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.TurtleApp"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity"
+            android:excludeFromRecents="true"
+            android:exported="false">
+        </activity>
 
         <service
             android:name="com.turtleteam.widget_schedule.service.ScheduleViewService"

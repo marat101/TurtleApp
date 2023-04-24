@@ -1,17 +1,8 @@
 package com.turtleteam.widget_schedule.service
 
 import android.content.Intent
-import android.os.Bundle
-import android.widget.RemoteViews
 import android.widget.RemoteViewsService
-import com.turtleteam.domain.model.schedule.DaysList
-import com.turtleteam.widget_schedule.R
-import com.turtleteam.widget_schedule.utils.ScheduleFormatter
-import com.turtleteam.widget_schedule.widgetprovider.ScheduleWidgetProvider
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 class ScheduleViewService : RemoteViewsService(), KoinComponent {
 

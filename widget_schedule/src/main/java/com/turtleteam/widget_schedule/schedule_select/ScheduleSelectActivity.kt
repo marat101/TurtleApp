@@ -2,12 +2,18 @@ package com.turtleteam.widget_schedule.schedule_select
 
 import android.app.Activity
 import android.os.Bundle
-import com.turtleteam.widget_schedule.R
+import androidx.appcompat.app.AppCompatActivity
+import com.turtleteam.widget_schedule.databinding.ActivitySelectNameBinding
+import com.turtleteam.widget_schedule.schedule_select.view.ViewPagerAdapter
 
-class ScheduleSelectActivity : Activity() {
+class ScheduleSelectActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivitySelectNameBinding
+    private var adapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_select_name)
+        binding = ActivitySelectNameBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.viewPager.adapter = adapter
     }
 }
