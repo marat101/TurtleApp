@@ -3,6 +3,6 @@
 3    package="com.turtleteam.remote_database" >
 4
 5    <uses-sdk android:minSdkVersion="24" />
-5-->/home/marat.navruzaliev/AndroidStudioProjects/TurtleApp-Refactoring/remote_database/src/main/AndroidManifest.xml
+5-->Q:\Prgrmms\Projects\TurtleApp\remote_database\src\main\AndroidManifest.xml
 6
 7</manifest>
