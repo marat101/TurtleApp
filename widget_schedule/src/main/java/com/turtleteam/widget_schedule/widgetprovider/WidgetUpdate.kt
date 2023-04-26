@@ -3,10 +3,13 @@ package com.turtleteam.widget_schedule.widgetprovider
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
+import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.domain.model.widget.ScheduleWidgetState
 import com.turtleteam.domain.repository.WidgetRepository
 import com.turtleteam.widget_schedule.R
 import com.turtleteam.widget_schedule.ScheduleProvider
+import com.turtleteam.widget_schedule.schedule_select.SelectType
+import com.turtleteam.widget_schedule.utils.isGroup
 import org.koin.core.component.KoinComponent
 
 enum class PageAction {
@@ -14,12 +17,19 @@ enum class PageAction {
 }
 
 interface WidgetUpdate {
+    suspend fun updateScheduleName(name: String, type: SelectType, context: Context)
+
     suspend fun fullUpdate(context: Context)
 
     fun pageChange(context: Context, page: PageAction?)
 }
 
 class WidgetUpdateImpl(private val widgetRepository: WidgetRepository, private val schedule: ScheduleProvider) : WidgetUpdate, KoinComponent {
+
+    override suspend fun updateScheduleName(name: String, type: SelectType, context: Context) {
+        widgetRepository.insertScheduleWidget(ScheduleWidgetState(DaysList(emptyList(), name), 0, type.isGroup()))
+        fullUpdate(context)
+    }
 
     override suspend fun fullUpdate(context: Context) {
         val state = widgetRepository.getScheduleWidgetState()

@@ -49,7 +49,7 @@ class ScheduleWidgetProvider : AppWidgetProvider(), CoroutineScope, KoinComponen
             CLICK_ON_SCHEDULE_SELECT -> {
                 this.launch {
                     val mIntent = Intent(context, ScheduleSelectActivity::class.java)
-                    mIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    mIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     context?.startActivity(mIntent)
                 }
             }

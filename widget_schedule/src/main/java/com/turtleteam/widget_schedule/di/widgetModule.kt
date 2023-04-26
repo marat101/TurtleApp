@@ -1,5 +1,6 @@
 package com.turtleteam.widget_schedule.di
 
+import androidx.work.WorkManager
 import com.turtleteam.domain.repository.WidgetRepository
 import com.turtleteam.widget_schedule.ScheduleProvider
 import com.turtleteam.widget_schedule.ScheduleProviderImpl
@@ -22,7 +23,8 @@ val widgetModule = module {
         SelectViewModelImpl(
             get(named(groupsKey)),
             get(named(groupsKey)),
-            SelectType.GROUP
+            SelectType.GROUP,
+            get()
         )
     }
 
@@ -30,8 +32,13 @@ val widgetModule = module {
         SelectViewModelImpl(
             get(named(teachersKey)),
             get(named(teachersKey)),
-            SelectType.TEACHER
+            SelectType.TEACHER,
+            get()
         )
+    }
+
+    factory {
+        WorkManager.getInstance(get())
     }
 
     single<WidgetRepository> {

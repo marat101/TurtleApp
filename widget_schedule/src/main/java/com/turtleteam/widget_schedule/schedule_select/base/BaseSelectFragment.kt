@@ -18,19 +18,25 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.qualifier.named
 
 
-class GroupSelectFragment(): BaseSelectFragment() {
+class GroupSelectFragment() : BaseSelectFragment() {
     override val type: SelectType = SelectType.GROUP
     override val viewModel: BaseSelectViewModel by viewModel(named(type.name))
-    override val listView: NamesListView = NamesListView(type) { viewModel.clickOnName(it) }
+    override val listView: NamesListView = NamesListView(type) {
+        viewModel.clickOnName(it)
+        activity?.finish()
+    }
 }
 
-class TeacherSelectFragment(): BaseSelectFragment() {
+class TeacherSelectFragment() : BaseSelectFragment() {
     override val type: SelectType = SelectType.TEACHER
     override val viewModel: BaseSelectViewModel by viewModel(named(type.name))
-    override val listView: NamesListView = NamesListView(type) { viewModel.clickOnName(it) }
+    override val listView: NamesListView = NamesListView(type) {
+        viewModel.clickOnName(it)
+        activity?.finish()
+    }
 }
 
-abstract class BaseSelectFragment: Fragment(), KoinComponent {
+abstract class BaseSelectFragment : Fragment(), KoinComponent {
     abstract val type: SelectType
 
     abstract val viewModel: BaseSelectViewModel
@@ -45,7 +51,12 @@ abstract class BaseSelectFragment: Fragment(), KoinComponent {
         binding = FragmentNamesBinding.inflate(inflater, container, false)
         binding.searchList.adapter = listView
 
-        binding.searchList.layoutManager = if (type == SelectType.GROUP) GridLayoutManager(this.context, 2, GridLayoutManager.VERTICAL, false) else LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+        binding.searchList.layoutManager = if (type == SelectType.GROUP) GridLayoutManager(
+            this.context,
+            2,
+            GridLayoutManager.VERTICAL,
+            false
+        ) else LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
 
         return binding.root
     }
@@ -54,9 +65,9 @@ abstract class BaseSelectFragment: Fragment(), KoinComponent {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
             viewModel.state.collectLatest {
-                    it.data?.let { names ->
-                        listView.setList(names)
-                    }
+                it.data?.let { names ->
+                    listView.setList(names)
+                }
             }
         }
     }
