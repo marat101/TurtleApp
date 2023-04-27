@@ -4,10 +4,12 @@
     android:layout_height="45dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background_name"
+    android:foreground="@drawable/name_selector"
     android:id="@+id/name_button"
-    android:elevation="5dp"
+    android:clickable="true"
     android:layout_marginHorizontal="2dp"
-    android:layout_marginVertical="3dp">
+    android:layout_marginVertical="3dp"
+    android:focusable="true">
 
     <TextView
         android:id="@+id/name_item"
