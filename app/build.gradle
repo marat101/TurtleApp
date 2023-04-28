@@ -9,6 +9,15 @@ android {
     namespace 'com.turtleteam.turtleappcompose'
     compileSdk 33
 
+    signingConfigs {
+        release {
+            keyAlias 'turtle'
+            keyPassword 'sjdhfksdjskdfj'
+            storeFile file('turtlekeys.jks')
+            storePassword 'sjdhfksdjskdfj'
+        }
+    }
+
     defaultConfig {
         applicationId "com.android.turtleapp"
         minSdk 24
@@ -20,6 +29,7 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
@@ -34,15 +44,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-    }
-
-    signingConfigs {
-        release {
-        keyAlias '123'
-            keyPassword '123'
-            storePassword '123'
-            storeFile file(sqlDelightVersion)
-        }
     }
 
     packagingOptions {
