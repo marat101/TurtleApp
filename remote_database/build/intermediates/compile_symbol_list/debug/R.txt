@@ -1,5 +1,4 @@
 int string default_web_client_id 0x0
-int string firebase_database_url 0x0
 int string gcm_defaultSenderId 0x0
 int string google_api_key 0x0
 int string google_app_id 0x0

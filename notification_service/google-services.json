@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:704854777767:android:f11db4f58a20945f416082",
         "android_client_info": {
-          "package_name": "com.android.turtleapp"
+          "package_name": "com.turtleteam.notification_service"
         }
       },
       "oauth_client": [

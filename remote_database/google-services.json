@@ -1,42 +1,33 @@
 {
   "project_info": {
-    "project_number": "753136093290",
-    "firebase_url": "https://turtle-app-3f0e6-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "turtle-app-3f0e6",
-    "storage_bucket": "turtle-app-3f0e6.appspot.com"
+    "project_number": "704854777767",
+    "project_id": "turtleapptest-6b26c",
+    "storage_bucket": "turtleapptest-6b26c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:753136093290:android:e7e82e8bcea3054485a213",
+        "mobilesdk_app_id": "1:704854777767:android:f11db4f58a20945f416082",
         "android_client_info": {
           "package_name": "com.turtleteam.remote_database"
         }
       },
       "oauth_client": [
         {
-          "client_id": "753136093290-ndeduk4tv87j5lm4k7qiao2dkg8hmma1.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.android.turtleapp",
-            "certificate_hash": "e5ab2fe3f7cf323712341e79b9ad83be391e0aed"
-          }
-        },
-        {
-          "client_id": "753136093290-d5h20djv3qtf0dtcd384lsedqr1qm271.apps.googleusercontent.com",
+          "client_id": "704854777767-grjd05g448slf2ctno5ihu2cpfuvha3e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDgeHNkXHppDoYfZmnlKRG3leLJdj8L7e0"
+          "current_key": "AIzaSyCcJqLgMqQuHdFm-pNKo0GiKcAmDqPr7bY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "753136093290-d5h20djv3qtf0dtcd384lsedqr1qm271.apps.googleusercontent.com",
+              "client_id": "704854777767-grjd05g448slf2ctno5ihu2cpfuvha3e.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
