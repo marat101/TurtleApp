@@ -1,11 +1,10 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    kotlin("plugin.serialization")
 }
 
 android {
-    namespace = "com.turtleteam.widget_schedule"
+    namespace = "com.turtleteam.ui"
     compileSdk = Config.compileSdk
 
     defaultConfig {
@@ -31,18 +30,31 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    viewBinding.enable = true
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.4.7"
+    }
+
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
-    implementation(project(Modules.domain))
 
-    implementation(Dependencies.workManager)
-    implementation(Dependencies.kotlinSerialization)
-    implementation(Dependencies.viewPager)
-    implementation(Dependencies.koinAndroid)
-    implementation(Dependencies.viewModelLifecycle)
-    implementation(Dependencies.androidCore)
-    implementation(Dependencies.androidAppCompat)
+    implementation(project(Modules.domain))
+    implementation(project(Modules.remoteDatabase))
+
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
+
     implementation(Dependencies.androidMaterial)
+    implementation(Dependencies.koinCompose)
+    implementation(Dependencies.androidCore)
+    implementation(Dependencies.androidLifecycle)
+    implementation(Dependencies.composeNavigation)
+    implementation(Dependencies.composeCompiler)
+    implementation(Dependencies.composeActivity)
+    implementation(Dependencies.composeUi)
+    implementation(Dependencies.composeUiTooling)
+    implementation(Dependencies.composeMaterial)
 }

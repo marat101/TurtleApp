@@ -7,13 +7,12 @@ plugins {
 
 android {
     namespace = "com.turtleteam.remote_database"
-    compileSdk = 33
+    compileSdk = Config.compileSdk
 
     defaultConfig {
-        minSdk = 24
-        targetSdk = 33
+        minSdk = Config.minSdk
+        targetSdk = Config.targetSdk
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -36,19 +35,11 @@ android {
 }
 
 dependencies {
+    implementation("com.google.firebase:firebase-firestore-ktx:24.6.0")
 
-    // Koin
-    val koin = "3.2.0"
-    implementation("io.insert-koin:koin-android:$koin")
-
-    // Ktor
-    val ktorVersion = "2.2.2"
-    implementation("io.ktor:ktor-client-core:$ktorVersion")
-
-    // Kotlin Serialization
-    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.firebase:firebase-firestore-ktx:24.4.5")
+    implementation(Dependencies.koinAndroid)
+    implementation(Dependencies.ktorCore)
+    implementation(Dependencies.kotlinSerialization)
+    implementation(Dependencies.androidCore)
+    implementation(Dependencies.androidAppCompat)
 }

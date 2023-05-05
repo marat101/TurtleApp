@@ -1,10 +1,9 @@
 buildscript {
-    val sqlDelightVersion = "1.5.5"
 
     dependencies {
-        classpath("com.squareup.sqldelight:gradle-plugin:$sqlDelightVersion")
-        classpath("com.google.gms:google-services:4.3.15")
-        classpath("com.android.tools.build:gradle:7.4.2")
+        classpath(Plugins.sqlDelight)
+        classpath(Plugins.googleServices)
+        classpath(Plugins.gradle)
     }
     repositories {
         mavenCentral()
@@ -12,9 +11,9 @@ buildscript {
 }
 
 plugins {
-    id("com.android.application").version("7.4.0").apply(false)
-    kotlin("android").version("1.7.20").apply(false)
-    id("org.jetbrains.kotlin.jvm") version "1.7.20" apply false
-    kotlin("plugin.serialization") version "1.7.20" apply false
-    id("com.squareup.sqldelight") version "1.5.5" apply false
+    id("com.android.application").version(PluginVersion.androidApp).apply(false)
+    kotlin("android").version(PluginVersion.kotlin).apply(false)
+    id("org.jetbrains.kotlin.jvm") version PluginVersion.kotlin apply false
+    kotlin("plugin.serialization") version PluginVersion.kotlin apply false
+    id("com.squareup.sqldelight") version Versions.sqlDelight apply false
 }

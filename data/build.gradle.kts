@@ -1,11 +1,12 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    kotlin("plugin.serialization")
+    id("kotlin-kapt")
+    id("kotlinx-serialization")
 }
 
 android {
-    namespace = "com.turtleteam.widget_schedule"
+    namespace = "com.turtleteam.data"
     compileSdk = Config.compileSdk
 
     defaultConfig {
@@ -18,10 +19,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
@@ -31,18 +29,16 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    viewBinding.enable = true
 }
 
 dependencies {
-    implementation(project(Modules.domain))
 
-    implementation(Dependencies.workManager)
-    implementation(Dependencies.kotlinSerialization)
-    implementation(Dependencies.viewPager)
+    implementation(project(Modules.domain))
+    implementation(project(Modules.turtleDatabase))
+    implementation(project(Modules.ktorClient))
+
     implementation(Dependencies.koinAndroid)
-    implementation(Dependencies.viewModelLifecycle)
+    implementation(Dependencies.kotlinSerialization)
+    implementation(Dependencies.kotlinCoroutines)
     implementation(Dependencies.androidCore)
-    implementation(Dependencies.androidAppCompat)
-    implementation(Dependencies.androidMaterial)
 }

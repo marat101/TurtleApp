@@ -6,11 +6,11 @@ plugins {
 
 android {
     namespace = "com.turtleteam.ktor_client"
-    compileSdk = 33
+    compileSdk = Config.compileSdk
 
     defaultConfig {
-        minSdk = 24
-        targetSdk = 33
+        minSdk = Config.minSdk
+        targetSdk = Config.targetSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -35,21 +35,14 @@ android {
 }
 
 dependencies {
-    implementation(project(path = ":domain"))
+    implementation(project(Modules.domain))
+
+    implementation(Dependencies.koinAndroid)
+    implementation(Dependencies.ktorCore)
+    implementation(Dependencies.ktorHttpCLient)
+    implementation(Dependencies.kotlinSerialization)
+
     implementation("androidx.test.ext:junit-ktx:1.1.5")
-
-    // Koin
-    val koin = "3.2.0"
-    implementation("io.insert-koin:koin-android:$koin")
-
-    // Ktor
-    val ktorVersion = "2.2.2"
-    implementation("io.ktor:ktor-client-core:$ktorVersion")
-    implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
-
-    // Kotlin Serialization
-    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-
     testImplementation("org.robolectric:robolectric:4.10-alpha-1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

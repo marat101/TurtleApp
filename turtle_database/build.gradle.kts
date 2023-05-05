@@ -7,13 +7,12 @@ plugins {
 
 android {
     namespace = "com.turtleteam.turtle_database"
-    compileSdk = 33
+    compileSdk = Config.compileSdk
 
     defaultConfig {
-        minSdk = 24
-        targetSdk = 33
+        minSdk = Config.minSdk
+        targetSdk = Config.targetSdk
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -37,19 +36,12 @@ android {
 
 dependencies {
 
-    // Koin
-    val koin = "3.2.2"
-    implementation("io.insert-koin:koin-android:$koin")
+    implementation(Dependencies.koinAndroid)
 
-    // SQLdelight
-    val sqlDelightVersion = "1.5.5"
-    implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
-    implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
-    implementation("com.squareup.sqldelight:coroutines-extensions:$sqlDelightVersion")
-
-    //kotlinx
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation(Dependencies.sqlDelightDriver)
+    implementation(Dependencies.sqlDelightRuntime)
+    implementation(Dependencies.sqlDelightCoroutinesExtension)
+    implementation(Dependencies.kotlinSerialization)
 }
 
 sqldelight {
