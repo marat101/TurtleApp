@@ -1,6 +1,5 @@
 package com.turtleteam.ui.screens.screen_groups
 
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
@@ -10,15 +9,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import com.turtleteam.remote_database.Update
 import com.turtleteam.ui.screens.common.components.NamesList
 import com.turtleteam.ui.screens.common.components.ScheduleSelectFrame
 import com.turtleteam.ui.screens.common.viewmodel.NamesListViewModel
 import com.turtleteam.ui.screens.common.views.Snackbar
 import com.turtleteam.ui.theme.TurtleTheme
 import com.turtleteam.ui.utils.PagerListener
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.last
+import com.turtleteam.ui.utils.PagerUserScroll
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
@@ -30,7 +27,6 @@ import org.koin.core.qualifier.named
 fun GroupsScreen(
     page: Int = 0,
     pageListener: PagerListener = get(),
-    update: Update = get(),
     viewModel: NamesListViewModel = getViewModel(
         named("Groups"),
         parameters = { parametersOf(page) })
@@ -38,10 +34,10 @@ fun GroupsScreen(
     val state = viewModel.state.collectAsState()
     val name = remember { mutableStateOf(viewModel.getLastTargetName()) }
     val scope = rememberCoroutineScope()
+    val isCurrentPage = pageListener.getPageListener(page).collectAsState(initial = false)
 
     BackHandler(
-        pageListener.getPageListener(page)
-            .collectAsState(initial = false).value && viewModel.sheetState.isVisible
+        isCurrentPage.value && viewModel.sheetState.isVisible
     ) {
         scope.launch {
             viewModel.sheetState.hide()
@@ -107,4 +103,10 @@ fun GroupsScreen(
                 viewModel.showSnackbar = it
             }
     }
+    LaunchedEffect(key1 = isCurrentPage.value, key2 = viewModel.sheetState.isVisible,block = {
+        if(!isCurrentPage.value && viewModel.sheetState.isVisible)
+            viewModel.sheetState.hide()
+        pageListener.isUserScrollEnabled.value =
+            !(isCurrentPage.value && viewModel.sheetState.isVisible)
+    })
 }

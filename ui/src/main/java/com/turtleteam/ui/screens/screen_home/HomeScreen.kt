@@ -1,5 +1,6 @@
 package com.turtleteam.ui.screens.screen_home
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.HorizontalPager
@@ -12,21 +13,26 @@ import com.turtleteam.ui.screens.navigation.view.BottomNavigationMenu
 import com.turtleteam.ui.screens.screen_additional.AdditionalScreen
 import com.turtleteam.ui.screens.screen_groups.GroupsScreen
 import com.turtleteam.ui.screens.screen_teachers.TeachersScreen
+import com.turtleteam.ui.utils.PagerUserScroll
+import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = getViewModel()
+    viewModel: HomeViewModel = getViewModel(),
+    userScroll: PagerUserScroll = get()
 ) {
 
     val pagerState = rememberPagerState()
     viewModel.setPager(pagerState)
     val state = viewModel.state.collectAsState()
 
+    Log.e("TAGTAG", userScroll.isUserScrollEnabled.value.toString())
     Column {
         HorizontalPager(
+            userScrollEnabled = userScroll.isUserScrollEnabled.value,
             modifier = modifier.weight(1F),
             pageCount = 3,
             beyondBoundsPageCount = 2,
