@@ -7,6 +7,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.gestures.snapping.SnapFlingBehavior
+import androidx.compose.foundation.gestures.snapping.SnapLayoutInfoProvider
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -56,11 +58,6 @@ fun ScheduleLayout(data: DaysList) {
             state = pagerState,
             beyondBoundsPageCount = 1,
             pageCount = data.days.size,
-            flingBehavior = PagerDefaults.flingBehavior(state = pagerState,
-                lowVelocityAnimationSpec = tween(
-                easing = LinearEasing,
-                durationMillis = 250
-            )),
             modifier = Modifier.fillMaxSize()) { page ->
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
