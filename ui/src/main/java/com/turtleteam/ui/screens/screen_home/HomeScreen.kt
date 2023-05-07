@@ -29,7 +29,6 @@ fun HomeScreen(
     viewModel.setPager(pagerState)
     val state = viewModel.state.collectAsState()
 
-    Log.e("TAGTAG", userScroll.isUserScrollEnabled.value.toString())
     Column {
         HorizontalPager(
             userScrollEnabled = userScroll.isUserScrollEnabled.value,

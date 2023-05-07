@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
+import android.widget.RemoteViews.RemoteCollectionItems
 import com.turtleteam.widget_schedule.R
 import com.turtleteam.widget_schedule.service.ScheduleViewService
 

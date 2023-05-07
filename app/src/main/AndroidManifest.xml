@@ -38,10 +38,16 @@
 
         <service
             android:name="com.turtleteam.notification_service.NotificationService"
-            android:exported="false">
+            android:enabled="true"
+            android:exported="true"
+            android:directBootAware="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
+
+            <meta-data
+                android:name="com.google.firebase.messaging.default_notification_icon"
+                android:resource="@drawable/ic_logo" />
         </service>
 
         <service
@@ -64,8 +70,7 @@
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/widget_schedule_metadata"
-                />
+                android:resource="@xml/widget_schedule_metadata" />
         </receiver>
     </application>
 </manifest>

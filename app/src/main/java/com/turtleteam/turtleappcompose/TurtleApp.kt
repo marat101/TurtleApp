@@ -28,7 +28,9 @@ class TurtleApp : Application() {
         super.onCreate()
 
         startKoin {
-            androidLogger(Level.DEBUG)
+            if (BuildConfig.BUILD_TYPE != "release")
+                androidLogger(Level.DEBUG)
+
             androidContext(this@TurtleApp)
             modules(
                 listOf(

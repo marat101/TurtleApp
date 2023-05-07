@@ -46,6 +46,7 @@ dependencies {
     implementation(project(Modules.remoteDatabase))
 
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
+    implementation("com.github.judemanutd:autostarter:1.1.0")
 
     implementation(Dependencies.androidMaterial)
     implementation(Dependencies.koinCompose)

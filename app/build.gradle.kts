@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -56,10 +57,10 @@ dependencies {
     implementation("androidx.test.ext:junit-ktx:1.1.5")
     implementation("com.google.firebase:firebase-analytics-ktx:21.2.2")
     implementation("com.google.firebase:firebase-messaging-ktx:23.1.2")
+    implementation("com.google.firebase:firebase-crashlytics-ktx:18.3.7")
+    implementation("com.google.firebase:firebase-messaging-directboot:23.1.2")
 
-    //Koin
     implementation(Dependencies.koinAndroid)
-
     implementation(project(Modules.ui))
     implementation(project(Modules.data))
     implementation(project(Modules.domain))
