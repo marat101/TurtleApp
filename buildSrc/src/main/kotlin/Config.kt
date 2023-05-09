@@ -4,5 +4,5 @@ object Config {
     const val targetSdk = 33
 
     const val versionName = "1.2"
-    const val versionCode = 11
+    const val versionCode = 12
 }
