@@ -36,6 +36,10 @@ class NavigationControllerImpl() : NavigationController, TopBarTitleStateImpl() 
         navHostController?.navigate(Routes.HOME_PAGER_SCREEN.name)
     }
 
+    override fun navigateToNotificationsScreen() {
+        navHostController?.navigate(Routes.NOTIFICATIONS.name)
+    }
+
     override fun openLink(link: String) {
         val encodedUrl = URLEncoder.encode(link, StandardCharsets.UTF_8.toString())
         navHostController?.navigate(Routes.LINK.name + "/$encodedUrl")

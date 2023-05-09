@@ -20,10 +20,11 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TurtleApp"
+            android:launchMode="singleInstance"
+            android:allowTaskReparenting="true"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -38,9 +39,8 @@
 
         <service
             android:name="com.turtleteam.notification_service.NotificationService"
-            android:enabled="true"
-            android:exported="true"
-            android:directBootAware="true">
+            android:exported="false"
+            android:enabled="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>

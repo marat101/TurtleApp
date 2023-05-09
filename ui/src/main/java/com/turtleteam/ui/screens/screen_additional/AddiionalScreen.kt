@@ -109,6 +109,9 @@ fun AdditionalScreen(
                     Item("Обновление", {viewModel.clickOnUpdate()})
                 }
         }
+        item {
+            Item(text = "Уведомления", onClick = { viewModel.navigateToNotificationsScreen() })
+        }
     }
     LaunchedEffect(key1 = viewModel, block = {
         viewModel.initPageListener()

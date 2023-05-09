@@ -28,6 +28,8 @@ abstract class AdditionalViewModel : BaseViewModel() {
 
     abstract fun navigateToTurtleTeamVK()
 
+    abstract fun navigateToNotificationsScreen()
+
     abstract fun initPageListener()
 
     abstract fun clickOnUpdate()
@@ -62,6 +64,10 @@ class AdditionalViewModelImpl(
 
     override fun navigateToTurtleTeamVK() {
         navigator.openLink(Constants.TURTLE_TEAM_LINK)
+    }
+
+    override fun navigateToNotificationsScreen() {
+        navigator.navigateToNotificationsScreen()
     }
 
     override fun initPageListener() {

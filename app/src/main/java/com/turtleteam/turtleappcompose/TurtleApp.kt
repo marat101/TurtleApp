@@ -28,8 +28,7 @@ class TurtleApp : Application() {
         super.onCreate()
 
         startKoin {
-            if (BuildConfig.BUILD_TYPE != "release")
-                androidLogger(Level.DEBUG)
+            androidLogger(if (BuildConfig.BUILD_TYPE != "release") Level.ERROR else Level.DEBUG)
 
             androidContext(this@TurtleApp)
             modules(

@@ -62,3 +62,21 @@ SELECT * FROM ScheduleWidgetState;
 
 deleteScheduleWidgetState:
 DELETE FROM ScheduleWidgetState;
+
+
+CREATE TABLE Notification(
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    sentTime INTEGER NOT NULL UNIQUE PRIMARY KEY
+);
+
+insertNotification:
+INSERT OR REPLACE INTO Notification(
+    title,
+    description,
+    sentTime
+)
+VALUES (?,?,?);
+
+getNotifications:
+SELECT * FROM Notification;

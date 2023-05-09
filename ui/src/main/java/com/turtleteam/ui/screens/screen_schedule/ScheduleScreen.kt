@@ -57,4 +57,8 @@ fun ScheduleScreen(
             contentColor = LocalColors.current.textColor
         )
     }
+    DisposableEffect(key1 = viewModel, effect = {
+        viewModel.getSchedule()
+        onDispose {}
+    })
 }

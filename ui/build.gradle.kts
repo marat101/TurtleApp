@@ -48,11 +48,11 @@ dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     implementation("com.github.judemanutd:autostarter:1.1.0")
 
+    implementation(Dependencies.composeNavigationAnimation)
     implementation(Dependencies.androidMaterial)
     implementation(Dependencies.koinCompose)
     implementation(Dependencies.androidCore)
     implementation(Dependencies.androidLifecycle)
-    implementation(Dependencies.composeNavigation)
     implementation(Dependencies.composeCompiler)
     implementation(Dependencies.composeActivity)
     implementation(Dependencies.composeUi)

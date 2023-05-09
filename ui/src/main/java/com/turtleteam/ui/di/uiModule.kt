@@ -1,5 +1,7 @@
 package com.turtleteam.ui.di
 
+import android.content.Intent
+import com.turtleteam.ui.MainActivity
 import com.turtleteam.ui.screens.common.viewmodel.NamesListUsecasesProvider
 import com.turtleteam.ui.screens.common.viewmodel.NamesListViewModel
 import com.turtleteam.ui.screens.common.viewmodel.NamesViewModelImpl
@@ -10,6 +12,8 @@ import com.turtleteam.ui.screens.screen_additional.AdditionalViewModel
 import com.turtleteam.ui.screens.screen_additional.AdditionalViewModelImpl
 import com.turtleteam.ui.screens.screen_home.HomeViewModel
 import com.turtleteam.ui.screens.screen_home.HomeViewModelImpl
+import com.turtleteam.ui.screens.screen_notifications.NotificationsViewModel
+import com.turtleteam.ui.screens.screen_notifications.NotificationsViewModelImpl
 import com.turtleteam.ui.screens.screen_schedule.ScheduleViewModel
 import com.turtleteam.ui.screens.screen_schedule.ScheduleViewModelImpl
 import com.turtleteam.ui.utils.PagerListener
@@ -19,6 +23,10 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val uiModule = module {
+
+    factory { context ->
+        Intent(context.get(), MainActivity::class.java)
+    }
 
     val groupsKey = "Groups"
     val teachersKey = "Teachers"
@@ -41,6 +49,10 @@ val uiModule = module {
 
     viewModel<HomeViewModel>(){
         HomeViewModelImpl(get())
+    }
+
+    viewModel<NotificationsViewModel>() {
+        NotificationsViewModelImpl(get(), get())
     }
 
     viewModel<AdditionalViewModel>(){page ->

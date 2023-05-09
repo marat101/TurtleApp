@@ -13,6 +13,7 @@ val databaseModule = module {
     }
     single { TurtleDatabase(get()) }
 
+    single<NotificationsDao> { NotificationsDaoImpl(database = get()) }
     single<GroupsScheduleDao> { GroupsScheduleDaoImpl(database = get()) }
     single<TeachersScheduleDao> { TeachersScheduleDaoImpl(database = get()) }
     single<ScheduleWidgetDao> { ScheduleWidgetDaoImpl(database = get()) }

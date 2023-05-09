@@ -30,11 +30,7 @@ class ScheduleViewModelImpl(
     override val state: StateFlow<StatefulModel<DaysList>> =
         getSavedScheduleUC.execute(name)
             .combine(loadingState) { days, state -> StatefulModel(days, state) }
-            .stateIn(viewModelScope, SharingStarted.Lazily, StatefulModel())
-
-    init {
-        getSchedule()
-    }
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), StatefulModel())
 
     override fun getSchedule() {
         viewModelScope.launch(Dispatchers.IO) {

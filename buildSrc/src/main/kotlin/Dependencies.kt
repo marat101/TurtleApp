@@ -20,6 +20,7 @@ object Versions {
     // Jetpack Compose
     const val compose = "1.5.0-alpha02"
     const val composeNavigation = "2.5.3"
+    const val composeNavigationAnimation = "0.31.1-alpha"
     const val composeCompiler = "1.4.7"
     const val composeActivity = "1.7.1"
 }
@@ -58,6 +59,7 @@ object Dependencies {
 
     // Jetpack Compose
     val composeNavigation by lazy { "androidx.navigation:navigation-compose:${Versions.composeNavigation}" }
+    val composeNavigationAnimation by lazy { "com.google.accompanist:accompanist-navigation-animation:${Versions.composeNavigationAnimation}" }
     val composeCompiler by lazy { "androidx.compose.compiler:compiler:${Versions.composeCompiler}" }
     val composeActivity by lazy { "androidx.activity:activity-compose:${Versions.composeActivity}" }
     val composeUi by lazy { "androidx.compose.ui:ui:${Versions.compose}" }

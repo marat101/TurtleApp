@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "704854777767",
-    "project_id": "turtleapptest-6b26c",
-    "storage_bucket": "turtleapptest-6b26c.appspot.com"
+    "project_number": "907642830933",
+    "project_id": "turtleapp-test",
+    "storage_bucket": "turtleapp-test.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:704854777767:android:f11db4f58a20945f416082",
+        "mobilesdk_app_id": "1:907642830933:android:0b8e66d0f454a57e1254dc",
         "android_client_info": {
           "package_name": "com.turtleteam.remote_database"
         }
       },
       "oauth_client": [
         {
-          "client_id": "704854777767-grjd05g448slf2ctno5ihu2cpfuvha3e.apps.googleusercontent.com",
+          "client_id": "907642830933-0537962jm21k7lngeqhs7fjbtbtdv462.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCcJqLgMqQuHdFm-pNKo0GiKcAmDqPr7bY"
+          "current_key": "AIzaSyBERzzCBIYB5K3rB3_GzQik2AplCy1zKfE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "704854777767-grjd05g448slf2ctno5ihu2cpfuvha3e.apps.googleusercontent.com",
+              "client_id": "907642830933-0537962jm21k7lngeqhs7fjbtbtdv462.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

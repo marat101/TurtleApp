@@ -8,5 +8,7 @@ interface Navigator {
 
     fun navigateToHomeScreen()
 
+    fun navigateToNotificationsScreen()
+
     fun openLink(link: String)
 }
