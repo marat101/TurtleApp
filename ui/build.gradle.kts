@@ -44,6 +44,9 @@ dependencies {
 
     implementation(project(Modules.domain))
     implementation(project(Modules.remoteDatabase))
+    implementation(project(Modules.notifications))
+    implementation(Dependencies.workManager)
+    implementation("com.google.guava:guava:31.0.1-android")
 
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     implementation("com.github.judemanutd:autostarter:1.1.0")

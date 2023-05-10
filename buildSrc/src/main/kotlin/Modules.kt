@@ -8,4 +8,5 @@ object Modules {
     const val remoteDatabase = ":remote_database"
     const val ui = ":ui"
     const val widgetSchedule = ":widget_schedule"
+    const val theme = ":theme"
 }

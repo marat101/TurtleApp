@@ -3,6 +3,7 @@ package com.turtleteam.turtleappcompose
 import android.app.Application
 import com.turtleteam.data.di.dataModule
 import com.turtleteam.ktor_client.di.networkModule
+import com.turtleteam.notification_service.workers.SaveNotificationWorker
 import com.turtleteam.remote_database.UpdateService
 import com.turtleteam.remote_database.di.firestoreModule
 import com.turtleteam.turtle_database.di.databaseModule
@@ -50,5 +51,6 @@ class TurtleApp : Application() {
         applicationScope.launch(Dispatchers.IO) {
             updateService.getLatestVersion()
         }
+        SaveNotificationWorker.testenqueueWork(this)
     }
 }

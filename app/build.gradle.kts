@@ -37,6 +37,9 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
+        debug {
+            signingConfig = signingConfigs.getByName("release")
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -58,7 +61,6 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx:21.2.2")
     implementation("com.google.firebase:firebase-messaging-ktx:23.1.2")
     implementation("com.google.firebase:firebase-crashlytics-ktx:18.3.7")
-    implementation("com.google.firebase:firebase-messaging-directboot:23.1.2")
 
     implementation(Dependencies.koinAndroid)
     implementation(project(Modules.ui))
@@ -69,4 +71,5 @@ dependencies {
     implementation(project(Modules.widgetSchedule))
     implementation(project(Modules.remoteDatabase))
     implementation(project(Modules.notifications))
+    implementation(project(Modules.theme))
 }
