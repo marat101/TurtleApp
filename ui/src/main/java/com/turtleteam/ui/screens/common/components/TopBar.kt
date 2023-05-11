@@ -9,14 +9,13 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontQanelas
+import ru.turtleteam.theme.TurtleTheme
+import ru.turtleteam.theme.fontQanelas
 
 @Composable
 fun TopBar(

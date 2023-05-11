@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="default_web_client_id" translatable="false">704854777767-grjd05g448slf2ctno5ihu2cpfuvha3e.apps.googleusercontent.com</string>
-    <string name="gcm_defaultSenderId" translatable="false">704854777767</string>
-    <string name="google_api_key" translatable="false">AIzaSyCcJqLgMqQuHdFm-pNKo0GiKcAmDqPr7bY</string>
-    <string name="google_app_id" translatable="false">1:704854777767:android:f11db4f58a20945f416082</string>
-    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCcJqLgMqQuHdFm-pNKo0GiKcAmDqPr7bY</string>
-    <string name="google_storage_bucket" translatable="false">turtleapptest-6b26c.appspot.com</string>
-    <string name="project_id" translatable="false">turtleapptest-6b26c</string>
+    <string name="default_web_client_id" translatable="false">907642830933-0537962jm21k7lngeqhs7fjbtbtdv462.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">907642830933</string>
+    <string name="google_api_key" translatable="false">AIzaSyBERzzCBIYB5K3rB3_GzQik2AplCy1zKfE</string>
+    <string name="google_app_id" translatable="false">1:907642830933:android:0b8e66d0f454a57e1254dc</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBERzzCBIYB5K3rB3_GzQik2AplCy1zKfE</string>
+    <string name="google_storage_bucket" translatable="false">turtleapp-test.appspot.com</string>
+    <string name="project_id" translatable="false">turtleapp-test</string>
 </resources>

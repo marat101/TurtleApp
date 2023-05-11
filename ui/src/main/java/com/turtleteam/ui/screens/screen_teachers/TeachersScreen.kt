@@ -15,13 +15,12 @@ import com.turtleteam.ui.screens.common.components.NamesList
 import com.turtleteam.ui.screens.common.components.ScheduleSelectFrame
 import com.turtleteam.ui.screens.common.viewmodel.NamesListViewModel
 import com.turtleteam.ui.screens.common.views.Snackbar
-import com.turtleteam.ui.theme.TurtleTheme
+import ru.turtleteam.theme.TurtleTheme
 import com.turtleteam.ui.utils.PagerListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
-import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
 
 @OptIn(ExperimentalMaterialApi::class)

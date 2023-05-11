@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.turtleteam.domain.model.other.States
 import com.turtleteam.ui.screens.common.components.ErrorView
 import com.turtleteam.ui.screens.screen_schedule.layouts.ScheduleLayout
-import com.turtleteam.ui.theme.LocalColors
+import ru.turtleteam.theme.LocalColors
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named

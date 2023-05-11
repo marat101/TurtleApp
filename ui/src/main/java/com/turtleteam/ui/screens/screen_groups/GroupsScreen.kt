@@ -13,9 +13,8 @@ import com.turtleteam.ui.screens.common.components.NamesList
 import com.turtleteam.ui.screens.common.components.ScheduleSelectFrame
 import com.turtleteam.ui.screens.common.viewmodel.NamesListViewModel
 import com.turtleteam.ui.screens.common.views.Snackbar
-import com.turtleteam.ui.theme.TurtleTheme
+import ru.turtleteam.theme.TurtleTheme
 import com.turtleteam.ui.utils.PagerListener
-import com.turtleteam.ui.utils.PagerUserScroll
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel

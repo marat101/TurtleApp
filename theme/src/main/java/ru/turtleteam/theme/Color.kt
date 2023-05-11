@@ -1,4 +1,4 @@
-package com.turtleteam.ui.theme
+package ru.turtleteam.theme
 
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.Brush

@@ -1,4 +1,4 @@
-package com.turtleteam.ui.theme
+package ru.turtleteam.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

@@ -36,6 +36,7 @@ android {
 
 dependencies {
     implementation(project(Modules.domain))
+    implementation(project(Modules.theme))
 
     implementation(Dependencies.workManager)
     implementation(Dependencies.kotlinSerialization)

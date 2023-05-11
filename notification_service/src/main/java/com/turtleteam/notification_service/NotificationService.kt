@@ -8,7 +8,6 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
-import androidx.core.net.toUri
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.turtleteam.notification_service.workers.SaveNotificationWorker
@@ -16,6 +15,7 @@ import com.turtleteam.notification_service.workers.SaveTokenWorker
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
+import ru.turtleteam.theme.R
 
 class NotificationService : FirebaseMessagingService(), KoinComponent {
 
@@ -68,10 +68,8 @@ class NotificationService : FirebaseMessagingService(), KoinComponent {
             .setContentText(message.notification?.body)
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
-            .setSmallIcon(R.drawable.turtle_right_4)
-            .setStyle(
-                NotificationCompat.BigTextStyle().bigText(message.notification?.body)
-            )
+            .setSmallIcon(R.drawable.ic_logo)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(message.notification?.body))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
 

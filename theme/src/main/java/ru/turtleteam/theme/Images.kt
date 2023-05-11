@@ -1,8 +1,7 @@
-package com.turtleteam.ui.theme
+package ru.turtleteam.theme
 
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.compositionLocalOf
-import com.turtleteam.ui.R
 
 val LocalImages = compositionLocalOf<Images> { error("images wasnt provided") }
 

@@ -24,9 +24,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.android.turtleapp.data.model.schedule.Pair
 import com.android.turtleapp.data.model.schedule.PairsList
-import com.turtleteam.ui.R
-import com.turtleteam.ui.theme.LocalColors
-import com.turtleteam.ui.theme.LocalShapes
+import ru.turtleteam.theme.R
+import ru.turtleteam.theme.LocalColors
+import ru.turtleteam.theme.LocalShapes
 import com.turtleteam.ui.utils.extensions.toDate
 
 

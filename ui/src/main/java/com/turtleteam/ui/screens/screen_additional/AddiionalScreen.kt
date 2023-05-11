@@ -4,7 +4,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
@@ -15,26 +20,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.BlendMode
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.remote_database.AppUpdate
-import com.turtleteam.ui.R
 import com.turtleteam.ui.screens.screen_additional.components.CallsList
 import com.turtleteam.ui.screens.screen_additional.components.Item
-import com.turtleteam.ui.theme.LocalColors
-import com.turtleteam.ui.theme.LocalTheme
-import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontQanelas
+import ru.turtleteam.theme.LocalColors
+import ru.turtleteam.theme.LocalTheme
+import ru.turtleteam.theme.TurtleTheme
+import ru.turtleteam.theme.fontQanelas
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
-
-//TODO viewmodel
+import ru.turtleteam.theme.R
 
 @Composable
 fun AdditionalScreen(

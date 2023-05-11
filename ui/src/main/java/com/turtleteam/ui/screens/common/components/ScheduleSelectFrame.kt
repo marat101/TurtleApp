@@ -16,10 +16,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.turtleteam.ui.R
+import ru.turtleteam.theme.R
 import com.turtleteam.ui.screens.common.views.GradientButton
 import com.turtleteam.ui.theme.*
 import com.turtleteam.ui.utils.indications.SelectButtonIndicator
+import ru.turtleteam.theme.LocalColors
+import ru.turtleteam.theme.LocalShapes
+import ru.turtleteam.theme.LocalTheme
+import ru.turtleteam.theme.TurtleTheme
+import ru.turtleteam.theme.fontQanelas
 
 @Composable
 fun ScheduleSelectFrame(

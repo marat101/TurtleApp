@@ -20,8 +20,8 @@ import com.turtleteam.ui.screens.common.views.TurtlesBackground
 import com.turtleteam.ui.screens.navigation.controller.NavigationController
 import com.turtleteam.ui.screens.navigation.controller.Routes
 import com.turtleteam.ui.screens.navigation.view.TurtleNavHost
-import com.turtleteam.ui.theme.TurtleAppTheme
-import com.turtleteam.ui.theme.TurtleTheme
+import ru.turtleteam.theme.TurtleAppTheme
+import ru.turtleteam.theme.TurtleTheme
 import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {

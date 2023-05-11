@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="WindowBackground">#FF0A192F</color>
+
     <!--    Используется для бэкграунда-->
     <color name="color1">#D93C3030</color>
 

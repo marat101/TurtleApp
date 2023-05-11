@@ -37,6 +37,7 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging-ktx:23.1.2")
 
     implementation(project(Modules.domain))
+    implementation(project(Modules.theme))
 
     implementation(Dependencies.androidCore)
     implementation(Dependencies.androidAppCompat)

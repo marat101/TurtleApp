@@ -9,13 +9,11 @@ import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.turtleteam.ui.R
-import com.turtleteam.ui.theme.LocalColors
-import com.turtleteam.ui.theme.TurtleTheme
+import ru.turtleteam.theme.LocalColors
+import ru.turtleteam.theme.TurtleTheme
+import ru.turtleteam.theme.R
 
 @Composable
 fun TurtlesBackground() {

@@ -4,11 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
@@ -25,9 +23,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.android.turtleapp.data.model.schedule.Day
-import com.turtleteam.ui.R
-import com.turtleteam.ui.theme.LocalColors
-import com.turtleteam.ui.theme.LocalShapes
+import ru.turtleteam.theme.R
+import ru.turtleteam.theme.LocalColors
+import ru.turtleteam.theme.LocalShapes
 import com.turtleteam.ui.utils.extensions.toCalendar
 import com.turtleteam.ui.utils.extensions.toDayOfWeek
 import com.turtleteam.ui.utils.extensions.toMonth

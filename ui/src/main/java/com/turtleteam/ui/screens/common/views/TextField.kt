@@ -15,8 +15,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontQanelas
+import ru.turtleteam.theme.TurtleTheme
+import ru.turtleteam.theme.fontQanelas
 
 @Composable
 fun CustomTextField(

@@ -15,10 +15,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.turtleteam.ui.R
-import com.turtleteam.ui.theme.LocalColors
-import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontQanelas
+import ru.turtleteam.theme.R
+import ru.turtleteam.theme.LocalColors
+import ru.turtleteam.theme.TurtleTheme
+import ru.turtleteam.theme.fontQanelas
 
 @Composable
 fun Item(text: String,

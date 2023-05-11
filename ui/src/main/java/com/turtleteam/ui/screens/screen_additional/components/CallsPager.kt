@@ -26,8 +26,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.domain.model.callschedule.Calls
-import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontQanelas
+import ru.turtleteam.theme.TurtleTheme
+import ru.turtleteam.theme.fontQanelas
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

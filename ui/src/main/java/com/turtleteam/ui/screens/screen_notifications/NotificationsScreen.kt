@@ -22,7 +22,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,17 +34,9 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.work.Constraints
-import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkInfo
-import androidx.work.WorkManager
-import androidx.work.WorkQuery
-import androidx.work.await
-import com.turtleteam.notification_service.workers.SaveNotificationWorker
-import com.turtleteam.ui.R
-import com.turtleteam.ui.theme.LocalColors
-import com.turtleteam.ui.theme.LocalShapes
+import ru.turtleteam.theme.R
+import ru.turtleteam.theme.LocalColors
+import ru.turtleteam.theme.LocalShapes
 import org.koin.androidx.compose.getViewModel
 import java.util.Date
 import java.util.Locale
@@ -141,26 +132,6 @@ fun NotificationsScreen(
             )
         }
     }
-
-    LaunchedEffect(key1 = Unit, block = {
-        val workManager = WorkManager.getInstance(context)
-        val workQuery = WorkQuery.Builder
-            .fromUniqueWorkNames(listOf("mywork"))
-            .build()
-
-        val workInfo = workManager.getWorkInfos(workQuery).await()
-
-        val constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.NOT_REQUIRED).setRequiresBatteryNotLow(false).build()
-
-        workInfo.forEach {
-            println("TAGTAG workUpdate")
-            val workRequest = OneTimeWorkRequestBuilder<SaveNotificationWorker>()
-                .setConstraints(constraints)
-                .setId(it.id)
-                .build()
-            workManager.updateWork(workRequest)
-        }
-    })
     DisposableEffect(key1 = Unit, effect = {
 
 //        when (Build.BRAND.uppercase()) {

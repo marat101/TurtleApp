@@ -30,10 +30,19 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.4.7"
+    }
+
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
 
     implementation(Dependencies.androidAppCompat)
     implementation(Dependencies.androidMaterial)
+    implementation(Dependencies.composeUi)
+    implementation(Dependencies.composeMaterial)
 }

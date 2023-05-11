@@ -27,10 +27,10 @@ import com.turtleteam.domain.model.other.StatefulModel
 import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.teachersandgroups.NamesList
 import com.turtleteam.domain.utils.SearchNames
-import com.turtleteam.ui.R
+import ru.turtleteam.theme.R
 import com.turtleteam.ui.screens.common.views.CustomTextField
-import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontQanelas
+import ru.turtleteam.theme.TurtleTheme
+import ru.turtleteam.theme.fontQanelas
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

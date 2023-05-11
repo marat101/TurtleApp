@@ -43,8 +43,8 @@ import androidx.compose.ui.unit.sp
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.ui.screens.screen_schedule.components.DateItem
 import com.turtleteam.ui.screens.screen_schedule.components.PairItem
-import com.turtleteam.ui.theme.LocalColors
-import com.turtleteam.ui.theme.LocalShapes
+import ru.turtleteam.theme.LocalColors
+import ru.turtleteam.theme.LocalShapes
 import com.turtleteam.ui.utils.extensions.toCalendar
 import com.turtleteam.ui.utils.extensions.toDayOfWeek
 import com.turtleteam.ui.utils.extensions.toMonth
