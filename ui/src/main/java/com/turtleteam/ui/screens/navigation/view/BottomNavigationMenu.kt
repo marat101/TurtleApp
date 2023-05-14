@@ -16,10 +16,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.turtleteam.ui.R
+import ru.turtleteam.theme.R
 import com.turtleteam.ui.screens.screen_home.HomeViewModel
-import com.turtleteam.ui.theme.TurtleTheme
-import com.turtleteam.ui.theme.fontGanelas
+import ru.turtleteam.theme.TurtleTheme
+import ru.turtleteam.theme.fontQanelas
 
 @Composable
 fun BottomNavigationMenu(
@@ -52,7 +52,7 @@ fun BottomNavigationMenu(
                 Text(
                     text = "Группы",
                     fontSize = 14.sp,
-                    fontFamily = fontGanelas
+                    fontFamily = fontQanelas
                 )
             })
         BottomNavigationItem(
@@ -74,7 +74,7 @@ fun BottomNavigationMenu(
                 Text(
                     text = "Преподаватели",
                     fontSize = 11.sp,
-                    fontFamily = fontGanelas,
+                    fontFamily = fontQanelas,
                     fontWeight = FontWeight(800)
                 )
             })
@@ -94,7 +94,7 @@ fun BottomNavigationMenu(
                 Text(
                     text = "Дополнительно",
                     fontSize = 11.sp,
-                    fontFamily = fontGanelas
+                    fontFamily = fontQanelas
                 )
             })
     }

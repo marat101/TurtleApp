@@ -62,44 +62,5 @@ class TurtleApp : Application() {
         applicationScope.launch(Dispatchers.IO) {
             updateService.getLatestVersion()
         }
-
-        val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = NotificationService.CHANNEL_ID
-            val descriptionText = NotificationService.CHANNEL_ID
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val mChannel = NotificationChannel(NotificationService.CHANNEL_ID, name, importance)
-            mChannel.description = descriptionText
-            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(mChannel)
-        }
-
-        val intent: Intent by inject(parameters = { parametersOf(this) })
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        intent.action = "NOTIFICATIONS"
-
-        val pendingIntent: PendingIntent =
-            PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-
-        val builder = NotificationCompat.Builder(this, NotificationService.CHANNEL_ID)
-            .setContentTitle("message.notification?.title")
-            .setContentText("message.notification?.body")
-            .setAutoCancel(true)
-            .setSound(defaultSoundUri)
-            .setSmallIcon(R.drawable.ic_logo)
-            .setStyle(
-                NotificationCompat.BigTextStyle().bigText("message.notification?.body")
-            )
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentIntent(pendingIntent)
-
-        manager.notify(uniqueNotificationId(), builder.build())
-    }
-    private fun uniqueNotificationId(): Int {
-        val timeLongString = System.currentTimeMillis().toString()
-        val idString = timeLongString.substring(timeLongString.length - 5, timeLongString.length)
-        return idString.toInt()
     }
 }

@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.turtleteam.theme.R
 import com.turtleteam.ui.screens.common.views.GradientButton
-import com.turtleteam.ui.theme.*
 import com.turtleteam.ui.utils.indications.SelectButtonIndicator
 import ru.turtleteam.theme.LocalColors
 import ru.turtleteam.theme.LocalShapes
