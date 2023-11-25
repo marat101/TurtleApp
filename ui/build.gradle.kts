@@ -46,6 +46,9 @@ dependencies {
     implementation(project(Modules.remoteDatabase))
     implementation(project(Modules.theme))
 
+    implementation(platform("androidx.compose:compose-bom:2023.10.01"))
+    implementation("androidx.compose.ui:ui-graphics")
+
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     implementation("com.github.judemanutd:autostarter:1.1.0")
 

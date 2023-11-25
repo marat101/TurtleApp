@@ -14,20 +14,35 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.CompositingStrategy
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.drawOutline
+import androidx.compose.ui.graphics.drawscope.inset
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import com.android.turtleapp.data.model.schedule.Pair
 import com.android.turtleapp.data.model.schedule.PairsList
-import ru.turtleteam.theme.R
+import com.turtleteam.ui.utils.drawShadow
+import com.turtleteam.ui.utils.extensions.toDate
 import ru.turtleteam.theme.LocalColors
 import ru.turtleteam.theme.LocalShapes
-import com.turtleteam.ui.utils.extensions.toDate
+import ru.turtleteam.theme.R
 
 
 @Composable
@@ -36,8 +51,7 @@ fun PairItem(pairs: PairsList, scrollInProgress: Boolean) {
     val startMillis = pairs.isoDateStart.toDate().time
     val endMillis = pairs.isoDateEnd.toDate().time
 
-    Box(
-    ) {
+    Box {
         if (currentMillis in (startMillis + 1) until endMillis) {
             val default = endMillis - startMillis
             val progress = (currentMillis - startMillis).toFloat()
@@ -52,7 +66,13 @@ fun PairItem(pairs: PairsList, scrollInProgress: Boolean) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList, scrollInProgress: Boolean) {
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(
+        initialPage = 0,
+        initialPageOffsetFraction = 0f
+    ) {
+        // provide pageCount
+        pairs.apair.size
+    }
     val progressColor = LocalColors.current.numberBackground
     val endColor = LocalColors.current.pairInfo
     var height by remember { mutableStateOf(0) }
@@ -103,8 +123,8 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList, scrollIn
                 HorizontalPager(
                     userScrollEnabled = !scrollInProgress,
                     state = pagerState,
-                    pageCount = pairs.apair.size,
-                    flingBehavior = PagerDefaults.flingBehavior(state = pagerState,
+                    flingBehavior = PagerDefaults.flingBehavior(
+                        state = pagerState,
                         lowVelocityAnimationSpec = tween(
                             easing = LinearEasing,
                             durationMillis = 200
@@ -144,13 +164,28 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList, scrollIn
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BoxScope.Pair(pairs: PairsList, scrollInProgress: Boolean) {
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(
+        initialPage = 0,
+        initialPageOffsetFraction = 0f
+    ) {
+         pairs.apair.size
+
+        // provide pageCount
+    }
 
     Row(
         Modifier
             .fillMaxSize()
-            .shadow(4.dp, LocalShapes.current.medium)
-            .background(LocalColors.current.baseItemBackground, LocalShapes.current.medium)
+            .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
+            .drawShadow(
+                shape = LocalShapes.current.medium,
+                elevation = 4.dp,
+                padding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 8.dp, top = 4.dp),
+            )
+            .background(
+                LocalColors.current.baseItemBackground.copy(0.5f),
+                LocalShapes.current.medium
+            )
     ) {
         Column(modifier = Modifier.width(71.dp), horizontalAlignment = Alignment.End) {
             Text(
@@ -183,12 +218,13 @@ fun BoxScope.Pair(pairs: PairsList, scrollInProgress: Boolean) {
             HorizontalPager(
                 userScrollEnabled = !scrollInProgress,
                 state = pagerState,
-                pageCount = pairs.apair.size,
-                flingBehavior = PagerDefaults.flingBehavior(state = pagerState,
+                flingBehavior = PagerDefaults.flingBehavior(
+                    state = pagerState,
                     lowVelocityAnimationSpec = tween(
                         easing = LinearEasing,
                         durationMillis = 200
-                    ))
+                    )
+                )
             ) {
                 PairInfo(pairs.apair[it])
             }
@@ -222,7 +258,7 @@ fun PairInfo(pair: Pair) {
         ) {
             Text(
                 text = pair.doctrine,
-                fontSize = if(pair.doctrine.length > 20) 14.sp else 18.sp,
+                fontSize = if (pair.doctrine.length > 20) 14.sp else 18.sp,
                 color = LocalColors.current.textColor,
             )
         }

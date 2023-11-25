@@ -32,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
@@ -57,7 +58,13 @@ import java.util.Calendar
 fun ScheduleLayout(data: DaysList) {
 
     val visible = remember { MutableTransitionState(false) }
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(
+        initialPage = 0,
+        initialPageOffsetFraction = 0f
+    ) {
+        // provide pageCount
+        data.days.size
+    }
     val scope = rememberCoroutineScope()
 
     AnimatedVisibility(
@@ -80,16 +87,15 @@ fun ScheduleLayout(data: DaysList) {
     ) {
         HorizontalPager(
             state = pagerState,
-            pageCount = data.days.size,
             modifier = Modifier.fillMaxSize()
         ) { page ->
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
+//                verticalArrangement = Arrangement.spacedBy(12.dp),
                 contentPadding = PaddingValues(
                     top = 30.dp,
-                    end = 16.dp,
-                    start = 16.dp,
+//                    end = 16.dp,
+//                    start = 16.dp,
                     bottom = 16.dp
                 ),
                 horizontalAlignment = Alignment.CenterHorizontally,

@@ -12,6 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
+import androidx.navigation.NavDeepLink
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
@@ -136,7 +137,7 @@ fun ColumnScope.TurtleNavHost(
             arguments = listOf(navArgument("link") {
                 type = NavType.StringType
                 nullable = false
-            })
+            }),
         ) {
             val linkArg = it.arguments?.getString("link")
                 ?: throw NullPointerException("the screen require name argument")

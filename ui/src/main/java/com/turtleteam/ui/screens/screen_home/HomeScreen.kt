@@ -25,7 +25,13 @@ fun HomeScreen(
     userScroll: PagerUserScroll = get()
 ) {
 
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(
+        initialPage = 0,
+        initialPageOffsetFraction = 0f
+    ) {
+        3
+        // provide pageCount
+    }
     viewModel.setPager(pagerState)
     val state = viewModel.state.collectAsState()
 
@@ -33,7 +39,7 @@ fun HomeScreen(
         HorizontalPager(
             userScrollEnabled = userScroll.isUserScrollEnabled.value,
             modifier = modifier.weight(1F),
-            pageCount = 3,
+//            pageCount = 3,
             beyondBoundsPageCount = 2,
             state = pagerState
         ) { index ->
