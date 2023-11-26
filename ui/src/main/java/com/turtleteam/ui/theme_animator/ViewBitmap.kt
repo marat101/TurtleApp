@@ -42,6 +42,7 @@ fun View.bitmap(
         }
         return bitmap
     } catch (e: Exception) {
+        e.printStackTrace()
         return null
     }
 }

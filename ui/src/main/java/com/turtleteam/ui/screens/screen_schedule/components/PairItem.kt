@@ -14,27 +14,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
-import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.CompositingStrategy
-import androidx.compose.ui.graphics.Paint
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.drawOutline
-import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import com.android.turtleapp.data.model.schedule.Pair
 import com.android.turtleapp.data.model.schedule.PairsList
@@ -169,8 +157,6 @@ fun BoxScope.Pair(pairs: PairsList, scrollInProgress: Boolean) {
         initialPageOffsetFraction = 0f
     ) {
          pairs.apair.size
-
-        // provide pageCount
     }
 
     Row(
@@ -183,7 +169,7 @@ fun BoxScope.Pair(pairs: PairsList, scrollInProgress: Boolean) {
                 padding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 8.dp, top = 4.dp),
             )
             .background(
-                LocalColors.current.baseItemBackground.copy(0.5f),
+                LocalColors.current.baseItemBackground.copy(0.85f),
                 LocalShapes.current.medium
             )
     ) {
@@ -235,7 +221,7 @@ fun BoxScope.Pair(pairs: PairsList, scrollInProgress: Boolean) {
         PageIndicator(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 6.dp),
+                .padding(bottom = 12.dp),
             count = pairs.apair.size,
             current = pagerState.currentPage
         )

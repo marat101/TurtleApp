@@ -1,6 +1,5 @@
 package com.turtleteam.ui.screens.common.components
 
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -20,13 +19,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.findRootCoordinates
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.positionInRoot
-import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.ui.theme_animator.LocalThemeAnimator
@@ -64,7 +58,7 @@ fun TopBar(
                 .getPositiion {
                     btnCoords = it
                 }, onClick = {
-                theme.changeTheme(btnCoords, tween(1000))
+                theme.changeTheme(btnCoords)
             }) {
                 Icon(
                     tint = TurtleTheme.color.themeChangeButton,
