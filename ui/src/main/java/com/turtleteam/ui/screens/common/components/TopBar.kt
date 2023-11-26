@@ -2,9 +2,12 @@ package com.turtleteam.ui.screens.common.components
 
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -21,11 +24,13 @@ import androidx.compose.ui.layout.findRootCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.layout.positionInWindow
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.turtleteam.ui.theme_animator.LocalThemeAnimator
+import com.turtleteam.ui.theme_animator.getPositiion
 import ru.turtleteam.theme.TurtleTheme
 import ru.turtleteam.theme.fontQanelas
 
@@ -35,7 +40,9 @@ fun TopBar(
 ) {
     val theme = LocalThemeAnimator.current
     var btnCoords by remember { mutableStateOf(Offset.Zero) }
-    TopAppBar(title = {
+    val insets = WindowInsets.statusBars.asPaddingValues(LocalDensity.current)
+    TopAppBar(
+        title = {
         Text(
             modifier = Modifier.padding(top = 4.dp),
             text = title,
@@ -46,6 +53,7 @@ fun TopBar(
     },
         modifier = Modifier
             .background(TurtleTheme.color.toolbarGradient)
+            .padding(insets)
             .height(60.dp),
         contentColor = Color.White,
         backgroundColor = Color.Transparent,
@@ -53,12 +61,8 @@ fun TopBar(
         actions = {
             IconButton(modifier = Modifier
                 .padding(top = 4.dp)
-                .onGloballyPositioned {
-                    val pos = it.positionInRoot()
-                    btnCoords = pos.copy(
-                        x = pos.x + it.size.width/2,
-                        y = pos.y + it.size.height/2
-                    )
+                .getPositiion {
+                    btnCoords = it
                 }, onClick = {
                 theme.changeTheme(btnCoords, tween(1000))
             }) {

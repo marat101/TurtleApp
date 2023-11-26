@@ -1,9 +1,14 @@
 package com.turtleteam.ui.screens.navigation.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -12,6 +17,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -26,11 +32,13 @@ fun BottomNavigationMenu(
     viewModel: HomeViewModel,
     currentPage: Int,
 ) {
-
+    val insets = WindowInsets.navigationBars.asPaddingValues(LocalDensity.current)
     BottomNavigation(
         modifier = Modifier
             .fillMaxWidth()
-            .background(TurtleTheme.color.bottomNavBarGradient),
+            .background(TurtleTheme.color.bottomNavBarGradient)
+            .padding(insets)
+        ,
         backgroundColor = Color.Transparent,
         elevation = 0.dp
     ) {

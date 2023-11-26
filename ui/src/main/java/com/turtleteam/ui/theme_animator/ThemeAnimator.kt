@@ -172,5 +172,5 @@ private fun Offset.getDistance(point: Offset) = sqrt(
 ).toFloat()
 
 interface ThemeAnimator {
-    fun changeTheme(offset: Offset = Offset.Zero, animationSpec: AnimationSpec<Float> = tween(700))
+    fun changeTheme(offset: Offset = Offset.Zero, animationSpec: AnimationSpec<Float> = tween(900))
 }
