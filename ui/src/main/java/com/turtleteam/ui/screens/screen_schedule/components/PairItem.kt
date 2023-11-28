@@ -69,8 +69,9 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList, scrollIn
     ) {
         Column(
             modifier = Modifier
-                .width(55.dp)
-                .height(with(LocalDensity.current) { height.toDp() }),
+                .width(71.dp)
+                .height(with(LocalDensity.current) { height.toDp() })
+                .padding(start = 16.dp,top = 4.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
@@ -100,9 +101,15 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList, scrollIn
         Box(
             Modifier
                 .fillMaxWidth()
-                .shadow(4.dp, LocalShapes.current.medium)
-                .background(LocalColors.current.baseItemBackground, LocalShapes.current.medium)
-                .padding(start = 12.dp)
+                .drawShadow(
+                    shape = LocalShapes.current.medium,
+                    elevation = 4.dp,
+                    padding = PaddingValues(start = 0.dp, end = 16.dp, bottom = 8.dp, top = 4.dp),
+                )
+                .background(
+                    LocalColors.current.baseItemBackground.copy(0.75f),
+                    LocalShapes.current.medium
+                )
                 .onGloballyPositioned {
                     height = it.size.height
                 }
@@ -111,6 +118,7 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList, scrollIn
                 HorizontalPager(
                     userScrollEnabled = !scrollInProgress,
                     state = pagerState,
+                    contentPadding = PaddingValues(start = 8.dp),
                     flingBehavior = PagerDefaults.flingBehavior(
                         state = pagerState,
                         lowVelocityAnimationSpec = tween(
@@ -128,7 +136,7 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList, scrollIn
 
     Text(
         modifier = Modifier
-            .padding(bottom = 15.dp, end = 11.dp)
+            .padding(bottom = 21.dp, end = 27.dp)
             .size(25.dp)
             .background(LocalColors.current.numberBackground, CircleShape)
             .align(Alignment.BottomEnd),
@@ -142,7 +150,7 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList, scrollIn
         PageIndicator(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 6.dp),
+                .padding(bottom = 12.dp),
             count = pairs.apair.size,
             current = pagerState.currentPage
         )
@@ -162,14 +170,13 @@ fun BoxScope.Pair(pairs: PairsList, scrollInProgress: Boolean) {
     Row(
         Modifier
             .fillMaxSize()
-            .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
             .drawShadow(
                 shape = LocalShapes.current.medium,
                 elevation = 4.dp,
                 padding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 8.dp, top = 4.dp),
             )
             .background(
-                LocalColors.current.baseItemBackground.copy(0.85f),
+                LocalColors.current.baseItemBackground.copy(0.75f),
                 LocalShapes.current.medium
             )
     ) {

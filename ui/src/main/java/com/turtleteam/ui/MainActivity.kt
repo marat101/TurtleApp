@@ -46,7 +46,6 @@ class MainActivity : ComponentActivity() {
             navController = rememberAnimatedNavController()
             navigation.setNavController(navController)
             TurtleAppTheme(isDark.value) {
-//                window.setBackgroundDrawableResource(TurtleTheme.images.windowBackground)
                 ThemeAnimator(
                     modifier = Modifier.fillMaxSize(),
                     isDark = isDark.value,

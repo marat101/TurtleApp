@@ -28,10 +28,7 @@ fun HomeScreen(
     val pagerState = rememberPagerState(
         initialPage = 0,
         initialPageOffsetFraction = 0f
-    ) {
-        3
-        // provide pageCount
-    }
+    ) { 3 }
     viewModel.setPager(pagerState)
     val state = viewModel.state.collectAsState()
 

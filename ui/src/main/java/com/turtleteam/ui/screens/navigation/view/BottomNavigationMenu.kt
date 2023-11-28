@@ -37,8 +37,7 @@ fun BottomNavigationMenu(
         modifier = Modifier
             .fillMaxWidth()
             .background(TurtleTheme.color.bottomNavBarGradient)
-            .padding(insets)
-        ,
+            .padding(insets),
         backgroundColor = Color.Transparent,
         elevation = 0.dp
     ) {

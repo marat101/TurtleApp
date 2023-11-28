@@ -15,11 +15,13 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawOutline
 import androidx.compose.ui.graphics.drawscope.inset
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -42,6 +44,7 @@ fun Modifier.drawShadow(
             bottom = max(padding.calculateBottomPadding(), elevation)
         )
         this@composed
+            .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
             .drawBehind {
                 val shadowPaint = Paint().apply {
                     blendMode = BlendMode.SrcOut

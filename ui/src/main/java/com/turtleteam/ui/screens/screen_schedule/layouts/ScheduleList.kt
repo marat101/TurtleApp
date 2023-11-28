@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -103,9 +104,12 @@ fun ScheduleLayout(data: DaysList) {
                 stickyHeader {
                     val width = remember { mutableStateOf(0.dp) }
                     val density = LocalDensity.current
-                    Column(modifier = Modifier.onGloballyPositioned {
-                                                                    width.value = with(density) { it.size.width.toDp() }
-                    },horizontalAlignment = Alignment.CenterHorizontally) {
+                    Column(modifier = Modifier
+                        .padding(bottom = 6.dp)
+                        .onGloballyPositioned {
+                            width.value = with(density) { it.size.width.toDp() }
+                        }, horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
                         val popUpExpanded = remember { mutableStateOf(false) }
                         DateItem(day = data.days[page]) {
                             popUpExpanded.value = true
@@ -155,11 +159,18 @@ fun DatesPopup(
         colors = MaterialTheme.colors.copy(surface = LocalColors.current.baseItemBackground),
         shapes = MaterialTheme.shapes.copy(medium = LocalShapes.current.medium)
     ) {
-        DropdownMenu(modifier = Modifier.width(width),expanded = expanded, onDismissRequest = onDismissRequest) {
+        DropdownMenu(
+            modifier = Modifier.width(width),
+            expanded = expanded,
+            onDismissRequest = onDismissRequest
+        ) {
             CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
                 list.days.forEachIndexed { index, day ->
                     if (index != deleteIndex)
-                        DropdownMenuItem(modifier = Modifier.height(40.dp),contentPadding = PaddingValues(5.dp),onClick = { onItemClick(index)}) {
+                        DropdownMenuItem(
+                            modifier = Modifier.height(40.dp),
+                            contentPadding = PaddingValues(5.dp),
+                            onClick = { onItemClick(index) }) {
                             val date = remember { day.isoDateDay.toCalendar() }
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
@@ -173,8 +184,9 @@ fun DatesPopup(
                                 overflow = TextOverflow.Ellipsis,
                                 color = LocalColors.current.textColor
                             )
+                        }
                 }
-                }}
             }
+        }
     }
 }
