@@ -71,7 +71,7 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList, scrollIn
             modifier = Modifier
                 .width(71.dp)
                 .height(with(LocalDensity.current) { height.toDp() })
-                .padding(start = 16.dp,top = 4.dp),
+                .padding(start = 16.dp,top = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
@@ -110,6 +110,7 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList, scrollIn
                     LocalColors.current.baseItemBackground.copy(0.75f),
                     LocalShapes.current.medium
                 )
+                .padding(start = 8.dp)
                 .onGloballyPositioned {
                     height = it.size.height
                 }
@@ -127,10 +128,10 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList, scrollIn
                         )
                     )
                 ) {
-                    PairInfo(pairs.apair[it])
+                    PairInfo(pair = pairs.apair[it])
                 }
             else
-                PairInfo(pairs.apair.first())
+                PairInfo(pair = pairs.apair.first())
         }
     }
 
@@ -219,10 +220,10 @@ fun BoxScope.Pair(pairs: PairsList, scrollInProgress: Boolean) {
                     )
                 )
             ) {
-                PairInfo(pairs.apair[it])
+                PairInfo(pair = pairs.apair[it])
             }
         else
-            PairInfo(pairs.apair.first())
+            PairInfo(pair = pairs.apair.first())
     }
     if (pairs.apair.size > 1)
         PageIndicator(
@@ -235,11 +236,12 @@ fun BoxScope.Pair(pairs: PairsList, scrollInProgress: Boolean) {
 }
 
 @Composable
-fun PairInfo(pair: Pair) {
+fun PairInfo(modifier: Modifier = Modifier,pair: Pair) {
     Column(
         Modifier
             .padding(end = 11.dp)
             .padding(vertical = 14.dp)
+            .then(modifier)
     ) {
         Box(
             modifier = Modifier
