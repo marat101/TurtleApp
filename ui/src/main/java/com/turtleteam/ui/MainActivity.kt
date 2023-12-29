@@ -1,10 +1,8 @@
 package com.turtleteam.ui
 
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,7 +32,6 @@ class MainActivity : ComponentActivity() {
     private val saveThemeStateUseCase: SaveThemeStateUseCase by inject()
     private lateinit var navController: NavHostController
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)

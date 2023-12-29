@@ -5,10 +5,10 @@ import android.os.Build
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.geometry.toRect
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.CompositingStrategy
@@ -90,27 +90,29 @@ fun ThemeAnimator(
             }
         }
         CompositionLocalProvider(LocalThemeAnimator provides anim) { content() }
-        Spacer(
-            modifier = Modifier
-                .fillMaxSize()
-                .then(if (anim.bitmap.value != null) Modifier.pointerInput(Unit) { detectTapGestures {} } else Modifier)
-                .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
-                .drawWithCache {
-                    onDrawBehind {
-                        anim.bitmap.value?.let {
-                            val radius = getRadius(size, anim.clickOffset)
-                            drawImage(it.asImageBitmap())
+        anim.bitmap.value?.let {
+            Image(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .then(if (anim.bitmap.value != null) Modifier.pointerInput(Unit) { detectTapGestures {} } else Modifier)
+                    .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
+                    .drawWithCache {
+                        val radius = getRadius(size.toRect(), anim.clickOffset)
+                        onDrawWithContent {
+                            drawContent()
                             drawCircle(
                                 Color.Transparent,
                                 if (isDark) radius else (radius * anim.animatable.value),
                                 center = anim.clickOffset,
-                                blendMode = BlendMode.SrcOut,
+                                blendMode = BlendMode.DstIn,
                                 style = if (isDark) Stroke((radius * anim.animatable.value) * 2) else Fill
                             )
                         }
-                    }
-                }
-        )
+                    },
+                bitmap = it.asImageBitmap(),
+                contentDescription = null
+            )
+        }
     }
 }
 
@@ -150,19 +152,15 @@ private class ThemeAnimatorImpl(
 }
 
 private fun getRadius(
-    size: Size,
+    size: Rect,
     point: Offset
 ): Float {
-    val tl = Offset.Zero
-    val bl = Offset(0f, size.height)
-    val tr = Offset(size.width, 0f)
-    val tb = Offset(size.width, size.height)
 
     return maxOf(
-        tl.getDistance(point),
-        bl.getDistance(point),
-        tr.getDistance(point),
-        tb.getDistance(point)
+        size.topLeft.getDistance(point),
+        size.bottomLeft.getDistance(point),
+        size.topRight.getDistance(point),
+        size.bottomRight.getDistance(point)
     )
 }
 

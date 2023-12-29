@@ -18,10 +18,10 @@ object Versions {
     const val sqlDelight = "1.5.5"
 
     // Jetpack Compose
-    const val compose = "1.5.0-alpha02"
+    const val compose = "1.5.4"
     const val composeNavigation = "2.5.3"
     const val composeNavigationAnimation = "0.31.1-alpha"
-    const val composeCompiler = "1.4.7"
+    const val composeCompiler = "1.5.4"
     const val composeActivity = "1.7.1"
 }
 

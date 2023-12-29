@@ -2,7 +2,7 @@ object PluginVersion {
     const val gradle = "7.4.2"
     const val googleServices = "4.3.15"
 
-    const val kotlin = "1.8.21"
+    const val kotlin = "1.9.21"
 
     const val androidApp = "7.4.0"
 }
