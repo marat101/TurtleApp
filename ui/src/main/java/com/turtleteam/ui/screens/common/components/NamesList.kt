@@ -237,8 +237,8 @@ fun NameItem(
             )
             .clip(TurtleTheme.shapes.medium)
             .combinedClickable(
-//                interactionSource = remember { MutableInteractionSource() },
-//                indication = rememberRipple(),
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(),
                 onClick = {
                     onItemClick()
                 },
