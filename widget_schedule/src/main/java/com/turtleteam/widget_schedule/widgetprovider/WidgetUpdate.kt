@@ -1,7 +1,6 @@
 package com.turtleteam.widget_schedule.widgetprovider
 
 import android.appwidget.AppWidgetManager
-import android.content.ComponentName
 import android.content.Context
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.domain.model.widget.ScheduleWidgetState
@@ -17,86 +16,123 @@ enum class PageAction {
 }
 
 interface WidgetUpdate {
-    suspend fun updateScheduleName(name: String, type: SelectType, context: Context)
+    suspend fun upsertWidget(name: String, type: SelectType, widgetId: Int, context: Context)
 
-    suspend fun fullUpdate(context: Context)
+    suspend fun updateSchedule(widgetId: Int, context: Context)
 
-    fun pageChange(context: Context, page: PageAction?)
+    fun reloadAllWidgets(context: Context)
+
+    fun changePage(widgetId: Int, context: Context, page: PageAction?)
+
+    fun deleteWidget(widgetId: Int)
 }
 
-class WidgetUpdateImpl(private val widgetRepository: WidgetRepository, private val schedule: ScheduleProvider) : WidgetUpdate, KoinComponent {
+class WidgetUpdateImpl(
+    private val widgetRepository: WidgetRepository,
+    private val scheduleProvider: ScheduleProvider
+) : WidgetUpdate, KoinComponent {
 
-    override suspend fun updateScheduleName(name: String, type: SelectType, context: Context) {
-        widgetRepository.insertScheduleWidget(ScheduleWidgetState(DaysList(emptyList(), name), 0, type.isGroup()))
-        fullUpdate(context)
+    override suspend fun upsertWidget(
+        name: String,
+        type: SelectType,
+        widgetId: Int,
+        context: Context
+    ) {
+        widgetRepository.upsertWidget(
+            widgetId,
+            ScheduleWidgetState(DaysList(emptyList(), name), 0, type.isGroup())
+        )
+        updateSchedule(widgetId, context)
     }
 
-    override suspend fun fullUpdate(context: Context) {
-        val state = widgetRepository.getScheduleWidgetState()
+    override suspend fun updateSchedule(widgetId: Int, context: Context) {
+        var state = widgetRepository.getWidgetStateById(widgetId)
         val manager = AppWidgetManager.getInstance(context)
-        val ids = manager.getAppWidgetIds(ComponentName(context, ScheduleWidgetProvider::class.java))
-        if (state == ScheduleWidgetState.empty() && state.schedule.name.isEmpty()) {
-            emptyWidget(manager,ids, context)
+
+        if (state == null) {
+            val rv = emptyWidget(widgetId, context)
+            manager.updateAppWidget(widgetId, rv)
+            manager.notifyAppWidgetViewDataChanged(widgetId, R.id.widget_listview)
             return
         }
-        var mState = state
 
-        mState = mState.copy(schedule = schedule.getSchedule(mState.schedule.name, mState.isGroup, context))
+        val schedule = scheduleProvider.getSchedule(state.schedule.name, state.isGroup)
+        state = state.copy(schedule = schedule)
+        val size = state.schedule.days.size
 
-        val size = mState.schedule.days.size
+        if (!state.page.checkPage(size)) state = state.copy(page = 0)
 
-        if (!mState.page.checkPage(size)) mState = mState.copy(page = 0)
+        val day =
+            if (state.schedule.days.isEmpty()) "Empty" else state.schedule.days[state.page].day
 
-        val day = if (mState.schedule.days.isEmpty()) "Empty" else mState.schedule.days[mState.page].day
+        val rv = getRemoteViews(context, widgetId, day, state.schedule.name)
+        rv.setScrollPosition(R.id.widget_listview, 0)
+        widgetRepository.upsertWidget(widgetId, state)
+        manager.updateAppWidget(widgetId, rv)
+        manager.notifyAppWidgetViewDataChanged(widgetId, R.id.widget_listview)
+    }
 
-        for (id in ids) {
-            val rv = getRemoteViews(context, id, day, mState.schedule.name)
-            widgetRepository.insertScheduleWidget(mState)
-            manager.updateAppWidget(ids, rv)
-            manager.notifyAppWidgetViewDataChanged(id, R.id.widget_listview)
+    override fun reloadAllWidgets(context: Context) {
+        val widgetsStates = widgetRepository.getAllWidgetsIds()
+            .map { Pair(it, widgetRepository.getWidgetStateById(it)) }
+        val manager = AppWidgetManager.getInstance(context)
+        widgetsStates.forEach { (widgetId, state) ->
+            val rv = if (state == null) {
+                emptyWidget(widgetId, context)
+            } else {
+                getRemoteViews(
+                    context,
+                    widgetId,
+                    state.schedule.days[state.page].day,
+                    state.schedule.name
+                ).apply {
+                    setScrollPosition(R.id.widget_listview, 0)
+                }
+            }
+            manager.updateAppWidget(widgetId, rv)
+            manager.notifyAppWidgetViewDataChanged(widgetId, R.id.widget_listview)
         }
     }
 
-    override fun pageChange(context: Context, page: PageAction?) {
-        val state = widgetRepository.getScheduleWidgetState()
-        if (state == ScheduleWidgetState.empty()) return
-
-        var mState = state
+    override fun changePage(widgetId: Int, context: Context, page: PageAction?) {
+        var state = widgetRepository.getWidgetStateById(widgetId) ?: return
         val manager = AppWidgetManager.getInstance(context)
-        val ids =
-            manager.getAppWidgetIds(ComponentName(context, ScheduleWidgetProvider::class.java))
-        val size = mState.schedule.days.size
+        val size = state.schedule.days.size
 
         if (page != null)
             when (page) {
                 PageAction.NEXT -> {
-                    val cPage = mState.page + 1
+                    val cPage = state.page + 1
                     if (cPage.checkPage(size))
-                        mState = mState.copy(
+                        state = state.copy(
                             page = cPage
                         )
 
                 }
+
                 PageAction.PREVIOUS -> {
-                    val cPage = mState.page - 1
+                    val cPage = state.page - 1
                     if (cPage.checkPage(size))
-                        mState = mState.copy(
+                        state = state.copy(
                             page = cPage
                         )
                 }
             }
 
-        if (!mState.page.checkPage(size)) mState = mState.copy(page = 0)
+        if (!state.page.checkPage(size)) state = state.copy(page = 0)
 
         val day =
-            if (mState.schedule.days.isEmpty()) "Empty" else mState.schedule.days[mState.page].day
+            if (state.schedule.days.isEmpty()) "Empty" else state.schedule.days[state.page].day
 
-        for (id in ids) {
-            val rv = getRemoteViews(context, id, day, mState.schedule.name)
-            widgetRepository.insertScheduleWidget(mState)
-            manager.partiallyUpdateAppWidget(ids, rv)
-            manager.notifyAppWidgetViewDataChanged(id, R.id.widget_listview)
-        }
+        val rv = getRemoteViews(context, widgetId, day, state.schedule.name)
+        rv.setScrollPosition(R.id.widget_listview, 0)
+        widgetRepository.upsertWidget(widgetId, state)
+        manager.partiallyUpdateAppWidget(widgetId, rv)
+        manager.notifyAppWidgetViewDataChanged(widgetId, R.id.widget_listview)
+    }
+
+    override fun deleteWidget(widgetId: Int) {
+        widgetRepository.deleteWidgetById(widgetId)
     }
 }
 

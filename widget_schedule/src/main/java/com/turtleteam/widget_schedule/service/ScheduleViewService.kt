@@ -1,5 +1,6 @@
 package com.turtleteam.widget_schedule.service
 
+import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.widget.RemoteViewsService
 import org.koin.core.component.KoinComponent
@@ -7,9 +8,6 @@ import org.koin.core.component.KoinComponent
 class ScheduleViewService : RemoteViewsService(), KoinComponent {
 
     companion object {
-        const val PAIRS_EXTRA = "pairs"
-        const val EXTRA_DAY = "targetday"
-
         const val TIME_ICON = "⏳"
         const val DOCTRINE_ICON = "\uD83D\uDCD6"
         const val TEACHER_ICON = "\uD83C\uDF93"
@@ -18,7 +16,7 @@ class ScheduleViewService : RemoteViewsService(), KoinComponent {
     }
 
     override fun onGetViewFactory(intent: Intent?): RemoteViewsFactory {
-
-        return ScheduleViewsFactory(applicationContext)
+        val widgetId = intent?.data?.schemeSpecificPart?.toInt() ?: AppWidgetManager.INVALID_APPWIDGET_ID
+        return ScheduleViewsFactory(applicationContext, widgetId)
     }
 }

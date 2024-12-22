@@ -1,5 +1,6 @@
 package com.turtleteam.widget_schedule.schedule_select.base
 
+import android.appwidget.AppWidgetManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,8 +27,11 @@ class GroupSelectFragment() : BaseSelectFragment() {
     override val type: SelectType = SelectType.GROUP
     override val viewModel: BaseSelectViewModel by viewModel(named(type.name))
     override val listView: NamesListView = NamesListView(type) {
-        viewModel.clickOnName(it)
-        activity?.finish()
+        val widgetId =
+            requireActivity().intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, Int.MAX_VALUE)
+        viewModel.clickOnName(it, widgetId, requireContext().applicationContext) {
+            activity?.finish()
+        }
     }
 }
 
@@ -35,8 +39,11 @@ class TeacherSelectFragment() : BaseSelectFragment() {
     override val type: SelectType = SelectType.TEACHER
     override val viewModel: BaseSelectViewModel by viewModel(named(type.name))
     override val listView: NamesListView = NamesListView(type) {
-        viewModel.clickOnName(it)
-        activity?.finish()
+        val widgetId =
+            requireActivity().intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, Int.MAX_VALUE)
+        viewModel.clickOnName(it, widgetId, requireContext().applicationContext) {
+            activity?.finish()
+        }
     }
 }
 
@@ -69,13 +76,18 @@ abstract class BaseSelectFragment : Fragment(), KoinComponent {
         }
     }
 
-    private fun initSearchListener(){
-            binding.searchText.doAfterTextChanged {
-                listView.setList(SearchNames.filterList(it.toString(),viewModel.state.value.data ?: NamesList.empty))
-            }
+    private fun initSearchListener() {
+        binding.searchText.doAfterTextChanged {
+            listView.setList(
+                SearchNames.filterList(
+                    it.toString(),
+                    viewModel.state.value.data ?: NamesList.empty
+                )
+            )
+        }
     }
 
-    private fun initAdapter(){
+    private fun initAdapter() {
         binding.searchList.adapter = listView
 
         val layoutManager = if (type == SelectType.GROUP) {

@@ -4,9 +4,11 @@ import com.turtleteam.domain.model.widget.ScheduleWidgetState
 
 interface WidgetRepository {
 
-    fun getScheduleWidgetState(): ScheduleWidgetState
+    fun getWidgetStateById(widgetId: Int): ScheduleWidgetState?
 
-    fun insertScheduleWidget(widgetState: ScheduleWidgetState)
+    fun upsertWidget(widgetId: Int, widgetState: ScheduleWidgetState)
 
-    fun deleteScheduleWidget()
+    fun deleteWidgetById(widgetId: Int)
+
+    fun getAllWidgetsIds(): Set<Int>
 }

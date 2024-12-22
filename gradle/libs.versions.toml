@@ -1,30 +1,35 @@
 [versions]
-kotlinGradlePlugin = "1.9.21"
-androidGradlePlugin = "8.2.0"
+autostarter = "1.1.0"
+kotlinBom = "1.8.0"
+kotlinGradlePlugin = "2.0.20"
+androidGradlePlugin = "8.2.2"
 crashlyticsGradlePlugin = "2.9.9"
 googleServicesGradlePlugin = "4.4.0"
 buildkonfigGradlePlugin = "0.13.3"
+ktorClientOkhttp = "2.3.10"
+leakcanaryAndroid = "2.14"
 sqldelightGradlePlugin = "1.5.5"
 icerockResourcesGradlePlugin = "0.23.0"
-kotlinxCoroutinesCore = "1.7.1"
-kotlinxSerialization = "1.5.1"
+kotlinxCoroutinesCore = "1.8.1"
+kotlinxSerialization = "1.7.3"
 sqldelight = "1.5.5"
 koin = "3.5.0"
-ktor = "2.2.2"
+ktor = "2.3.12"
 russhwolfSettings = "1.0.0"
 icerockMoko = "0.22.1"
 soywizKlock = "3.4.0"
 soywizKrypto = "4.0.6"
 firebaseBom = "32.7.0"
 
-androidAppcompat = "1.6.1"
-androidCore = "1.12.0"
-androidLifecycle = "2.6.2"
+androidAppcompat = "1.7.0"
+androidCore = "1.13.1"
+androidLifecycle = "2.8.7"
 
-composeBom = "2023.10.01"
+composeBom = "2024.01.00"
 oneboneToolbar = "2.3.5"
 accomponist = "0.30.1"
 accomponistNavigationAnimation = "0.32.0"
+ui = "1.5.4"
 zoomable = "1.6.1"
 zxing = "3.5.1"
 googlePlayServicesWallet = "19.2.1"
@@ -32,11 +37,23 @@ googlePlayServicesAuth = "20.7.0"
 googlePlayServicesApiPhone = "18.0.1"
 coil = "2.4.0"
 uiTooling = "1.5.4"
+ui-graphics = "1.5.11"
+
+itextPdfrender = "2.0.4"
+itextCore = "8.0.4"
+datastorePreferencesCore = "1.1.1"
 
 [libraries]
+androidx-ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
+androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "ui" }
+autostarter = { module = "com.github.judemanutd:autostarter", version.ref = "autostarter" }
+kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlinBom" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 
+androidx-datastore-preferences-core = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferencesCore" }
+ktor-ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorClientOkhttp" }
+leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
 resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "icerockMoko" }
 sqldelight-runtime = { module = "com.squareup.sqldelight:runtime", version.ref = "sqldelight" }
 sqldelight-coroutines = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
@@ -79,6 +96,7 @@ compose-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 compose-material = { module = "androidx.compose.material:material" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
 compose-uiTooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "uiTooling" }
+compose-ui-graphics = { module = "org.jetbrains.compose.ui:ui-graphics", version.ref = "ui-graphics" }
 
 onebone-toolbar = { module = "me.onebone:toolbar-compose", version.ref = "oneboneToolbar" }
 
@@ -95,7 +113,11 @@ googlePlay-services-apiPhone = { module = "com.google.android.gms:play-services-
 
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 
+itext-core = { module = "com.itextpdf.android:kernel-android", version.ref = "itextCore" }
+itext-pdfrender = { module = "com.itextpdf:pdfrender", version.ref = "itextPdfrender" }
+
 [plugins]
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinGradlePlugin" }
 kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlinGradlePlugin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlinGradlePlugin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinGradlePlugin" }

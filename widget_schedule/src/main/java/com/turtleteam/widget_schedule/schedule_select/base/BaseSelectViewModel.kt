@@ -1,36 +1,39 @@
 package com.turtleteam.widget_schedule.schedule_select.base
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.work.Data
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
 import com.turtleteam.domain.model.other.StatefulModel
 import com.turtleteam.domain.model.other.States
 import com.turtleteam.domain.model.teachersandgroups.NamesList
 import com.turtleteam.domain.usecases.GetNamesListUC
 import com.turtleteam.domain.usecases.GetPinnedListUC
-import com.turtleteam.widget_schedule.UpdateScheduleWork
 import com.turtleteam.widget_schedule.schedule_select.SelectType
+import com.turtleteam.widget_schedule.widgetprovider.WidgetUpdate
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 abstract class BaseSelectViewModel : ViewModel() {
     abstract val state: StateFlow<StatefulModel<NamesList>>
 
     abstract fun getList()
 
-    abstract fun clickOnName(name: String)
+    abstract fun clickOnName(
+        name: String, widgetId: Int, context: Context,
+        onComplete: () -> Unit
+    )
 }
 
 class SelectViewModelImpl(
     private val getPinnedListUC: GetPinnedListUC,
     private val getNamesListUC: GetNamesListUC,
     private val type: SelectType,
-    private val workManager: WorkManager
+    private val update: WidgetUpdate
 ) : BaseSelectViewModel() {
     private val _state = MutableStateFlow<StatefulModel<NamesList>>(StatefulModel())
     override val state: StateFlow<StatefulModel<NamesList>>
@@ -53,13 +56,17 @@ class SelectViewModelImpl(
         }
     }
 
-    override fun clickOnName(name: String) {
-        val workRequest = OneTimeWorkRequestBuilder<UpdateScheduleWork>()
-        val data = Data.Builder()
-            .putString(UpdateScheduleWork.SCHEDULE_NAME, name)
-            .putString(UpdateScheduleWork.SCHEDULE_TYPE, type.name)
-            .build()
-        workRequest.setInputData(data)
-        workManager.enqueue(workRequest.build())
+    override fun clickOnName(
+        name: String,
+        widgetId: Int,
+        context: Context,
+        onComplete: () -> Unit
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            update.upsertWidget(name, type, widgetId, context)
+            withContext(Dispatchers.Main.immediate){
+                onComplete()
+            }
+        }
     }
 }

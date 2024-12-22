@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
-import com.turtleteam.domain.repository.WidgetRepository
 import com.turtleteam.widget_schedule.schedule_select.ScheduleSelectActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,45 +15,55 @@ import kotlin.coroutines.CoroutineContext
 
 class ScheduleWidgetProvider : AppWidgetProvider(), CoroutineScope, KoinComponent {
 
-    private val widgetRep: WidgetRepository by inject()
-    private val update: WidgetUpdate by inject()
+    private val widgetUpdate: WidgetUpdate by inject()
 
     companion object {
-        const val EXTRA_ITEM = "EXTRA_ITEM"
-
         // Клики по кнопкам
-        const val CLICK_ON_REFRESH = "clickRefresh"
-        const val CLICK_ON_NEXT = "next"
-        const val CLICK_ON_PREVIOUS = "previous"
-        const val CLICK_ON_SCHEDULE_SELECT = "schedule"
+        const val CLICK_ON_REFRESH = "com.android.turtleapp.clickRefresh"
+        const val CLICK_ON_NEXT = "com.android.turtleapp.next"
+        const val CLICK_ON_PREVIOUS = "com.android.turtleapp.previous"
+        const val CLICK_ON_SCHEDULE_SELECT = "com.android.turtleapp.schedule"
+    }
+
+    override fun onEnabled(context: Context?) {
+        if (context != null) widgetUpdate.reloadAllWidgets(context)
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        when (intent?.action) {
-            CLICK_ON_REFRESH -> {
-                this.launch {
-                    update.fullUpdate(context!!)
-                }
-            }
-            CLICK_ON_PREVIOUS -> {
-                this.launch {
-                    update.pageChange(context!!, PageAction.PREVIOUS)
-                }
-            }
-            CLICK_ON_NEXT -> {
-                this.launch {
-                    update.pageChange(context!!, PageAction.NEXT)
-                }
-            }
-            CLICK_ON_SCHEDULE_SELECT -> {
-                this.launch {
-                    val mIntent = Intent(context, ScheduleSelectActivity::class.java)
-                    mIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    context?.startActivity(mIntent)
-                }
-            }
-        }
         super.onReceive(context, intent)
+        val widgetId =
+            intent?.getIntExtra(
+                AppWidgetManager.EXTRA_APPWIDGET_ID,
+                AppWidgetManager.INVALID_APPWIDGET_ID
+            ) ?: AppWidgetManager.INVALID_APPWIDGET_ID
+
+        if (intent?.action == CLICK_ON_SCHEDULE_SELECT) {
+            val mIntent = Intent(context, ScheduleSelectActivity::class.java)
+            mIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            mIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
+            context?.startActivity(mIntent)
+        }
+
+        if (widgetId != Int.MAX_VALUE)
+            when (intent?.action) {
+                CLICK_ON_REFRESH -> {
+                    launch {
+                        widgetUpdate.updateSchedule(widgetId, context!!)
+                    }
+                }
+
+                CLICK_ON_PREVIOUS -> {
+                    widgetUpdate.changePage(widgetId, context!!, PageAction.PREVIOUS)
+                }
+
+                CLICK_ON_NEXT -> {
+                    widgetUpdate.changePage(widgetId, context!!, PageAction.NEXT)
+                }
+            }
+    }
+
+    override fun onRestored(context: Context?, oldWidgetIds: IntArray?, newWidgetIds: IntArray?) {
+        super.onRestored(context, oldWidgetIds, newWidgetIds)
     }
 
     override fun onUpdate(
@@ -62,16 +71,19 @@ class ScheduleWidgetProvider : AppWidgetProvider(), CoroutineScope, KoinComponen
         appWidgetManager: AppWidgetManager?,
         appWidgetIds: IntArray?
     ) {
-        this.launch {
-            update.fullUpdate(context!!)
+        if (context != null) {
+            launch {
+                appWidgetIds?.forEach {
+                    widgetUpdate.updateSchedule(it, context)
+                }
+            }
         }
-        super.onUpdate(context, appWidgetManager, appWidgetIds)
     }
+
     override fun onDeleted(context: Context?, appWidgetIds: IntArray?) {
-        this.launch {
-            widgetRep.deleteScheduleWidget()
+        appWidgetIds?.forEach {
+            widgetUpdate.deleteWidget(it)
         }
-        super.onDeleted(context, appWidgetIds)
     }
 
     override val coroutineContext: CoroutineContext
@@ -81,10 +93,10 @@ class ScheduleWidgetProvider : AppWidgetProvider(), CoroutineScope, KoinComponen
 fun getPendingIntent(context: Context, id: Int, action: String): PendingIntent? {
     val clickIntent = Intent(context, ScheduleWidgetProvider::class.java)
     clickIntent.action = action
-    clickIntent.putExtra("widgetId", id)
+    clickIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id)
     return PendingIntent.getBroadcast(
         context,
-        0,
+        id,
         clickIntent,
         PendingIntent.FLAG_IMMUTABLE
     )

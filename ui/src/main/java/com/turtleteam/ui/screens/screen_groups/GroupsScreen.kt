@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import com.turtleteam.ui.screens.common.components.NamesList
 import com.turtleteam.ui.screens.common.components.ScheduleSelectFrame
 import com.turtleteam.ui.screens.common.viewmodel.NamesListViewModel
@@ -34,12 +35,14 @@ fun GroupsScreen(
     val name = remember { mutableStateOf(viewModel.getLastTargetName()) }
     val scope = rememberCoroutineScope()
     val isCurrentPage = pageListener.getPageListener(page).collectAsState(initial = false)
+    val density = LocalDensity.current
+    val sheetState = remember { ModalBottomSheetState(ModalBottomSheetValue.Hidden, density) }
 
     BackHandler(
-        isCurrentPage.value && viewModel.sheetState.isVisible
+        isCurrentPage.value && sheetState.isVisible
     ) {
         scope.launch {
-            viewModel.sheetState.hide()
+            sheetState.hide()
         }
     }
 
@@ -52,7 +55,7 @@ fun GroupsScreen(
             onOpenList = {
                 viewModel.sheetAlpha.value = 1F
                 scope.launch {
-                    viewModel.sheetState.show()
+                    sheetState.show()
                 }
             },
             onNextClick = {
@@ -69,7 +72,7 @@ fun GroupsScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .alpha(viewModel.sheetAlpha.value),
-            sheetState = viewModel.sheetState,
+            sheetState = sheetState,
             sheetShape = viewModel.backgroundShape.value,
             scrimColor = Color(0xA6000000),
             content = {},
@@ -77,21 +80,21 @@ fun GroupsScreen(
                 NamesList(
                     listState = state.value,
                     cornersState = viewModel.backgroundShape,
-                    sheetState = viewModel.sheetState,
+                    sheetState = sheetState,
                     isTeacher = false,
                     getList = { viewModel.getNamesList() },
                     onItemClick = {
                         viewModel.setLastTargetName(it)
                         name.value = it
-                        scope.launch { viewModel.sheetState.hide() }
+                        scope.launch { sheetState.hide() }
                     },
                     onLongClick = { list, item -> viewModel.setPinnedList(list, item) },
                     onHideHint = { viewModel.setHintBoxVisibility() },
                     hint = viewModel.getHintBoxVisibility()
                 )
             })
-        LaunchedEffect(viewModel.sheetState.isVisible) {
-            if (!viewModel.sheetState.isVisible) viewModel.sheetAlpha.value = 0F
+        LaunchedEffect(sheetState.isVisible) {
+            if (!sheetState.isVisible) viewModel.sheetAlpha.value = 0F
         }
         if (viewModel.showSnackbar)
             Snackbar(
@@ -102,10 +105,10 @@ fun GroupsScreen(
                 viewModel.showSnackbar = it
             }
     }
-    LaunchedEffect(key1 = isCurrentPage.value, key2 = viewModel.sheetState.isVisible,block = {
-        if(!isCurrentPage.value && viewModel.sheetState.isVisible)
-            viewModel.sheetState.hide()
+    LaunchedEffect(key1 = isCurrentPage.value, key2 = sheetState.isVisible,block = {
+        if(!isCurrentPage.value && sheetState.isVisible)
+            sheetState.hide()
         pageListener.isUserScrollEnabled.value =
-            !(isCurrentPage.value && viewModel.sheetState.isVisible)
+            !(isCurrentPage.value && sheetState.isVisible)
     })
 }

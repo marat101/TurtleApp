@@ -38,6 +38,7 @@ dependencies {
     implementation(project(Modules.domain))
     implementation(project(Modules.theme))
 
+    implementation(libs.ktor.client.android)
     implementation(Dependencies.workManager)
     implementation(Dependencies.kotlinSerialization)
     implementation(Dependencies.viewPager)

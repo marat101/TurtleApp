@@ -1,5 +1,6 @@
 package com.turtleteam.widget_schedule
 
+import android.appwidget.AppWidgetManager
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
@@ -20,8 +21,9 @@ class UpdateScheduleWork(private val context: Context, private val workerParams:
         val update: WidgetUpdate by inject()
         val name = workerParams.inputData.getString(SCHEDULE_NAME)
         val type = workerParams.inputData.getString(SCHEDULE_TYPE)?.toSelectType()
+        val id = workerParams.inputData.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, Int.MAX_VALUE)
         if (name != null && type != null)
-            update.updateScheduleName(name, type, context)
+            update.upsertWidget(name, type,id, context)
         return Result.success()
     }
 }

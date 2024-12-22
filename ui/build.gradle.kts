@@ -45,13 +45,13 @@ dependencies {
     implementation(project(Modules.domain))
     implementation(project(Modules.remoteDatabase))
     implementation(project(Modules.theme))
-//
-//    implementation(platform("androidx.compose:compose-bom:2023.10.01"))
+
+    implementation(platform(libs.compose.bom))
 //    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui:1.5.4")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.5.4")
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
-    implementation("com.github.judemanutd:autostarter:1.1.0")
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(platform(libs.kotlin.bom))
+    implementation(libs.autostarter)
 
     implementation(Dependencies.composeNavigationAnimation)
     implementation(Dependencies.androidMaterial)

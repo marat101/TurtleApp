@@ -4,5 +4,5 @@ import com.turtleteam.domain.repository.WidgetRepository
 
 class GetScheduleWidget(private val repository: WidgetRepository) {
 
-    fun execute() = repository.getScheduleWidgetState()
+    fun execute(widgetId: Int) = repository.getWidgetStateById(widgetId)
 }

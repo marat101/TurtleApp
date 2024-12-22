@@ -10,15 +10,6 @@ android {
     namespace = "com.turtleteam.turtleappcompose"
     compileSdk = Config.compileSdk
 
-    signingConfigs {
-        create("release") {
-            keyAlias = "turtle"
-            keyPassword = "sjdhfksdjskdfj"
-            storeFile = file("turtlekeys.jks")
-            storePassword = "sjdhfksdjskdfj"
-        }
-    }
-
     defaultConfig {
         applicationId = "com.android.turtleapp"
         minSdk = Config.minSdk
@@ -29,16 +20,16 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        signingConfig = signingConfigs.getByName("release")
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("debug")
         }
         debug {
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {

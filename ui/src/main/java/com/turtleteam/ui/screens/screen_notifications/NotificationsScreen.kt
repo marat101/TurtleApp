@@ -23,6 +23,7 @@ import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -84,7 +85,7 @@ fun NotificationsScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(LocalColors.current.baseItemBackground)
-                .clickable(MutableInteractionSource(), indication = rememberRipple(), onClick = {
+                .clickable(onClick = {
                     val clipboard =
                         context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                     clipboard.setPrimaryClip(

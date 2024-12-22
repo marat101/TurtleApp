@@ -36,7 +36,6 @@ fun HomeScreen(
         HorizontalPager(
             userScrollEnabled = userScroll.isUserScrollEnabled.value,
             modifier = modifier.weight(1F),
-//            pageCount = 3,
             beyondBoundsPageCount = 2,
             state = pagerState
         ) { index ->

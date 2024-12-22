@@ -1,6 +1,7 @@
 package com.turtleteam.ui.screens.common.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Indication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -236,8 +237,8 @@ fun NameItem(
             )
             .clip(TurtleTheme.shapes.medium)
             .combinedClickable(
-                interactionSource = MutableInteractionSource(),
-                indication = rememberRipple(),
+//                interactionSource = remember { MutableInteractionSource() },
+//                indication = rememberRipple(),
                 onClick = {
                     onItemClick()
                 },

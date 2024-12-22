@@ -15,33 +15,30 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class ScheduleViewsFactory(
-    private val context: Context
+    private val context: Context,
+    private val widgetId: Int
 ) : RemoteViewsFactory, KoinComponent {
 
     private val getState: GetScheduleWidget by inject()
 
-    var pairs = emptyList<Pair>()
+    private var pairs = emptyList<Pair>()
 
     override fun onCreate() {
-        val state = getState.execute()
-        runCatching {
-            pairs = ScheduleFormatter.getFormattedList(
-                state.schedule.days[state.page]
-            )
-        }
+        println("MARAT ScheduleViewsFactory.onCreate() $widgetId")
     }
 
     override fun onDataSetChanged() {
-        val state = getState.execute()
         runCatching {
-            pairs = ScheduleFormatter.getFormattedList(
-                state.schedule.days[state.page]
-            )
+            val state = getState.execute(widgetId)
+            if (state == null) {
+                pairs = listOf()
+                return
+            }
+            pairs = ScheduleFormatter.getFormattedList(state.schedule.days[state.page])
         }
     }
 
-    override fun onDestroy() {
-    }
+    override fun onDestroy() {}
 
     override fun getCount(): Int = pairs.size
 
@@ -70,12 +67,6 @@ class ScheduleViewsFactory(
                     "${ScheduleViewService.CORPUS_ICON} ${pairs[position].corpus}"
                 )
             }
-        val extras = Bundle()
-        extras.putInt(ScheduleWidgetProvider.EXTRA_ITEM, position)
-        val fillInIntent = Intent()
-        fillInIntent.putExtras(extras)
-        remoteView.setOnClickFillInIntent(R.id.widget_date, fillInIntent)
-
         return remoteView
     }
 

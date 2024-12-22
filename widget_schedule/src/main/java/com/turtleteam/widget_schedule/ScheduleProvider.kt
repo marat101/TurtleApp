@@ -1,6 +1,5 @@
 package com.turtleteam.widget_schedule
 
-import android.content.Context
 import com.turtleteam.domain.model.schedule.DaysList
 import com.turtleteam.domain.usecases.GetSavedScheduleUC
 import com.turtleteam.domain.usecases.GetScheduleUC
@@ -11,11 +10,11 @@ import org.koin.core.component.inject
 import org.koin.core.qualifier.named
 
 interface ScheduleProvider {
-    suspend fun getSchedule(name: String, isGroup: Boolean,context: Context? = null): DaysList
+    suspend fun getSchedule(name: String, isGroup: Boolean): DaysList
 }
 
 internal object ScheduleProviderImpl : ScheduleProvider, KoinComponent {
-    override suspend fun getSchedule(name: String, isGroup: Boolean, context: Context?): DaysList {
+    override suspend fun getSchedule(name: String, isGroup: Boolean): DaysList {
         return try {
             val getSchedule: GetScheduleUC by inject(named(if (isGroup) "Groups" else "Teachers"))
             val saveSchedule: SaveScheduleUC by inject(named(if (isGroup) "Groups" else "Teachers"))

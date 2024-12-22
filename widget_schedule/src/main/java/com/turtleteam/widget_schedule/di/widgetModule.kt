@@ -37,10 +37,6 @@ val widgetModule = module {
         )
     }
 
-    factory {
-        WorkManager.getInstance(get())
-    }
-
     single<WidgetRepository> {
         WidgetRepositoryImpl(get())
     }
