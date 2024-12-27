@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -31,10 +32,6 @@ android {
         jvmTarget = "1.8"
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.6"
-    }
-
     buildFeatures {
         compose = true
     }
@@ -46,21 +43,17 @@ dependencies {
     implementation(project(Modules.remoteDatabase))
     implementation(project(Modules.theme))
 
-    implementation(platform(libs.compose.bom))
-//    implementation("androidx.compose.ui:ui-graphics")
     implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.tooling.preview)
     implementation(platform(libs.kotlin.bom))
-    implementation(libs.autostarter)
+    implementation(libs.androidx.ui.tooling.preview)
 
-    implementation(Dependencies.composeNavigationAnimation)
-    implementation(Dependencies.androidMaterial)
-    implementation(Dependencies.koinCompose)
-    implementation(Dependencies.androidCore)
-    implementation(Dependencies.androidLifecycle)
-    implementation(Dependencies.composeCompiler)
-    implementation(Dependencies.composeActivity)
-//    implementation(Dependencies.composeUi)
-    implementation(Dependencies.composeUiTooling)
-    implementation(Dependencies.composeMaterial)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.accompanist.navigationAnimation)
+    implementation(libs.android.material)
+    implementation(libs.koin.android.compose)
+    implementation(libs.android.core)
+    implementation(libs.android.lifecycle)
+    implementation(libs.compose.activity)
+    implementation(libs.compose.material)
+    debugImplementation(libs.compose.preview)
 }

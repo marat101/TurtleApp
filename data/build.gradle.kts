@@ -37,8 +37,8 @@ dependencies {
     implementation(project(Modules.turtleDatabase))
     implementation(project(Modules.ktorClient))
 
-    implementation(Dependencies.koinAndroid)
-    implementation(Dependencies.kotlinSerialization)
-    implementation(Dependencies.kotlinCoroutines)
-    implementation(Dependencies.androidCore)
+    implementation(libs.koin.android)
+    implementation(libs.kotlinx.serialization)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.android.core)
 }

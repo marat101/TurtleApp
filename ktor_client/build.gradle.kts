@@ -37,14 +37,8 @@ android {
 dependencies {
     implementation(project(Modules.domain))
 
-    implementation(Dependencies.koinAndroid)
-    implementation(Dependencies.ktorCore)
-    implementation(Dependencies.ktorHttpCLient)
-    implementation(Dependencies.kotlinSerialization)
-
-    implementation("androidx.test.ext:junit-ktx:1.1.5")
-    testImplementation("org.robolectric:robolectric:4.10-alpha-1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(libs.koin.android)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.kotlinx.serialization)
 }

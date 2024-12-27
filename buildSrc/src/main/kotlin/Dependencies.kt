@@ -49,7 +49,7 @@ object Dependencies {
     val kotlinCoroutines by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutines}" }
 
     // Ktor
-    val ktorHttpCLient by lazy { "io.ktor:ktor-client-okhttp:${Versions.ktor}" }
+    val ktorHttpClient by lazy { "io.ktor:ktor-client-okhttp:${Versions.ktor}" }
     val ktorCore by lazy { "io.ktor:ktor-client-core:${Versions.ktor}" }
 
     // SqlDelight

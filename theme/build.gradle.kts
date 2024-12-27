@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -30,9 +31,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.6"
-    }
 
     buildFeatures {
         compose = true
@@ -40,9 +38,9 @@ android {
 }
 
 dependencies {
-
-    implementation(Dependencies.androidAppCompat)
-    implementation(Dependencies.androidMaterial)
-    implementation(Dependencies.composeUi)
-    implementation(Dependencies.composeMaterial)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.android.appcompat)
+    implementation(libs.android.material)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.material)
 }

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.ripple
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -41,7 +42,7 @@ fun DateItem(day: Day, onClick: () -> Unit) {
             .shadow(elevation = 4.dp, LocalShapes.current.medium, clip = false)
             .background(LocalColors.current.dateBackground, LocalShapes.current.medium)
             .clip(LocalShapes.current.medium)
-            .clickable(MutableInteractionSource(), indication = rememberRipple(), onClick = onClick)
+            .clickable(remember { MutableInteractionSource() }, indication = ripple(), onClick = onClick)
             .padding(horizontal = 7.dp),
         horizontalArrangement = Arrangement.spacedBy(9.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically

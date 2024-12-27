@@ -35,11 +35,12 @@ android {
 }
 
 dependencies {
-    implementation("com.google.firebase:firebase-firestore-ktx:24.6.0")
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore.ktx)
 
-    implementation(Dependencies.koinAndroid)
-    implementation(Dependencies.ktorCore)
-    implementation(Dependencies.kotlinSerialization)
-    implementation(Dependencies.androidCore)
-    implementation(Dependencies.androidAppCompat)
+    implementation(libs.koin.android)
+    implementation(libs.ktor.client.core)
+    implementation(libs.kotlinx.serialization)
+    implementation(libs.android.core)
+    implementation(libs.android.appcompat)
 }

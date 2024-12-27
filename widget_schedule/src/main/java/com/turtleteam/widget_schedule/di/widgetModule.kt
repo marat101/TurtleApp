@@ -1,6 +1,5 @@
 package com.turtleteam.widget_schedule.di
 
-import androidx.work.WorkManager
 import com.turtleteam.domain.repository.WidgetRepository
 import com.turtleteam.widget_schedule.ScheduleProvider
 import com.turtleteam.widget_schedule.ScheduleProviderImpl

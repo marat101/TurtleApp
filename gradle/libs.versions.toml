@@ -1,10 +1,16 @@
 [versions]
 autostarter = "1.1.0"
+firebaseAnalyticsKtx = "21.2.2"
+firebaseCrashlyticsGradle = "3.0.2"
+firebaseCrashlyticsKtx = "18.3.7"
+firebaseFirestoreKtx = "24.6.0"
+firebaseMessagingKtx = "23.1.2"
+googleServices = "4.4.2"
 kotlinBom = "1.8.0"
 kotlinGradlePlugin = "2.0.20"
 androidGradlePlugin = "8.2.2"
-crashlyticsGradlePlugin = "2.9.9"
-googleServicesGradlePlugin = "4.4.0"
+crashlyticsGradlePlugin = "3.0.2"
+googleServicesGradlePlugin = "4.4.2"
 buildkonfigGradlePlugin = "0.13.3"
 ktorClientOkhttp = "2.3.10"
 leakcanaryAndroid = "2.14"
@@ -19,13 +25,16 @@ russhwolfSettings = "1.0.0"
 icerockMoko = "0.22.1"
 soywizKlock = "3.4.0"
 soywizKrypto = "4.0.6"
-firebaseBom = "32.7.0"
+firebaseBom = "33.7.0"
 
 androidAppcompat = "1.7.0"
-androidCore = "1.13.1"
+androidCore = "1.15.0"
 androidLifecycle = "2.8.7"
+androidMaterial = "1.8.0"
+androidxViewpager = "1.0.0"
+workManager = "2.8.1"
 
-composeBom = "2024.01.00"
+composeBom = "2024.12.01"
 oneboneToolbar = "2.3.5"
 accomponist = "0.30.1"
 accomponistNavigationAnimation = "0.32.0"
@@ -47,17 +56,22 @@ datastorePreferencesCore = "1.1.1"
 androidx-ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
 androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "ui" }
 autostarter = { module = "com.github.judemanutd:autostarter", version.ref = "autostarter" }
+firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx" }
+firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsGradle" }
+firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
+firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx" }
+firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging-ktx" }
+google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
 kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlinBom" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 
 androidx-datastore-preferences-core = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferencesCore" }
-ktor-ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorClientOkhttp" }
 leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
 resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "icerockMoko" }
 sqldelight-runtime = { module = "com.squareup.sqldelight:runtime", version.ref = "sqldelight" }
 sqldelight-coroutines = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
-sqldelight-andrroid = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-android = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-native = { module = "com.squareup.sqldelight:native-driver", version.ref = "sqldelight" }
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
@@ -68,7 +82,7 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 ktor-client-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
-ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-ios = { module = "io.ktor:ktor-client-ios", version.ref = "ktor" }
 
 russhwolf-settings = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "russhwolfSettings" }
@@ -85,7 +99,11 @@ firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 
 android-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidAppcompat" }
 android-core = { module = "androidx.core:core-ktx", version.ref = "androidCore" }
-android-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidLifecycle"}
+android-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidLifecycle" }
+android-material = { module = "com.google.android.material:material", version.ref = "androidMaterial" }
+androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidLifecycle" }
+androidx-viewpager = {module = "androidx.viewpager2:viewpager2", version.ref = "androidxViewpager"}
+androidx-work-runtime = {module = "androidx.work:work-runtime-ktx", version.ref = "workManager"}
 
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 compose-ui = { module = "androidx.compose.ui:ui" }
@@ -122,6 +140,7 @@ kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref =
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlinGradlePlugin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinGradlePlugin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinGradlePlugin"}
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 google-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlyticsGradlePlugin" }

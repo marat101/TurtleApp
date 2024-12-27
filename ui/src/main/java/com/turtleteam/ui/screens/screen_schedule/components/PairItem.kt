@@ -122,7 +122,7 @@ fun BoxScope.CurrentPair(progress: Float, end: Float, pairs: PairsList, scrollIn
                     contentPadding = PaddingValues(start = 8.dp),
                     flingBehavior = PagerDefaults.flingBehavior(
                         state = pagerState,
-                        lowVelocityAnimationSpec = tween(
+                        snapAnimationSpec = tween(
                             easing = LinearEasing,
                             durationMillis = 200
                         )
@@ -214,7 +214,7 @@ fun BoxScope.Pair(pairs: PairsList, scrollInProgress: Boolean) {
                 state = pagerState,
                 flingBehavior = PagerDefaults.flingBehavior(
                     state = pagerState,
-                    lowVelocityAnimationSpec = tween(
+                    snapAnimationSpec = tween(
                         easing = LinearEasing,
                         durationMillis = 200
                     )

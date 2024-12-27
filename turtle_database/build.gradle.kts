@@ -36,12 +36,12 @@ android {
 
 dependencies {
 
-    implementation(Dependencies.koinAndroid)
+    implementation(libs.koin.android)
 
-    implementation(Dependencies.sqlDelightDriver)
-    implementation(Dependencies.sqlDelightRuntime)
-    implementation(Dependencies.sqlDelightCoroutinesExtension)
-    implementation(Dependencies.kotlinSerialization)
+    implementation(libs.sqldelight.android)
+    implementation(libs.sqldelight.runtime)
+    implementation(libs.sqldelight.coroutines)
+    implementation(libs.kotlinx.coroutines.core)
 }
 
 sqldelight {

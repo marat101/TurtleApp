@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    alias(libs.plugins.android.application)
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("com.google.gms.google-services")
@@ -48,12 +48,12 @@ android {
 }
 
 dependencies {
-    implementation("androidx.test.ext:junit-ktx:1.1.5")
-    implementation("com.google.firebase:firebase-analytics-ktx:21.2.2")
-    implementation("com.google.firebase:firebase-messaging-ktx:23.1.2")
-    implementation("com.google.firebase:firebase-crashlytics-ktx:18.3.7")
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics.ktx)
+    implementation(libs.firebase.messaging.ktx)
+    implementation(libs.firebase.crashlytics.ktx)
 
-    implementation(Dependencies.koinAndroid)
+    implementation(libs.koin.android)
     implementation(project(Modules.ui))
     implementation(project(Modules.data))
     implementation(project(Modules.domain))
